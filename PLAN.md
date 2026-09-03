@@ -1,93 +1,118 @@
 # PLAN — konfigurátor pracovního stolu do obýváku
 
 Stav: **čeká na schválení**. Dokud plán neschválíš, nepíšu kód aplikace.
-(Rešerše trhu už běží na pozadí — je to markdown, ne kód, a je nezávislá na tvých odpovědích.)
+(Rešerše trhu běží na pozadí — je to markdown, ne kód, a je nezávislá na tvých odpovědích.)
+
+> **v2 — opraveno podle tvého upřesnění.** První verze četla prostor jako jeden rovný běh
+> se gaučem na konci. Špatně. Je to **L do rohu**.
 
 ---
 
-## 1. Co už vím
+## 1. Geometrie prostoru
 
-### Tvoje odpovědi
-| Otázka | Odpověď | Co z toho plyne |
+### Tvoje zadání
+- z rohu místnosti **směrem ke mně: 236 cm** → to je běh **levé stěny**
+- z rohu místnosti **ke gauči: 160 cm** → to je běh **zadní stěny**
+- mezi gaučem a stolem **mezera 10–15 cm**, ať to nevypadá namačkaně
+- **průchod není potřeba**, nikdo se kolem neprochází
+- **stůl do L**: velká plocha vlevo, menší plocha na tiskárnu a šuplíky naproti
+
+### Půdorys (pohled shora)
+
+```
+              ROH
+               ╔════════════ ZADNÍ  STĚNA ════════════════════
+               ║                                              
+               ║  ◄────────────── 160 cm ─────────────────►   
+               ║ ┌──────────────────────────┐  10–15 ┌────────
+               ║ │   RAMENO B   ≤ 148 cm    │   cm   │        
+    ▲          ║ │   tiskárna + šuplíky     │ ◄────► │  GAUČ  
+    │          ║ └────────────┬─────────────┘        │        
+    │          ║ │            │                      └────────
+    │          ║ │  RAMENO A  │                               
+  236 cm       ║ │  ≤ 236 cm  │      ⊙ židle                  
+  (levá        ║ │            │                               
+   stěna)      ║ │  hlavní    │                               
+    │      L   ║ │  pracovní  │                               
+    │      E   ║ │  plocha    │                               
+    │      V   ║ │            │                               
+    ▼      Á   ║ └────────────┘                               
+               ║                                              
+           S   ║        ▼  směrem ke mně (ke kameře)          
+           T   ║                                              
+           Ě   ║                                              
+           N   ║                                              
+           A   ║                                              
+```
+
+### Z toho plynou tvrdé limity
+| Prvek | Limit | Odkud |
 |---|---|---|
-| Umístění | **Podél levé stěny** (ta s barevným obrazem) | Hlavní běh stolu = levá stěna |
-| Rezerva | **15 cm mezera mezi koncem stolu a gaučem**, jako na fotce | Gauč je na KONCI stolu, ne před ním |
-| Výška | **Pevná ~75 cm** | Sit-stand rámy jdou do vedlejší role |
-| Rozpočet | **5–20 tis. Kč** | Těžiště = stavebnice a lepší sériové kusy |
+| **Rameno A** (levá stěna, hlavní plocha) | délka ≤ **236 cm** | běh levé stěny, konec je do volné místnosti |
+| **Rameno B** (zadní stěna, tiskárna + šuplíky) | délka ≤ **145–150 cm** | 160 cm k gauči − mezera 10–15 cm |
+| **Mezera ke gauči** | **10–15 cm** | tvůj požadavek, parametr s výchozí hodnotou 12 cm |
+| Hloubka ramene A | 60–80 cm | ergonomie (z rešerše) |
+| Hloubka ramene B | ≥ 45 cm | musí unést tiskárnu (běžná A4 MFP má cca 40×45 cm) |
+| Výška | ~75 cm, pevná | tvoje volba |
 
-### Tvoje odpověď mi opravila geometrii
-Ptal jsem se na mezeru mezi **přední hranou** stolu a gaučem. Odpověděl jsi na mezeru mezi
-**koncem** stolu a gaučem. To je jiná osa a je to důležité — beru to takto:
+### Co budu hlídat a kreslit jako rezervu
+Průchod odpadá, takže rezervy jsou tři a všechny se týkají toho, aby stůl nepůsobil namačkaně:
 
-```
-                     ZADNÍ STĚNA
-   ┌─────────────────────────────────────────────────────────┐
- L │                                                          │
- E │   ┌──────────────────────────────────┐  15 cm  ┌────────
- V │   │          DESKA STOLU             │◄──────►│  GAUČ
- Á │   │          max. 221 cm             │         │
-   │   └──────────────────────────────────┘         └────────
- S │   ▲                                                      
- T │   │ hloubka desky 55–80 cm                               
- Ě │   ▼                                                      
- N │   ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐                   
- A │     REZERVA: židle + průchod                             
-   │   │      160 − hloubka desky         │                   
-   │   └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘                   
-   │                                                          │
-   └─────────────────────────────────────────────────────────┘
-       ◄────────────── 236 cm běh levé stěny ──────────────►
-```
-
-- **osa X (délka stolu)** — podél levé stěny, k dispozici **236 cm**;
-  konec stolu musí zůstat **15 cm** od gauče → **max. šířka desky 221 cm**
-- **osa Y (hloubka do místnosti)** — od levé stěny **160 cm** volno;
-  deska ubere 55–80 cm, zbytek je zóna pro židli + průchod
-- **osa Z** — 280 cm ke stropu; reálně neomezuje nic kromě nástavce/police
-
-**Prosím potvrď tenhle nákres při schvalování plánu.** Pokud jsou ta dvě čísla jinak
-(např. 160 cm není hloubka do místnosti, ale něco jiného), je to oprava dvou konstant,
-ne přepis appky — celý model je parametrický.
-
-### Rezerva, kterou budu hlídat a kreslit
-Zadání říká „nesmí být namáčknutý na gauč ani vystrčený zbytečně do místnosti".
-Půdorys proto bude živě vyhodnocovat **dvě** rezervy:
-
-| Rezerva | Osa | Cíl | Semafor |
+| # | Rezerva | Cíl | Semafor |
 |---|---|---|---|
-| **Ke gauči** (konec desky → gauč) | X | ≥ 15 cm | < 10 červená / 10–15 oranžová / ≥ 15 zelená |
-| **Za židlí** (hrana desky → gauč/koberec) | Y | ≥ 90 cm | < 80 červená / 80–95 oranžová / ≥ 95 zelená |
+| 1 | **Konec ramene B → gauč** | 10–15 cm | < 8 červená · 8–10 oranžová · 10–15 zelená · > 25 „zbytečně krátké" |
+| 2 | **Odsunutí židle** z vnitřního rohu L | ≥ 100 cm volné podlahy | < 85 červená · 85–100 oranžová · ≥ 100 zelená |
+| 3 | **Vyčnívání do místnosti** — jak daleko sahá hrana ramene A od levé stěny | co nejmenší při zachování funkce | zobrazím v cm, ať to nepřeženu |
 
-Čísla pro zónu za židlí (odsunutí kancelářské židle a vstání, průchod bokem)
-podepře rešerše ergonomie — dosadím ověřené hodnoty, ne odhad.
-Při hloubce desky 70 cm vychází zóna 90 cm, což je ten rozumný kompromis.
+Půdorys ukáže obrys rohu 236 × 160 cm, obrys L stolu, kružnici židle, hranu gauče
+a všechny tři kóty s barevným semaforem — živě při každé změně posuvníku.
 
-### Co jsem vyčetl z fotky
-Vlysová (rybí kost) dubová podlaha v teplém oranžovo‑hnědém tónu · teplé bílé stěny ·
-petrolejový (teal) rohový gauč · světle dubový stávající nábytek (stůl s plnou bočnicí,
-kontejner, konferenčák) · černé kovové akcenty (rámy fotek, židle, lampička) ·
-žlutý akcent (obraz, koberec) · chrom (stojací lampa) · krémové závěsy.
+### Co se tím mění oproti v1
+- Tvar **L je výchozí a hlavní**, ne okrajová varianta. Rovná deska zůstane v konfigurátoru
+  jako alternativa, ale většina presetů bude L.
+- **Rameno B má funkci**: tiskárna nahoře, šuplíky dole. To je pevné zadání, ne volitelný doplněk.
+- Osa „strana úložného (levá/pravá)" se mění na **orientaci L** (roh vlevo‑vzadu je tvůj případ,
+  ale zrcadlení nechám, ať je vidět i druhá varianta).
+- Zóna průchodu z modelu mizí, zůstává jen zóna židle.
+
+**Potvrď prosím tenhle půdorys** — pokud sedí, jedu dál.
 
 ---
 
-## 2. Jeden problém, který musíš vzít na vědomí
+## 2. `photo.jpg` — proč ho nemůžu nahrát sám a jak ho tam dostaneš
 
-**`photo.jpg` v repozitáři není** — repo je úplně prázdné (žádný commit). Fotku vidím
-jen jako přílohu ve zprávě, takže z ní nemůžu programově navzorkovat pixely.
+**Nemůžu.** Fotku vidím jen jako obrázek vykreslený ve zprávě — nedostanu se k jejím bajtům,
+takže ji neumím uložit jako soubor. Kdybych „photo.jpg" vyrobil sám, byla by to jiná fotka
+než tvoje, a vzorkování pixelů by bylo k ničemu.
 
-Jak to vyřeším, aby to neblokovalo:
+Branch `claude/desk-configurator-living-room-a9vnnp` je už na GitHubu, takže je kam nahrávat.
 
-1. Napíšu `scripts/sample-palette.mjs` — skript, který z `photo.jpg` navzorkuje
-   **skutečné pixely** na pojmenovaných souřadnicích (podlaha ve světle / podlaha ve stínu /
-   stěna osvětlená / stěna ve stínu / gauč světlo / gauč stín / dub stávajícího stolu /
-   koberec / obraz / kov) a udělá k tomu k‑means shluk dominantních barev celého snímku.
-2. Do `palette.json` zapíšu paletu **odvozenou z fotky vizuálně**, a každou hodnotu označím
-   `"source": "visual"`.
-3. **Jakmile do repa přidáš `photo.jpg`**, spustím skript a `palette.json` se přepíše
-   skutečnými hodnotami se `"source": "sampled"`. Aplikace na tom nezávisí — čte jen ten JSON.
+### Varianta A — přes web GitHubu (nejrychlejší, jde i z mobilu)
+1. Otevři <https://github.com/marty2427/pracovna/tree/claude/desk-configurator-living-room-a9vnnp>
+2. Zkontroluj, že nahoře vlevo v přepínači větví svítí `claude/desk-configurator-living-room-a9vnnp`
+3. **Add file** → **Upload files**
+4. Přetáhni fotku a **přejmenuj ji na `photo.jpg`** (na velikosti nezáleží, klidně originál z foťáku)
+5. Dole zvol **Commit directly to the `claude/desk-configurator-living-room-a9vnnp` branch**
+6. **Commit changes**
 
-👉 **Ideálně přidej `photo.jpg` do repa** (nebo mi řekni „jeď na vizuální paletu"), a já
-to při schvalování plánu rovnou dořeším.
+### Varianta B — z příkazové řádky
+```bash
+git clone https://github.com/marty2427/pracovna
+cd pracovna
+git checkout claude/desk-configurator-living-room-a9vnnp
+cp /cesta/k/tvojí/fotce.jpg photo.jpg
+git add photo.jpg
+git commit -m "Přidána fotka místa"
+git push
+```
+
+### Varianta C — nemáš to teď po ruce
+Řekni „jeď na vizuální paletu". Paletu odvodím z toho, co na fotce vidím, každou hodnotu
+označím `"source": "visual"` a napíšu `scripts/sample-palette.mjs`, který po doplnění fotky
+kdykoliv přepíše `palette.json` skutečně navzorkovanými pixely (`"source": "sampled"`).
+Aplikace čte jen ten JSON, takže výměna palety je bezbolestná.
+
+Až fotku nahraješ, napiš mi to — udělám `git pull` a spustím vzorkování.
 
 ---
 
@@ -175,8 +200,10 @@ type DeskConfig = {
 - **ÚLOŽNÉ** — nic / 1 plochá zásuvka / 2 zásuvky / pojezdový kontejner 3 zásuvky / pevný kontejner /
   skříňka s dvířky / otevřená police / zadní panel — **strana levá ⇄ pravá přepínatelná**
 - **DOPLŇKY** — kabelová lávka, průchodka, LED podsvícení, nástavec na monitor
-- **ROZMĚRY** — posuvníky šířka / hloubka / výška; rozsahy z rešerše, **tvrdě ořezané tvým prostorem**
-  (šířka ≤ 221 cm, hloubka tak, aby zóna za židlí nespadla pod limit)
+- **ROZMĚRY** — posuvníky pro **délku ramene A** (≤ 236 cm), **délku ramene B** (≤ 160 − mezera ke gauči),
+  **hloubku ramene A** (60–80), **hloubku ramene B** (45–70), **výšku** (72–78); rozsahy z rešerše,
+  **tvrdě ořezané tvým rohem**. Posuvník pro mezeru ke gauči (8–25 cm, výchozí 12).
+  Když nějaký limit překročíš, posuvník se zarazí a půdorys řekne proč.
 
 ### Aby to vypadalo jako nábytek, ne slepené kvádry
 - **hrany a fazety** — každá hrana desky má reálný profil (sražení / zkosení / R2–R3 / nákližek),
@@ -200,17 +227,20 @@ type DeskConfig = {
 ### Presety — min. 50, v 9 rodinách
 Rodiny (dle zadání) — každá 5–7 kusů, reálně odlišná **konstrukcí**, ne jen barvou:
 
-| Rodina | Čím se liší |
-|---|---|
-| Skandinávský / IKEA hack | dýhovaná deska + kónické dřevěné nohy, Alex jako nosný prvek |
-| Industriál kov + masiv | jekl rámy A/U/H/trapéz, silný masiv 30–40 mm, černý komaxit |
-| Minimalistický „plovoucí" | tenká deska, skryté konzoly / úzký rám, podsvícení, žádné nohy vpředu |
-| Truhlářský masiv | 40 mm dub/jasan, masivní nákližek, plné bočnice, dřevěná traverza |
-| Kancelářský polohovatelný | sit‑stand rámy (menší zastoupení — chceš pevnou výšku, ale zadání to vyžaduje) |
-| Kompaktní do malého prostoru | 120–150 cm, mělká deska 50–55 cm, zóna za židlí max |
-| S kontejnerem | pojezdový / pevný kontejner, 2–3 zásuvky, levá i pravá varianta |
-| Rohový | L deska, výřez, zaoblený vnitřní roh |
-| Se zadním panelem | zadní panel, police, kabelová lávka, nástavec na monitor |
+| Rodina | Čím se liší | Tvar |
+|---|---|---|
+| Truhlářský masiv | 40 mm dub/jasan, masivní nákližek, plné bočnice, dřevěná traverza | L |
+| Skandinávský / IKEA hack | dýhovaná deska + kónické dřevěné nohy, Alex jako nosný prvek | L |
+| Industriál kov + masiv | jekl rámy A/U/H/trapéz, silný masiv 30–40 mm, černý komaxit | L |
+| S kontejnerem | pojezdový / pevný kontejner pod ramenem B, 2–3 zásuvky | L |
+| Se zadním panelem | zadní panel, police nad ramenem B, kabelová lávka, nástavec na monitor | L |
+| Minimalistický „plovoucí" | tenká deska, skryté konzoly / úzký rám, LED podsvícení | L |
+| Kompaktní do rohu | kratší ramena, mělčí deska — když nechceš zabrat celý roh | L |
+| Rovná deska (alternativa) | jeden běh podél levé stěny, kdyby sis to rozmyslel | rovná |
+| Kancelářský polohovatelný | sit‑stand rámy — malá rodina, zadání je vyžaduje, tvoje volba je pevná výška | L i rovná |
+
+Většina presetů je **L**, protože to je tvůj případ. Rovné a polohovatelné zůstávají
+jako doplněk, ať máš srovnání.
 
 **Galerie:** náhledy vykreslím jako **generované SVG bokorysy/axonometrie ze stejných parametrů** —
 ostré, okamžité, nezatíží prohlížeč 50 WebGL plátny. Klik → preset se načte do konfigurátoru a dál se ladí.
@@ -249,7 +279,8 @@ Nespoléhám na to, že to „asi vypadá dobře":
 2. screenshoty si prohlédnu a hledám: slepené kvádry, plovoucí díly, chybějící stín,
    proříznuté geometrie, deska bez podpory v nemožném rozponu, židle v kolizi
 3. iteruji, dokud to nevypadá jako nábytek
-4. automatické kontroly navíc: žádný preset neporušuje prostor (šířka ≤ 221, rezerva za židlí ≥ limit),
+4. automatické kontroly navíc: žádný preset neporušuje roh (rameno A ≤ 236, rameno B ≤ 160 − mezera,
+   mezera ke gauči 10–15 cm, zóna pro odsunutí židle ≥ 100 cm),
    rozpon desky bez podpory ≤ hodnota z rešerše pro daný materiál a tloušťku,
    každý preset má vyplněné KOUPIT i NA MÍRU
 
@@ -268,7 +299,7 @@ build command `npm run build`, output `dist`, SPA fallback přes `_redirects`,
 ```
 PLAN.md
 palette.json
-photo.jpg                      ← prosím doplň
+photo.jpg                      ← nahraj podle sekce 2
 research/
   trh.md
   vyrobci.md
@@ -302,7 +333,7 @@ app/
 
 ## 11. Co potřebuju od tebe
 
-1. **Potvrdit nákres geometrie v sekci 1** (osa X = 236 cm podél levé stěny, konec 15 cm od gauče;
-   osa Y = 160 cm hloubka do místnosti). Nebo mi ta čísla oprav.
-2. **Rozhodnout o `photo.jpg`** — přidáš ho do repa, nebo mám jet na vizuální paletu?
-3. **Schválit plán** (nebo mi řekni, co změnit).
+1. **Potvrdit půdorys v sekci 1** — rameno A ≤ 236 cm podél levé stěny, rameno B ≤ ~148 cm
+   podél zadní stěny s mezerou 10–15 cm ke gauči, tiskárna a šuplíky na rameni B.
+2. **`photo.jpg`** — nahraj podle návodu v sekci 2, nebo řekni „jeď na vizuální paletu".
+3. **Schválit plán** (nebo mi říct, co změnit).
