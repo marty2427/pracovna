@@ -104,11 +104,11 @@ export function obrysDesky(c: DeskConfig): { pts: Pt[]; radii: number[] } {
   const vyrezBody: Pt[] = []
   const vyrezRadii: number[] = []
   if (c.deska.vyrez > 0) {
-    const pulSirky = 0.26
-    vyrezBody.push(P(DA, sez - pulSirky), P(DA - vyrez, sez - pulSirky * 0.42),
-                   P(DA - vyrez, sez + pulSirky * 0.42), P(DA, sez + pulSirky))
-    const rv = Math.max(0.02, vyrez * 1.3)
-    vyrezRadii.push(rv, rv * 0.85, rv * 0.85, rv)
+    // Tři body: hrana ustoupí do oblouku a zase se vrátí. Prostřední bod dostane
+    // velký rádius, takže dno výřezu je široký oblouk, ne špička.
+    const pulSirky = 0.30
+    vyrezBody.push(P(DA, sez - pulSirky), P(DA - vyrez, sez), P(DA, sez + pulSirky))
+    vyrezRadii.push(vyrez * 2.4, 0.42, vyrez * 2.4)
   }
 
   if (c.tvar !== 'L' || ramenoBDelka <= 0) {

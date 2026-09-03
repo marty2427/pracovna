@@ -63,7 +63,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'tr-03', rodina: 'truhlar', nazev: 'Kouřový dub, kónické nohy',
     popis: 'Tmavší mořený dub na kónických nohách. Stůl se opticky odsadí od podlahy.',
-    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160, vyrez: 70 }),
+    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160, vyrez: 110 }),
     podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-kourovy-masiv', profil: 60, odsazeni: 110 }),
     ulozne: U('kontejner-3'), doplnky: DO({ ledPodsviceni: true }) }),
 
@@ -81,7 +81,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'tr-06', rodina: 'truhlar', nazev: 'Buk 30, šikmé nohy',
     popis: 'Buková deska na rozkročených nohách. Světlý, obytný, ne kancelářský.',
-    rozmery: R({ ramenoADelka: 2000 }), deska: D({ materialId: 'buk-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 30, radiusVnitrni: 180, vyrez: 90 }),
+    rozmery: R({ ramenoADelka: 2000 }), deska: D({ materialId: 'buk-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 30, radiusVnitrni: 180, vyrez: 125 }),
     podnoz: P({ typ: 'nohy-sikme', material: 'drevo', materialId: 'buk-masiv', profil: 55, odsazeni: 120 }),
     ulozne: U('police', 'B', 0.85), doplnky: DO({ kabelovaLavka: false }) }),
 
@@ -225,7 +225,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'pl-02', rodina: 'plovouci', nazev: 'Plovoucí s podsvícením',
     popis: 'LED profil po celé délce. Ve večerním obýváku stůl působí, že se vznáší.',
-    rozmery: R({ ramenoAHloubka: 640 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110, vyrez: 60 }),
+    rozmery: R({ ramenoAHloubka: 640 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110, vyrez: 95 }),
     podnoz: P({ typ: 'ram-U', profil: 25, odsazeni: 140 }), ulozne: U('zasuvka-plocha', 'A', 0.4),
     doplnky: DO({ ledPodsviceni: true }) }),
 

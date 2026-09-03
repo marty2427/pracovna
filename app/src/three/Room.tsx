@@ -7,6 +7,7 @@ import { m } from './shapes'
 import { Box } from './Bar'
 import { useMat, useKov, usePovrch } from './useMaterials'
 import type { DeskConfig } from '@/model/types'
+import { poziceSezeni } from '@/model/constraints'
 
 const R = (n: string) => (PALETA.regions as any[]).find((x) => x.name === n)
 
@@ -44,9 +45,10 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
 
   const DA = m(config.rozmery.ramenoAHloubka)
   const DB = m(config.rozmery.ramenoBHloubka)
-  const LA = m(config.rozmery.ramenoADelka)
+
   const jeL = config.tvar === 'L' && config.rozmery.ramenoBDelka > 0
   const H = m(config.rozmery.vyska)
+  const sez = m(poziceSezeni(config))
 
   return (
     <group>
@@ -106,7 +108,7 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
           </group>
 
           {/* ŽIDLE */}
-          <Zidle x={DA + 0.50} z={(jeL ? DB : 0) + (LA - (jeL ? DB : 0)) * 0.5} cerna={cerna} plast={plast} kov={kov} />
+          <Zidle x={DA + 0.52} z={sez} cerna={cerna} plast={plast} kov={kov} />
 
           {/* TISKÁRNA v rohu L */}
           {config.doplnky.tiskarnaVRohu && jeL && (
@@ -118,7 +120,7 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
           )}
 
           {/* MONITOR na hlavní ploše */}
-          <group position={[0.20, H, (jeL ? DB : 0) + (LA - (jeL ? DB : 0)) * 0.5]}>
+          <group position={[0.20, H, sez]}>
             <Box pos={[0, 0.012, 0]} size={[0.20, 0.018, 0.26]} material={plast} radius={0.006} />
             <Box pos={[0.005, 0.13, 0]} size={[0.05, 0.24, 0.06]} material={plast} radius={0.008} />
             <group rotation={[0, Math.PI / 2, 0]}>
@@ -131,9 +133,9 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
           </group>
 
           {/* klávesnice */}
-          <Box pos={[DA * 0.55, H + 0.009, (jeL ? DB : 0) + (LA - (jeL ? DB : 0)) * 0.5]} size={[0.14, 0.016, 0.40]} material={cerna} radius={0.003} />
+          <Box pos={[DA * 0.52, H + 0.009, sez]} size={[0.14, 0.016, 0.40]} material={cerna} radius={0.003} />
           {/* hrneček, ať je vidět měřítko */}
-          <mesh position={[DA * 0.66, H + 0.045, (jeL ? DB : 0) + (LA - (jeL ? DB : 0)) * 0.5 - 0.34]} castShadow material={drevo}>
+          <mesh position={[DA * 0.62, H + 0.045, sez - 0.40]} castShadow material={drevo}>
             <cylinderGeometry args={[0.041, 0.035, 0.09, 20]} />
           </mesh>
         </group>

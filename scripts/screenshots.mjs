@@ -21,7 +21,7 @@ const browser = await chromium.launch({
   executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium',
   args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox'],
 })
-const page = await browser.newPage({ viewport: { width: má('presety') ? 1180 : 1600, height: má('presety') ? 720 : 940 }, deviceScaleFactor: 1 })
+const page = await browser.newPage({ viewport: { width: 1760, height: 900 }, deviceScaleFactor: 1 })
 const chyby = []
 page.on('console', (m) => { if (m.type() === 'error' && !/favicon/i.test(m.text())) chyby.push(m.text()) })
 page.on('pageerror', (e) => chyby.push(String(e)))
