@@ -43,6 +43,8 @@ research/
   _raw.json, _raw2.json   tytéž rešerše strojově čitelně, po tématech;
                           z nich se generuje ceník v appce
   _kontrola_ceniku.json   výhrady kontroly k jednotlivým položkám ceníku
+  PROMPT-COWORK.md        zadání pro doověření cen a kontaktů v prostředí,
+                          které umí otevírat webové stránky
 scripts/
   sample_palette.py       vzorkování skutečných pixelů z fotky
   screenshots.mjs         Playwright průlet appkou
@@ -111,3 +113,9 @@ Rešerše vznikla v prostředí, kde **nešlo otevírat webové stránky** (`Web
 egress politikou) — fungovalo jen fulltextové vyhledávání. Ceny a rozměry proto pochází
 z výsledků vyhledávání, ne z produktových stránek. Položky, které se nepodařilo ověřit,
 jsou v dokumentech i v appce označené. **Před objednáním si čísla ověř u prodejce.**
+
+Stav ceníku: 145 položek, z toho 80 označených jako ověřené. Sekce `stoly` (39 položek)
+a `kovani` (5 položek) jsou neověřené celé — u nich má doověření největší přínos.
+
+Na doověření v prostředí, které weby otevírat umí, je připravené zadání
+v `research/PROMPT-COWORK.md`.
