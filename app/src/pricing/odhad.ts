@@ -1,5 +1,5 @@
 import type { DeskConfig } from '@/model/types'
-import { material } from '@/model/materials'
+import { material, KOV_BARVY } from '@/model/materials'
 import { cutList, plochaPodleMaterialu, type Dilec } from '@/export/cutlist'
 import { plochaDesky, obvodDesky } from '@/model/constraints'
 import {
@@ -64,7 +64,7 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
       nazev: c.podnoz.typ === 'stavitelny-ram' ? 'Stavitelný rám (hotový výrobek)' : 'Kovová podnož na míru',
       detail: c.podnoz.typ === 'stavitelny-ram'
         ? 'elektrický rám, 2 sloupy, nosnost 70 kg'
-        : `jekl ${c.podnoz.profil}×${c.podnoz.profil}, komaxit ${c.podnoz.barva}, ${c.tvar === 'L' ? 'rámy na obě ramena + rohová noha' : 'dva rámy'}`,
+        : `jekl ${c.podnoz.profil}×${c.podnoz.profil}, ${(KOV_BARVY.find((k) => k.barva === c.podnoz.barva)?.nazev ?? 'komaxit').toLowerCase()}, ${c.tvar === 'L' ? 'rámy na obě ramena + rohová noha' : 'dva rámy'}`,
       cena: scal(p, pocetRamu),
     })
   } else {

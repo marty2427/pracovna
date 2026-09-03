@@ -61,18 +61,30 @@ export function Koupit() {
             <p className="poznamka">
               Deska z katalogu + podnož. Pro rameno A {Math.round(r.ramenoADelka / 10)} × {Math.round(r.ramenoAHloubka / 10)} cm
               {jeL && ` a rameno B ${Math.round(r.ramenoBDelka / 10)} × ${Math.round(r.ramenoBHloubka / 10)} cm`}.
+              {desky.length > 0 && desky[0].chybiHloubka > 0 && (
+                <> Nejhlubší deska v katalogu má {Math.round(Math.min(desky[0].delka, desky[0].sirka) / 10)} cm —
+                pro hlubší stůl je potřeba deska na míru, nebo hloubku snížit.</>
+              )}
             </p>
             <table className="rozpiska">
               <thead><tr><th>Díl</th><th>Kde</th><th className="cislo">Kč</th></tr></thead>
               <tbody>
                 {desky.map((d) => (
-                  <tr key={d.id}>
+                  <tr key={d.id} style={d.chybiHloubka > 0 ? { opacity: 0.75 } : undefined}>
                     <td>
                       {d.url ? <a href={d.url} target="_blank" rel="noreferrer">{d.nazev}</a> : d.nazev}
                       <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>
                         {d.delka > 0 && `${d.delka}×${d.sirka}${d.tloustka ? `×${d.tloustka}` : ''} mm · `}{d.popis}
                         {!d.overeno && ' · neověřeno'}
                       </span>
+                      {d.varovani && (
+                        <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {d.varovani}</span></>
+                      )}
+                      {d.chybiHloubka > 0 && (
+                        <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>
+                          o {Math.round(d.chybiHloubka / 10)} cm mělčí, než chceš — buď zúžit desku, nebo srazit dvě vedle sebe
+                        </span></>
+                      )}
                     </td>
                     <td>{d.prodejce}</td>
                     <td className="cislo">{formatKc(d.cena)}</td>
@@ -83,6 +95,7 @@ export function Koupit() {
                     <td>
                       {p.url ? <a href={p.url} target="_blank" rel="noreferrer">{p.nazev}</a> : p.nazev}
                       <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>{p.popis}{!p.overeno && ' · neověřeno'}</span>
+                      {p.varovani && <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {p.varovani}</span></>}
                     </td>
                     <td>{p.prodejce}</td>
                     <td className="cislo">{formatKc(p.cena)}</td>
@@ -118,6 +131,7 @@ export function Koupit() {
                     <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>
                       {s.delka > 0 && `${s.delka}×${s.sirka} mm · `}{s.popis}{!s.overeno && ' · neověřeno'}
                     </span>
+                    {s.varovani && <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {s.varovani}</span></>}
                   </td>
                   <td>{s.prodejce}</td>
                   <td className="cislo">{formatKc(s.cena)}</td>
@@ -154,7 +168,10 @@ export function Koupit() {
             </table>
           </>
         )}
-        <p className="poznamka" style={{ marginTop: 8 }}>Katalog: {KATALOG.meta.stav}</p>
+        <p className="poznamka" style={{ marginTop: 8 }}>
+          Katalog: {KATALOG.meta.stav}. {KATALOG.meta.odstraneno}.
+          {KATALOG.meta.kontrola && <><br />Kontrola ceníku: {KATALOG.meta.kontrola}</>}
+        </p>
       </section>
     </div>
   )

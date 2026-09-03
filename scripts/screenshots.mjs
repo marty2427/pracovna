@@ -47,8 +47,11 @@ if (má('presety')) {
     const karta = page.locator('.karta').nth(i)
     const nazev = (await karta.locator('h4').innerText()).trim()
     await karta.click()
-    await page.waitForTimeout(2200)
-    await snap(`preset-${String(i + 1).padStart(2, '0')}-${nazev.toLowerCase().replace(/[^a-z0-9]+/gi, '-').slice(0, 34)}`)
+    await page.waitForTimeout(2400)
+    const jm = `preset-${String(i + 1).padStart(2, '0')}-${nazev.toLowerCase().replace(/[^a-z0-9]+/gi, '-').slice(0, 34)}`
+    // jen 3D náhled, ne celá stránka — 58 celostránkových PNG je zbytečně moc dat
+    await page.locator('.viewport').screenshot({ path: join(OUT, `${jm}.png`), timeout: 120000, animations: 'disabled' })
+    console.log('  ' + jm + '.png')
   }
 } else {
   for (const p of POHLEDY) {

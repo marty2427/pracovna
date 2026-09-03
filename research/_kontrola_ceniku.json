@@ -1,0 +1,191 @@
+{
+ "opravit": [
+  {
+   "id": "hornbach-kuchynska-deska-dub-zlaty-4100",
+   "co": "Rozměr 4100×600 mm není deska psacího stolu, ale celá kuchyňská postformingová deska (a je to laminát 'dekor dub', ne masiv). Buď přeřadit do materiálu s poznámkou 'nutné zkrácení + olepení čela', nebo uvést přepočet Kč/bm. Jinak vypadá jako hotová deska za 3795 Kč."
+  },
+  {
+   "id": "hornbach-stolova-deska-dub-2000x800x25",
+   "co": "1590 Kč = 994 Kč/m2, tedy LEVNĚJŠÍ než menší sesterská deska 1600×800×26 za 2190 Kč (1711 Kč/m2). U masivního dubu nereálné — ověřit, zda nejde o dekor/laminát nebo o starou akční cenu."
+  },
+  {
+   "id": "centrum-dreva-dub-2500x630x40",
+   "co": "13043 Kč / 1,575 m2 = 8281 Kč/m2. To je 2× nad cinkovanou spárovkou (DOMESTAV 4259, BRENUS 2840) a 1,4× nad K&C (5776 Kč/m2). Buď jde o průběžnou lamelu prémiové kvality (pak to doplnit do popisu), nebo je cena chybná."
+  },
+  {
+   "id": "ikea-karlby-dub-186",
+   "co": "Cena 3490 Kč je nižší než MÖLLEKULLA 186 (4490 Kč), ale v IKEA je KARLBY dražší řada než MÖLLEKULLA. Pravděpodobně prohozené ceny s ikea-mollekulla-dub-186 — ověřit obě na ikea.cz."
+  },
+  {
+   "id": "ikea-linnmon-200x60",
+   "co": "Tloušťka 0 mm. Stejný problém mají ikea-linnmon-150x75, ikea-malskytt-140x60, ikea-mittcirkel-140x60, ikea-anfallare-140x65, ikea-mittzon-160x68, ikea-mittzon-140x68, asko-deska-155x70-sonoma. Bez tloušťky nelze posoudit vhodnost pro podnož ani navrhnout kotvení — doplnit."
+  },
+  {
+   "id": "ikea-mittzon-160x68",
+   "co": "Deska MITTZON (2200 Kč) + ikea-mittzon-podnozi jsou totéž co hotové stoly ikea-mittzon-160x80-dub-cerna atd. Riziko dvojího započtení — označit jako alternativní cesty ke stejnému výsledku, ne jako dvě samostatné položky do rozpočtu. Totéž platí pro ikea-anfallare-140x65 + ikea-hilver-noha-bambus vs ikea-anfallare-hilver-140x65-bambus."
+  },
+  {
+   "id": "ikea-mittzon-podnozi",
+   "co": "Cena 0 Kč — položka je v ceníku nepoužitelná. Doplnit cenu z ikea.cz nebo vyřadit."
+  },
+  {
+   "id": "flexispot-e7-ram",
+   "co": "Cena 0 Kč, ověřeno:false. Totéž flexispot-e7q-ram-4nohy a flexispot-e8-ram-ovalny. Bez ceny nelze srovnat s Liftor / AlzaErgo / Dřevo Trust — doplnit z flexispot.cz nebo vyřadit celou trojici."
+  },
+  {
+   "id": "melgo-hairpin-711-sada4",
+   "co": "760 Kč za sadu 4 hairpin nohou = 190 Kč/noha, přitom Walteco stojí 459 Kč/ks a OBI sada vychází na 825 Kč/noha. 4× pod trhem — téměř jistě jde o cenu za 1 ks, ne za sadu. Opravit jednotku nebo cenu."
+  },
+  {
+   "id": "induro-industry-h40-par",
+   "co": "Nekonzistentní jednotka v rámci jedné řady: H40 je 3388 Kč/pár (=1694 Kč/ks), H20 je 2200 Kč/ks a U60 1740 Kč/ks. Sjednotit na Kč/ks, jinak vychází levnější tlustší profil než tenčí."
+  },
+  {
+   "id": "ikea-adils-noha-70",
+   "co": "Celý blok IKEA podnoží má nápadně zaokrouhlené ceny (ADILS 100, SPÄND 200, LERBERG 200, OLOV 250, TILLSLAG 300, KRILLE 400, HILVER 500, NÄRSPEL 650, MITTBACK 1000, TROTTEN 2000) a přesto je označen ověřeno:true. Vypadá to na odhady, ne na skutečné ceny — přeověřit na ikea.cz nebo přepnout na ověřeno:false."
+  },
+  {
+   "id": "asko-home-office-podnoz",
+   "co": "8999 Kč je přesně shodných s liftor-rise-podnoz a položka je ověřeno:false — podezření na přenesenou cenu z jiného produktu. ASKO podnož s mechanismem bývá výrazně levnější než Liftor. Ověřit."
+  },
+  {
+   "id": "induro-vyskove-stavitelne",
+   "co": "Není to konkrétní produkt, ale celá řada ('řada') s jednotkovou cenou 11425 Kč/ks a ověřeno:false. Buď rozepsat na konkrétní model, nebo vyřadit — takto se nedá cenově porovnat."
+  },
+  {
+   "id": "onpira-podnoz-40x40x72-cerna",
+   "co": "Rozpor v rozměrech: název říká 40×40×72 cm, pole říká 720×400×75. Číslo 75 v tloušťce nedává smysl (jekl bude 40 nebo 60 mm). Sjednotit."
+  },
+  {
+   "id": "blum-legrabox-pure-n-nl450",
+   "co": "Cena 0 Kč. Stejně tak blum-tandembox-antaro-nl450, blum-movento-nl450, blum-tip-on-blumotion, hettich-avantech-you-39, hettich-arcitech, hettich-innotech-atira-70, hettich-quadro-4d, gtv-modern-box, kulickovy-plnovysuv-35-nl450. Celá sekce výsuvů je bez cen — buď doplnit ceny sady od CZ prodejce (Demos Trade / Kili / Häfele), nebo sekci vyřadit; takto jen zvětšuje ceník."
+  },
+  {
+   "id": "led-pasek-24v-3000k-ra90",
+   "co": "Cena 0 Kč, dodavatel 'neuvedeno'. Totéž led-profil-zapustny-24x7-opal a led-zdroj-24v-30w. Bez cen nelze spočítat podsvícení desky — doplnit konkrétní typ a cenu (Kč/bm u pásku a profilu, Kč/ks u zdroje)."
+  },
+  {
+   "id": "prochodka-hranata-kartacova-80x160",
+   "co": "Cena 0 Kč (a totéž prochodka-kovova-kulata-80), přitom plastová průchodka prochodka-plast-kulata-60-cerna cenu má (188 Kč). Doplnit ceny, jinak nelze porovnat varianty průchodek."
+  },
+  {
+   "id": "riser-podstavec-pod-monitor-600",
+   "co": "Cena 0 Kč a dodavatel 'neuvedeno'. Totéž nastavec-police-po-sirce-desky, walteco-podlozky-pod-hairpin-4ks, podfrezovany-uchop-celo-zasuvky, ikea-signum-kabelovy-zlab. Doplnit ceny, nebo přesunout mimo ceník do seznamu 'k dořešení'."
+  },
+  {
+   "id": "hranova-paska-abs-dyha",
+   "co": "Špatná jednotka: hranová páska se prodává na metry nebo v rolích, ne 'za kus'. 200 Kč/ks je nejednoznačné — uvést Kč/bm nebo Kč/role s délkou (typicky 5 nebo 10 m)."
+  },
+  {
+   "id": "doprava-po-brne",
+   "co": "Jednotka 'Kč/ks' u dopravy nedává smysl — má být za jízdu/zakázku (666 Kč/jízda). Takto by se při 3 kusech desek cena ztrojnásobila."
+  },
+  {
+   "id": "ltd-egger-18-tabule-m2",
+   "co": "282 Kč/m2 neodpovídá druhé ověřené položce: Kili tabule 2914 Kč / 5,796 m2 = 503 Kč/m2. Rozdíl 1,8× — pravděpodobně cena bez DPH nebo starší. Sjednotit základ (s DPH) u obou."
+  },
+  {
+   "id": "sazba-truhlar-cr-2026",
+   "co": "450 Kč/hod je pro rok 2026 pod trhem a je v rozporu s dalšími dvěma položkami v témže ceníku (ZETO 714 Kč/hod, dílna Brno 818 Kč/hod). Buď je to bez DPH, nebo zastaralý údaj — opravit, jinak podstřelí kalkulaci práce."
+  },
+  {
+   "id": "kc-frezovani-bm",
+   "co": "300 Kč/bm za frézování je výrazně mimo řadu ostatních metrážových operací (olepení ABS 16–54 Kč/bm, laser 109 Kč/bm, masivní nákližek 333 Kč/bm). Ověřit, zda nejde o minimální cenu za zakázku nebo o cenu včetně přípravy."
+  },
+  {
+   "id": "jysk-vandborg-120x60",
+   "co": "1075 Kč je hluboko pod ostatními stoly JYSK stejné velikosti (SKOVLUNDE 120×60 = 4500, EVETOFTE 125×60 = 2500). Vypadá to na výprodejovou/akční cenu — označit jako akci, nebo nahradit běžnou cenou."
+  },
+  {
+   "id": "jysk-kalby-120x60",
+   "co": "Zaokrouhlené odhady u JYSK (KALBY 5000, SKOVLUNDE 4500, EVETOFTE 2500, STAVANGER 5500) při ověřeno:false. Navíc KALBY 120×60 za 5000 Kč je dražší než SKOVLUNDE 120×60 za 4500 — přeověřit celý blok na jysk.cz."
+  },
+  {
+   "id": "ikea-trotten-160x80-jasan",
+   "co": "2490 Kč za kompletní stůl 160×80 je pod cenou samotné TROTTEN podnože uvedené v tomto ceníku (2000 Kč) — deska by pak stála 490 Kč. Nekonzistentní, ověřit."
+  },
+  {
+   "id": "ikea-ridspo-140x70-dub",
+   "co": "11990 Kč dělá z RIDSPÖ nejdražší IKEA stůl v seznamu, dražší než IDANÄS (9990) i než masivní XXXLutz Linea Natura 140×65 (8999). Ověřeno:false — přeověřit."
+  },
+  {
+   "id": "idea-torino-150x54",
+   "co": "6399 Kč za masiv borovice 150×54 je nad cenou masivního dubu XXXLutz Linea Natura 120×65 (4999 Kč). Borovice bývá výrazně levnější než dub — ověřit."
+  },
+  {
+   "id": "xxxlutz-homin-rohovy-94x120",
+   "co": "Nesoulad id/názvu (94×120) s poli rozměrů (1200×940). Sjednotit pořadí šířka×hloubka, aby šlo filtrovat podle šířky."
+  },
+  {
+   "id": "bonami-hubsch-forma-140x70",
+   "co": "12603 Kč za stůl v 'dubovém dekoru' je nejvyšší cena v celé sekci stolů, výš než masiv i než elektricky polohovací stoly. U dekoru to působí mimo — ověřit (Hübsch je designová značka, ale je to ověřeno:false)."
+  }
+ ],
+ "shrnuti": "Ceník má tři systémové problémy. (1) Sekce 'sluzby' duplikuje sedm položek ze sekce 'desky' — stejný produkt, stejná cena, jiné id (Hornbach dub 2000×600×18, Hornbach stolová deska 1600×800×26, Bauhaus dub 2200×600, Hornbach buk, Hornbach kuchyňská deska 4100, K&C spárovka 40 mm, DOMESTAV cink 40 mm). To nafukuje počet položek a při automatickém výběru nejlevnější varianty zkresluje výsledek. (2) Zhruba 20 položek v sekci 'kovani' a několik podnoží má cenu 0 Kč — celá sekce výsuvů (Blum, Hettich, GTV), LED, kabelové vedení, Flexispot rámy. Ty se do rozpočtu nedají použít vůbec. (3) Sekce 'stoly' je celá ověřeno:false a řada cen v ní i u IKEA podnoží jsou nápadně zaokrouhlené odhady (100/250/500/1000/2000/4500/5000), místy vzájemně nekonzistentní (KALBY dražší než SKOVLUNDE, TROTTEN stůl levnější než TROTTEN podnož). Cenové extrémy k ověření: Centrum dřeva 8281 Kč/m2 (2× nad cinkovanou spárovkou), Hornbach stolová deska 2000×800 za 994 Kč/m2 (levnější než menší sesterská deska), Melgo hairpin 190 Kč/noha, LTD Egger 282 Kč/m2 vs 503 Kč/m2 u Kili, hodinová sazba truhláře 450 Kč vs 714–818 Kč jinde v témže ceníku. Rozměrově nesedí: Hornbach 4100 mm kuchyňská deska vedená jako deska stolu, IKEA TOLKEN 820×490 (koupelnová deska), Onpira 40×40×72 cm vs pole 720×400×75, a osm desek s tloušťkou 0 mm. Jednotky: hranová páska na 'ks' místo bm/role, doprava na 'ks' místo za jízdu, In-duro míchá 'pár' a 'ks' v jedné řadě, DOMESTAV cink 40 sedí v 'deskách' s jednotkou m2 a nulovými rozměry. Pozor také na dvojí započtení u MITTZON a ANFALLARE/HILVER, kde je v ceníku zvlášť deska, zvlášť podnož a zvlášť hotový stůl. Cenový rozptyl u dubové spárovky 40 mm (BRENUS 2840 vs DOMESTAV 4259 vs truhlář 4840 Kč/m2) je reálný, ale při kalkulaci je nutné držet stejný základ DPH — u části položek to vypadá, že se míchají ceny s DPH a bez.",
+ "vyradit": [
+  {
+   "id": "hornbach-dub-sparovka-2000x600x18",
+   "duvod": "Duplicita s hornbach-sparovka-dub-2000x600x18 v sekci desky — stejný produkt, stejný rozměr, stejná cena 1989 Kč."
+  },
+  {
+   "id": "hornbach-stolova-deska-dub-26",
+   "duvod": "Duplicita s hornbach-stolova-deska-dub-1600x800x26 — stejný produkt 1600×800×26 za 2190 Kč."
+  },
+  {
+   "id": "bauhaus-dub-sparovka-2200x600x18",
+   "duvod": "Duplicita s bauhaus-exclusivholz-dub-2200x600x18 — stejná spárovka za 1990 Kč."
+  },
+  {
+   "id": "hornbach-buk-sparovka-2000x600x18",
+   "duvod": "Duplicita s hornbach-sparovka-buk-2000x600x18 — 1149 Kč, tentýž kus."
+  },
+  {
+   "id": "hornbach-pracovni-deska-dub-zlaty-38",
+   "duvod": "Duplicita s hornbach-kuchynska-deska-dub-zlaty-4100 — tatáž postformingová deska 4100×600×38 za 3795 Kč."
+  },
+  {
+   "id": "kc-dub-sparovka-40-1600x650",
+   "duvod": "Duplicita s kc-sparovka-dub-40-1600x650 — tatáž spárovka K&C 1600×650×40 za 6007 Kč."
+  },
+  {
+   "id": "domestav-dub-cink-40",
+   "duvod": "Duplicita s domestav-dub-cink-40-m2 (4259 Kč/m2) a navíc špatně zařazená: sedí v sekci 'desky' mezi kusovým zbožím, ale má jednotku m2 a rozměry 0×0×40, takže ji nelze srovnat s ostatními deskami."
+  },
+  {
+   "id": "ikea-tolken-82x49",
+   "duvod": "TOLKEN je koupelnová deska pod umyvadlo, ne stolová deska. Rozměr 820×490 mm je pro psací stůl nepoužitelný (minimální hloubka pro monitor je ~600 mm) — do ceníku pracovní desky nepatří."
+  },
+  {
+   "id": "vyrez-otvoru-prochodka-60-prace",
+   "duvod": "Překrývá se s kc-vyrez-otvoru (350 Kč/ks, ověřeno:true) — tatáž operace, ale bez konkrétního dodavatele a ověřeno:false. Nechat jen ověřenou položku K&C."
+  },
+  {
+   "id": "kabelovy-kos-mesh-800",
+   "duvod": "Cena 0 Kč a dodavatel uveden jako 'rešerše neurčuje konkrétní'. Není to položka ceníku, ale poznámka k dořešení."
+  },
+  {
+   "id": "kabelovy-zlab-plechovy-800",
+   "duvod": "Cena 0 Kč, neurčený dodavatel — stejný případ jako mesh koš. Navíc se překrývá s kabelovy-zlab-truhlarsky-plech (1512 Kč), který cenu má."
+  },
+  {
+   "id": "kabelovy-rukav-spirala",
+   "duvod": "Cena 0 Kč, dodavatel 'neuvedeno', rozměr uveden jako 2000×35 u zboží prodávaného na metry. Bez ceny i jednotky nepoužitelné."
+  },
+  {
+   "id": "zasuvkovy-blok-do-zlabu",
+   "duvod": "Cena 0 Kč, dodavatel 'neuvedeno', rozměry 0×0×0. Rozptyl reálných cen (4–5 zásuvek + USB-C PD) je 800–3500 Kč, takže bez konkrétního modelu je řádek bezcenný."
+  },
+  {
+   "id": "induro-vyskove-stavitelne",
+   "duvod": "Není to produkt, ale celá řada ('výškově stavitelné podnože (řada)') s jednou cenou 11425 Kč/ks a ověřeno:false. Duplikuje funkci konkrétních položek Liftor / Dřevo Trust LUK UP / AlzaErgo."
+  },
+  {
+   "id": "kika-camp-125x55",
+   "duvod": "Kika jako samostatný řetězec v ČR nefunguje — prodejny byly převzaty a přeznačeny na XXXLutz. Cena z roku 2026 od 'Kika' je nedůvěryhodná (ověřeno:false); dohledat ekvivalent v XXXLutz nebo vyřadit."
+  },
+  {
+   "id": "kika-privilegio-110x60",
+   "duvod": "Stejný důvod jako u kika-camp — neexistující český prodejce, ověřeno:false. Navíc 110×60 je pod praktickým minimem pro pracovní stůl s monitorem."
+  }
+ ]
+}

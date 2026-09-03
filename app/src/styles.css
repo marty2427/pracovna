@@ -186,3 +186,14 @@ table.rozpiska tr.soucet td { font-weight: 700; border-top: 2px solid var(--link
 .smer-telo p { margin: 7px 0; font-size: 11px; line-height: 1.5; color: var(--text-2); }
 .smer-telo p.odvozeno { color: var(--text-3); font-size: 10px; }
 .smer-telo .tlacitko { margin-top: 4px; padding: 6px 12px; font-size: 11px; }
+
+/* --- ukazatel rozpočtu --- */
+.rozpocet { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--krem-2); border: 1px solid var(--linka); }
+.rozpocet .radek { display: flex; justify-content: space-between; align-items: baseline; font-size: 11.5px; }
+.rozpocet .radek b { font-size: 13px; font-variant-numeric: tabular-nums; }
+.rozpocet .pruh { position: relative; height: 9px; margin: 8px 0 7px; border-radius: 5px; background: var(--krem-3); overflow: hidden; }
+.rozpocet .pasmo { position: absolute; top: 0; bottom: 0; background: rgba(76,127,69,.30); }
+.rozpocet .odhad { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; background: var(--oranz); }
+.rozpocet.nad .odhad { background: var(--chyba); }
+.rozpocet.ok .odhad { background: var(--ok); }
+.rozpocet p { margin: 0; font-size: 10.5px; line-height: 1.45; color: var(--text-2); }

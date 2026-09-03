@@ -1,10 +1,49 @@
 # PLAN — konfigurátor pracovního stolu do obýváku
 
-Stav: **čeká na schválení**. Dokud plán neschválíš, nepíšu kód aplikace.
-(Rešerše trhu běží na pozadí — je to markdown, ne kód, a je nezávislá na tvých odpovědích.)
+Stav: **schváleno a postaveno.** Tenhle soubor zůstává jako záznam plánu a jeho revizí.
+Aktuální stav projektu je níž ve `STAV`. Popis repozitáře a spuštění je v `README.md`.
 
-> **v2 — opraveno podle tvého upřesnění.** První verze četla prostor jako jeden rovný běh
-> se gaučem na konci. Špatně. Je to **L do rohu**.
+> **v3** — geometrie opravena podle upřesnění: rameno A max 211 cm (25 cm od hrany),
+> tiskárna do rohu L, průchod není potřeba.
+> **v2** — první verze četla prostor jako jeden rovný běh se gaučem na konci. Špatně, je to L do rohu.
+
+---
+
+## STAV
+
+| Fáze | Stav | Kde to je |
+|---|---|---|
+| 1 — Rešerše trhu | hotová, s výhradami | `research/trh.md` (434 kB) |
+| 2 — Barvy z fotky | hotová | `palette.json`, `scripts/sample_palette.py` |
+| 3 — Konfigurátor | hotový | `app/`, 58 presetů v 9 rodinách |
+| 4 — Napojení na realitu | hotové | záložky Koupit a Export, `research/vyrobci.md` |
+| Nasazení | připravené | `wrangler.toml`, `app/public/_redirects` |
+
+### Co nevyšlo a co s tím
+
+1. **`WebFetch` byl v tomhle prostředí blokovaný egress politikou** (403 na CONNECT
+   pro ikea.com, jysk.cz, google.com — prakticky pro všechno). Fungovalo jen fulltextové
+   vyhledávání, které běží serverově mimo proxy. **Nešlo tedy otevřít jedinou produktovou
+   stránku a přečíst z ní cenu.** Všechna čísla pochází z výsledků vyhledávání.
+   Položky, které se nepodařilo ověřit, jsou označené v dokumentech i v appce.
+2. **Dva agenti prvního kola se zasekli** (téma „truhláři Brno" a jedno ověření) a nedoběhli.
+   Chybějící téma pokrylo druhé kolo — v `research/vyrobci.md` je 36 firem s kontakty
+   ze 106 vyhledávacích dotazů.
+3. **Dvě témata druhého kola nedoběhla kvůli vyčerpanému rozpočtu vyhledávání**
+   (sit-stand rámy, ověření cen). Zůstávají na úrovni prvního kola a jsou to
+   nejslabší místa rešerše. V `research/trh.md` je to přiznané.
+4. **Nejhlubší deska v katalogu má 63,5 cm** (IKEA KARLBY). Stůl hluboký 70 cm se
+   z katalogových desek nesloží — appka to u každé desky ukáže jako „o X cm mělčí".
+
+### Co stojí za zvážení
+
+- **Rozpočet.** Rameno A dlouhé 211 cm v masivním dubu s kovovou podnoží na míru
+  vyjde podle sazeb z rešerše na 23–56 tis. Kč, tedy nad tvým pásmem 5–20 tis.
+  Do 20 tis. se vejdou stavebnicové varianty (deska z katalogu + podnož) a lamino
+  na míru. V galerii je na to filtr cenových pásem.
+- **Rozpon.** 211 cm dlouhé rameno podepřené jen na koncích by se prohnulo.
+  Model proto počítá s podporou u vnitřního rohu L, s podélnou výztuhou a
+  v případě potřeby s mezilehlou podporou — a v kontrolách to ukazuje.
 
 ---
 

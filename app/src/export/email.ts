@@ -1,5 +1,5 @@
 import type { DeskConfig } from '@/model/types'
-import { material } from '@/model/materials'
+import { material, KOV_BARVY } from '@/model/materials'
 import { cutList } from './cutlist'
 import { odhadNaMiru } from '@/pricing/odhad'
 import { formatRozpeti } from '@/pricing/ceny'
@@ -72,14 +72,12 @@ export function textEmailu(c: DeskConfig): string {
   radky.push('PODNOŽ')
   radky.push(`${PODNOZ_TEXT[c.podnoz.typ]}.`)
   if (c.podnoz.material === 'kov') {
-    radky.push(`Profil jekl ${c.podnoz.profil}×${c.podnoz.profil} mm, komaxit v odstínu ${c.podnoz.barva}.`)
+    radky.push(`Profil jekl ${c.podnoz.profil}×${c.podnoz.profil} mm, komaxit ${(KOV_BARVY.find((k) => k.barva === c.podnoz.barva)?.nazev ?? c.podnoz.barva).toLowerCase()}.`)
   }
   radky.push(`Odsazení podnože od hrany desky ${c.podnoz.odsazeni} mm.`)
   if (c.podnoz.vyztuha) {
     radky.push('Pod deskou počítám s podélnou výztuhou (jekl), aby se dlouhé rameno neprohýbalo.')
   }
-  const mezilehla = (odhad.dilce.length, false)
-  void mezilehla
   radky.push('')
 
   if (c.ulozne.length) {
@@ -96,7 +94,7 @@ export function textEmailu(c: DeskConfig): string {
         'zadni-panel': 'zadní panel výšky 300 mm',
       }
       radky.push(`- ${nazvy[u.typ] ?? u.typ} ${u.typ === 'zadni-panel' ? '' : kde}`
-        + (u.barvaCel ? `, čela v odstínu ${u.barvaCel}` : ''))
+        + (u.barvaCel ? `, čela v odstínu ${u.barvaCel} (namíchat na vzorek)` : ''))
     }
     radky.push('')
   }
