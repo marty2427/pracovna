@@ -83,9 +83,16 @@ pip install Pillow numpy
 python3 scripts/sample_palette.py --overlay --sheet
 ```
 
-Zapíše `palette.json` a do `scripts/` uloží kontrolní obrázek s vyznačenými vzorky
-a kontaktní list výřezů, na kterém se dá očima ověřit, že vzorek sedí na tom, co má.
-Ruční sekce `directions` (barevné směry) se při přepsání zachová.
+Zapíše `palette.json` a do `scripts/` uloží dva kontrolní obrázky:
+
+- `_palette_overlay.png` — fotka s vyznačenými hledacími oblastmi a nalezenými ploškami
+- `_contact_sheet.png` — kontaktní list zvětšených výřezů se změřenou barvou u každého
+
+Na nich se dá očima ověřit, že vzorek sedí na tom, co má — což je jediný způsob,
+jak poznat, že skript nevzorkoval stín místo materiálu. Oba jsou v repozitáři
+právě proto, aby to šlo zkontrolovat bez spouštění skriptu.
+
+Ruční sekce `directions` (barevné směry) se při přepsání `palette.json` zachová.
 
 ## Screenshoty přes Playwright
 

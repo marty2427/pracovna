@@ -4,3 +4,6 @@ dist/
 *.local
 .wrangler/
 screenshots/
+*.tsbuildinfo
+scripts/_zoom_*.png
+scripts/_herringbone_test.png
