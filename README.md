@@ -40,6 +40,9 @@ research/
   trh.md                  rešerše trhu (sériové stoly, stavebnice, materiály,
                           kování, ergonomie, statika, cenová pásma)
   vyrobci.md              truhláři v Brně a okolí — kontakty a specializace
+  _raw.json, _raw2.json   tytéž rešerše strojově čitelně, po tématech;
+                          z nich se generuje ceník v appce
+  _kontrola_ceniku.json   výhrady kontroly k jednotlivým položkám ceníku
 scripts/
   sample_palette.py       vzorkování skutečných pixelů z fotky
   screenshots.mjs         Playwright průlet appkou
