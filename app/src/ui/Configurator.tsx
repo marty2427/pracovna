@@ -2,6 +2,7 @@ import { useStore } from '@/store'
 import { LIMITY, SPACE, MAX_RAMENO_A, maxRamenoB } from '@/model/space'
 import { MATERIALY, KOV_BARVY } from '@/model/materials'
 import { Skupina, Posuvnik, Prepinac, Zaskrt, type Volba } from './Ovladace'
+import { BarevneSmery } from './BarevneSmery'
 import type { Hrana, PodnozTyp, Tloustka, UlozneTyp, Rameno } from '@/model/types'
 
 const HRANY: Volba<Hrana>[] = [
@@ -54,7 +55,7 @@ export function Configurator() {
     }))
 
   const materialyVolby: Volba<string>[] = MATERIALY.map((m) => ({
-    hodnota: m.id, label: m.nazev.replace(/,.*/, ''), popis: m.nazev + (m.poznamka ? ` — ${m.poznamka}` : ''), barva: m.barva,
+    hodnota: m.id, label: m.kratky, popis: m.nazev + (m.poznamka ? ` — ${m.poznamka}` : ''), barva: m.barva,
   }))
 
   return (
@@ -107,6 +108,8 @@ export function Configurator() {
           onChange={(v) => nastavRozmer('vyska', v)}
         />
       </Skupina>
+
+      <BarevneSmery />
 
       <Skupina titulek="Deska">
         <Prepinac label="Materiál / dekor" sloupce={2} hodnota={config.deska.materialId}

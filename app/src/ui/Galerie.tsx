@@ -86,7 +86,7 @@ export function Galerie() {
                 </div>
                 <div className="stitky">
                   <span>{jeL ? `${Math.round(r.ramenoADelka / 10)} × ${Math.round(r.ramenoBDelka / 10)} cm` : `${Math.round(r.ramenoADelka / 10)} cm`}</span>
-                  <span>{material(p.deska.materialId).nazev.replace(/,.*/, '')}</span>
+                  <span>{material(p.deska.materialId).kratky}</span>
                   <span>{p.deska.tloustka} mm</span>
                   <span>{PODNOZ_LABEL[p.podnoz.typ]}</span>
                   {p.ulozne.length > 0 && <span>{p.ulozne.map((u) => u.typ).join(' + ')}</span>}

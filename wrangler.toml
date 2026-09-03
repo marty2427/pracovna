@@ -1,0 +1,13 @@
+# Nasazení statické appky na Cloudflare Pages.
+#
+#   cd app && npm ci && npm run build
+#   npx wrangler pages deploy app/dist --project-name konfigurator-stolu
+#
+# Nebo přes Git integraci v Cloudflare dashboardu:
+#   Build command:      cd app && npm ci && npm run build
+#   Build output:       app/dist
+#   Root directory:     /
+#   Node version:       22
+name = "konfigurator-stolu"
+pages_build_output_dir = "app/dist"
+compatibility_date = "2026-09-03"

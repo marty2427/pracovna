@@ -30,8 +30,12 @@ export const SPACE = {
   /** Mezera mezi koncem ramene B a gaučem — požadavek uživatele. */
   mezeraKeGauci: { min: 100, max: 250, doporuceno: 120, idealniOd: 100, idealniDo: 150 },
 
-  /** Volná podlaha, kterou potřebuje kancelářská židle na odsunutí a vstání. */
-  zonaZidle: { min: 850, doporuceno: 1000 },
+  /**
+   * Volná podlaha, kterou potřebuje kancelářská židle na odsunutí a vstání.
+   * Průchod se nezapočítává — uživatel potvrdil, že se kolem stolu nikam nechodí.
+   * Kdyby zóna sloužila i jako průchod, chtělo by to o 60-75 cm víc.
+   */
+  zonaZidle: { min: 800, doporuceno: 900 },
 
   /** Gauč: zabírá X od zadniStenaKeGauci dál, hloubka v ose Z. */
   gauc: { hloubka: 950 },

@@ -2,34 +2,40 @@ import type { DeskConfig } from './types'
 import { material } from './materials'
 
 /**
- * Maximální rozpon desky bez podpory podle materiálu a tloušťky (mm).
- * Kritérium průhybu L/300 při běžném zatížení pracovní desky.
- * Hodnoty se doplňují z rešerše (research/trh.md, sekce ergonomie a statika).
+ * Maximální rozpon stolové desky bez podpory (mm) podle materiálu a tloušťky.
+ *
+ * ODKUD TA ČÍSLA JSOU (research/trh.md, sekce statika desky):
+ * Výchozí je publikovaná tabulka rozponů POLIC při knižní zátěži (~195 kg/m²)
+ * s kritériem průhybu L/180. Ta se přepočítala na STŮL dvěma kroky:
+ *
+ *   1) Stůl nese reálně 20-50 kg/m², ne 195 — ze vzorce δ = 5wL⁴/(384EI) plyne
+ *      při 4-5× menší zátěži rozpon delší zhruba 1,45×.
+ *   2) U stolu je ale potřeba přísnější kritérium průhybu: L/300 místo L/180,
+ *      protože se na desku kouká zblízka, člověk se o ni opírá a na prohnuté
+ *      desce je vidět i monitor. To rozpon zase zkrátí na 0,84×.
+ *
+ * Součin obou kroků je 1,22 — tolik činí přepočet police → stůl.
+ * Mezi tloušťkami se interpoluje podle L ∝ t^(3/4) (průhyb klesá s t³).
+ *
+ * Zdroje: Composite Panel Association Technical Bulletin (DTD/MDF, L/240),
+ * Sizemarker a Jon Eakes (tabulky rozponů polic), Sagulator/Woodbin
+ * (kritéria průhybu), ČSN EN 527-2 (zkouška 1000 N svisle).
+ * Podrobně i s odkazy v research/trh.md.
  */
 export const MAX_ROZPON: Record<string, Record<number, number>> = {
-  lamino:   { 18: 650,  25: 950,  30: 1100, 40: 1400 },
-  dyha:     { 18: 600,  25: 900,  30: 1050, 38: 1250, 40: 1300 },
-  masiv:    { 18: 750,  25: 1050, 30: 1250, 40: 1700 },
-  hpl:      { 12: 850,  18: 1150, 25: 1500 },
-  linoleum: { 19: 620,  25: 900,  30: 1050 },
-  lak:      { 18: 600,  25: 900,  30: 1050, 40: 1300 },
+  lamino:   { 18: 800,  25: 1100, 30: 1250, 40: 1500 },
+  dyha:     { 18: 900,  25: 1150, 30: 1300, 38: 1550, 40: 1600 },
+  masiv:    { 18: 1100, 25: 1450, 27: 1500, 30: 1650, 40: 2000 },
+  hpl:      { 12: 800,  18: 1150, 25: 1500 },
+  linoleum: { 19: 870,  25: 1100, 30: 1250 },
+  lak:      { 18: 900,  25: 1150, 30: 1300, 40: 1600 },
 }
-
-export function maxRozpon(materialId: string, tloustka: number): number {
-  const m = material(materialId)
-  const tab = MAX_ROZPON[m.kategorie] ?? MAX_ROZPON.lamino
-  const klice = Object.keys(tab).map(Number).sort((a, b) => a - b)
-  const klic = klice.reduce((best, k) => (k <= tloustka ? k : best), klice[0])
-  return tab[klic]
-}
-
-
 
 export interface Podpora {
   /** Půdorysná poloha v mm. */
   x: number
   z: number
-  /** Rám, jehož je součástí: 'A' = na konci ramene A, 'B' = na konci ramene B, 'roh', 'mezi'. */
+  /** Rám, jehož je součástí: 'A' = konec ramene A, 'B' = konec ramene B, 'roh' = vnitřní roh L, 'mezi' = mezilehlá. */
   skupina: 'A' | 'B' | 'roh' | 'mezi'
 }
 
@@ -41,12 +47,17 @@ export function maxRozponMat(materialId: string, tloustka: number): number {
   return tab[klic]
 }
 
-/** Dovolený rozpon s ohledem na podélnou výztuhu pod deskou. */
+/**
+ * Dovolený rozpon s ohledem na podélnou výztuhu pod deskou.
+ *
+ * Násobek 1,5 je KONZERVATIVNÍ ODHAD, ne hodnota z rešerše — kolik jekl
+ * pod deskou skutečně přidá, závisí na tom, jak je s deskou spojený
+ * (lepený spoj působí jako spřažený nosník a přidá výrazně víc než
+ * šroubovaný, který nese převážně samostatně). Truhlář to spočítá přesněji.
+ */
 export function dovolenyRozpon(c: DeskConfig): number {
   const zaklad = maxRozponMat(c.deska.materialId, c.deska.tloustka)
-  // Jekl přilepený/přišroubovaný pod deskou po celé délce funguje jako nosník
-  // a rozpon výrazně prodlouží. Držím konzervativní násobek 1,55.
-  return c.podnoz.vyztuha ? Math.round(zaklad * 1.55) : zaklad
+  return c.podnoz.vyztuha ? Math.round(zaklad * 1.5) : zaklad
 }
 
 /**

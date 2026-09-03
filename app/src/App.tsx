@@ -45,31 +45,40 @@ export function App() {
         </div>
       </header>
 
-      {zalozka === 'galerie' ? (
-        <Galerie />
-      ) : (
-        <div className="telo">
-          <aside className="vlevo">
-            {zalozka === 'konfigurator' && <Configurator />}
-            {zalozka === 'koupit' && <Koupit />}
-            {zalozka === 'export' && <Export />}
-          </aside>
+      {zalozka === 'galerie' && <Galerie />}
 
+      {zalozka === 'konfigurator' && (
+        <div className="telo">
+          <aside className="vlevo"><Configurator /></aside>
           <main className="viewport">
             <Scene config={config} pohled={pohled} ukazMistnost={ukazMistnost} />
             <div className="pohledy">
               {POHLEDY.map((p) => (
                 <button key={p} className={p === pohled ? 'on' : ''} onClick={() => setPohled(p)}>{p}</button>
               ))}
-              <button className={ukazMistnost ? 'on' : ''} onClick={() => setUkazMistnost(!ukazMistnost)}>
-                místnost
-              </button>
+              <button className={ukazMistnost ? 'on' : ''} onClick={() => setUkazMistnost(!ukazMistnost)}>místnost</button>
             </div>
           </main>
-
           <aside className="vpravo">
             <h3>Půdorys a rezervy</h3>
-            <FloorPlan config={config} sirka={400} />
+            <FloorPlan config={config} sirka={396} />
+            <Kontroly />
+          </aside>
+        </div>
+      )}
+
+      {(zalozka === 'koupit' || zalozka === 'export') && (
+        <div className="telo dokument">
+          <main className="dokument-obsah">
+            {zalozka === 'koupit' ? <Koupit /> : <Export />}
+          </main>
+          <aside className="vpravo">
+            <h3>Náhled</h3>
+            <div className="mini3d">
+              <Scene config={config} pohled="perspektiva" ukazMistnost={false} />
+            </div>
+            <h3 style={{ marginTop: 14 }}>Půdorys a rezervy</h3>
+            <FloorPlan config={config} sirka={396} />
             <Kontroly />
           </aside>
         </div>

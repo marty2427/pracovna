@@ -3813,3 +3813,685 @@ Protože žádná cena výše není ověřená, projdi tohle:
 
 ---
 
+
+
+---
+
+# Druhé kolo rešerše
+
+První kolo nemohlo otevírat stránky (`WebFetch` blokovaný), takže na chybějící a slabá témata
+běželo druhé kolo postavené výhradně na fulltextovém vyhledávání, s mnoha úzce cílenými dotazy.
+**Poslední dvě témata (sit-stand rámy a ověření cen) se nedokončila — vyčerpal se rozpočet
+vyhledávání.** Zůstávají tak na úrovni prvního kola a jsou to nejslabší místa celé rešerše.
+
+
+## Maximální rozpon stolové desky bez podpory — podklad pro appku (dotazů: 46)
+
+### Maximální rozpon stolové desky bez podpory — podklad pro appku
+
+#### 1. Nejdřív kritérium: „max rozpon" nedává smysl bez zátěže a bez limitu průhybu
+
+Každý zdroj počítá s jiným povoleným průhybem. Bez toho jsou čísla nesrovnatelná.
+
+| Kritérium | Hodnota | Kde se používá | Zdroj |
+|---|---|---|---|
+| Sagulator (cíl) | 0,02 in/ft = **1,7 mm/m** (≈ L/600) | doporučený cíl pro truhláře | [Sagulator / Woodbin](https://woodbin.com/calcs/sagulator/) |
+| „oko to uvidí" | 1/32 in/ft = **2,6 mm/m** (≈ L/384) | práh viditelnosti | [Sagulator](https://woodbin.com/calcs/sagulator/), [Shelf sag calc](https://workshopcalc.com/calculators/shelf-sag) |
+| **L/240** | 4,2 mm/m (1/8" na 36") | DTD a MDF – oficiální limit Composite Panel Association | [CPA Technical Bulletin](https://www.compositepanel.org/wp-content/uploads/Technical-Bulletin-Particleboard-MDF-for-Shelving.pdf) |
+| **L/180** | 5,6 mm/m (3/16" na 36") | překližka, běžná domácí police | [Jon Eakes](https://joneakes.com/jons-fixit-database/652-Pro-Shelving-that-does-not-Sag), [Sizemarker](https://www.sizemarker.com/blog/maximum-shelf-span-without-support) |
+| L/144 | 6,4 mm na 914 mm | průmyslový limit AWI pro **přestavitelné police** (nejvolnější) | [AWI Shelf Span Calculator](https://awinet.org/tools/shelf-span/) |
+| L/250 – L/300 | 3,3–4,0 mm/m | obecný práh „viditelného prohnutí" ve stavařině | [Steel deflection limits](https://steelcalculator.app/reference/deflection-limits/) |
+
+**Pro pracovní stůl doporučuju v appce použít L/300 (3,3 mm/m)** — stůl se na rozdíl od police kouká zblízka, člověk se o něj opírá a monitor na prohnuté desce je vidět. L/180 je pro stůl už moc měkké.
+
+**Dvě klíčové poučky pro výpočet v appce:**
+- Průhyb roste s **3.–4. mocninou rozponu**: dvojnásobný rozpon = ~8× větší průhyb (při stejném celkovém zatížení). ([FineWoodworking / JLC](https://www.jlconline.com/wp-content/uploads/sites/4/1995/practical-engineering-down-with-sagging-shelves-tcm96-1152873.pdf))
+- Průhyb klesá s **3. mocninou tloušťky**: dvojnásobná tloušťka = **1/8 průhybu**. ([WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html))
+- Vzorec pro rovnoměrné zatížení: δ = 5·w·L⁴ / (384·E·I), I = b·t³/12. ([shelf span calc](https://woodworking-calculators.com/shelf-span-calculator/))
+- **DTD a MDF navíc tečou (creep)** — počáteční průhyb naroste dlouhodobě o cca **50 %** (masiv i překližka podobně, DTD nejvíc). Proto se u DTD/MDF používá přísnější L/240. ([Sagulator](https://woodbin.com/calcs/sagulator/), [Sizemarker](https://www.sizemarker.com/blog/maximum-shelf-span-without-support))
+
+---
+
+#### 2. Hlavní zdrojová tabulka — max. rozpon **police** při knižní zátěži, kritérium L/180
+
+Tohle je nejlépe podložená tabulka, kterou jsem našel (zátěž = knihy, cca 40 lb/ft² ≈ 195 kg/m²):
+
+| Materiál | 16 mm | 19 mm (¾") | 25 mm | Zdroj |
+|---|---|---|---|---|
+| **DTD / lamino (melamin. dřevotříska)** | 58–62 cm | **70–76 cm** | 90–95 cm | [Sizemarker](https://www.sizemarker.com/blog/maximum-shelf-span-without-support) |
+| **MDF** | 60–65 cm | **75–80 cm** | 95–100 cm | tamtéž |
+| **Překližka / multiplex (tvrdé dřevo)** | 70–76 cm | **80–90 cm** | 105–115 cm | tamtéž |
+| **Masiv / spárovka (tvrdé dřevo)** | 78–85 cm | **90–105 cm** | 120–130 cm | tamtéž |
+
+**Nezávislé potvrzení stejného řádu:**
+- CPA (výrobci DTD/MDF), ¾" DTD, 40 lb/ft², limit L/240 → **21,6–28,6 palce = 55–73 cm** podle třídy desky (PBU / M-2 / M-3). ([CPA Technical Bulletin](https://www.compositepanel.org/wp-content/uploads/Technical-Bulletin-Particleboard-MDF-for-Shelving.pdf), [tafisa mirror](https://tafisa.ca/sites/default/files/documents/CPA_TB_Shelving.pdf))
+- Jon Eakes, police 10" hluboká, 20 lb/ft²: ¾" DTD **26" = 66 cm**, ¾" překližka **32" = 81 cm**. ([joneakes.com](https://joneakes.com/jons-fixit-database/652-Pro-Shelving-that-does-not-Sag))
+- 18 mm MDF: prakticky **60–80 cm**, nad 600 mm už znatelně prověšuje pod knihami; 25 mm MDF **80–100 cm** (35–45 kg). ([mdfdirect](https://mdfdirect.co.uk/mdf-shelving-boards/), [virmdf](https://www.virmdf.com/blog/mdf-shelf-span-guide-how-to-prevent-sagging-with-simple-rule-of-thumb-table))
+- 12 mm MDF: jen **30–40 cm** (lehká zátěž); 12 mm na 900 mm se viditelně prohne. ([mdfdirect](https://mdfdirect.co.uk/mdf-shelving-boards/))
+- 18 mm bříza překližka: **60–80 cm** běžně; s knihami 19 mm bříza max **70 cm**, s lehkými věcmi **90 cm**. ([plydirect](https://plydirect.co.uk/matching-span-to-ply-thickness-how-far-you-can-go-before-it-sags/), [kosmexgroup](https://kosmexgroup.com/best-plywood-for-shelving/))
+- 18 mm lamino: bezpečná zátěž ~20–25 kg na 600 mm, ~15–20 kg na 750–800 mm. ([mfcdirect](https://mfcdirect.co.uk/how-strong-is-melamine-board/))
+
+---
+
+#### 3. Přepočet police → stůl (proč můžeš jít dál)
+
+Police s knihami nese ~195 kg/m². **Pracovní stůl nese reálně 20–50 kg/m²** (monitory, notebook, hrnek). Ze vzorce δ ∝ w·L⁴ plyne, že při 4–5× menší zátěži a stejném absolutním průhybu vyjde rozpon **~1,4–1,5× delší**.
+
+**ALE** — stůl má dvě věci navíc, které polička nemá:
+1. **Bodové zatížení** — člověk se opře lokty, sedne si na hranu. ČSN EN 527-2 to testuje **1000 N (100 kg) svislou statickou silou** a 10 000 cyklů po 400 N. ([standard.ee testovací protokol](https://www.standard.ee/wp-content/uploads/2025/09/piano-el-en-527-1-en-527-2-en-527-3-iso-21016-2007.pdf), [CATAS](https://catas.com/uploads/media/unien527eng.pdf))
+2. **Přísnější optické kritérium** (L/300 místo L/180).
+
+Tyhle dva efekty ten zisk z nižší zátěže zhruba **vynulují**. Proto:
+
+> **Doporučení pro appku: použij tabulku z bodu 2 (hodnoty pro polici, L/180) prakticky beze změny jako max. rozpon podnoží u stolu. Je to konzervativní, ale u stolu se to vyplatí.**
+
+---
+
+#### 4. Doporučená tabulka do appky (rozpon mezi podporami, deska hluboká 60–80 cm)
+
+`*` = přímo ze zdroje, `†` = lineární extrapolace (v rozsahu 16→25 mm zdrojová data odpovídají L ∝ t¹·⁰, viz kontrola níže)
+
+| Materiál | 12 mm | 18 mm | 25 mm | 30 mm | 38 mm | 40 mm |
+|---|---|---|---|---|---|---|
+| **Lamino / DTD** | 40 cm † | **65–72 cm** * | **90–95 cm** * | 105–110 cm † | 130–140 cm † | 140–145 cm † |
+| **MDF** | **30–40 cm** * | **60–80 cm** * | **95–100 cm** * | 110–120 cm † | 140–150 cm † | 150–155 cm † |
+| **Dýhovaná MDF** | 30–40 cm † | 60–80 cm † | 95–105 cm † | 115–125 cm † | — | — |
+| **Multiplex / překližka** | 50 cm † | **75–85 cm** * | **105–115 cm** * | 125–135 cm † | 155–170 cm † | 165–180 cm † |
+| **Masiv / spárovka** | 55 cm † | **85–95 cm** * | **120–130 cm** * | 140–155 cm † | 180–195 cm † | 190–205 cm † |
+| **HPL kompakt** | 60–70 cm ‡ | — | — | — | — | — |
+
+Kontrola linearity ze zdrojových dat Sizemarker: DTD 16→19 mm = tloušťka +19 %, rozpon +22 %; 19→25 mm = +32 % / +27 %. Tedy L ≈ ∝ t, extrapolace je obhajitelná v pásmu 12–30 mm; **nad 30 mm je to už dopočet, ne měření**.
+
+‡ **HPL kompakt: nezjištěno konkrétní tabulkové číslo.** Nenašel jsem span tabulku Fundermax/Duropal (PDF se přes WebFetch otevřít nedá). Jediné, co mám: 12–13 mm kompakt je „dostatečně tuhý, aby fungoval jako samonosná plocha", 12 mm je standard pro pracovní desky a příčky. ([HPL thickness guide](https://goldenrickyhpl.com/hpl-thickness-guide/), [Kepler HPL](https://www.keplerhpl.com/product/10mm-12mm-13mm-Customized-Size-Safe-Edge-Phenolic-Resin-HPL-Compact-Laminate-Board-for-Tabletop.html)) Uvedených 60–70 cm je můj odhad, ne zdroj.
+
+#### 4b. Konzervativní realita od výrobců (výrazně nižší než výpočet!)
+
+Výrobci kuchyňských a pracovních desek jsou podstatně opatrnější než výpočtové tabulky:
+
+| Zdroj | Materiál / tloušťka | Max. rozpon bez podpory |
+|---|---|---|
+| [Howdens (montážní list)](https://www.howdens.com/-/media/howdens/assets/clh_asset_products/clh_asset_levela_108973/clh_asset_levelb_110531/clh_asset_levelc_25474853/ass_25476510.pdf) | 22 mm laminovaná deska | **600 mm** (a přesah max 300 mm) |
+| [IKEA KARLBY](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/) | 38 mm dřevo/dýha | **max 80 cm mezi nohami**, podpěra nutná při přesahu > 25 cm |
+| [work-tops.com](https://www.work-tops.com/a/expert/how-much-support-does-a-kitchen-worktop-need) | obecně kuchyňské desky | podpora po **600–900 mm** |
+| [mwtops (laminate guidelines)](https://www.mwtops.com/wp-content/uploads/2021/01/Laminate-Overhang-Guidelines.pdf) | laminát | podpory max **914 mm (36")** osově |
+
+**Tenhle rozpor je důležitý:** IKEA u 38 mm desky říká 80 cm, výpočet dává 130+ cm. Rozdíl je v tom, že IKEA počítá s kuchyňským provozem (opření se, sednutí, kladivo na desce) a s tím, že deska je jen položená bez šroubování. **Pro appku bych ukázal obě čísla: „výpočtový limit" a „doporučení výrobce".**
+
+---
+
+#### 5. Kolik přidá výztuha
+
+| Opatření | Zisk | Zdroj |
+|---|---|---|
+| **Zdvojení tloušťky desky** | průhyb na **1/8** | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| **Tloušťka +50 %** (18 → 27 mm) | rozpon **+~90 %** | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| **Přední lišta (masivní hrana) 30–50 mm vysoká** | tuhost **2–4×** | [Sizemarker](https://www.sizemarker.com/blog/maximum-shelf-span-without-support) |
+| Masivní hrana 38 mm (1,5") × 19 mm | průhyb **−50 až −70 %**, ≈ 2× tuhost | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| Masivní hrana 32 mm (1¼") na překližce | rozpon **+20 %** | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| **40 mm lišta na 19 mm desce** | překoná plochou desku 25 mm, a je lehčí | [Sizemarker](https://www.sizemarker.com/blog/maximum-shelf-span-without-support) |
+| **Průběžná podpora po zadní hraně** (lišta na zeď) u desky ≤ 305 mm hluboké | **dvojnásobný povolený rozpon** | [CPA Technical Bulletin](https://www.compositepanel.org/wp-content/uploads/Technical-Bulletin-Particleboard-MDF-for-Shelving.pdf) |
+| Vlepené překližkové žebro 6 × 10 mm do drážek (3 ks) | MDF **−33 %** průhybu, DTD **−13 až −20 %** | [Improving by Reinforcement… (ResearchGate)](https://www.researchgate.net/publication/273832560_IMPROVING_BY_REINFORCEMENT_THE_DEFLECTION_OF_SHELVES_MADE_OF_PARTICLEBOARD_AND_MDF) |
+| **Ocelový L-profil přišroubovaný po přední hraně** | „téměř nulový průhyb" | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| **Ocel vs. hliník** ve stejném průřezu | hliník se prohne **3×** víc než ocel | [WoodWeb](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html) |
+| Zkrácení rozponu na polovinu (jedna noha navíc) | průhyb na **1/8** | [woodcalcs](https://woodcalcs.com/guides/shelf-building-structural-guide/) |
+
+**Jekl pod deskou — kvantifikace (vlastní výpočet, ne citace):**
+Jekl 30×30×2 mm: I = (30⁴ − 26⁴)/12 ≈ 29 400 mm⁴, E = 210 000 MPa → EI ≈ 6,2 · 10⁹ N·mm².
+Deska DTD 25 mm × 600 mm: I = 600·25³/12 ≈ 781 000 mm⁴, E ≈ 2 500 MPa → EI ≈ 1,95 · 10⁹ N·mm².
+→ **jeden jekl 30×30×2 přidá cca 3× tuhost samotné desky** (celkem ~4,2×) → průhyb na ~24 %, **rozpon +~40 %**. Dva jekly → **+~55 %**. Jekl 30×50 postavený na výšku (I ≈ 145 000 mm⁴) je sám o sobě ~15× tužší než ta deska → rozpon prakticky určuje jekl, ne deska.
+⚠️ E-modul pro DTD 2 500 MPa je z paměti, nepodařilo se ho v tomhle sezení dohledat (vyčerpaný limit vyhledávání) — ověřit proti EN 312. Číslo ber jako řádový odhad.
+
+V českém prostředí je to běžná praxe: velké pracovní stoly se dělají z **kombinace jeklů 30×30 a 30×50, výztuha pod deskou kvůli nosnosti a rovinnosti** ([kutilská poradna](https://kutilska.poradna.net/questions/3055881-stavba-pracovniho-stolu)). Komerčně existují hotové ocelové výztuhy pod desku ([Regency support bar](https://www.amazon.com/Regency-Stiffener-60-Table-Tops/dp/B01DOZDUEK), [ocelový C-profil pro desky](https://jeffmacksupply.com/en-us/products/steel-c-channel-table-top-supports)).
+
+---
+
+#### 6. Přesah desky přes podnož — kolik a proč
+
+| Situace | Doporučená hodnota | Zdroj |
+|---|---|---|
+| **Přesah do stran za rám polohovacího stolu** | 15–23 cm max (6–9") na stranu | [btod.com](https://www.btod.com/blog/how-to-diy-standing-desk-frame/) |
+| **Přesah vpředu/vzadu za nohy** | max **25 % hloubky desky** | [eurekaergonomic](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/diy-standing-desk-frame-guide) |
+| **Minimum kvůli svorkám** (monitor arm, USB hub, lampa) | **5–8 cm volné hrany** za úchytem rámu | [eurekaergonomic](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/build-custom-desk-smart-frame) |
+| Podepřená plocha nad sloupky | **60–70 % hloubky desky** přímo nad podnoží | [eurekaergonomic](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/standing-desk-stability-myth) |
+| **Laminovaná deska 22 mm, volný přesah** | max **300 mm** | [Howdens](https://www.howdens.com/-/media/howdens/assets/clh_asset_products/clh_asset_levela_108973/clh_asset_levelb_110531/clh_asset_levelc_25474853/ass_25476510.pdf) |
+| **Masivní deska, volný přesah** | max **200 mm** bez podpory; 250–300 mm běžný barový přesah; > 300 mm nutná ocelová výztuha | [Worktop Express](https://www.worktop-express.co.uk/gbu0-display/solid_wood_worktop_installation_instructions.html), [woodworktops](https://woodworktops.com/blog/breakfast-bar-overhangs-everything-you-need-to-know/) |
+| **IKEA KARLBY 38 mm** | přesah > 25 cm ⇒ nutná podpěrná noha | [IKEA CZ](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/) |
+
+**Proč se přesah dělá:**
+1. **Místo pro svorky** — monitor arm, stolní lampa, kabelová průchodka potřebují volnou hranu (5–8 cm) bez rámu pod ní.
+2. **Kolena a stehna** — noha podnože zatažená dovnitř nechá prostor pro nohy, ergonomie (viz bod 7).
+3. **Vzhled** — rám není zepředu vidět, deska „plave".
+4. **Tolerance** — deska se dá o pár cm posunout při vyrovnávání ke zdi.
+
+**Pozor na fyziku:** konzola (přesah) se prohýbá při stejné délce ~9,6× víc než prostě uložené pole. Aby byl průhyb stejný, musí být přesah zhruba **0,55× délky rozponu**. Praktické pravidlo „přesah ≤ 1/3 rozponu" je bezpečné. ([Better Kitchens](https://www.betterkitchens.co.uk/ideas-advice/kitchen-worktop-overhangs-functionality-meets-design-1255))
+
+---
+
+#### 7. ČSN EN 527-1 / -2 — konkrétní čísla
+
+**ČSN EN 527-1 (Rozměry)** — [ČSN online náhled](https://csnonlinefirmy.agentura-cas.cz/html_nahledy/91/59724/59724_nahled.htm), [technickenormy.cz](https://www.technickenormy.cz/en/csn-en-527-1-kancelarsky-nabytek-pracovni-stoly-cast-1-rozmery/)
+
+| Parametr | Hodnota |
+|---|---|
+| **Výška desky, pevná (typ C/D)** | **740 mm ± 20 mm** (tj. 720–760 mm) — [CATAS](https://catas.com/en/news/en-527-1-office-desk-dimensions/) |
+| Výška, plynule přestavitelná (typ A) sed–stoj | 650–1250 mm |
+| Přestavitelná pro práci vsedě | 650–850 mm, krok max 20 mm — [NIS](https://www.n-i-s.cz/cz/rozmery/page/117/) |
+| **Minimální hloubka desky** | **800 mm** |
+| **Světlá hloubka prostoru pro nohy** | **≥ 800 mm** (na podlaze a do výšky 120 mm) — [tasksystems](https://www.tasksystems.co.uk/cmsb/uploads/bs-en-527.pdf) |
+| **Světlá šířka prostoru pro nohy — pevný stůl** | **850 mm** — [SafetyPartners CZ](https://www.safetypartners.cz/wp-content/uploads/2023/04/Rozmery-pracovniho-nabytku.pdf) |
+| Světlá šířka — přestavitelný stůl | **1200 mm** (1000 mm typ B) — tamtéž |
+| **Výška prostoru pro chodidla** | **≥ 120 mm**, v pásmu 600–800 mm od přední hrany |
+| Hloubka prostoru pro chodidla (jen stání) | ≥ 150 mm |
+| **Max. tloušťka desky u přední hrany** | **55 mm** (a 80 mm ve vzdálenosti 500 mm od hrany; 90 mm u typu B) — [NIS](https://www.n-i-s.cz/cz/rozmery/page/117/) |
+
+⚠️ **Rozpor ve zdrojích, který je potřeba ověřit v placené normě:**
+- šířka prostoru pro nohy: **850 mm** (SafetyPartners, ABC Kantoormeubelen) vs. **1050 mm** (CATAS, tasksystems). Pravděpodobně 850 mm = pevný stůl, 1050 mm = doporučení pro sed/stoj — ale nemám to potvrzené.
+- max. tloušťka desky u hrany: **55 mm** (NIS, CZ) vs. **23 mm** (odvozeno z testovacího protokolu / ABC Kantoormeubelen). Pro uživatele je to zásadní: 38 mm KARLBY je OK při čtení 55 mm, ne při čtení 23 mm.
+
+**ČSN EN 527-2 (Bezpečnost, pevnost, trvanlivost)** — [iTeh náhled](https://standards.iteh.ai/catalog/standards/cen/3bb6c76c-1d1d-441c-8102-8f195413e5c5/en-527-2-2016a1-2019)
+
+| Zkouška | Hodnota |
+|---|---|
+| Svislé statické zatížení desky | **1000 N** (~100 kg) |
+| Vodorovné statické zatížení | 450 N |
+| Svislá trvanlivost | **10 000 cyklů po 400 N** |
+| Průhyb desky | v **příloze A — informativní** (není to bezpečnostní požadavek, je to užitná vlastnost) — [CATAS](https://catas.com/uploads/media/unien527eng.pdf) |
+| Tuhost (uváděná hodnota) | ≤ **17 mm/m** — ⚠️ tohle číslo mám jen z jednoho sekundárního zdroje, **neověřeno** |
+
+**Česká legislativa — NV 361/2007 Sb., § 49** (tvrdší minimum než norma, platí pro pracoviště):
+- výška prostoru pro dolní končetiny nad podlahou **≥ 600 mm**
+- šířka **≥ 500 mm**
+- hloubka od přední hrany stolu **≥ 500 mm**, optimum **700 mm**
+- vzdálenost sedací plochy od spodní hrany desky **≥ 200 mm**
+([zakonyprolidi.cz](https://www.zakonyprolidi.cz/cs/2007-361), [guard7.cz](https://guard7.cz/kancelarske-prace/prostorove-usporadani))
+
+**Česká praxe k tloušťce desky:** 18 mm nebo 25 mm lamino je standard, **25 mm se doporučuje u desek nad 1800 × 800 mm**; 36 mm pro extra tuhost. ([pracuj-zdrave.cz](https://www.pracuj-zdrave.cz/stolove-desky-lamino-abs-hrany/), [kancelarske-sluzby.cz](https://www.kancelarske-sluzby.cz/25-tloustka-pracovni-stolove-desky))
+
+---
+
+#### 8. Co to znamená pro konkrétní roh 236 × 160 cm
+
+| Rameno | Délka | Kolik podpor je potřeba |
+|---|---|---|
+| **Levá stěna, 236 cm** | 2360 mm | 25 mm lamino má max ~90–95 cm → **potřebuje 3 podpory** (0 / 118 / 236 cm) a i tak je pole 118 cm nad limitem. Buď **4 podpory** (pole ~79 cm ✔), nebo 3 podpory + **jekl 30×50 pod přední hranou** (pole 118 cm pak vyjde). |
+| **Zadní stěna, 160 cm** | 1600 mm | 25 mm lamino: **2 podpory po krajích = pole 160 cm ✘**. Nutná **1 podpora uprostřed** (2× 80 cm ✔) nebo výztuha. |
+| Rohový spoj | — | Roh je nejzatíženější místo — dej tam **jednu nohu přímo pod roh**, nebo spoj obě desky pod rohem ocelovou deskou/jeklem. |
+
+Praktické varianty pro rozpočet 5–20 tis.:
+- **25 mm lamino + 4 nohy na dlouhém rameni + 3 na krátkém** (nejlevnější, žádná výztuha)
+- **38 mm masiv/dýha (KARLBY) + jekly** — dle IKEA stejně max 80 cm mezi nohami, ale s jeklem 30×50 podél přední hrany jdeš klidně na 120 cm
+- **25 mm deska + ocelový rám z jeklu 30×30 po obvodu + 1 příčka** — z fyziky nejúčinnější řešení na korunu
+
+---
+
+#### 9. Co se nepodařilo zjistit
+
+Viz seznam `nezjisteno`.
+
+
+**Nezjištěno:**
+
+- Span tabulka pro HPL kompakt (Fundermax Max Compact Interior, Duropal) — technická PDF existují, ale WebFetch je v tomto sezení blokovaný a WebSearch z nich konkrétní čísla rozponů nevytáhl. Uvedených 60-70 cm pro 12 mm kompakt je můj odhad, ne zdroj.
+- Konkrétní tabulkové hodnoty CPA bulletinu pro MDF (mám jen DTD: 21,6-28,6 palce pro 3/4" při 40 lb/ft², L/240). Plné tabulky jsou v PDF, které nešlo otevřít.
+- E-moduly (MOE) v MPa dle EN 312 (DTD) a EN 622 (MDF) — dotaz už nešel položit, vyčerpán limit 200 WebSearch dotazů v sezení. Hodnota 2500 MPa pro DTD použitá ve výpočtu jekla je jen řádový odhad, je nutné ji ověřit. (Sekundární zdroje uvádějí MOE v psi: DTD ~300 000 psi ≈ 2070 MPa, MDF ~400-500 000 psi ≈ 2760-3450 MPa, dub/javor ~1,8 mil. psi ≈ 12 400 MPa — Sagulator/Woodbin.)
+- Rozpon pro dýhovanou MDF nemá vlastní zdroj — v tabulce je odvozený z MDF (dýha 0,6 mm tuhost prakticky nemění).
+- Rozpon pro spárovku konkrétně (české zdroje o spárovkách neuvádějí nosnost ani průhyb) — v tabulce použity hodnoty pro 'solid hardwood' ze Sizemarker.
+- ROZPOR: světlá šířka prostoru pro nohy dle EN 527-1 — 850 mm (SafetyPartners CZ, ABC Kantoormeubelen) vs. 1050 mm (CATAS, Task Systems) vs. 1200 mm pro přestavitelné. Bez přístupu k placené normě to nejde rozhodnout.
+- ROZPOR: maximální tloušťka desky u přední hrany dle EN 527-1 — 55 mm (NIS.cz) vs. 23 mm (ABC Kantoormeubelen, testovací protokol). Zásadní pro rozhodnutí, jestli je 38 mm deska v souladu s normou.
+- Hodnota 'tuhost ≤ 17 mm/m' z EN 527-2 — jen z jednoho sekundárního zdroje, nepodařilo se ověřit v primárním dokumentu.
+- Přesné znění a čísla přílohy A EN 527-2 (informativní zkouška průhybu desky) — norma je placená, plný text nedostupný.
+- Rozpony pro tloušťky 30/38/40 mm nejsou nikde přímo naměřené — jde o lineární extrapolaci ze zdrojových dat pro 16/19/25 mm. Nad 30 mm ber čísla jako orientační.
+
+
+**Zdroje:**
+
+- [The Sagulator (Woodbin) — kalkulátor průhybu police, cíl 0,02 in/ft](https://woodbin.com/calcs/sagulator/)
+- [Sizemarker: Maximum Shelf Span Without Support (by Material) — tabulka 16/19/25 mm](https://www.sizemarker.com/blog/maximum-shelf-span-without-support)
+- [Composite Panel Association: Particleboard and MDF for Shelving (Technical Bulletin)](https://www.compositepanel.org/wp-content/uploads/Technical-Bulletin-Particleboard-MDF-for-Shelving.pdf)
+- [CPA Technical Bulletin — mirror (Tafisa)](https://tafisa.ca/sites/default/files/documents/CPA_TB_Shelving.pdf)
+- [Jon Eakes: Pro — Shelving that does not Sag](https://joneakes.com/jons-fixit-database/652-Pro-Shelving-that-does-not-Sag)
+- [WoodWeb: Shelf Stiffening Methods](https://woodweb.com/knowledge_base/Shelf_Stiffening_Methods.html)
+- [WoodWeb: Free Span Limits of Cabinet Shelving](https://woodweb.com/knowledge_base/Free_Span_Limits_of_Cabinet_Shelving.html)
+- [AWI Shelf Span Calculator (limit L/144)](https://awinet.org/tools/shelf-span/)
+- [MDF Direct: MDF Shelving Boards — tloušťka vs. rozpon](https://mdfdirect.co.uk/mdf-shelving-boards/)
+- [MDF Direct: How much weight can MDF hold](https://mdfdirect.co.uk/how-much-weight-can-mdf-hold/)
+- [VirMDF: MDF Shelf Span Guide (rule-of-thumb tabulka)](https://www.virmdf.com/blog/mdf-shelf-span-guide-how-to-prevent-sagging-with-simple-rule-of-thumb-table)
+- [MFC Direct: How Strong Is Melamine Board](https://mfcdirect.co.uk/how-strong-is-melamine-board/)
+- [PlyDirect: Matching Span to Ply Thickness](https://plydirect.co.uk/matching-span-to-ply-thickness-how-far-you-can-go-before-it-sags/)
+- [Kosmex: Best Plywood for Shelving — Grade, Thickness & Span Guide](https://kosmexgroup.com/best-plywood-for-shelving/)
+- [Howdens: Worktop support bars — application information (22 mm laminát)](https://www.howdens.com/-/media/howdens/assets/clh_asset_products/clh_asset_levela_108973/clh_asset_levelb_110531/clh_asset_levelc_25474853/ass_25476510.pdf)
+- [Worktop Express: Solid Wood Worktop Installation Instructions](https://www.worktop-express.co.uk/gbu0-display/solid_wood_worktop_installation_instructions.html)
+- [Wood Worktops: Breakfast Bar Overhangs — Everything You Need to Know](https://woodworktops.com/blog/breakfast-bar-overhangs-everything-you-need-to-know/)
+- [MW Tops: Support Guidelines for Laminate Countertops](https://www.mwtops.com/wp-content/uploads/2021/01/Laminate-Overhang-Guidelines.pdf)
+- [Work-Tops.com: How Much Support Does A Kitchen Worktop Need](https://www.work-tops.com/a/expert/how-much-support-does-a-kitchen-worktop-need)
+- [Better Kitchens: Kitchen Worktop Overhangs](https://www.betterkitchens.co.uk/ideas-advice/kitchen-worktop-overhangs-functionality-meets-design-1255)
+- [IKEA CZ: KARLBY pracovní deska ořech 246×3,8 cm — 6 990 Kč, max 80 cm mezi nohami](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/)
+- [BTOD: How-To Pair DIY Desk Surface (Top) and Standing Desk Frame](https://www.btod.com/blog/how-to-diy-standing-desk-frame/)
+- [Eureka Ergonomic: DIY Standing Desk Frame Guide (přesah ≤ 25 % hloubky)](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/diy-standing-desk-frame-guide)
+- [Eureka Ergonomic: Build Custom Desk Smart Frame (5–8 cm pro svorky)](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/build-custom-desk-smart-frame)
+- [Eureka Ergonomic: Standing Desk Stability Beyond Desktop Thickness](https://eurekaergonomic.com/blogs/eureka-ergonomic-blog/standing-desk-stability-myth)
+- [CATAS: EN 527-1 office desk dimensions](https://catas.com/en/news/en-527-1-office-desk-dimensions/)
+- [CATAS: The safety and durability of office furniture (EN 527 zkoušky)](https://catas.com/uploads/media/unien527eng.pdf)
+- [Task Systems: BS EN 527 shrnutí rozměrů](https://www.tasksystems.co.uk/cmsb/uploads/bs-en-527.pdf)
+- [Testing of Work table desk Type A — EN 527-1/-2/-3 protokol (standard.ee)](https://www.standard.ee/wp-content/uploads/2025/09/piano-el-en-527-1-en-527-2-en-527-3-iso-21016-2007.pdf)
+- [EN 527-2:2016+A1:2019 (iTeh náhled)](https://standards.iteh.ai/catalog/standards/cen/3bb6c76c-1d1d-441c-8102-8f195413e5c5/en-527-2-2016a1-2019)
+- [ČSN EN 527-1 (911105) — náhled ČSN online](https://csnonlinefirmy.agentura-cas.cz/html_nahledy/91/59724/59724_nahled.htm)
+- [ČSN EN 527-1 — Technické normy CZ](https://www.technickenormy.cz/en/csn-en-527-1-kancelarsky-nabytek-pracovni-stoly-cast-1-rozmery/)
+- [NIS — Nábytkářský informační systém: Rozměry pracovních stolů](https://www.n-i-s.cz/cz/rozmery/page/117/)
+- [SafetyPartners: Rozměry pracovního nábytku (PDF)](https://www.safetypartners.cz/wp-content/uploads/2023/04/Rozmery-pracovniho-nabytku.pdf)
+- [NV 361/2007 Sb. — § 49 prostor pro dolní končetiny](https://www.zakonyprolidi.cz/cs/2007-361)
+- [Guard7: Prostorové uspořádání pracoviště (kancelářské práce)](https://guard7.cz/kancelarske-prace/prostorove-usporadani)
+- [Improving by Reinforcement the Deflection of Shelves Made of Particleboard and MDF (ResearchGate)](https://www.researchgate.net/publication/273832560_IMPROVING_BY_REINFORCEMENT_THE_DEFLECTION_OF_SHELVES_MADE_OF_PARTICLEBOARD_AND_MDF)
+- [WoodCalcs: Shelf Building Guide — Span, Sag, and Load Calculations](https://woodcalcs.com/guides/shelf-building-structural-guide/)
+- [Shelf Sag Calculator (workshopcalc)](https://workshopcalc.com/calculators/shelf-sag)
+- [Shelf Span Calculator (woodworking-calculators) — vzorec δ = 5wL⁴/384EI](https://woodworking-calculators.com/shelf-span-calculator/)
+- [JLC: Practical Engineering — Down with Sagging Shelves (PDF)](https://www.jlconline.com/wp-content/uploads/sites/4/1995/practical-engineering-down-with-sagging-shelves-tcm96-1152873.pdf)
+- [Steel Calculator: Deflection Limits L/360, L/300, L/250, L/240](https://steelcalculator.app/reference/deflection-limits/)
+- [Kutilská poradna: Stavba pracovního stolu (jekly 30×30 a 30×50 pod deskou)](https://kutilska.poradna.net/questions/3055881-stavba-pracovniho-stolu)
+- [Regency Table Top Desk Support Bar (ocelová výztuha pod desku)](https://www.amazon.com/Regency-Stiffener-60-Table-Tops/dp/B01DOZDUEK)
+- [Jeffmack Supply: Steel C-Channel Table Top Supports & Stiffeners](https://jeffmacksupply.com/en-us/products/steel-c-channel-table-top-supports)
+- [Pracuj zdravě: Stolové a pracovní desky z lamina (18/25/36 mm)](https://www.pracuj-zdrave.cz/stolove-desky-lamino-abs-hrany/)
+- [Kancelářské služby: 25 mm tloušťka stolové desky](https://www.kancelarske-sluzby.cz/25-tloustka-pracovni-stolove-desky)
+- [HPL Thickness Guide (Golden Ricky)](https://goldenrickyhpl.com/hpl-thickness-guide/)
+- [Kepler HPL: 10/12/13 mm compact laminate pro stolové desky](https://www.keplerhpl.com/product/10mm-12mm-13mm-Customized-Size-Safe-Edge-Phenolic-Resin-HPL-Compact-Laminate-Board-for-Tabletop.html)
+
+
+---
+
+
+## Dekory, struktury a povrchy k teplé oranžovo-hnědé dubové podlaze (#83420F) a světle dubovému nábytku (#C69160) (dotazů: 48)
+
+### Dekory, struktury a povrchy k teplé oranžovo-hnědé dubové podlaze (#83420F) a světle dubovému nábytku (#C69160)
+
+**Barevné zadání:** podlaha je sytě teplá, oranžovo-hnědá (vlysový dub, tón kolem #83420F), nábytek světlý med (#C69160). Pro desku stolu jsou tedy relevantní **medové / koňakové / tabákové duby s červeno-žlutým podtónem**. Šedé, „pewter", „šedobéžové" a bělené duby (Gladstone šedobéžový, Sherman šedý, Halifax pewter, Bardolino šedý, Whiteriver šedohnědý) k této podlaze **nesedí** — jdou do studena a podlaha vedle nich zoranžoví ještě víc.
+
+Dvě funkční strategie:
+1. **Ladit** — dekor v podobném teplém tónu, ale o půl tónu jinde (Lancaster, Halifax přírodní, Gold Craft Oak).
+2. **Kontrastovat** — nedřevěná deska (linoleum camel / mushroom / charcoal), která nechá podlahu vyniknout a nesoutěží s ní. U tak výrazné vlysové podlahy je tahle cesta výtvarně bezpečnější.
+
+---
+
+#### 1) EGGER — konkrétní dubové dekory
+
+Ověřeno na [egger.com](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1180_37?country=CZ) a u českých prodejců. Sloupec „Kolekce" = co uvádí prodejce (Dřevo Trust označuje položky „KOLEKCE 24+/26+", JAF Holz označuje „výběhový dekor").
+
+| Číslo | Název (CZ) | Struktura | Odstín | Teplý / studený | Vhodnost k této podlaze | Kolekce |
+|---|---|---|---|---|---|---|
+| **H3368** | Dub Lancaster přírodní | ST9 | **medově hnědý**, jemně žilkovaný, jemné přírodní elementy | **teplý**, „teplejší a živější charakter" ([Egger](https://www.egger.com/cs/interior/decor-detail/H3368_9?country=CZ)) | ★★★★★ nejbližší shoda s #C69160 | v prodeji ([Dřevotyp](https://eshop.drevotyp.cz/laminat-egger-h3368-st9-dub-lancaster-prirodni-0-8-2800-1310)) |
+| **H1180** | Dub Halifax přírodní | ST37 | střední hnědá s trhlinami a suky, XL opakování | teplý, neutrálně hnědý | ★★★★ bezpečná volba, ale výrazná kresba | **KOLEKCE 26+** ([Dřevo Trust](https://drevotrust.cz/cs/ltd-h1180-dub-halifax-prirodni-182800x2070-st37-novinka-2020-202/11266)) |
+| **H1181** | Dub Halifax tabákový | ST37 | **nejtmavší v řadě Halifax**, tabákově hnědý | **teplý tmavý** | ★★★★ tmavší kotva pod světlý nábytek | v prodeji ([Egger](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1181_37?lci=Y29sbD0xNjYyJm5jPWV1YzUg)) |
+| **H1344** | Dub Sherman koňakově hnědý | ST32 | **koňak**, rustikální repro se stopami použití | **teplý** | ★★★★ hodně blízko #83420F — pozor, může s podlahou splynout | v prodeji ([Egger](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1344_32?country=CZ)) |
+| **H3325** | Dub Gladstone tabákový | ST28 | tabákový, hluboce pískovaný, fošnový | **teplý** | ★★★★ | v prodeji ([Egger PL](https://www.egger.com/pl/meble-i-aranzacja-wnetrz/dekory/H3325_28?lci=Y29sbD0xNzE3Jm5jPWV1YzMg)) |
+| **H3303** | Dub Hamilton přírodní | ST10 | klasická přírodní barva, tmavé inkluze a suky | neutrální až mírně teplý | ★★★★ klidnější než Halifax | **KOLEKCE 26+** ([Dřevo Trust](https://drevotrust.cz/cs/ltd-h3303-dub-hamilton-prirodni-182800x2070-st10-novinka-2020-20/11309)) |
+| **H1133** | Dub Hamilton přírodní **příčný** | ST10 | totéž, ale kresba napříč deskou | neutrální/teplý | ★★★ užitečné pro krátké rameno L | v katalogu ([Egger](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1133_10?lci=Y29sbD0xNjYyJm5jPWV1YzUg)) |
+| **H3395** | Dub Corbridge přírodní | ST12 / ST9 | klasický dub, přírodní + elegantní, lehce rustikální | neutrální | ★★★★ hladká ST12 = dobrá deska stolu | KOLEKCE 24+ ([Dřevo Trust](https://drevotrust.cz/cs/ltd-h3395-dub-corbridge-prirodni-182800x2070-st12-novinka-2020-2/11315)) |
+| **H3359** | Dub Davenport přírodní světlý | ST32 | světlý přírodní, jemné suky, tmavé přechody, lehce kartáčovaný | mírně teplý | ★★★ světlejší, blíž nábytku než podlaze | v prodeji, i v **Worktops 26+** ([Kili](https://www.kili.cz/desky-a-hrany/laminovane-desky-ltd/ltd-dub-davenport-prirodni-svetly-h3359-st32-s1283283775)) |
+| **H3331** | Dub Nebraska přírodní | ST10 | drsný, zvětralý, velmi **homogenní** barevnost | neutrální | ★★★ klidný, nekřičí vedle vlysů | v prodeji ([Egger](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3331_10?lci=Y29sbD0xNzE3Jm5jPWV1YzUg)) |
+| **H1145** | Dub Bardolino přírodní | ST10 | hrubě řezané prvky, ruční opracování | neutrální | ★★★ | v prodeji ([Egger](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1145_10?lci=Y29sbD0xNjYyJm5jPWV1YzUg)) |
+| **H3730** | Hickory přírodní (ne dub, ale vypadá jako dub) | ST10 | světlé póry, „vypadá skoro jako dub" | teplý | ★★★ zajímavá alternativa | v prodeji ([Kili](https://www.kili.cz/desky-a-hrany/laminovane-desky-ltd/ltd-hickory-prirodni-h3730-st10-s563127301)) |
+| H1312 | Dub Whiteriver pískově béžový | ST10 | béžový, rustikální vzhled starého dřeva | **chladnější** | ✗ nedoporučuji | v prodeji |
+| H1313 | Dub Whiteriver šedohnědý | ST10 | šedohnědý | **studený** | ✗ | v prodeji |
+| H3326 | Dub Gladstone šedobéžový | ST28 / ST9 | šedobéžový, „ideální k šedým tónům" | **studený** | ✗ | ABS už značena jako **výběhová** ([JAF](https://www.jafholz.cz/shop/ABS-hrana-Egger-H3326-ST28-Dub-Gladstone-sedobezovy~p2210428)) |
+| H3176 | Halifax pewter (Pewter Halifax Oak) | ST37 | cínově šedá | **studený** | ✗ | Worktops 26+ ([Egger](https://www.egger.com/en/furniture-interior-design/decors/H3176_37?lci=Y29sbD0xNjY4Jm5jPXJvdzEg)) |
+| H1345 | Dub Sherman šedý | ST32 | šedý | studený | ✗ | **výběhový** ([JAF](https://www.jafholz.cz/shop/plosne-materialy/laminovane-materialy/dtd-laminovane/lamino-dtdl-egger-ml-h1345-st32-dub-sherman-sedy---vybehovy-dekor~p6895565)) |
+| H1334 | Dub Sorano světlý | ST9 | světlý, nadčasový | neutrální | — | **výběhový dekor** ([JAF](https://www.jafholz.cz/shop/plosne-materialy/laminovane-materialy/dtd-laminovane/lamino-dtdl-egger-h1334-st9-dub-sorano-svetly---vybehovy-dekor~p15079706)) |
+| H3178 | Dub Halifax lazurovaný černý | ST37 | černá lazura | studený | ✗ | **výběhový** (JAF SK) |
+
+##### Novinky Decorative Collection 26+ (od února 2026)
+Egger jede „rolling collection" — každý dekor zůstává v nabídce **minimálně 4 roky**, aktualizace každé 2 roky ([Egger 26+](https://www.egger.com/en/furniture-interior-design/decorative-collection/highlights-collection-decorative-26?lci=bmM9cm93MSAg)). Přírůstek 26+ je 12 nových TFL dekorů (8 dřevodekorů + 4 uni).
+
+| Číslo | Název | Struktura | Charakter | K této podlaze |
+|---|---|---|---|---|
+| **H1388** | Sand Casella Oak (pískový) | **ST40 Feelwood Oakgrain** | „warm, sand-toned", skandinávská lehkost, vzhled olejované dýhy | ★★★ světlý teplý — hezky k nábytku #C69160 |
+| **H1367** | Light Natural Casella Oak | ST40 | světlý přírodní, jemná kresba, měkká barevná hra | ★★★ |
+| H1384 | White Casella Oak | ST40 / ST17 | bílý dub | ✗ pro tuhle podlahu |
+| **H1316** | Bookmatch Oak | ST17 Omnipore Oiled | **bezopakovací** dekor (repeatless) pro velké plochy — u 236 cm desky reálná výhoda | ★★★ zajímavé |
+| H3322 | Light Natural Rovato Oak | ST17 | světlý přírodní | ★★ |
+| H3359 | Light Natural Davenport Oak | ST32 | viz výše | ★★★ |
+| H193 / H194 | Light Natural Davenport Oak / Oak Butcherblock | ST12 | pracovní desky (Worktops 26+) | H194 „butcherblock" = teplá řezná deska, zajímavá k vlysům |
+
+*Pozor:* zdroje si u řady Casella odporují — tiskové zprávy uvádějí ST17, oficiální stránky Eggeru **ST40 Feelwood Oakgrain**. Beru jako platné ST40 ([Egger H1388 ST40](https://www.egger.com/en/furniture-interior-design/decors/H1388_40?lci=Y29sbD0xNzE5Jm5jPW5hdzEg)).
+
+---
+
+#### 2) KRONOSPAN — Kronodesign
+
+| Číslo | Název | Struktura | Odstín | Teplý / studený | K podlaze |
+|---|---|---|---|---|---|
+| **K003** | Gold Craft Oak (Zlatý dub Craft) | PW (Pure Wood) | **zlatě přírodní** s tmavými suky | **teplý** | ★★★★★ nejlevnější dobrá shoda ([Kronospan](https://kronospan.com/cs_CZ/decors/view/kronodesign/K003)) |
+| **K007** | Coffee Urban Oak | PW | „výrazně teplé a hřejivé tóny", hedvábný mat s hlubokým lesklým pórem | **teplý tmavý** | ★★★★ ([Kronospan](https://kronospan.com/cs_CZ/decors/view/kronodesign/K007)) |
+| K004 | Tobacco Craft Oak | PW | tmavé suky, **šedohnědá** barevnost | spíš neutrální/chladnější | ★★ pozor, není tak teplý jak název slibuje ([Kronospan](https://kronospan.com/en_US/decors/view/kronodesign/standard/K004/)) |
+| **K008** | Light Select Walnut | PW | světlý ořech, „teplé a hřejivé tóny" | **teplý** | ★★★★ ořech místo dubu = elegantní kontrast |
+| K002 | Grey Craft Oak | PW / FP | mix béžové a šedé, trhliny a suky | **studený** | ✗ |
+| K001 | White Craft Oak | PW | bílý dub | studený | ✗ |
+| K105 | Raw Endgrain Oak | PW / FP | čelní řez (endgrain) | neutrální | ★★ výrazný vzor, do rohu 236×160 bych nešel |
+| K107 | Elegance Endgrain Oak | PW / FP | čelní řez, elegantnější | neutrální | ★★ |
+| 8431 | Fine Oak | SN | jemný dub | neutrální | ★★★ klidný |
+| 5194 | Oxide Vintage Oak | — | světle hnědý, stopy pily, **našedlé** šmouhy | smíšený | ★★ |
+| K085 / K086 | Light / Natural Rockford Hickory | PW | hikory | teplý | ★★★ |
+| K2738 | Dub Torro Cremona | PW | — | nezjištěno | — |
+| K540 | Grey Albus | — | šedá, **není dub** | studený | ✗ |
+
+**Struktury Kronospan** (obdoba Egger ST): **PW** Pure Wood = jemně broušená a lakovaná dýha, hedvábně matná, s dřevními póry; **SN** Supernatural; **BS** kancelářská struktura; **SU** supermat; **PR** pór rustikal; **PE** perlička; **SM** hladký ([Dřevoobchod K&C](https://www.drevoobchod-eshop.cz/struktury-kronospan)). **FP** a **MO** se mi ověřit nepodařilo.
+
+---
+
+#### 3) Struktury povrchu — čím se liší a co na desku stolu
+
+| Kód | Název | Popis | Hloubka | Na stolovou desku |
+|---|---|---|---|---|
+| **ST9** | Smoothtouch Matt | zcela bez lesku, čistý neutrální mat, sametový omak, **bez pórů** | žádná | ★★★★★ **nejlepší na psaní a myš** |
+| **ST12** | Omnipore Matt | celoplošný pór, nepravidelné rozmístění v různých hloubkách, jemný sametový základ | mělká | ★★★★★ ideální kompromis — vypadá jako dřevo, píše se po tom |
+| **ST17** | Omnipore Oiled (nová generace) | nepravidelný celoplošný pór, **velmi nízký lesk i uvnitř póru** + mikrotextura → dojem olejovaného dřeva | mělká | ★★★★★ nejhezčí z „hladkých" |
+| **ST40** | Feelwood Oakgrain | synchronizovaný pór **mat-v-matu**, vzhled a omak olejované dýhy, ale s hloubkou | střední | ★★★★ |
+| ST10 | Deepskin Rough | průběžný pór přes celý povrch, drsný omak lehce kartáčovaného dřeva, průběžně matný | střední/hrubá | ★★★ |
+| ST22 | Deepskin Linear | lineární, výrazně hluboký, kartáčovaný vzhled (jehličnany) | hluboká | ★★ |
+| ST28 | Feelwood Nature | hluboce pískovaný, **synchronizovaný** pór (řada Gladstone) | hluboká | ★★ krásné na dvířka, ne pod klávesnici |
+| ST32 | Feelwood Vintage | vzhled starého dřeva, synchro s dekory Sherman a Davenport, „used" efekty i hmatově | hluboká | ★★ |
+| ST37 | Feelwood Rift | synchro s řadou **Halifax**, zdůrazňuje trhliny v dekoru | hluboká | ★★ vypadá skvěle, ale trhliny se pod perem propisují |
+| ST38 | Feelwood Pinegrain | střídání matných a lesklých elementů, kartáčovaný jehličnan (Mountain Larch) | hluboká | ★ |
+| ST36 | Feelwood Brushed | hluboce kartáčovaný, přírodní matný vzhled | hluboká | ★★ |
+
+**Praktický závěr:** Feelwood struktury (ST28/ST32/ST36/ST37/ST38) mají **synchronizované hluboké póry** — Egger je sám prodává jako náhradu masivu a dýhy. Na svislé plochy a fronty jsou skvělé. Na 236cm pracovní desku, po které se píše rukou, jezdí myš a padají drobky, je rozumnější **ST9, ST12, ST17 nebo ST40**. Kompromis: deska hladká (ST12/ST17), zástěna nebo boky ve Feelwoodu (ST37) ve stejném dekoru — Egger má „Worktop Match" právě na tohle.
+
+---
+
+#### 4) Tloušťky, formáty a ceny desek v ČR
+
+**Standardní formát LTD/DTDL: 2800 × 2070 mm = 5,796 m²** — z jedné desky vyjde **oboje ramena L stolu (236 + 160 cm)** i s přířezem, což je pro rozpočet klíčové.
+
+Tloušťky: 8 / 10 (10,6) / 16 / 18 (18,6) / 25 (25,6) mm. Dekory se ST37 a ST28 mají „nadměrné" tloušťky 10,6 / 18,6 / 25,6 mm (synchro fólie je silnější).
+
+| Materiál | Rozměr | Cena/deska | Cena/m² | Zdroj |
+|---|---|---|---|---|
+| Egger LTD H1180 ST37 Dub Halifax | 2800×2070×18,6 | **3 397,68 Kč** s DPH | ≈586 Kč | [ACER-CS](https://acer-cs.cz/eshop/9-dtdl-h1180-st37-dub-halifax-prirodni-28002070186) |
+| tentýž | 2800×2070×18 | 4 076,36 Kč s DPH | ≈703 Kč | [Dřevoobchod Doležal](https://drevoobchoddolezal.cz/l-h1180-st37-2800207018/) |
+| tentýž | 2800×2070×18 | 4 984,89 Kč s DPH | ≈860 Kč | [Dřevotyp](https://eshop.drevotyp.cz/dtdl-h1180-st37-dub-halifax-prirodni-18-2800-2070) |
+| Egger LTD H1181 ST37 Halifax tabákový | 2800×2070×18,6 | 2 660,79 – 4 824,74 Kč s DPH (velký rozptyl, sledovat akce −32 %) | 459–832 Kč | [Plošné materiály](https://plosnematerialy.cz/3-laminovane-desky-ltd/45-dub-halifax-tabakovy-h1181.html), [Dřevoobchod K&C](https://www.drevoobchod-eshop.cz/ltd-h1181-st37-dub-halifax-tabakovy-2800x2070x186) |
+| Egger LTD H3303 ST10 Dub Hamilton | 2800×2070×18 | **2 796 – 3 805 Kč** s DPH | 482–656 Kč | [Kili](https://www.kili.cz/desky-a-hrany/laminovane-desky-ltd/ltd-dub-hamilton-prirodni-h3303-st10-s466754454), [Harv](https://www.harv.cz/dtdl-dub-hamilton-prirodni-h3303-st10-2800-2070-18/) |
+| Kronospan LTD K004 PW Tobacco Craft Oak | 2800×2070×18 | **2 984 – 3 157 Kč** s DPH | 515–545 Kč | [Dřevotyp](https://eshop.drevotyp.cz/dtdl-k004-pw-tobacco-craft-oak-18-2800-2070), [Pentaco](https://eshop.pentaco.cz/lamino-kronospan-tobacco-craft-oak-k004-pw-18x2070x2800/) |
+| Kronospan LTD K003 PW Gold Craft Oak | 2800×2070×18 | ≈3 762 Kč (649 Kč/m² s DPH, metráž) | **649 Kč** | [OBI](https://www.obi.cz/police-a-nabytkove-desky/lamino-dtdl-kronospan-k003-pw-gold-craft-oak-18-x-2070-x-2800-mm-metraz/p/5464615) |
+| Kronospan LTD K105 / K107 PW Endgrain Oak | 2800×2070×18 | 4 320,91 Kč s DPH (3 571 bez) | 745 Kč | [Pentaco](http://eshop.pentaco.cz/produkt/lamino-kronospan-elegance-endgrain-oak-k107-pw-18x2070x2800/) |
+| Surová DTD (nelaminovaná) | 2800×2070×18 | orientačně nejlevnější varianta | — | [Dřevo Trust](https://drevotrust.cz/cs/dtd-s-182800x2070-br/523) |
+
+**Hotové pracovní desky Egger 4100 × 600 × 38 mm** (postformovaná, ABS hrana, lze koupit i půlku 2050 mm):
+
+| Dekor | Cena celé délky 4100 mm |
+|---|---|
+| H1180 ST37 Dub Halifax přírodní | **6 279 – 7 140 Kč** ([Biano](https://www.biano.cz/produkt/84336443-egger-pracovni-deska-dub-halifax-prirodni-h1180-st37-abs-4100x600x38), [Dřevoobchod K&C](https://www.drevoobchod-eshop.cz/pracovni-deska-h1180-st37-dub-halifax-prirodni-4100x600x38-rovna-hrana-abs-model-10015)) |
+| H1181 ST37 Dub Halifax tabákový | **7 895,25 Kč** s DPH ([Dřevotyp](https://eshop.drevotyp.cz/pracovni-deska-h1180-st37-dub-halifax-tabakovy-38-4100-600-product-3815)) |
+| H3303 ST10 / H3331 ST10 | v podobné hladině ([Harv](https://www.harv.cz/pracovni-deska-dub-hamilton-prirodni-h3303-st10/)) |
+
+38mm pracovní desky jsou odolné teplu, nárazu a skvrnám; Egger na kolekci Worktops 26+ dává **10letou záruku** při použití lepidla EGGERSeal a montážní sady ([Egger Worktops](https://www.egger.com/en/furniture-interior-design/decorative-collection/oak-laminate-worktops?lci=bmM9ZXV3MSAg)). Hloubka 600 mm je pro pracovní stůl trochu málo — pro 236 cm rameno bych šel spíš do LTD 25 mm nebo dvou vrstev 18 mm.
+
+---
+
+#### 5) Dýhy a dýhované desky
+
+Běžně dostupné dýhy v ČR: **dub A/B (Commercial, Classic), dub rustikal, dub bílý, ořech americký, ořech evropský, olše, jasan, buk**; k tomu rekonstruované dýhy **Alpi** (mají sklad v Brně — [Dýhy Alpi, skladová nabídka Brno](https://www.alpidyha.cz/skladova-nabidka/dyha-brno)).
+
+| Produkt | Rozměr | Cena/m² | Cena/deska | Zdroj |
+|---|---|---|---|---|
+| **MDF dýhovaná Dub Commercial A/B**, předbroušená (Decospan) | 2800×2070×4 mm | **817,77 Kč** bez DPH | 5 735,15 Kč s DPH | [Kili](https://www.kili.cz/desky-a-hrany/dyhovane-desky/mdf-dyhovane-desky/mdf-dyhovana-dub-commercial-a-b-predbrouseno-s622489963) |
+| **DTD dýhovaná Dub Commercial A/B** | 2800×2070×19 mm | **824 Kč** bez DPH | 5 778,84 Kč s DPH | [Kili](https://www.kili.cz/desky-a-hrany/dyhovane-desky/dtd-dyhovane-desky/dtd-dyhovana-dub-commercial-a-b-s466732664) |
+| DTD dýhovaná dub A/B (levnější řada) | 2800×2070×19 mm | **768,40 Kč** s DPH | ≈4 454 Kč | [Albakmen](https://www.albakmeneshop.cz/detail/dtd-dub-19-x-2800-x-2070-768-kc-m2-s-dph) |
+| **DTD dýhovaná Ořech americký Classic A/B** | 2800×2070×19 mm | **1 541,69 Kč** bez DPH | 10 812,12 Kč s DPH | [Kili](https://www.kili.cz/desky-a-hrany/dyhovane-desky/dtd-dyhovane-desky/dtd-dyhovana-orech-americky-classic-a-b-vyprodej-s466736394) |
+| DTD dýha ořech americký A/B | 19×2800×2070 | 997,86 Kč/m² | — | [Dřevomateriál](https://www.drevomaterial.cz/dtd-dyha-orech-americky-a-b-19x2800x2070mm-p6612/) |
+| MDF/HDF dýha dub, tenká | 2800×2070×3 mm | — | levnější, na obklady | [Dřevoobchod Doležal](https://drevoobchoddolezal.cz/mdf-hdf-740-dub-280020703/) |
+| **Samotná dýha** (na vlastní lepení) — dub | — | řezaná **500 Kč/m²** bez DPH; dub bílý **320 Kč/m²** | — | [Dýhy Alpi Brno](https://www.alpidyha.cz/skladova-nabidka/dyha-brno) |
+| **Samotná dýha** — ořech americký | — | **316 Kč/m²** (sklad Alpi) až **600 Kč/m²** bez DPH (řezaná) | — | tamtéž, [Dar dýha](https://www.dardyha.cz/dyhy_sesazenky/Dyhy/Katalog-dyh/orech-americky) |
+
+**Kalkulace pro váš stůl:** deska 236×80 + 160×80 cm ≈ **3,17 m²**. Dýhovaná DTD dub tedy ≈ **2 600–2 900 Kč** materiálu — vejde se do jedné desky 2800×2070 (5 735–5 779 Kč), z níž zbyde na police. **Dýha je oproti laminu v rozpočtu 5–20 tis. Kč naprosto dosažitelná** a k vlysové dubové podlaze bude sedět lépe než jakýkoli dekor — protože je to totéž dřevo. Nevýhoda: musí se olejit/lakovat a je citlivější na vlhko a odřeniny. Ořech je ~2× dražší, ale kontrast tmavého ořechu k oranžovému dubu je nejlepší „designérská" varianta.
+
+---
+
+#### 6) Forbo Furniture Linoleum (Desktop) — nábytkové linoleum
+
+**Technické parametry** ([Forbo CZ](https://www.forbo.com/flooring/cs-cz/produkty/marmoleum/nabytkove-linoleum/nabytkove-linoleum/bgisiv)):
+- tloušťka **2,0 mm**, šířka role **1,83 m**, délka role ≤ 30 m, minimální odběr 1 bm
+- hmotnost 2,1 kg/m², stupeň lesku < 5 (hluboký mat), tepelná odolnost 70 °C
+- odolné zředěným kyselinám, olejům, tukům a běžným rozpouštědlům; **neodolává dlouhodobému působení zásad**
+- minimální průměr ohybu 5 cm (ohýbat po délce), antistatické, hygienické
+- lepí se na MDF/DTD (typicky 18–25 mm) disperzním lepidlem; hrana se řeší dýhou, masivní lištou nebo ABS
+
+**Barvy — celá řada 21 odstínů** (kódy ověřené na Forbo/prodejcích):
+4023 nero · 4102 coffee · 4132 ash · 4140 jeans · 4146 cornflower · 4154 burgundy · 4155 pewter · 4157 pearl · 4164 salsa · **4166 charcoal** · 4167 carbon · 4168 almond · 4169 olive · 4170 mocha · **4171 camel** · 4172 mauve · **4173 brandy** · 4174 conifer · 4175 pebble · **4176 mushroom** — plus novější 4177 vapour, 4178 iron, 4179 smokey blue, 4182 spring green, 4183 pistachio, 4184 olive, 4186 orange blast.
+
+**Vaše čísla z dotazu jsou správná: 4166 = Charcoal, 4176 = Mushroom.** ([Floorcity 4166](https://www.floorcity.com/products/forbo-furniture-linoleum-4166-charcoal), [Floorcity 4176](https://www.floorcity.com/products/forbo-furniture-linoleum-4176-mushroom))
+
+**Doporučení k podlaze #83420F a nábytku #C69160:**
+
+| Kód | Barva | Proč / proč ne |
+|---|---|---|
+| **4176** | Mushroom | šedobéžová houbová — nejuniverzálnější, teplý neutrál, nechá podlahu mluvit ★★★★★ |
+| **4171** | Camel | velbloudí, teplá béžová — nejblíž tónu nábytku #C69160 ★★★★ (riziko: může být „skoro stejné, ale ne úplně") |
+| **4166** | Charcoal | tmavá antracitová — silný, čistý kontrast k oranžové podlaze ★★★★★ pro pracovní desku ideální (nekřičí, oči neunavuje) |
+| **4173** | Brandy | koňaková — teplá, ladí s podlahou, ale bude vypadat jako pokus o shodu ★★★ |
+| **4102** | Coffee / **4170** Mocha | hnědé — bezpečné, ale trochu nudné ★★★ |
+| **4168** | Almond | světle mandlová ★★★★ |
+| 4175 | Pebble | světle šedobéžová — mírně chladnější ★★★ |
+| 4155 pewter, 4140 jeans, 4174 conifer, 4169 olive | studené / barevné | k této podlaze bych nešel |
+
+**Cena a dodavatelé v ČR:** **859 – 870 Kč/m² s DPH**
+- [dobrepodlahy.cz](https://www.dobrepodlahy.cz/nabytkove-linoleum-desktop-4175-pebble) — 859–870 Kč/m², 24měsíční záruka (např. 4175 Pebble 859 Kč, 4164 Salsa 859 Kč, 4183 Pistachio 870 Kč)
+- [podlahy-brased.cz](https://www.podlahy-brased.cz/zbozi/122606/furniture-linoleum-desktop-4023-nero/) — Desktop 4023 Nero 859 Kč/m²
+- [MOUCAL podlahoviny](https://www.marmoleumlinoleum.cz/) — uvádí se jako výhradní distributor Forbo v ČR
+- [eamadeo.cz](https://www.eamadeo.cz/prirodni-linoleum?v=forbo-flooring), [podlahy-koberce.com](https://www.podlahy-koberce.com/podlahy/marmoleum/forbo/)
+- [Ostermann](https://www.ostermann.eu/en/product/forbo-furniture-linoleum-desktop-4176-mushroom) — prodává na metry (min. 1 bm), dodává do ČR, má i hrany v barvě
+
+**Kalkulace:** 3,17 m² × 870 Kč = **≈2 760 Kč za linoleum**. Plus deska (surová DTD/MDF 18–25 mm ≈ 1 500–2 500 Kč) + lepidlo + hrana. **Celkem cca 5–7 tis. Kč** — přesně ve vašem rozpočtu, a je to nejhezčí řešení pro pracovní desku v obýváku: hluboký mat, teplý omak, nesvítí, neodráží monitor.
+
+---
+
+#### Shrnutí: co bych na tuhle podlahu vybral
+
+| Pořadí | Řešení | Materiál | Odhad materiálu na 236+160 cm |
+|---|---|---|---|
+| 1. | **Linoleum 4176 Mushroom nebo 4166 Charcoal** na MDF 25 mm, hrana dubový masiv/dýha | Forbo Desktop + MDF | **5 000 – 7 000 Kč** |
+| 2. | **Dýhovaná DTD dub Commercial A/B 19 mm**, olej | Kili / Dřevo Trust | **5 800 – 6 500 Kč** (celá deska) |
+| 3. | **Lamino Egger H3368 ST9 Dub Lancaster přírodní** (medový, hladká ST9) | LTD 18/25 mm | **3 000 – 5 000 Kč** |
+| 4. | **Lamino Kronospan K003 PW Gold Craft Oak** — nejlevnější teplý dub | LTD 18 mm | **3 700 Kč** za celou desku |
+| 5. | **Egger H1181 ST37 Dub Halifax tabákový** — tmavá kotva, ale hluboká struktura | LTD 18,6 mm nebo PD 38 mm | 2 700 – 7 900 Kč |
+
+**Kde v Brně:** Kili (pobočka Brno), Demos trade (u Brna, nabízí nářez), Dřevo Trust, JAF Holz, Dýhy Alpi (sklad Brno). Konkrétní ceník nářezu na míru v Brně se mi ověřit nepodařilo — je potřeba poptat přímo.
+
+
+**Nezjištěno:**
+
+- Přesná definice struktury Egger ST19 – nepodařilo se najít oficiální popis; Egger v aktuálním přehledu struktur ST19 neuvádí ani na CZ stránce, ani v přehledech prodejců. Nevymýšlím si.
+- Kronospan dekor '8508 Natural Davos Oak' – v žádném z výsledků se toto číslo ani název nepotvrdil; možná jde o starší/neexistující kód. Nezjištěno.
+- Význam zkratek struktur Kronospan FP a MO – prodejci vysvětlují PW, SN, BS, SU, PR, PE, SM, ale FP/MO ne.
+- Konkrétní české ceny Forbo Desktop 4171 Camel a 4173 Brandy – čeští prodejci mají na webu jen některé odstíny (4175, 4164, 4183, 4023) za 859–870 Kč/m². Camel a Brandy nutno poptat.
+- Přesný počet barev Furniture Linoleum – zdroje uvádějí jednou 20, jinde 21 odstínů plus novější kódy 4177–4186. Oficiální brožuru se přes WebFetch otevřít nešlo.
+- Zda dekory H1344 ST32 Dub Sherman a H3325 ST28 Dub Gladstone zůstávají v Decorative Collection 26+ – u H1180 a H3303 to čeští prodejci označují jako 'KOLEKCE 26+', u H3395 jako '24+', ale u Shermana a Gladstona jsem označení kolekce nenašel.
+- Konflikt zdrojů: struktura řady Casella Oak – tiskové zprávy uvádějí ST17, oficiální Egger stránky ST40 Feelwood Oakgrain. Beru ST40, ale neověřeno na papírovém katalogu.
+- Konflikt zdrojů: H3176 ST37 – jeden zdroj uvádí 'Natural Halifax Oak', oficiální Egger 'Pewter Halifax Oak'. Beru Pewter.
+- Ceník nářezu lamina na míru v Brně (Kili Brno, Demos, truhlářství) – žádný veřejný ceník za řez se nepodařilo najít, nutno poptat přímo.
+- Přesné RGB/hex hodnoty jednotlivých dekorů – výrobci je nepublikují; shodu s #83420F / #C69160 hodnotím jen podle slovních popisů odstínu, ne měřením. Vzorky je nutné vidět naživo.
+- Aktuální ceny nejsou k 3. 9. 2026 potvrzené datem – e-shopy datum ceny neuvádějí, ceny se u stejného dekoru liší až o 45 % mezi prodejci (H1180: 3 398 vs 4 985 Kč).
+
+
+**Zdroje:**
+
+- [EGGER H1180 ST37 Dub Halifax přírodní (oficiální stránka dekoru)](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1180_37?country=CZ)
+- [EGGER H1181 ST37 Dub Halifax tabákový](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1181_37?lci=Y29sbD0xNjYyJm5jPWV1YzUg)
+- [EGGER H3368 ST9 Dub Lancaster přírodní](https://www.egger.com/cs/interior/decor-detail/H3368_9?country=CZ)
+- [EGGER H1344 ST32 Dub Sherman koňakově hnědý](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1344_32?country=CZ)
+- [EGGER H3325 ST28 Dub Gladstone tabákový](https://www.egger.com/pl/meble-i-aranzacja-wnetrz/dekory/H3325_28?lci=Y29sbD0xNzE3Jm5jPWV1YzMg)
+- [EGGER H3326 ST28 Dub Gladstone šedobéžový](https://www.egger.com/shop/cs_CZ/interior/decor-detail/H3326_28)
+- [EGGER H3303 ST10 Dub Hamilton přírodní](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3303_10?lci=Y29sbD0xNzE3Jm5jPWV1YzUg)
+- [EGGER H1133 ST10 Dub Hamilton přírodní příčný](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1133_10?lci=Y29sbD0xNjYyJm5jPWV1YzUg)
+- [EGGER H3395 ST12 Dub Corbridge přírodní](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3395_12?country=CZ)
+- [EGGER H3331 ST10 Dub Nebraska přírodní](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3331_10?lci=Y29sbD0xNzE3Jm5jPWV1YzUg)
+- [EGGER H3359 ST32 Dub Davenport přírodní světlý](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3359_32?country=CZ)
+- [EGGER H1145 ST10 Dub Bardolino přírodní](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H1145_10?lci=Y29sbD0xNjYyJm5jPWV1YzUg)
+- [EGGER H3730 ST10 Hickory přírodní](https://www.egger.com/cs/vyroba-nabytku-a-interierovy-design/dekory/H3730_10?country=CZ)
+- [EGGER H3176 ST37 Pewter Halifax Oak](https://www.egger.com/en/furniture-interior-design/decors/H3176_37?lci=Y29sbD0xNjY4Jm5jPXJvdzEg)
+- [EGGER H1388 ST40 Sand Casella Oak](https://www.egger.com/en/furniture-interior-design/decors/H1388_40?lci=Y29sbD0xNzE5Jm5jPW5hdzEg)
+- [EGGER H1367 ST40 Light Natural Casella Oak](https://www.egger.com/en/furniture-interior-design/decors/H1367_40?lci=Y29sbD0xNjU1Jm5jPW5hdzEg)
+- [EGGER – highlights Decorative Collection 26+](https://www.egger.com/en/furniture-interior-design/decorative-collection/highlights-collection-decorative-26?lci=bmM9cm93MSAg)
+- [EGGER – povrchové struktury a povrchy (CZ)](https://www.egger.com/cs/kolekce-dekorativnich-materialu/nabidka-dekoru/struktury?country=CZ)
+- [EGGER ST40 Feelwood Oakgrain](https://www.egger.com/en/furniture-interior-design/decorative-collection/textures/st40?country=US)
+- [EGGER ST17 Omnipore Oiled – popis nové struktury](https://www.woodandpanel.com/woodnews/article/egger-st17-omnipore-oiled-the-perfect-decor-for-wooden-surface/)
+- [EGGER Decorative Collection 26+ (launch, přehled novinek)](https://www.surfaceandpanel.com/egger-launches-decorative-collection-26/)
+- [EGGER Oak Laminate Worktops / Worktops Collection 26+](https://www.egger.com/en/furniture-interior-design/decorative-collection/oak-laminate-worktops?lci=bmM9ZXV3MSAg)
+- [EGGER Feelwood – hluboké synchronizované póry (CZ)](https://www.egger.com/cs/kolekce-dekorativnich-materialu/nabidka-dekoru/feelwood?country=CZ)
+- [Dřevo Trust – LTD H1180 Dub Halifax přírodní 18/2800x2070 ST37, KOLEKCE 26+](https://drevotrust.cz/cs/ltd-h1180-dub-halifax-prirodni-182800x2070-st37-novinka-2020-202/11266)
+- [Dřevo Trust – LTD H3303 Dub Hamilton přírodní 18/2800x2070 ST10, KOLEKCE 26+](https://drevotrust.cz/cs/ltd-h3303-dub-hamilton-prirodni-182800x2070-st10-novinka-2020-20/11309)
+- [Dřevo Trust – LTD H3395 Dub Corbridge přírodní 18/2800x2070 ST12, KOLEKCE 24+](https://drevotrust.cz/cs/ltd-h3395-dub-corbridge-prirodni-182800x2070-st12-novinka-2020-2/11315)
+- [ACER-CS – DTDL H1180 ST37 Dub Halifax přírodní 2800/2070/18,6 (cena)](https://acer-cs.cz/eshop/9-dtdl-h1180-st37-dub-halifax-prirodni-28002070186)
+- [Dřevoobchod Doležal – L H1180 ST37 2800*2070*18 (cena)](https://drevoobchoddolezal.cz/l-h1180-st37-2800207018/)
+- [Dřevotyp – DTDL H1180 ST37 Dub Halifax přírodní 18/2800/2070 (cena)](https://eshop.drevotyp.cz/dtdl-h1180-st37-dub-halifax-prirodni-18-2800-2070)
+- [Plošné materiály – Egger LTD Dub Halifax tabákový H1181 (ceny)](https://plosnematerialy.cz/3-laminovane-desky-ltd/45-dub-halifax-tabakovy-h1181.html)
+- [Dřevoobchod K&C – LTD H1181 ST37 Dub Halifax tabákový 2800x2070x18,6](https://www.drevoobchod-eshop.cz/ltd-h1181-st37-dub-halifax-tabakovy-2800x2070x186)
+- [Kili – LTD Dub Hamilton přírodní H3303 ST10 (cena)](https://www.kili.cz/desky-a-hrany/laminovane-desky-ltd/ltd-dub-hamilton-prirodni-h3303-st10-s466754454)
+- [Harv – DTDL Dub Hamilton přírodní H3303 ST10 2800/2070/18](https://www.harv.cz/dtdl-dub-hamilton-prirodni-h3303-st10-2800-2070-18/)
+- [Harv – DTDL Dub Halifax přírodní H1180 ST37, tloušťky 10,6 / 18,6 / 25,6](https://www.harv.cz/dtdl-dub-halifax-prirodni-h1180-st37-2800-2070-25-6/)
+- [Dřevoobchod K&C – pracovní deska H1180 ST37 Dub Halifax 4100x600x38](https://www.drevoobchod-eshop.cz/pracovni-deska-h1180-st37-dub-halifax-prirodni-4100x600x38-rovna-hrana-abs-model-10015)
+- [Biano – EGGER pracovní deska Dub Halifax přírodní H1180 ST37 ABS 4100x600x38](https://www.biano.cz/produkt/84336443-egger-pracovni-deska-dub-halifax-prirodni-h1180-st37-abs-4100x600x38)
+- [Dřevotyp – pracovní deska H1181 ST37 Dub Halifax tabákový 38/4100/600](https://eshop.drevotyp.cz/pracovni-deska-h1180-st37-dub-halifax-tabakovy-38-4100-600-product-3815)
+- [Harv – pracovní deska Dub Hamilton přírodní H3303 ST10](https://www.harv.cz/pracovni-deska-dub-hamilton-prirodni-h3303-st10/)
+- [JAF Holz – Lamino DTDL Egger H1334 ST9 Dub Sorano světlý (výběhový dekor)](https://www.jafholz.cz/shop/plosne-materialy/laminovane-materialy/dtd-laminovane/lamino-dtdl-egger-h1334-st9-dub-sorano-svetly---vybehovy-dekor~p15079706)
+- [JAF Holz – Lamino DTDL Egger H1345 ST32 Dub Sherman šedý (výběhový dekor)](https://www.jafholz.cz/shop/plosne-materialy/laminovane-materialy/dtd-laminovane/lamino-dtdl-egger-ml-h1345-st32-dub-sherman-sedy---vybehovy-dekor~p6895565)
+- [JAF Holz – ABS hrana Egger H3326 ST28 Dub Gladstone šedobéžový (výběhový)](https://www.jafholz.cz/shop/ABS-hrana-Egger-H3326-ST28-Dub-Gladstone-sedobezovy~p2210428)
+- [JAF Holz – Lamino DTDL Egger H1312 ST10 Dub Whiteriver pískově béžový](https://www.jafholz.cz/shop/Materialy-s-dekorativnim-povrchem/Lamino-desky-DTDL/lamino-dtdl-egger-h1312-st10-dub-whiteriver-piskove-bezovy~p6895823)
+- [JAF Holz – Lamino DTDL Egger H1313 ST10 Dub Whiteriver šedohnědý](https://www.jafholz.cz/shop/plosne-materialy/laminovane-materialy/dtd-laminovane/lamino-dtdl-egger-h1313-st10-dub-whiteriver-sedohnedy~p6895835)
+- [Kronospan Kronodesign – K003 Gold Craft Oak](https://kronospan.com/cs_CZ/decors/view/kronodesign/K003)
+- [Kronospan Kronodesign – K004 Tobacco Craft Oak](https://kronospan.com/en_US/decors/view/kronodesign/standard/K004/)
+- [Kronospan Kronodesign – K007 Coffee Urban Oak](https://kronospan.com/cs_CZ/decors/view/kronodesign/K007)
+- [Kronospan Kronodesign – K008 Light Select Walnut](https://kronospan.com/en_US/decors/view/kronodesign/standard/K008/)
+- [Kronospan Kronodesign – K002 Grey Craft Oak](https://kronospan.com/en_US/decors/view/kronodesign/K002/)
+- [Kronospan Kronodesign – K001 White Craft Oak](https://kronospan.com/en_US/decors/view/kronodesign/standard/K001/)
+- [Kronospan Kronodesign – K105 Raw Endgrain Oak](https://kronospan.com/en_US/decors/view/kronodesign/worktops-square-edge/K105/)
+
+
+---
+
+
+## Výškově stavitelné rámy – kolo 2 SE NEPODAŘILO PROVÉST (vyčerpaný limit vyhledávání) (dotazů: 2)
+
+### Výškově stavitelné rámy – kolo 2 SE NEPODAŘILO PROVÉST (vyčerpaný limit vyhledávání)
+
+**Stav: nezjištěno – žádný nový údaj jsem neověřil.**
+
+Hned první dva dotazy (`Flexispot E7 rám bez desky cena Kč`, `Flexispot E7 Pro cena Kč rám nosnost 100 kg`) vrátily místo výsledků tuto hlášku:
+
+> „Web search was not performed: this session has used its web search budget (200 of 200 WebSearch calls)."
+
+Sezení má vyčerpaný limit 200 WebSearch dotazů (spotřebovaly ho předchozí kola). WebFetch i `curl`/Bash jsou v tomto sezení blokované egress politikou, takže **neexistuje žádná cesta, jak ceny a parametry ověřit**. Zadaných „aspoň 20 dotazů" tedy položit nelze – reálně prošlo 0 z 2 pokusů.
+
+**Ceny ani odkazy si nevymýšlím**, proto níže není tabulka s čísly. To, co následuje, je pouze seznam toho, co je potřeba dohledat, a orientační poznámky z obecné znalosti (bez cen, bez záruky – vše nutno ověřit).
+
+#### Co konkrétně zůstalo nezjištěné
+
+| Značka / model | Co chybí |
+|---|---|
+| Flexispot E7, E7 Pro, E8, EG1, EF1 | cena v Kč, český prodejce, zdvih, nosnost, rozsah šířky rámu, prodej bez desky |
+| AlzaErgo Table ET1 / ET2 / ET4 (a novější) | cena v Kč, zda varianta „rám bez desky", zdvih, nosnost, roztažitelnost |
+| IKEA TROTTEN (klika) a MITTZON elektrický | cena v Kč, dostupnost samotné podnože, max. šířka desky |
+| Ergotrend, Deskstore, Sundesk, Ultradesk, Fromm & Starck, Yaasa, Desqup | vše – cena, parametry, český prodej |
+| Rámy s motory Linak / Jiecang / TiMOTION | které konkrétní modely v ČR, cena, kdo je prodává |
+| (a) Rámy pro desku 180–220 cm | nezjištěno – nutno ověřit maximální roztažení traverzy u každého modelu |
+| (b) Rámy do obýváku (bílá/černá, tenký profil) | nezjištěno |
+| (c) Kompletní sestava rám + deska 180×70 | nezjištěno – nelze spočítat bez ověřených cen |
+
+#### Orientační poznámky z obecné znalosti (NEOVĚŘENO, bez cen)
+
+Berte prosím jen jako vodítko, kam mířit v dalším kole – čísla nejsou ověřená a mohla se změnit:
+
+- **Flexispot** se v ČR běžně prodává i jako **samotný rám (frame only)** – to je pro váš případ (roh 236 × 160 cm, vlastní deska na míru) nejrelevantnější větev. Řady E7/E7 Pro jsou tříčlánkové nohy s vyšší nosností; EG1/EF1 jsou levnější dvoučlánkové s nižší nosností a užším rozsahem zdvihu.
+- **Zadání „pevná výška ~75 cm" se s elektrickými rámy tluče** – pokud opravdu nechcete polohování, vyjde levněji pevná podnož nebo nohy a rozpočet 5–20 tis. Kč pak celý padne do desky. Stojí za to si v dalším kole ujasnit, jestli je stavitelnost požadavek, nebo jen jedna z cest.
+- **L sestava v rohu 236 × 160 cm** se u stavitelných stolů typicky řeší buď jedním rámem pod hlavní desku (180–200 cm) a pevnou podpěrou/skříňkou pod kratší rameno, nebo dvěma samostatnými rámy. Rohové („L-shaped") rámy se třemi nohami existují, ale jsou dražší a v obýváku vizuálně těžké.
+- U rámů pro desku **180–220 cm** je limitem roztažení traverzy; běžné „standardní" rámy končí kolem 160–180 cm a na delší desky je potřeba varianta s prodlouženou traverzou. Toto je nutné ověřit u konkrétního modelu, ne odhadovat.
+
+#### Jak to dotáhnout
+
+Aby další kolo mělo šanci uspět, potřebuje jednu z těchto věcí:
+1. **zvýšit limit** – `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` (nebo spustit úkol v novém sezení s čerstvým rozpočtem), nebo
+2. **odblokovat WebFetch / síťový přístup**, aby šlo číst přímo e-shopy (flexispot.cz, alza.cz, ikea.com/cz, czc.cz, heureka.cz).
+
+Bez toho by jakákoli tabulka cen byla smyšlená, což je horší než žádná odpověď.
+
+
+**Nezjištěno:**
+
+- Flexispot E7 – cena v Kč, zdvih, nosnost, rozsah šířky rámu, prodej bez desky (WebSearch limit vyčerpán, WebFetch blokován)
+- Flexispot E7 Pro – cena v Kč a parametry
+- Flexispot E8 – cena v Kč a parametry
+- Flexispot EG1 – cena v Kč a parametry
+- Flexispot EF1 – cena v Kč a parametry
+- Kde se Flexispot v ČR oficiálně kupuje a zda se prodává samotný rám
+- AlzaErgo Table ET1 – cena v Kč a parametry
+- AlzaErgo Table ET2 – cena v Kč a parametry
+- AlzaErgo Table ET4 – cena v Kč a parametry
+- IKEA TROTTEN – aktuální cena v Kč, dostupnost samotné podnože
+- IKEA MITTZON elektrický – cena v Kč, max. rozměr desky
+- Ergotrend – modely, ceny, český prodejce
+- Deskstore – modely, ceny
+- Sundesk – modely, ceny
+- Ultradesk – modely, ceny
+- Fromm & Starck – modely, ceny
+- Yaasa – modely, ceny, dostupnost v ČR
+- Desqup – modely, ceny
+- Rámy s motory Linak / Jiecang / TiMOTION prodávané v ČR
+- (a) Které rámy se roztáhnou pod desku 180–220 cm
+- (b) Rámy vhodné do obýváku (bílá/černá, tenký profil)
+- (c) Cena kompletní sestavy rám + deska 180×70 cm
+
+
+---
+
+
+## Ověření cen — NEPROVEDENO (vyčerpaný rozpočet vyhledávání) (dotazů: 0)
+
+### Ověření cen — NEPROVEDENO (vyčerpaný rozpočet vyhledávání)
+
+**Žádnou cenu se v tomto běhu nepodařilo ověřit.** Uvádím to takto natvrdo, protože alternativa — doplnit čísla z paměti — by do kalkulačky v appce dostala nespolehlivé údaje.
+
+#### Co se stalo
+
+| Nástroj | Stav |
+|---|---|
+| `WebFetch` / `curl` | blokováno egress politikou (403 na CONNECT) — dle zadání jsem se o něj nepokoušel |
+| `WebSearch` | **rozpočet sezení vyčerpán: 200 z 200 dotazů** už spotřebovaly dřívější kroky workflow |
+
+Odpověď nástroje na první i druhý pokus byla doslova: „Web search was not performed: this session has used its web search budget (200 of 200 WebSearch calls)." Tedy zbylo 0 dotazů z plánovaných 25–40 a nemám ani jeden odkaz, ze kterého bych mohl citovat cenu.
+
+#### Jak to odblokovat
+
+Zvýšit limit proměnnou `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` (např. na 400) a tento krok spustit znovu — úkol je jinak proveditelný beze změny zadání. Případně tento cenový průzkum pustit jako samostatné sezení s čerstvým rozpočtem; nezávisí na výstupech předchozích kroků.
+
+#### Osnova dotazů připravená k okamžitému spuštění
+
+Aby další běh nezačínal od nuly, tady je seznam úzkých dotazů v pořadí podle důležitosti pro rozpočet stolu do rohu 236 × 160 cm:
+
+**A) IKEA desky** (9 dotazů) — `KARLBY dub 186x65 cena Kč`, `KARLBY ořech 246x65 cena`, `LAGKAPTEN 140x60 cena Kč`, `LINNMON 150x75 cena`, `ANFALLARE bambus 140x65 cena`, `HILVER bambus cena`, `TOLKEN 142x49 cena`, `MÖLLEKULLA dub 186x63 cena`, `PINNARP / SKOGSTA akácie cena Kč`.
+
+**A) IKEA podnože** (8 dotazů) — `ADILS noha cena`, `OLOV nastavitelná noha cena`, `KRILLE noha kolečko cena`, `ALEX zásuvková jednotka 36x70 cena`, `ALEX zásuvkový díl 67x66 cena`, `LERBERG kozy cena`, `TROTTEN podnož cena`, `MITTBACK koza cena`, `SANDSBERG / NÄRSPEL podnož cena`.
+
+**B) Spárovky** (6 dotazů) — po řetězcích a tloušťkách: `OBI spárovka dub 18 mm cena m2`, `Hornbach spárovka buk 27 mm 200x60 cena`, `Bauhaus spárovka smrk 40 mm cena`, plus varianty „masivní deska", „lepená deska", „nábytkový panel".
+
+**C) Kovové podnože** (5 dotazů) — `hairpin nohy sada cena Kč e-shop`, `podnož stolu jekl 60x30 černá cena`, `rám stolu tvar A/U/H na míru cena`, `kovová podnož psací stůl výroba Brno`.
+
+**D) Na míru** (5 dotazů) — `truhlář cena za m2 lamino deska`, `olepení ABS hrany cena za bm`, `hodinová sazba truhláře Brno`, `stůl 180x70 na míru cena`.
+
+**E) Kování zásuvek** (4 dotazy) — `Blum TANDEMBOX antaro sada cena Kč`, `Blum LEGRABOX cena sada`, `Hettich InnoTech Atira cena`, `Hettich ArciTech cena sada`.
+
+#### Doporučení pro kalkulačku
+
+Do doby doplnění cen nechat v appce cenové položky prázdné / označené jako „cena neověřena" místo výchozích odhadů — jinak uživatel dostane rozpočet, který vypadá přesně, ale opřený není o nic.
+
+
+**Nezjištěno:**
+
+- IKEA desky (KARLBY dub i ořech, LAGKAPTEN, LINNMON, ANFALLARE, HILVER, TOLKEN, MÖLLEKULLA, PINNARP, SKOGSTA) — rozměry ani ceny; rozpočet WebSearch vyčerpán (200/200), WebFetch blokován
+- IKEA podnože a nohy (ADILS, OLOV, KRILLE, ALEX jednotka i díl, LERBERG, TROTTEN, MITTBACK, NÄRSPEL, SANDSBERG) — ceny; totéž omezení
+- Spárovky a masivní desky OBI / Hornbach / Bauhaus (dub, buk, smrk, 18/27/40 mm) — dostupné rozměry ani ceny za kus či m2; totéž omezení
+- Kovové podnože českých prodejců (hairpin, rám A/U/H/trapéz, jekl 40x40 a 60x30) — e-shopy ani ceny za sadu; totéž omezení
+- Truhlářské ceny na míru (Kč/m2 lamino, dýha, masiv; Kč/bm olepení hrany; hodinová sazba v Brně; celková cena stolu 180x70) — totéž omezení
+- Kování zásuvek (Blum TANDEMBOX antaro, Blum LEGRABOX, Hettich InnoTech, Hettich ArciTech) — ceny za sadu v ČR; totéž omezení
+- Počet reálně položených dotazů: 0 z požadovaných 25+ — oba pokusy vrátily hlášku o vyčerpaném rozpočtu sezení
+
+
+---
+

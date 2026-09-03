@@ -2,25 +2,26 @@ import { useMemo } from 'react'
 import type { DeskConfig } from '@/model/types'
 import { SPACE, MAX_RAMENO_A } from '@/model/space'
 import { kontroly, poziceSezeni, type Zavaznost } from '@/model/constraints'
+import { podpory } from '@/model/podpory'
 
-const BARVA: Record<Zavaznost, string> = { ok: '#4E8C4A', pozor: '#D8912C', chyba: '#C0442E' }
+const BARVA: Record<Zavaznost, string> = { ok: '#4C7F45', pozor: '#C8871F', chyba: '#B33E28' }
 
 /**
  * Půdorys rohu s obrysem dostupného prostoru a kótovanými rezervami.
- * Osy podle model/space.ts: X doprava podél zadní stěny, Z dolů podél levé stěny.
+ * Kreslí se přímo v milimetrech (viewBox je v mm), takže se nic nerozjede,
+ * když se změní velikost panelu. Tloušťky čar a písmo se přepočítávají zpět na pixely.
  */
-export function FloorPlan({ config, sirka = 460 }: { config: DeskConfig; sirka?: number }) {
+export function FloorPlan({ config, sirka = 400 }: { config: DeskConfig; sirka?: number }) {
   const r = config.rozmery
   const jeL = config.tvar === 'L' && r.ramenoBDelka > 0
 
-  // Kreslený výřez místnosti (mm)
-  const VIEW_X = 3200
-  const VIEW_Z = 2900
-  const PAD = 190
-  const scale = (sirka - 2 * PAD) / VIEW_X
-  const vyska = VIEW_Z * scale + 2 * PAD
-  const X = (mm: number) => PAD + mm * scale
-  const Z = (mm: number) => PAD + mm * scale
+  // kreslený výřez v mm
+  const X0 = -820, X1 = 3520
+  const Z0 = -720, Z1 = 3120
+  const W = X1 - X0, H = Z1 - Z0
+  const vyska = Math.round((sirka * H) / W)
+  /** převod: kolik mm odpovídá jednomu pixelu na obrazovce */
+  const px = (n: number) => (n * W) / sirka
 
   const k = useMemo(() => kontroly(config), [config])
   const stav = (id: string) => k.find((x) => x.id === id)?.stav ?? 'ok'
@@ -29,120 +30,112 @@ export function FloorPlan({ config, sirka = 460 }: { config: DeskConfig; sirka?:
   const odHrany = SPACE.levaStenaRun - r.ramenoADelka
   const zonaZidle = SPACE.zadniStenaKeGauci - r.ramenoAHloubka
   const sez = poziceSezeni(config)
+  const podp = podpory(config)
 
-  // Obrys desky
-  const body = jeL
+  const body: Array<[number, number]> = jeL
     ? [[0, 0], [r.ramenoBDelka, 0], [r.ramenoBDelka, r.ramenoBHloubka],
        [r.ramenoAHloubka, r.ramenoBHloubka], [r.ramenoAHloubka, r.ramenoADelka], [0, r.ramenoADelka]]
     : [[0, 0], [r.ramenoAHloubka, 0], [r.ramenoAHloubka, r.ramenoADelka], [0, r.ramenoADelka]]
-  const poly = body.map(([x, z]) => `${X(x)},${Z(z)}`).join(' ')
 
-  const Kota = ({ x1, z1, x2, z2, popis, barva, odsad = 0, svisle = false }: {
+  const Kota = ({ x1, z1, x2, z2, popis, barva, odsad, svisle = false }: {
     x1: number; z1: number; x2: number; z2: number
-    popis: string; barva: string; odsad?: number; svisle?: boolean
+    popis: string; barva: string; odsad: number; svisle?: boolean
   }) => {
-    const ax = X(x1) + (svisle ? odsad : 0)
-    const az = Z(z1) + (svisle ? 0 : odsad)
-    const bx = X(x2) + (svisle ? odsad : 0)
-    const bz = Z(z2) + (svisle ? 0 : odsad)
-    const mx = (ax + bx) / 2
-    const mz = (az + bz) / 2
+    const ax = svisle ? x1 + odsad : x1, az = svisle ? z1 : z1 + odsad
+    const bx = svisle ? x2 + odsad : x2, bz = svisle ? z2 : z2 + odsad
+    const mx = (ax + bx) / 2, mz = (az + bz) / 2
+    const sirkaTextu = px(popis.length * 5.6 + 12)
+    const vyskaTextu = px(15)
     return (
       <g>
-        <line x1={ax} y1={az} x2={bx} y2={bz} stroke={barva} strokeWidth={1.3} markerStart="url(#sipka)" markerEnd="url(#sipka)" />
-        <line x1={X(x1)} y1={Z(z1)} x2={ax} y2={az} stroke={barva} strokeWidth={0.6} strokeDasharray="3 3" opacity={0.65} />
-        <line x1={X(x2)} y1={Z(z2)} x2={bx} y2={bz} stroke={barva} strokeWidth={0.6} strokeDasharray="3 3" opacity={0.65} />
-        <rect x={mx - popis.length * 3.3 - 5} y={mz - 9} width={popis.length * 6.6 + 10} height={18} rx={9} fill="#FFFDF9" stroke={barva} strokeWidth={0.9} />
-        <text x={mx} y={mz + 4} textAnchor="middle" fontSize={11} fontWeight={600} fill={barva}>{popis}</text>
+        <line x1={x1} y1={z1} x2={ax} y2={az} stroke={barva} strokeWidth={px(0.6)} strokeDasharray={`${px(3)} ${px(3)}`} opacity={0.6} />
+        <line x1={x2} y1={z2} x2={bx} y2={bz} stroke={barva} strokeWidth={px(0.6)} strokeDasharray={`${px(3)} ${px(3)}`} opacity={0.6} />
+        <line x1={ax} y1={az} x2={bx} y2={bz} stroke={barva} strokeWidth={px(1.1)} />
+        <circle cx={ax} cy={az} r={px(1.7)} fill={barva} />
+        <circle cx={bx} cy={bz} r={px(1.7)} fill={barva} />
+        <rect x={mx - sirkaTextu / 2} y={mz - vyskaTextu / 2} width={sirkaTextu} height={vyskaTextu}
+              rx={vyskaTextu / 2} fill="#FFFDF9" stroke={barva} strokeWidth={px(0.7)} />
+        <text x={mx} y={mz + px(3.2)} textAnchor="middle" fontSize={px(9)} fontWeight={600} fill={barva}>{popis}</text>
       </g>
     )
   }
 
   return (
-    <svg width={sirka} height={vyska} viewBox={`0 0 ${sirka} ${vyska}`} className="pudorys">
+    <svg width={sirka} height={vyska} viewBox={`${X0} ${Z0} ${W} ${H}`} className="pudorys">
       <defs>
-        <marker id="sipka" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
-          <path d="M0.5,3.5 L6,1 L4.6,3.5 L6,6 Z" fill="currentColor" />
-        </marker>
-        <pattern id="srafy" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="0" x2="0" y2="7" stroke="#C9B7A9" strokeWidth="2.4" />
+        <pattern id="srafy" width={px(6)} height={px(6)} patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2={px(6)} stroke="#CFBBA4" strokeWidth={px(2.2)} />
         </pattern>
-        <pattern id="volno" width="6" height="6" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="0" x2="0" y2="6" stroke="#B7D2B5" strokeWidth="1.6" />
+        <pattern id="volno" width={px(5)} height={px(5)} patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2={px(5)} stroke="#B7D2B5" strokeWidth={px(1.4)} />
         </pattern>
       </defs>
 
-      {/* podlaha */}
-      <rect x={X(-260)} y={Z(-260)} width={(VIEW_X + 260) * scale} height={(VIEW_Z + 260) * scale} fill="#F7F0E6" />
+      <rect x={X0} y={Z0} width={W} height={H} fill="#FBF5EC" />
 
       {/* stěny */}
-      <rect x={X(-160)} y={Z(-160)} width={160 * scale} height={(VIEW_Z + 160) * scale} fill="url(#srafy)" stroke="#A08B77" strokeWidth={1} />
-      <rect x={X(-160)} y={Z(-160)} width={(VIEW_X + 160) * scale} height={160 * scale} fill="url(#srafy)" stroke="#A08B77" strokeWidth={1} />
+      <rect x={-150} y={-150} width={150} height={Z1 + 150} fill="url(#srafy)" stroke="#A08B77" strokeWidth={px(0.8)} />
+      <rect x={-150} y={-150} width={X1 + 150} height={150} fill="url(#srafy)" stroke="#A08B77" strokeWidth={px(0.8)} />
 
-      {/* dostupná zóna 236 x 160 */}
-      <rect x={X(0)} y={Z(0)} width={SPACE.zadniStenaKeGauci * scale} height={SPACE.levaStenaRun * scale}
-            fill="none" stroke="#C86A24" strokeWidth={1.2} strokeDasharray="7 4" opacity={0.75} />
+      {/* dostupný roh */}
+      <rect x={0} y={0} width={SPACE.zadniStenaKeGauci} height={SPACE.levaStenaRun}
+            fill="none" stroke="#C4661F" strokeWidth={px(1)} strokeDasharray={`${px(6)} ${px(4)}`} opacity={0.7} />
 
       {/* zóna pro odsunutí židle */}
-      <rect x={X(r.ramenoAHloubka)} y={Z(jeL ? r.ramenoBHloubka : 0)}
-            width={Math.max(0, zonaZidle) * scale}
-            height={Math.max(0, r.ramenoADelka - (jeL ? r.ramenoBHloubka : 0)) * scale}
-            fill="url(#volno)" opacity={0.5} />
+      <rect x={r.ramenoAHloubka} y={jeL ? r.ramenoBHloubka : 0}
+            width={Math.max(0, zonaZidle)} height={Math.max(0, r.ramenoADelka - (jeL ? r.ramenoBHloubka : 0))}
+            fill="url(#volno)" opacity={0.55} />
 
       {/* gauč */}
-      <rect x={X(SPACE.zadniStenaKeGauci)} y={Z(0)} width={1500 * scale} height={SPACE.gauc.hloubka * scale}
-            rx={10 * scale} fill="#0F5A78" opacity={0.85} />
-      <text x={X(SPACE.zadniStenaKeGauci + 420)} y={Z(SPACE.gauc.hloubka / 2) + 4} fontSize={12} fill="#fff" fontWeight={600}>GAUČ</text>
+      <rect x={SPACE.zadniStenaKeGauci} y={0} width={1750} height={SPACE.gauc.hloubka}
+            rx={60} fill="#0F5A78" opacity={0.88} />
+      <text x={SPACE.zadniStenaKeGauci + 500} y={SPACE.gauc.hloubka / 2 + px(4)} fontSize={px(11)} fill="#fff" fontWeight={700}>GAUČ</text>
 
-      {/* hrana, od které držíme 25 cm */}
-      <line x1={X(-120)} y1={Z(SPACE.levaStenaRun)} x2={X(760)} y2={Z(SPACE.levaStenaRun)} stroke="#A08B77" strokeWidth={2} />
-      <text x={X(300)} y={Z(SPACE.levaStenaRun) + 16} fontSize={10} fill="#8A7563">hrana</text>
+      {/* hrana, od které držíme odstup */}
+      <line x1={-150} y1={SPACE.levaStenaRun} x2={900} y2={SPACE.levaStenaRun} stroke="#A08B77" strokeWidth={px(2)} />
+      <text x={330} y={SPACE.levaStenaRun + px(13)} fontSize={px(8.5)} fill="#8A7563">hrana</text>
 
       {/* deska */}
-      <polygon points={poly} fill="#C69160" stroke="#8A5B2E" strokeWidth={1.6} />
+      <polygon points={body.map(([x, z]) => `${x},${z}`).join(' ')} fill="#D9AE7E" stroke="#8A5B2E" strokeWidth={px(1.4)} />
       {config.doplnky.tiskarnaVRohu && jeL && (
-        <rect x={X(60)} y={Z(60)} width={450 * scale} height={400 * scale} fill="#3A3A3C" opacity={0.55} rx={3} />
+        <g>
+          <rect x={60} y={60} width={450} height={400} fill="#3A3A3C" opacity={0.5} rx={20} />
+          <text x={285} y={280} textAnchor="middle" fontSize={px(8)} fill="#fff">tiskárna</text>
+        </g>
       )}
+      {/* podpory */}
+      {podp.map((q, i) => (
+        <rect key={i} x={q.x - 26} y={q.z - 26} width={52} height={52} fill="#FFFDF9" stroke="#5A4433" strokeWidth={px(1)} />
+      ))}
 
       {/* židle */}
-      <g>
-        <circle cx={X(r.ramenoAHloubka + 330)} cy={Z(sez)} r={330 * scale} fill="#2C2D2F" opacity={0.16} />
-        <circle cx={X(r.ramenoAHloubka + 330)} cy={Z(sez)} r={235 * scale} fill="#2C2D2F" opacity={0.55} />
-        <text x={X(r.ramenoAHloubka + 330)} y={Z(sez) + 4} textAnchor="middle" fontSize={10} fill="#fff">židle</text>
-      </g>
+      <circle cx={r.ramenoAHloubka + 340} cy={sez} r={340} fill="#2C2D2F" opacity={0.14} />
+      <circle cx={r.ramenoAHloubka + 340} cy={sez} r={240} fill="#2C2D2F" opacity={0.5} />
+      <text x={r.ramenoAHloubka + 340} y={sez + px(3.5)} textAnchor="middle" fontSize={px(8.5)} fill="#fff">židle</text>
 
       {/* KÓTY */}
-      <g color={BARVA[stav('rameno-a')]}>
-        <Kota x1={0} z1={r.ramenoADelka} x2={0} z2={SPACE.levaStenaRun} svisle odsad={-52}
-              popis={`${Math.round(odHrany / 10)} cm`} barva={BARVA[stav('rameno-a')]} />
-      </g>
-      <g color="#8A7563">
-        <Kota x1={0} z1={0} x2={0} z2={r.ramenoADelka} svisle odsad={-118}
-              popis={`rameno A ${Math.round(r.ramenoADelka / 10)} cm`} barva="#8A7563" />
-      </g>
+      <Kota x1={0} z1={0} x2={0} z2={r.ramenoADelka} svisle odsad={-420}
+            popis={`rameno A ${Math.round(r.ramenoADelka / 10)} cm`} barva="#7A6552" />
+      <Kota x1={0} z1={r.ramenoADelka} x2={0} z2={SPACE.levaStenaRun} svisle odsad={-175}
+            popis={`${Math.round(odHrany / 10)} cm`} barva={BARVA[stav('rameno-a')]} />
       {jeL && (
         <>
-          <g color="#8A7563">
-            <Kota x1={0} z1={0} x2={r.ramenoBDelka} z2={0} odsad={-56}
-                  popis={`rameno B ${Math.round(r.ramenoBDelka / 10)} cm`} barva="#8A7563" />
-          </g>
-          <g color={BARVA[stav('mezera-gauc')]}>
-            <Kota x1={r.ramenoBDelka} z1={0} x2={SPACE.zadniStenaKeGauci} z2={0} odsad={-118}
-                  popis={`${Math.round(mezera / 10)} cm ke gauči`} barva={BARVA[stav('mezera-gauc')]} />
-          </g>
+          <Kota x1={0} z1={0} x2={r.ramenoBDelka} z2={0} odsad={-215}
+                popis={`rameno B ${Math.round(r.ramenoBDelka / 10)} cm`} barva="#7A6552" />
+          <Kota x1={r.ramenoBDelka} z1={0} x2={SPACE.zadniStenaKeGauci} z2={0} odsad={-420}
+                popis={`${Math.round(mezera / 10)} cm ke gauči`} barva={BARVA[stav('mezera-gauc')]} />
         </>
       )}
-      <g color={BARVA[stav('zona-zidle')]}>
-        <Kota x1={r.ramenoAHloubka} z1={r.ramenoADelka} x2={SPACE.zadniStenaKeGauci} z2={r.ramenoADelka} odsad={64}
-              popis={`${Math.round(zonaZidle / 10)} cm na židli`} barva={BARVA[stav('zona-zidle')]} />
-      </g>
-      <g color={BARVA[stav('vycnivani')]}>
-        <Kota x1={0} z1={r.ramenoADelka} x2={r.ramenoAHloubka} z2={r.ramenoADelka} odsad={26}
-              popis={`${Math.round(r.ramenoAHloubka / 10)} cm`} barva={BARVA[stav('vycnivani')]} />
-      </g>
+      <Kota x1={r.ramenoAHloubka} z1={r.ramenoADelka} x2={SPACE.zadniStenaKeGauci} z2={r.ramenoADelka} odsad={290}
+            popis={`${Math.round(zonaZidle / 10)} cm na židli`} barva={BARVA[stav('zona-zidle')]} />
+      <Kota x1={0} z1={r.ramenoADelka} x2={r.ramenoAHloubka} z2={r.ramenoADelka} odsad={120}
+            popis={`${Math.round(r.ramenoAHloubka / 10)} cm`} barva={BARVA[stav('vycnivani')]} />
 
-      <text x={X(0)} y={Z(-190)} fontSize={10} fill="#8A7563">
+      <text x={X0 + 40} y={Z0 + px(11)} fontSize={px(8.5)} fill="#8A7563">
         dostupný roh {SPACE.zadniStenaKeGauci / 10} × {SPACE.levaStenaRun / 10} cm · rameno A max {MAX_RAMENO_A / 10} cm
+      </text>
+      <text x={X0 + 40} y={Z1 - px(4)} fontSize={px(8)} fill="#8A7563">
+        čtverečky = podpory · šrafovaná zóna = volno pro židli
       </text>
     </svg>
   )

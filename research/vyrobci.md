@@ -1,30 +1,32 @@
 # Zakázková výroba nábytku — Brno a okolí
 
 Podklad pro poptávku pracovního stolu na míru do rohu obývacího pokoje
-(rameno A max 211 cm, rameno B max 148 cm, L deska, pevná výška 75 cm).
+(rameno A max 211 cm, rameno B max 148 cm, L deska, pevná výška 75 cm, rozpočet 5–20 tis. Kč).
 
-## Jak tenhle seznam vznikl a co s ním
+## Jak seznam vznikl a co s ním
 
 Sestavili ho dva nezávislí agenti přes fulltextové vyhledávání — jeden hledal přímo v Brně,
 druhý v okolí do 40 km a přes katalogy, aby zachytil firmy, které přímé hledání mine.
 Dohromady položili **106 vyhledávacích dotazů**.
 
-**Omezení, které musíš vzít v potaz:** v prostředí, kde rešerše běžela, nešlo otevírat
-konkrétní webové stránky (`WebFetch` blokovaný egress politikou), takže **kontakty nejsou
-ověřené proti živému webu firmy**. Telefonní čísla a e-maily jsou uvedené jen tam, kde je
-vrátilo vyhledávání. **Než někomu zavoláš, ověř si kontakt na jeho webu.**
+**Omezení:** v prostředí, kde rešerše běžela, nešlo otevírat konkrétní webové stránky
+(`WebFetch` blokovaný egress politikou), takže **kontakty nejsou ověřené proti živému webu firmy**.
+Telefony a e-maily jsou uvedené jen tam, kde je vrátilo vyhledávání; jinde je napsáno „nezjištěno“.
+**Než někomu zavoláš, ověř si kontakt na jeho webu.**
 
-## Co poptávat
+## Co se ptát
 
 Ke každé poptávce přilož export z konfigurátoru (technický nákres + rozpiska dílců).
-Zeptej se konkrétně na:
+Konkrétně se zeptej:
 
-1. Jestli berou **jednu malou zakázku** (jeden stůl) — spousta firem dělá jen kuchyně
-   a vestavěné skříně a jeden stůl je pro ně administrativně nezajímavý.
-2. Cenu ve **dvou variantách materiálu** (lamino nebo dýha vs. masiv) — rozdíl bývá násobný.
-3. Jestli si desku **vyrobí sami, nebo ji objednají naformátovanou** (Demos, Kili, Dřevocentrum).
-   Když ji objednají, můžeš si ji objednat i sám a ušetřit marži.
-4. **Termín** a jestli je v ceně doprava a montáž.
+1. **Berete jednu malou zakázku (jeden stůl)?** Řada firem dělá jen kuchyně a vestavěné
+   skříně a jeden stůl je pro ně administrativně nezajímavý. V tabulkách níže je u firem,
+   kde to šlo zjistit, sloupec právě k tomuhle.
+2. **Cena ve dvou variantách materiálu** — lamino nebo dýha vs. masiv. Rozdíl bývá násobný
+   a rozhodne, jestli se vejdeš do 20 tis.
+3. **Vyrobíte desku sami, nebo ji objednáte naformátovanou?** Když ji objednají,
+   můžeš si ji objednat i sám (viz dodavatelé desek na míru níže) a ušetřit marži.
+4. **Termín**, a jestli je v ceně doprava a montáž.
 5. U masivu: **jak řeší dilataci** (masiv pracuje) a jakou povrchovou úpravu doporučují.
 
 ---
