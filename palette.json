@@ -1,0 +1,1678 @@
+{
+  "meta": {
+    "source": "sampled",
+    "image": "photo.png",
+    "image_size": [
+      1448,
+      1086
+    ],
+    "methods": {
+      "flat": "medián nejhomogennější plošky v oblasti (vyhne se hranám a předmětům)",
+      "extreme": "medián nejtmavších/nejsvětlejších N % pixelů oblasti",
+      "kmeans": "dominantní barvy oblasti"
+    },
+    "script": "scripts/sample_palette.py"
+  },
+  "samples": [
+    {
+      "name": "podlaha_slunce",
+      "role": "podlaha",
+      "hex": "#7B3D0A",
+      "rgb": [
+        123,
+        61,
+        10
+      ],
+      "lab": [
+        33.07,
+        23.67,
+        39.76
+      ],
+      "hsl": {
+        "h": 27.1,
+        "s": 85.0,
+        "l": 26.1
+      },
+      "method": "flat",
+      "x": 220,
+      "y": 970,
+      "patch": 10,
+      "u": 0.15193,
+      "v": 0.89319,
+      "search_box": [
+        200,
+        920,
+        400,
+        1010
+      ],
+      "variance": 3.03,
+      "prefer": null
+    },
+    {
+      "name": "podlaha_stred",
+      "role": "podlaha",
+      "hex": "#7E3F0F",
+      "rgb": [
+        126,
+        63,
+        15
+      ],
+      "lab": [
+        34.04,
+        24.0,
+        38.87
+      ],
+      "hsl": {
+        "h": 25.9,
+        "s": 78.7,
+        "l": 27.6
+      },
+      "method": "flat",
+      "x": 570,
+      "y": 1050,
+      "patch": 10,
+      "u": 0.39365,
+      "v": 0.96685,
+      "search_box": [
+        560,
+        960,
+        760,
+        1060
+      ],
+      "variance": 3.93,
+      "prefer": null
+    },
+    {
+      "name": "podlaha_stin",
+      "role": "podlaha",
+      "hex": "#672D03",
+      "rgb": [
+        103,
+        45,
+        3
+      ],
+      "lab": [
+        26.06,
+        23.68,
+        35.47
+      ],
+      "hsl": {
+        "h": 25.2,
+        "s": 94.3,
+        "l": 20.8
+      },
+      "method": "flat",
+      "x": 328,
+      "y": 864,
+      "patch": 7,
+      "u": 0.22652,
+      "v": 0.79558,
+      "search_box": [
+        300,
+        850,
+        420,
+        900
+      ],
+      "variance": 2.81,
+      "prefer": null
+    },
+    {
+      "name": "podlaha_vpravo",
+      "role": "podlaha",
+      "hex": "#985B31",
+      "rgb": [
+        152,
+        91,
+        49
+      ],
+      "lab": [
+        44.77,
+        21.1,
+        34.27
+      ],
+      "hsl": {
+        "h": 24.5,
+        "s": 51.2,
+        "l": 39.4
+      },
+      "method": "flat",
+      "x": 1136,
+      "y": 1060,
+      "patch": 8,
+      "u": 0.78453,
+      "v": 0.97606,
+      "search_box": [
+        1000,
+        1020,
+        1300,
+        1080
+      ],
+      "variance": 4.05,
+      "prefer": null
+    },
+    {
+      "name": "stena_zadni_svetla",
+      "role": "stena",
+      "hex": "#E7C4A7",
+      "rgb": [
+        231,
+        196,
+        167
+      ],
+      "lab": [
+        81.43,
+        8.15,
+        19.18
+      ],
+      "hsl": {
+        "h": 27.2,
+        "s": 57.1,
+        "l": 78.0
+      },
+      "method": "flat",
+      "x": 1232,
+      "y": 240,
+      "patch": 12,
+      "u": 0.85083,
+      "v": 0.22099,
+      "search_box": [
+        1100,
+        180,
+        1250,
+        260
+      ],
+      "variance": 1.94,
+      "prefer": null
+    },
+    {
+      "name": "stena_zadni_stred",
+      "role": "stena",
+      "hex": "#BEA999",
+      "rgb": [
+        190,
+        169,
+        153
+      ],
+      "lab": [
+        70.61,
+        5.0,
+        11.04
+      ],
+      "hsl": {
+        "h": 25.9,
+        "s": 22.2,
+        "l": 67.3
+      },
+      "method": "flat",
+      "x": 492,
+      "y": 272,
+      "patch": 12,
+      "u": 0.33978,
+      "v": 0.25046,
+      "search_box": [
+        480,
+        260,
+        620,
+        340
+      ],
+      "variance": 1.18,
+      "prefer": null
+    },
+    {
+      "name": "stena_leva_stin",
+      "role": "stena",
+      "hex": "#BBA795",
+      "rgb": [
+        187,
+        167,
+        149
+      ],
+      "lab": [
+        69.73,
+        4.33,
+        11.96
+      ],
+      "hsl": {
+        "h": 28.4,
+        "s": 21.8,
+        "l": 65.9
+      },
+      "method": "flat",
+      "x": 235,
+      "y": 230,
+      "patch": 10,
+      "u": 0.16229,
+      "v": 0.21179,
+      "search_box": [
+        195,
+        220,
+        260,
+        300
+      ],
+      "variance": 1.16,
+      "prefer": null
+    },
+    {
+      "name": "stena_leva_dole",
+      "role": "stena",
+      "hex": "#D3CFCE",
+      "rgb": [
+        211,
+        207,
+        206
+      ],
+      "lab": [
+        83.41,
+        1.19,
+        0.98
+      ],
+      "hsl": {
+        "h": 12.0,
+        "s": 5.4,
+        "l": 81.8
+      },
+      "method": "flat",
+      "x": 62,
+      "y": 496,
+      "patch": 8,
+      "u": 0.04282,
+      "v": 0.45672,
+      "search_box": [
+        30,
+        480,
+        80,
+        560
+      ],
+      "variance": 0.91,
+      "prefer": null
+    },
+    {
+      "name": "strop",
+      "role": "strop",
+      "hex": "#BAA698",
+      "rgb": [
+        186,
+        166,
+        152
+      ],
+      "lab": [
+        69.45,
+        4.95,
+        9.9
+      ],
+      "hsl": {
+        "h": 24.7,
+        "s": 19.8,
+        "l": 66.3
+      },
+      "method": "flat",
+      "x": 620,
+      "y": 80,
+      "patch": 10,
+      "u": 0.42818,
+      "v": 0.07366,
+      "search_box": [
+        600,
+        40,
+        800,
+        90
+      ],
+      "variance": 1.16,
+      "prefer": null
+    },
+    {
+      "name": "gauc_svetlo",
+      "role": "gauc",
+      "hex": "#043F58",
+      "rgb": [
+        4,
+        63,
+        88
+      ],
+      "lab": [
+        24.59,
+        -7.23,
+        -19.85
+      ],
+      "hsl": {
+        "h": 197.9,
+        "s": 91.3,
+        "l": 18.0
+      },
+      "method": "flat",
+      "x": 996,
+      "y": 512,
+      "patch": 8,
+      "u": 0.68785,
+      "v": 0.47145,
+      "search_box": [
+        860,
+        480,
+        1010,
+        530
+      ],
+      "variance": 2.27,
+      "prefer": "light"
+    },
+    {
+      "name": "gauc_stred",
+      "role": "gauc",
+      "hex": "#042B3D",
+      "rgb": [
+        4,
+        43,
+        61
+      ],
+      "lab": [
+        15.95,
+        -5.56,
+        -15.19
+      ],
+      "hsl": {
+        "h": 198.9,
+        "s": 87.7,
+        "l": 12.7
+      },
+      "method": "flat",
+      "x": 856,
+      "y": 630,
+      "patch": 8,
+      "u": 0.59116,
+      "v": 0.58011,
+      "search_box": [
+        760,
+        590,
+        900,
+        640
+      ],
+      "variance": 3.11,
+      "prefer": null
+    },
+    {
+      "name": "gauc_stin",
+      "role": "gauc",
+      "hex": "#042737",
+      "rgb": [
+        4,
+        39,
+        55
+      ],
+      "lab": [
+        14.13,
+        -5.44,
+        -13.83
+      ],
+      "hsl": {
+        "h": 198.8,
+        "s": 86.4,
+        "l": 11.6
+      },
+      "method": "flat",
+      "x": 820,
+      "y": 634,
+      "patch": 6,
+      "u": 0.5663,
+      "v": 0.58379,
+      "search_box": [
+        700,
+        628,
+        830,
+        652
+      ],
+      "variance": 2.11,
+      "prefer": null
+    },
+    {
+      "name": "gauc_chaise",
+      "role": "gauc",
+      "hex": "#3897C4",
+      "rgb": [
+        56,
+        151,
+        196
+      ],
+      "lab": [
+        58.93,
+        -12.97,
+        -31.26
+      ],
+      "hsl": {
+        "h": 199.3,
+        "s": 55.6,
+        "l": 49.4
+      },
+      "method": "flat",
+      "x": 1322,
+      "y": 632,
+      "patch": 8,
+      "u": 0.91298,
+      "v": 0.58195,
+      "search_box": [
+        1250,
+        600,
+        1350,
+        650
+      ],
+      "variance": 6.83,
+      "prefer": null
+    },
+    {
+      "name": "gauc_oprerka",
+      "role": "gauc",
+      "hex": "#053A52",
+      "rgb": [
+        5,
+        58,
+        82
+      ],
+      "lab": [
+        22.54,
+        -6.4,
+        -19.12
+      ],
+      "hsl": {
+        "h": 198.7,
+        "s": 88.5,
+        "l": 17.1
+      },
+      "method": "flat",
+      "x": 986,
+      "y": 492,
+      "patch": 6,
+      "u": 0.68094,
+      "v": 0.45304,
+      "search_box": [
+        980,
+        480,
+        1050,
+        515
+      ],
+      "variance": 1.91,
+      "prefer": null
+    },
+    {
+      "name": "dub_deska",
+      "role": "dub",
+      "hex": "#C69160",
+      "rgb": [
+        198,
+        145,
+        96
+      ],
+      "lab": [
+        64.24,
+        14.29,
+        33.74
+      ],
+      "hsl": {
+        "h": 28.8,
+        "s": 47.2,
+        "l": 57.6
+      },
+      "method": "flat",
+      "x": 257,
+      "y": 570,
+      "patch": 6,
+      "u": 0.17749,
+      "v": 0.52486,
+      "search_box": [
+        185,
+        552,
+        278,
+        582
+      ],
+      "variance": 4.04,
+      "prefer": "light"
+    },
+    {
+      "name": "dub_bocnice",
+      "role": "dub",
+      "hex": "#844F26",
+      "rgb": [
+        132,
+        79,
+        38
+      ],
+      "lab": [
+        38.97,
+        18.45,
+        32.92
+      ],
+      "hsl": {
+        "h": 26.2,
+        "s": 55.3,
+        "l": 33.3
+      },
+      "method": "flat",
+      "x": 212,
+      "y": 744,
+      "patch": 12,
+      "u": 0.14641,
+      "v": 0.68508,
+      "search_box": [
+        140,
+        660,
+        240,
+        760
+      ],
+      "variance": 3.61,
+      "prefer": null
+    },
+    {
+      "name": "dub_kontejner",
+      "role": "dub",
+      "hex": "#92613B",
+      "rgb": [
+        146,
+        97,
+        59
+      ],
+      "lab": [
+        45.6,
+        15.73,
+        29.53
+      ],
+      "hsl": {
+        "h": 26.2,
+        "s": 42.4,
+        "l": 40.2
+      },
+      "method": "flat",
+      "x": 533,
+      "y": 601,
+      "patch": 8,
+      "u": 0.36809,
+      "v": 0.55341,
+      "search_box": [
+        525,
+        585,
+        600,
+        620
+      ],
+      "variance": 4.29,
+      "prefer": null
+    },
+    {
+      "name": "dub_konferencak",
+      "role": "dub",
+      "hex": "#CEA280",
+      "rgb": [
+        206,
+        162,
+        128
+      ],
+      "lab": [
+        69.84,
+        11.65,
+        23.9
+      ],
+      "hsl": {
+        "h": 26.2,
+        "s": 44.3,
+        "l": 65.5
+      },
+      "method": "flat",
+      "x": 1132,
+      "y": 680,
+      "patch": 6,
+      "u": 0.78177,
+      "v": 0.62615,
+      "search_box": [
+        1090,
+        668,
+        1180,
+        695
+      ],
+      "variance": 4.21,
+      "prefer": null
+    },
+    {
+      "name": "cerna_zidle",
+      "role": "kov",
+      "hex": "#1F2021",
+      "rgb": [
+        31,
+        32,
+        33
+      ],
+      "lab": [
+        12.18,
+        -0.21,
+        -0.84
+      ],
+      "hsl": {
+        "h": 210.0,
+        "s": 3.1,
+        "l": 12.5
+      },
+      "method": "flat",
+      "x": 416,
+      "y": 588,
+      "patch": 6,
+      "u": 0.28729,
+      "v": 0.54144,
+      "search_box": [
+        380,
+        570,
+        430,
+        620
+      ],
+      "variance": 1.67,
+      "prefer": null
+    },
+    {
+      "name": "cerna_monitor",
+      "role": "kov",
+      "hex": "#14110D",
+      "rgb": [
+        20,
+        17,
+        13
+      ],
+      "lab": [
+        5.23,
+        0.47,
+        2.39
+      ],
+      "hsl": {
+        "h": 34.3,
+        "s": 21.2,
+        "l": 6.5
+      },
+      "method": "flat",
+      "x": 350,
+      "y": 440,
+      "patch": 10,
+      "u": 0.24171,
+      "v": 0.40516,
+      "search_box": [
+        300,
+        430,
+        400,
+        480
+      ],
+      "variance": 0.95,
+      "prefer": null
+    },
+    {
+      "name": "chrom_lampa",
+      "role": "kov",
+      "hex": "#C5B5A9",
+      "rgb": [
+        197,
+        181,
+        169
+      ],
+      "lab": [
+        74.69,
+        3.68,
+        8.17
+      ],
+      "hsl": {
+        "h": 25.7,
+        "s": 19.4,
+        "l": 71.8
+      },
+      "method": "flat",
+      "x": 1184,
+      "y": 412,
+      "patch": 2,
+      "u": 0.81768,
+      "v": 0.37937,
+      "search_box": [
+        1182,
+        382,
+        1192,
+        420
+      ],
+      "variance": 3.84,
+      "prefer": null
+    },
+    {
+      "name": "koberec_krem",
+      "role": "textil",
+      "hex": "#B0937D",
+      "rgb": [
+        176,
+        147,
+        125
+      ],
+      "lab": [
+        62.99,
+        7.49,
+        15.71
+      ],
+      "hsl": {
+        "h": 25.9,
+        "s": 24.4,
+        "l": 59.0
+      },
+      "method": "flat",
+      "x": 750,
+      "y": 870,
+      "patch": 10,
+      "u": 0.51796,
+      "v": 0.8011,
+      "search_box": [
+        660,
+        830,
+        760,
+        880
+      ],
+      "variance": 19.52,
+      "prefer": null
+    },
+    {
+      "name": "koberec_seda",
+      "role": "textil",
+      "hex": "#46464E",
+      "rgb": [
+        70,
+        70,
+        78
+      ],
+      "lab": [
+        29.99,
+        1.85,
+        -4.78
+      ],
+      "hsl": {
+        "h": 240.0,
+        "s": 5.4,
+        "l": 29.0
+      },
+      "method": "flat",
+      "x": 1200,
+      "y": 850,
+      "patch": 10,
+      "u": 0.82873,
+      "v": 0.78269,
+      "search_box": [
+        1180,
+        800,
+        1290,
+        860
+      ],
+      "variance": 18.89,
+      "prefer": null
+    },
+    {
+      "name": "koberec_zluta",
+      "role": "textil",
+      "hex": "#BB8A3E",
+      "rgb": [
+        187,
+        138,
+        62
+      ],
+      "lab": [
+        60.86,
+        10.83,
+        46.82
+      ],
+      "hsl": {
+        "h": 36.5,
+        "s": 50.2,
+        "l": 48.8
+      },
+      "method": "flat",
+      "x": 814,
+      "y": 732,
+      "patch": 6,
+      "u": 0.56215,
+      "v": 0.67403,
+      "search_box": [
+        760,
+        720,
+        830,
+        750
+      ],
+      "variance": 5.01,
+      "prefer": null
+    },
+    {
+      "name": "koberec_tmava",
+      "role": "textil",
+      "hex": "#100E0C",
+      "rgb": [
+        16,
+        14,
+        12
+      ],
+      "lab": [
+        4.07,
+        0.35,
+        1.13
+      ],
+      "hsl": {
+        "h": 30.0,
+        "s": 14.3,
+        "l": 5.5
+      },
+      "method": "flat",
+      "x": 815,
+      "y": 790,
+      "patch": 7,
+      "u": 0.56285,
+      "v": 0.72744,
+      "search_box": [
+        808,
+        776,
+        892,
+        826
+      ],
+      "variance": 1.99,
+      "prefer": "light"
+    },
+    {
+      "name": "zavesy_krem",
+      "role": "textil",
+      "hex": "#DDBBA0",
+      "rgb": [
+        221,
+        187,
+        160
+      ],
+      "lab": [
+        78.14,
+        8.17,
+        18.21
+      ],
+      "hsl": {
+        "h": 26.6,
+        "s": 47.3,
+        "l": 74.7
+      },
+      "method": "flat",
+      "x": 1278,
+      "y": 240,
+      "patch": 10,
+      "u": 0.8826,
+      "v": 0.22099,
+      "search_box": [
+        1268,
+        200,
+        1332,
+        340
+      ],
+      "variance": 21.49,
+      "prefer": "light"
+    },
+    {
+      "name": "deka_krem",
+      "role": "textil",
+      "hex": "#896544",
+      "rgb": [
+        137,
+        101,
+        68
+      ],
+      "lab": [
+        45.69,
+        10.23,
+        24.28
+      ],
+      "hsl": {
+        "h": 28.7,
+        "s": 33.7,
+        "l": 40.2
+      },
+      "method": "flat",
+      "x": 1167,
+      "y": 621,
+      "patch": 8,
+      "u": 0.80594,
+      "v": 0.57182,
+      "search_box": [
+        1095,
+        565,
+        1200,
+        630
+      ],
+      "variance": 10.7,
+      "prefer": "light"
+    },
+    {
+      "name": "polstar_bezovy",
+      "role": "textil",
+      "hex": "#BBA89C",
+      "rgb": [
+        187,
+        168,
+        156
+      ],
+      "lab": [
+        70.16,
+        4.88,
+        8.7
+      ],
+      "hsl": {
+        "h": 23.2,
+        "s": 18.6,
+        "l": 67.3
+      },
+      "method": "flat",
+      "x": 752,
+      "y": 554,
+      "patch": 8,
+      "u": 0.51934,
+      "v": 0.51013,
+      "search_box": [
+        720,
+        530,
+        790,
+        580
+      ],
+      "variance": 5.27,
+      "prefer": null
+    },
+    {
+      "name": "cerna_ram_fotky",
+      "role": "kov",
+      "hex": "#050200",
+      "rgb": [
+        5,
+        2,
+        0
+      ],
+      "lab": [
+        0.68,
+        0.51,
+        1.03
+      ],
+      "hsl": {
+        "h": 24.0,
+        "s": 100.0,
+        "l": 1.0
+      },
+      "method": "extreme:dark",
+      "fraction": 0.01,
+      "search_box": [
+        630,
+        250,
+        1070,
+        415
+      ],
+      "pixels": 726
+    },
+    {
+      "name": "bila_pasparta",
+      "role": "kov",
+      "hex": "#F0EAE6",
+      "rgb": [
+        240,
+        234,
+        230
+      ],
+      "lab": [
+        93.05,
+        1.32,
+        2.65
+      ],
+      "hsl": {
+        "h": 24.0,
+        "s": 25.0,
+        "l": 92.2
+      },
+      "method": "extreme:light",
+      "fraction": 0.05,
+      "search_box": [
+        650,
+        270,
+        1060,
+        400
+      ],
+      "pixels": 2665
+    },
+    {
+      "name": "obraz_1",
+      "role": "akcent",
+      "hex": "#C58114",
+      "rgb": [
+        197,
+        129,
+        20
+      ],
+      "lab": [
+        59.55,
+        18.56,
+        61.83
+      ],
+      "hsl": {
+        "h": 36.9,
+        "s": 81.6,
+        "l": 42.5
+      },
+      "method": "kmeans",
+      "share": 0.4363,
+      "search_box": [
+        96,
+        232,
+        168,
+        424
+      ]
+    },
+    {
+      "name": "obraz_2",
+      "role": "akcent",
+      "hex": "#332D24",
+      "rgb": [
+        51,
+        45,
+        36
+      ],
+      "lab": [
+        18.83,
+        0.93,
+        6.82
+      ],
+      "hsl": {
+        "h": 36.0,
+        "s": 17.2,
+        "l": 17.1
+      },
+      "method": "kmeans",
+      "share": 0.2637,
+      "search_box": [
+        96,
+        232,
+        168,
+        424
+      ]
+    },
+    {
+      "name": "obraz_3",
+      "role": "akcent",
+      "hex": "#32626F",
+      "rgb": [
+        50,
+        98,
+        111
+      ],
+      "lab": [
+        38.83,
+        -12.29,
+        -12.36
+      ],
+      "hsl": {
+        "h": 192.8,
+        "s": 37.9,
+        "l": 31.6
+      },
+      "method": "kmeans",
+      "share": 0.1254,
+      "search_box": [
+        96,
+        232,
+        168,
+        424
+      ]
+    },
+    {
+      "name": "obraz_5",
+      "role": "akcent",
+      "hex": "#773B23",
+      "rgb": [
+        119,
+        59,
+        35
+      ],
+      "lab": [
+        32.2,
+        24.1,
+        26.44
+      ],
+      "hsl": {
+        "h": 17.1,
+        "s": 54.5,
+        "l": 30.2
+      },
+      "method": "kmeans",
+      "share": 0.1254,
+      "search_box": [
+        96,
+        232,
+        168,
+        424
+      ]
+    },
+    {
+      "name": "obraz_4",
+      "role": "akcent",
+      "hex": "#CFBEAB",
+      "rgb": [
+        207,
+        190,
+        171
+      ],
+      "lab": [
+        77.89,
+        2.89,
+        11.77
+      ],
+      "hsl": {
+        "h": 31.7,
+        "s": 27.3,
+        "l": 74.1
+      },
+      "method": "kmeans",
+      "share": 0.0492,
+      "search_box": [
+        96,
+        232,
+        168,
+        424
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "name": "podlaha_vlysy",
+      "role": "podlaha",
+      "box": [
+        150,
+        900,
+        600,
+        1080
+      ],
+      "dark": "#723608",
+      "base": "#83420F",
+      "light": "#96521A",
+      "mean": "#844310",
+      "contrast": 27.3
+    },
+    {
+      "name": "podlaha_celek",
+      "role": "podlaha",
+      "box": [
+        120,
+        700,
+        1420,
+        1080
+      ],
+      "dark": "#3B2009",
+      "base": "#8D4C19",
+      "light": "#BAA499",
+      "mean": "#82593C",
+      "contrast": 134.3
+    },
+    {
+      "name": "gauc_celek",
+      "role": "gauc",
+      "box": [
+        760,
+        555,
+        1045,
+        645
+      ],
+      "dark": "#042535",
+      "base": "#043A53",
+      "light": "#3E6A84",
+      "mean": "#1A4354",
+      "contrast": 68.8
+    },
+    {
+      "name": "stena_celek",
+      "role": "stena",
+      "box": [
+        400,
+        150,
+        1100,
+        380
+      ],
+      "dark": "#93867A",
+      "base": "#C9B7A9",
+      "light": "#ECE3DC",
+      "mean": "#C4B5AA",
+      "contrast": 93.3
+    },
+    {
+      "name": "dub_nabytek",
+      "role": "dub",
+      "box": [
+        500,
+        558,
+        608,
+        700
+      ],
+      "dark": "#150802",
+      "base": "#7B4820",
+      "light": "#9B6A43",
+      "mean": "#714625",
+      "contrast": 99.0
+    },
+    {
+      "name": "koberec_celek",
+      "role": "textil",
+      "box": [
+        620,
+        720,
+        1300,
+        900
+      ],
+      "dark": "#16100C",
+      "base": "#825939",
+      "light": "#B79C87",
+      "mean": "#705A49",
+      "contrast": 141.3
+    }
+  ],
+  "clusters": [
+    {
+      "name": "cluster_12",
+      "role": "dominant",
+      "hex": "#BAA697",
+      "rgb": [
+        186,
+        166,
+        151
+      ],
+      "lab": [
+        69.43,
+        4.8,
+        10.42
+      ],
+      "hsl": {
+        "h": 25.7,
+        "s": 20.2,
+        "l": 66.1
+      },
+      "share": 0.1333
+    },
+    {
+      "name": "cluster_1",
+      "role": "dominant",
+      "hex": "#CABBAF",
+      "rgb": [
+        202,
+        187,
+        175
+      ],
+      "lab": [
+        76.8,
+        3.28,
+        7.99
+      ],
+      "hsl": {
+        "h": 26.7,
+        "s": 20.3,
+        "l": 73.9
+      },
+      "share": 0.1306
+    },
+    {
+      "name": "cluster_0",
+      "role": "dominant",
+      "hex": "#763C0E",
+      "rgb": [
+        118,
+        60,
+        14
+      ],
+      "lab": [
+        32.07,
+        22.1,
+        37.1
+      ],
+      "hsl": {
+        "h": 26.5,
+        "s": 78.8,
+        "l": 25.9
+      },
+      "share": 0.103
+    },
+    {
+      "name": "cluster_6",
+      "role": "dominant",
+      "hex": "#DBD2CB",
+      "rgb": [
+        219,
+        210,
+        203
+      ],
+      "lab": [
+        84.72,
+        1.89,
+        4.57
+      ],
+      "hsl": {
+        "h": 26.3,
+        "s": 18.2,
+        "l": 82.7
+      },
+      "share": 0.1026
+    },
+    {
+      "name": "cluster_8",
+      "role": "dominant",
+      "hex": "#8F5323",
+      "rgb": [
+        143,
+        83,
+        35
+      ],
+      "lab": [
+        41.45,
+        20.91,
+        37.6
+      ],
+      "hsl": {
+        "h": 26.7,
+        "s": 60.7,
+        "l": 34.9
+      },
+      "share": 0.0943
+    },
+    {
+      "name": "cluster_10",
+      "role": "dominant",
+      "hex": "#A8907E",
+      "rgb": [
+        168,
+        144,
+        126
+      ],
+      "lab": [
+        61.46,
+        6.12,
+        12.9
+      ],
+      "hsl": {
+        "h": 25.7,
+        "s": 19.4,
+        "l": 57.6
+      },
+      "share": 0.0872
+    },
+    {
+      "name": "cluster_3",
+      "role": "dominant",
+      "hex": "#F0ECE9",
+      "rgb": [
+        240,
+        236,
+        233
+      ],
+      "lab": [
+        93.62,
+        0.82,
+        1.92
+      ],
+      "hsl": {
+        "h": 25.7,
+        "s": 18.9,
+        "l": 92.7
+      },
+      "share": 0.0706
+    },
+    {
+      "name": "cluster_11",
+      "role": "dominant",
+      "hex": "#0E0E0D",
+      "rgb": [
+        14,
+        14,
+        13
+      ],
+      "lab": [
+        3.94,
+        -0.17,
+        0.46
+      ],
+      "hsl": {
+        "h": 60.0,
+        "s": 3.7,
+        "l": 5.3
+      },
+      "share": 0.0637
+    },
+    {
+      "name": "cluster_2",
+      "role": "dominant",
+      "hex": "#382818",
+      "rgb": [
+        56,
+        40,
+        24
+      ],
+      "lab": [
+        17.57,
+        5.06,
+        13.41
+      ],
+      "hsl": {
+        "h": 30.0,
+        "s": 40.0,
+        "l": 15.7
+      },
+      "share": 0.0505
+    },
+    {
+      "name": "cluster_9",
+      "role": "dominant",
+      "hex": "#887567",
+      "rgb": [
+        136,
+        117,
+        103
+      ],
+      "lab": [
+        50.61,
+        5.04,
+        10.45
+      ],
+      "hsl": {
+        "h": 25.5,
+        "s": 13.8,
+        "l": 46.9
+      },
+      "share": 0.0447
+    },
+    {
+      "name": "cluster_4",
+      "role": "dominant",
+      "hex": "#0B3446",
+      "rgb": [
+        11,
+        52,
+        70
+      ],
+      "lab": [
+        19.92,
+        -6.7,
+        -15.16
+      ],
+      "hsl": {
+        "h": 198.3,
+        "s": 72.8,
+        "l": 15.9
+      },
+      "share": 0.0388
+    },
+    {
+      "name": "cluster_5",
+      "role": "dominant",
+      "hex": "#B1763D",
+      "rgb": [
+        177,
+        118,
+        61
+      ],
+      "lab": [
+        54.7,
+        17.53,
+        40.12
+      ],
+      "hsl": {
+        "h": 29.5,
+        "s": 48.7,
+        "l": 46.7
+      },
+      "share": 0.0347
+    },
+    {
+      "name": "cluster_7",
+      "role": "dominant",
+      "hex": "#574C42",
+      "rgb": [
+        87,
+        76,
+        66
+      ],
+      "lab": [
+        33.11,
+        2.76,
+        7.64
+      ],
+      "hsl": {
+        "h": 28.6,
+        "s": 13.7,
+        "l": 30.0
+      },
+      "share": 0.0316
+    },
+    {
+      "name": "cluster_13",
+      "role": "dominant",
+      "hex": "#2D7495",
+      "rgb": [
+        45,
+        116,
+        149
+      ],
+      "lab": [
+        45.93,
+        -10.99,
+        -24.36
+      ],
+      "hsl": {
+        "h": 199.0,
+        "s": 53.6,
+        "l": 38.0
+      },
+      "share": 0.0144
+    }
+  ],
+  "key_colors": {
+    "podlaha_zaklad": "#83420F",
+    "podlaha_tmava": "#723608",
+    "podlaha_svetla": "#96521A",
+    "stena_osvetlena": "#E7C4A7",
+    "stena_ve_stinu": "#BEA999",
+    "gauc_zaklad": "#043A53",
+    "gauc_svetlo": "#3E6A84",
+    "dub_stavajici": "#C69160",
+    "dub_stavajici_tmavsi": "#92613B",
+    "cerna_matna": "#1F2021",
+    "zluta_obraz": "#C58114",
+    "tyrkys_obraz": "#32626F",
+    "rez_obraz": "#773B23",
+    "krem_textil": "#BBA89C"
+  },
+  "directions": [
+    {
+      "id": "shoda-podlaha",
+      "nazev": "Shoda s podlahou",
+      "deska": "#8A4A16",
+      "podnoz": "#6E3A10",
+      "detail": "#96521A",
+      "odvozeno_z": [
+        "podlaha_vlysy.base #83420F",
+        "podlaha_vlysy.light #96521A"
+      ],
+      "proc": "Deska ve stejném teplém oranžovo-hnědém tónu jako vlysy. Stůl se opticky rozpustí v podlaze, roh přestane být 'kus nábytku' a místnost působí větší — což se u 211 cm dlouhého ramene v obýváku hodí.",
+      "pozor": "Bez kontrastu proti podlaze může velká deska působit těžce. Vyvážit tenčí deskou (18-25 mm) nebo světlou a subtilní podnoží, ať to neroste do bloku.",
+      "material_hint": "mořený dub v tónu podlahy, dýhovaná MDF, nebo lamino s dekorem teplého dubu"
+    },
+    {
+      "id": "o-ton-tmavsi",
+      "nazev": "O tón tmavší",
+      "deska": "#54301A",
+      "podnoz": "#1F2021",
+      "detail": "#3A2011",
+      "odvozeno_z": [
+        "podlaha_vlysy.dark #723608 ztmaveno",
+        "dub_bocnice #844F26"
+      ],
+      "proc": "Kouřový dub až ořech. Dost tmavý na to, aby byl stůl vlastní objekt, ale pořád ve stejné teplé dřevěné rodině jako podlaha. Naváže na černé rámy fotek a na židli.",
+      "pozor": "V rohu bez přímého světla ztmavne ještě víc — počítat s LED podsvícením nebo lampou.",
+      "material_hint": "mořený dub, ořechová dýha, lamino tmavý dub"
+    },
+    {
+      "id": "o-ton-svetlejsi",
+      "nazev": "O tón světlejší (jako stávající nábytek)",
+      "deska": "#C69160",
+      "podnoz": "#92613B",
+      "detail": "#CEA280",
+      "odvozeno_z": [
+        "dub_deska #C69160",
+        "dub_konferencak #CEA280",
+        "dub_kontejner #92613B"
+      ],
+      "proc": "Přesně ten světlý dub, který v místnosti už je — konferenčák, kontejner, stávající stůl. Nejbezpečnější volba: pracovní a obývací zóna se spojí do jedné rodiny a stůl nebude působit jako cizí prvek.",
+      "pozor": "Proti tmavší podlaze je světlá deska hodně vidět — a s ní každý kabel a nepořádek.",
+      "material_hint": "světlý dub / jasan, dýha, lamino dekor světlý dub"
+    },
+    {
+      "id": "kontrast-cerna",
+      "nazev": "Kontrast — antracit / matná čerň",
+      "deska": "#2B2C2E",
+      "podnoz": "#1F2021",
+      "detail": "#F0EAE6",
+      "odvozeno_z": [
+        "cerna_zidle #1F2021",
+        "cerna_monitor #14110D",
+        "cerna_ram_fotky #050200"
+      ],
+      "proc": "V místnosti už černá je — rámy fotek, židle, monitor, lampička. Stůl v antracitu se k nim přidá jako záměrný grafický prvek proti teplé podlaze.",
+      "pozor": "Celá deska 211x70 v černé je hodně plochy v malém rohu. Lépe funguje jako podnož a boky s dřevěnou deskou než jako celý stůl.",
+      "material_hint": "lamino/HPL antracit, komaxit RAL 9005 struktura, linoleum Forbo tmavě šedé"
+    },
+    {
+      "id": "kov-drevo",
+      "nazev": "Kov + dřevo",
+      "deska": "#96521A",
+      "podnoz": "#1F2021",
+      "detail": "#C5B5A9",
+      "odvozeno_z": [
+        "podlaha_vlysy.light #96521A",
+        "cerna_zidle #1F2021",
+        "chrom_lampa #C5B5A9"
+      ],
+      "proc": "Nejsilnější vazba na to, co v místnosti je: černý ocelový rám navazuje na rámy fotek a židli, dřevěná deska na podlahu. Tenký rám nechá pod stolem prosvítat podlahu, takže stůl působí lehce — důležité, když zabírá celý roh.",
+      "pozor": "Rám musí být subtilní (jekl 30x30 až 40x40). Silný profil sklouzne do dílenského vzhledu.",
+      "material_hint": "masiv nebo dýha + jekl komaxit RAL 9005 / černá struktura"
+    },
+    {
+      "id": "neutral",
+      "nazev": "Neutrál v tónu stěn",
+      "deska": "#D8C6B4",
+      "podnoz": "#C9B7A9",
+      "detail": "#BBA89C",
+      "odvozeno_z": [
+        "stena_celek.base #C9B7A9",
+        "stena_zadni_svetla #E7C4A7",
+        "polstar_bezovy #BBA89C"
+      ],
+      "proc": "Krémová v tónu stěn. Stůl ustoupí do pozadí a nechá vyniknout gauč, obraz a koberec. Dobrá volba, když nechceš, aby pracovní zóna dominovala obýváku.",
+      "pozor": "Světlý povrch v pracovní zóně se rychle ušpiní — chce odolnou úpravu (lamino, HPL, linoleum).",
+      "material_hint": "lamino krémová/kašmír, Forbo linoleum světlé, lakovaná MDF"
+    },
+    {
+      "id": "akcent-gauc-obraz",
+      "nazev": "Bonus: akcent v tónu gauče nebo obrazu",
+      "deska": "#C69160",
+      "podnoz": "#1F2021",
+      "detail": "#043A53",
+      "detail2": "#C58114",
+      "odvozeno_z": [
+        "gauc_celek.base #043A53",
+        "obraz_1 #C58114",
+        "koberec_zluta #BB8A3E"
+      ],
+      "proc": "Dřevěný stůl, ale čela zásuvek nebo zadní panel v petroleji gauče nebo v hořčicové z obrazu a koberce. Malá plocha, velký efekt — stůl se s místností propojí barvou, ne materiálem.",
+      "pozor": "Jen jeden akcent, ne oba. Dvě barvy navíc jsou v tomhle rohu už moc.",
+      "material_hint": "lakovaná MDF v odstínu namíchaném na vzorek, nebo lamino v nejbližším dekoru"
+    }
+  ]
+}
