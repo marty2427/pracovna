@@ -5,6 +5,13 @@ import { textEmailu, cutListCsv, stahni } from '@/export/email'
 import { odhadNaMiru } from '@/pricing/odhad'
 import { formatRozpeti } from '@/pricing/ceny'
 
+/**
+ * V náhledu na claude.ai běží stránka v sandboxu, který blokuje stahování souborů,
+ * které si stránka spustí sama. Tlačítka by tam tiše nedělala nic, tak je radši
+ * označíme. Příznak nastavuje obal, ve kterém se appka publikuje jako náhled.
+ */
+const JE_NAHLED = typeof window !== 'undefined' && (window as any).__NAHLED__ === true
+
 export function Export() {
   const config = useStore((s) => s.config)
   const [zkopirovano, setZkopirovano] = useState(false)
@@ -63,9 +70,22 @@ export function Export() {
           Vygeneruje technický nákres s kótami, rozpisku dílců a hotový text e‑mailu pro truhláře.
           Nákres se kreslí ze stejných parametrů jako 3D model, takže nemůže „utéct" od skutečnosti.
         </p>
+        {JE_NAHLED && (
+          <p className="poznamka nahled-varovani">
+            Tohle je náhled běžící v sandboxu na claude.ai, kde nefunguje stahování souborů.
+            Nákres i text e‑mailu si můžeš přečíst a zkopírovat rovnou tady. Stahování a tisk
+            fungují v appce spuštěné lokálně nebo nasazené na Cloudflare Pages.
+          </p>
+        )}
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
-          <button className="tlacitko" onClick={stahniVse}>Stáhnout nákres, rozpisku i e‑mail</button>
-          <button className="tlacitko druhotne" onClick={tisk}>Tisk / PDF</button>
+          <button className="tlacitko" onClick={stahniVse} disabled={JE_NAHLED}
+                  title={JE_NAHLED ? 'V náhledu na claude.ai nefunguje — spusť appku lokálně' : undefined}>
+            Stáhnout nákres, rozpisku i e‑mail
+          </button>
+          <button className="tlacitko druhotne" onClick={tisk} disabled={JE_NAHLED}
+                  title={JE_NAHLED ? 'V náhledu na claude.ai nefunguje — spusť appku lokálně' : undefined}>
+            Tisk / PDF
+          </button>
           <button
             className="tlacitko druhotne"
             onClick={() => {

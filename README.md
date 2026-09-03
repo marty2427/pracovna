@@ -63,10 +63,20 @@ npm run dev        # http://127.0.0.1:5173
 npm run build      # -> app/dist
 ```
 
-**Pozn.:** pokud tenhle repozitář vznikal v Claude Code na webu, dev server tam běžel
-uvnitř izolovaného kontejneru na `127.0.0.1` — z prohlížeče se na něj nedalo dostat,
-protože do kontejneru nevede příchozí síť. Odtud jen screenshoty. Živě to uvidíš
-buď po spuštění lokálně podle návodu výše, nebo po nasazení na Cloudflare Pages.
+**Pozn. k náhledu:** pokud tenhle repozitář vznikal v Claude Code na webu, dev server
+tam běžel uvnitř izolovaného kontejneru na `127.0.0.1` a z prohlížeče se na něj nedalo
+dostat, protože do kontejneru nevede příchozí síť.
+
+Appka se ale dá zabalit do jednoho HTML souboru a publikovat jako náhled:
+
+```bash
+cd app && npm run build && cd ..
+node scripts/build-artifact.mjs     # -> app/dist/nahled.html
+```
+
+Jde to proto, že appka nemá backend ani externí assety — všechny textury se generují
+procedurálně v prohlížeči. V náhledu nefunguje stahování souborů (sandbox to blokuje),
+appka to pozná podle `window.__NAHLED__` a příslušná tlačítka vypne.
 
 ## Nasazení na Cloudflare Pages
 

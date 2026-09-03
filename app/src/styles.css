@@ -220,3 +220,12 @@ table.rozpiska tr.soucet td { font-weight: 700; border-top: 2px solid var(--link
   .hlavicka { flex-wrap: wrap; gap: 10px; }
   .hlavicka nav { margin-left: 0; order: 3; width: 100%; overflow-x: auto; }
 }
+
+/* --- upozornění v náhledu na claude.ai --- */
+.nahled-varovani {
+  margin: 10px 0 0; padding: 9px 12px; border-radius: 9px;
+  background: #FBEFD8; color: #8A6410; border: 1px solid #E8CFA0;
+}
+.tlacitko[disabled] { opacity: .45; cursor: not-allowed; }
+/* Náhled běží v iframu, kde height:100% nemusí mít od čeho počítat. */
+html, body, #root { min-height: 100dvh; }
