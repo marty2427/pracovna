@@ -27,8 +27,7 @@ const R = (p: Partial<Rozmery> = {}): Rozmery => ({
 
 const D = (p: Partial<Deska> = {}): Deska => ({
   materialId: 'dub-svetly-masiv', tloustka: 30, hrana: 'srazena',
-  radiusRohu: 12, radiusVnitrni: 90, vyrez: 0,
-  presah: { predni: 40, zadni: 0, bocni: 40 }, ...p,
+  radiusRohu: 12, radiusVnitrni: 90, vyrez: 0, ...p,
 })
 
 const P = (p: Partial<Podnoz> = {}): Podnoz => ({

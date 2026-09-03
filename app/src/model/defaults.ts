@@ -21,7 +21,6 @@ export function vychoziKonfigurace(): DeskConfig {
       radiusRohu: 12,
       radiusVnitrni: 90,
       vyrez: 0,
-      presah: { predni: 40, zadni: 0, bocni: 40 },
     },
     podnoz: {
       typ: 'ram-U',

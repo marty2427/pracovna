@@ -34,10 +34,12 @@ export interface Deska {
   radiusRohu: number
   /** Zaoblení vnitřního rohu L, mm. */
   radiusVnitrni: number
-  /** Ergonomický výřez v místě sezení (0 = žádný). */
+  /**
+   * Ergonomický výřez v přední hraně v místě sezení (0 = žádný).
+   * Přesah desky přes podnož se nastavuje jako `podnoz.odsazeni` — je to
+   * tatáž veličina měřená z druhé strany, mít ji dvakrát by se rozešlo.
+   */
   vyrez: number
-  /** Přesah desky přes podnož, mm. */
-  presah: { predni: number; zadni: number; bocni: number }
 }
 
 export interface Podnoz {

@@ -197,3 +197,16 @@ table.rozpiska tr.soucet td { font-weight: 700; border-top: 2px solid var(--link
 .rozpocet.nad .odhad { background: var(--chyba); }
 .rozpocet.ok .odhad { background: var(--ok); }
 .rozpocet p { margin: 0; font-size: 10.5px; line-height: 1.45; color: var(--text-2); }
+
+/* --- užší obrazovky --- */
+@media (max-width: 1400px) {
+  .telo { grid-template-columns: 300px 1fr 370px; }
+  .telo.dokument { grid-template-columns: 1fr 370px; }
+}
+@media (max-width: 1180px) {
+  .telo, .telo.dokument { grid-template-columns: 1fr; grid-template-rows: auto minmax(420px, 60vh) auto; }
+  .vlevo, .vpravo { border: none; border-bottom: 1px solid var(--linka); max-height: none; }
+  .telo.dokument { grid-template-rows: auto auto; }
+  .hlavicka { flex-wrap: wrap; gap: 10px; }
+  .hlavicka nav { margin-left: 0; order: 3; width: 100%; overflow-x: auto; }
+}
