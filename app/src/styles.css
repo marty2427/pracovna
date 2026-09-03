@@ -1,0 +1,28 @@
+:root {
+  --krem: #FBF4EA;
+  --krem-2: #F3E8D8;
+  --oranz: #C86A24;
+  --oranz-svetla: #E8944A;
+  --text: #3A2C20;
+  --text-slaby: #8A7563;
+  --linka: #E2D3BF;
+  --ok: #4E8C4A;
+  --pozor: #D8912C;
+  --chyba: #C0442E;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: var(--text);
+  background: var(--krem);
+}
+.app { height: 100%; display: flex; }
+.viewport { position: relative; flex: 1; min-width: 0; }
+.pohledy { position: absolute; left: 14px; bottom: 14px; display: flex; gap: 6px; }
+.pohledy button {
+  font: inherit; font-size: 12px; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--linka); background: rgba(255,255,255,.82); color: var(--text);
+  cursor: pointer; text-transform: capitalize;
+}
+.pohledy button.on { background: var(--oranz); border-color: var(--oranz); color: #fff; }

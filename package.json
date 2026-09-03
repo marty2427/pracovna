@@ -1,0 +1,12 @@
+{
+  "name": "pracovna-tooling",
+  "private": true,
+  "type": "module",
+  "description": "Nástroje mimo appku: vzorkování palety a Playwright průlet presety.",
+  "scripts": {
+    "shots": "node scripts/screenshots.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.1"
+  }
+}
