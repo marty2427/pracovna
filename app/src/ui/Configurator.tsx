@@ -124,6 +124,10 @@ export function Configurator() {
         <Posuvnik label="Zaoblení vnějších rohů" hodnota={config.deska.radiusRohu}
           min={0} max={80} krok={2} jednotka="mm" delitel={1}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusRohu: v } }))} />
+        <Posuvnik label="Výřez v přední hraně" hodnota={config.deska.vyrez}
+          min={0} max={130} krok={5} jednotka="mm" delitel={1}
+          napoveda="hrana ustoupí v místě sezení"
+          onChange={(v) => nastav((c) => ({ deska: { ...c.deska, vyrez: v } }))} />
         {jeL && (
           <Posuvnik label="Zaoblení vnitřního rohu" hodnota={config.deska.radiusVnitrni}
             min={0} max={260} krok={5} jednotka="mm" delitel={1}

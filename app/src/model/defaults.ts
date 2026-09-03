@@ -41,6 +41,5 @@ export function vychoziKonfigurace(): DeskConfig {
       zadniPanel: false,
       tiskarnaVRohu: true,
     },
-    zrcadlit: false,
   }
 }

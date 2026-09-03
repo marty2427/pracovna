@@ -134,12 +134,24 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
       <line x1={nx - 20} y1={ny + M(H)} x2={nx + M(LA) + 30} y2={ny + M(H)} stroke={TENKA} strokeWidth={0.8} />
       {/* deska */}
       <rect x={nx} y={ny + M(H - T)} width={M(LA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
-      {/* nohy v tomto pohledu */}
-      {p.filter((q) => Math.abs(q.x - (DA - config.podnoz.odsazeni)) < 1 || p.length <= 4).map((q, i) => (
-        <rect key={i} x={nx + M(q.z) - M(config.podnoz.profil) / 2} y={ny + M(H)- M(H - T)}
-              width={M(config.podnoz.profil)} height={M(H - T)}
-              fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-      ))}
+      {/* podpory v tomto pohledu — kreslí se ty na straně místnosti,
+          ty u stěny leží přesně za nimi a v pohledu by se překryly */}
+      {(() => {
+        const ods = config.podnoz.odsazeni
+        const vNarysu = p.filter((q) => Math.abs(q.x - (DA - ods)) < 1)
+        const sirkaP = config.podnoz.typ === 'bocnice' ? 24 : config.podnoz.profil
+        return vNarysu.map((q, i) => (
+          <rect key={i} x={nx + M(q.z) - M(sirkaP) / 2} y={ny}
+                width={M(sirkaP)} height={M(H - T)}
+                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+        ))
+      })()}
+      {/* podélná výztuha pod deskou */}
+      {config.podnoz.vyztuha && config.podnoz.typ !== 'stavitelny-ram' && (
+        <rect x={nx + M(config.podnoz.odsazeni)} y={ny + M(H - T) - M(config.podnoz.profil * 0.55)}
+              width={M(LA - 2 * config.podnoz.odsazeni)} height={M(config.podnoz.profil * 0.55)}
+              fill="none" stroke={TENKA} strokeWidth={0.5} strokeDasharray="3 2" />
+      )}
       <Kota x1={nx} y1={ny + M(H)} x2={nx + M(LA)} y2={ny + M(H)} odsad={26} text={`${LA}`} />
       <Kota x1={nx} y1={ny + M(H)} x2={nx} y2={ny + M(H) - M(H)} svisle odsad={-26} text={`${H}`} />
       <Kota x1={nx + M(LA)} y1={ny + M(H - T)} x2={nx + M(LA)} y2={ny + M(H)} svisle odsad={20} text={`${T}`} />
@@ -148,13 +160,22 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
       <text x={bx} y={by - 30} fontSize={10} fontWeight={600} fill={CARA}>BOKORYS — řez ramenem A</text>
       <line x1={bx - 20} y1={by + M(H)} x2={bx + M(DA) + 60} y2={by + M(H)} stroke={TENKA} strokeWidth={0.8} />
       <rect x={bx} y={by + M(H - T)} width={M(DA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
-      <rect x={bx + M(config.podnoz.odsazeni)} y={by} width={M(config.podnoz.profil)} height={M(H - T)}
-            fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-      <rect x={bx + M(DA - config.podnoz.odsazeni - config.podnoz.profil)} y={by}
-            width={M(config.podnoz.profil)} height={M(H - T)} fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-      <line x1={bx + M(config.podnoz.odsazeni)} y1={by + M(config.podnoz.profil) * 0.6}
-            x2={bx + M(DA - config.podnoz.odsazeni)} y2={by + M(config.podnoz.profil) * 0.6}
-            stroke={CARA} strokeWidth={M(config.podnoz.profil)} strokeLinecap="butt" opacity={0.18} />
+      {config.podnoz.typ === 'bocnice' ? (
+        <rect x={bx + M(config.podnoz.odsazeni)} y={by}
+              width={M(DA - 2 * config.podnoz.odsazeni)} height={M(H - T)}
+              fill="#EFEAE3" stroke={CARA} strokeWidth={0.8} />
+      ) : (
+        <>
+          <rect x={bx + M(config.podnoz.odsazeni)} y={by} width={M(config.podnoz.profil)} height={M(H - T)}
+                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+          <rect x={bx + M(DA - config.podnoz.odsazeni - config.podnoz.profil)} y={by}
+                width={M(config.podnoz.profil)} height={M(H - T)} fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+          {/* horní traverza rámu */}
+          <rect x={bx + M(config.podnoz.odsazeni)} y={by}
+                width={M(DA - 2 * config.podnoz.odsazeni)} height={M(config.podnoz.profil)}
+                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+        </>
+      )}
       <Kota x1={bx} y1={by + M(H)} x2={bx + M(DA)} y2={by + M(H)} odsad={26} text={`${DA}`} />
       <Kota x1={bx} y1={by + M(H)} x2={bx} y2={by} svisle odsad={-26} text={`${H - T} světlá`} />
       <Kota x1={bx} y1={by + M(H - T)} x2={bx + M(config.podnoz.odsazeni)} y2={by + M(H - T)} odsad={-16}

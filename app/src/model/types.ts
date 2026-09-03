@@ -105,8 +105,6 @@ export interface DeskConfig {
   podnoz: Podnoz
   ulozne: Ulozne[]
   doplnky: Doplnky
-  /** Zrcadlení celé sestavy (roh vpravo místo vlevo). */
-  zrcadlit: boolean
 }
 
 /** Půdorysný obdélník v mm, souřadnice dle space.ts. */

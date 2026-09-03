@@ -44,8 +44,8 @@ const DO = (p: Partial<Doplnky> = {}): Doplnky => ({
   nastavecMonitor: false, zadniPanel: false, tiskarnaVRohu: true, ...p,
 })
 
-type Vstup = Omit<DeskConfig, 'zrcadlit' | 'tvar'> & { tvar?: DeskConfig['tvar']; zrcadlit?: boolean }
-const mk = (v: Vstup): DeskConfig => ({ tvar: 'L', zrcadlit: false, ...v })
+type Vstup = Omit<DeskConfig, 'tvar'> & { tvar?: DeskConfig['tvar'] }
+const mk = (v: Vstup): DeskConfig => ({ tvar: 'L', ...v })
 
 export const PRESETY: DeskConfig[] = [
   // ---------- TRUHLÁŘSKÝ MASIV ----------
@@ -63,7 +63,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'tr-03', rodina: 'truhlar', nazev: 'Kouřový dub, kónické nohy',
     popis: 'Tmavší mořený dub na kónických nohách. Stůl se opticky odsadí od podlahy.',
-    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160 }),
+    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160, vyrez: 70 }),
     podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-kourovy-masiv', profil: 60, odsazeni: 110 }),
     ulozne: U('kontejner-3'), doplnky: DO({ ledPodsviceni: true }) }),
 
@@ -81,7 +81,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'tr-06', rodina: 'truhlar', nazev: 'Buk 30, šikmé nohy',
     popis: 'Buková deska na rozkročených nohách. Světlý, obytný, ne kancelářský.',
-    rozmery: R({ ramenoADelka: 2000 }), deska: D({ materialId: 'buk-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 30, radiusVnitrni: 180 }),
+    rozmery: R({ ramenoADelka: 2000 }), deska: D({ materialId: 'buk-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 30, radiusVnitrni: 180, vyrez: 90 }),
     podnoz: P({ typ: 'nohy-sikme', material: 'drevo', materialId: 'buk-masiv', profil: 55, odsazeni: 120 }),
     ulozne: U('police', 'B', 0.85), doplnky: DO({ kabelovaLavka: false }) }),
 
@@ -225,7 +225,7 @@ export const PRESETY: DeskConfig[] = [
 
   mk({ id: 'pl-02', rodina: 'plovouci', nazev: 'Plovoucí s podsvícením',
     popis: 'LED profil po celé délce. Ve večerním obýváku stůl působí, že se vznáší.',
-    rozmery: R({ ramenoAHloubka: 640 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110 }),
+    rozmery: R({ ramenoAHloubka: 640 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110, vyrez: 60 }),
     podnoz: P({ typ: 'ram-U', profil: 25, odsazeni: 140 }), ulozne: U('zasuvka-plocha', 'A', 0.4),
     doplnky: DO({ ledPodsviceni: true }) }),
 
@@ -339,7 +339,7 @@ export const PRESETY: DeskConfig[] = [
   // ---------- DOPLŇKOVÉ VARIANTY ----------
   mk({ id: 'tr-07', rodina: 'truhlar', nazev: 'Dub 40 s velkým vnitřním rádiusem',
     popis: 'Vnitřní roh zaoblený R260. Loket nenarazí do hrany a roh se líp uklízí.',
-    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 30, radiusVnitrni: 260 }),
+    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 30, radiusVnitrni: 260, vyrez: 110 }),
     podnoz: P({ typ: 'nohy-rovne', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 70, odsazeni: 120 }),
     ulozne: U('kontejner-pevny'), doplnky: DO() }),
 

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#FBF5EC"/>
+  <!-- L deska shora -->
+  <path d="M10 18h44v12H26v22H10z" fill="#C69160" stroke="#8A5B2E" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="18" cy="44" r="2.6" fill="#8A5B2E"/>
+</svg>
