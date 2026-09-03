@@ -4495,3 +4495,837 @@ Do doby doplnění cen nechat v appce cenové položky prázdné / označené ja
 
 ---
 
+
+
+---
+
+# Třetí kolo rešerše — sit-stand rámy a ověření cen
+
+Druhé kolo tahle dvě témata nedodělalo, protože se vyčerpal rozpočet vyhledávání.
+Třetí kolo je dostalo znovu, tentokrát s explicitně rozvrženým rozpočtem
+(4 agenti, celkem 105 dotazů) a s kritickou vrstvou navrch.
+
+## Nejdůležitější zjištění: u 211 cm ramene je limitem ROZMĚR, ne rozpočet
+
+Naprostá většina dvousloupových výškově stavitelných rámů má traverzu roztažitelnou
+jen do **160–190 cm**. Rameno A dlouhé 211 cm je tak mimo dosah skoro celé nabídky
+bez ohledu na to, kolik jsi ochoten utratit. To platí i pro pevné podnože — nejdelší
+ověřená jde do 182 cm, takže na 211 cm rameno jsou potřeba dvě.
+
+**Pro pevnou výšku 75 cm, kterou jsi zvolil, to má praktický důsledek:**
+dvě pevné podnože vyjdou dohromady na cca **3 300 – 5 300 Kč**, což je zlomek
+ceny elektriky a vejde se to do rozpočtu s velkou rezervou.
+
+## Co kritická vrstva zamítla
+
+Následující čísla se **nedostala do kalkulačky** a neměla by se používat ani při
+rozhodování, dokud je někdo neověří na živé stránce prodejce:
+
+- METODA CELÉHO 3. bloku: rešerše sama píše, že „WebFetch byl v tomto sezení blokovaný, čísla nejsou přečtená z živého HTML“. To je přesně ten stav, kvůli kterému doověření vzniklo. Žádné číslo z bloku 'stavebnice' a 'na míru' proto nesmí přepnout overeno:false → true; jsou to jen jinak staré indexové hodnoty, ne ověření. U bloků 1 a 2 (sit-stand) není o metodě ani slovo, což je horší — nedá se poznat, jestli někdo stránku otevřel.
+- ~1 950 Kč za Hornbach dubovou spárovku 2000×600×18 — rešerše sama uvádí rozpor 1 895 vs 1 989 a navrhuje dát průměr. Průměrovat dvě konfliktní ceny je nejhorší možná volba: jedna z nich je správná, výsledek není ani jedna. V ceníku je dnes 1 989; nechat 1 989 s příznakem sporu, ne vymyslet třetí číslo. (Kč/m²: 1 579 vs 1 658 — ani jedno není vyloučené trendem 1 748–1 844 u užších kusů.)
+- OBI spárovka dub 2000×300 = 1 579 Kč — vnitřně nekonzistentní se dvěma dalšími řádky téhož sortimentu: 2 632 Kč/m² proti 1 972 (200×2000) a 1 996 (200×1200). Buď je to jiná tloušťka, nebo balení. Do kalkulačky ne, dokud se nerozhodne, který ze tří řádků je špatně.
+- Liftor Expert 8 999 Kč a Liftor Rise „od 4 999“ — ceník dnes drží 10 490 resp. 8 999. Tři různá čísla na dvou produktech a u obou je nová hodnota akční („běžně 14 999“) nebo „od“ (tj. jiná varianta/konfigurace). Akční cena bez data platnosti není katalogová cena; „od“ cena není cena konkrétní varianty.
+- Všechny ceny označené jako akce/sleva/kód: Flexispot E7B Pro 7 449 (běžně 11 999), AlzaErgo ET2 Essential 4 539, Delso SHAPER 17 590 (z 23 453), IKEA TROTTEN 3 490, AlzaErgo ET1 6 993 „s kódem“. Rešerše sama přiznává, že neví, jestli platí k 3. 9. 2026. Rozpočet 5–20 tis. postavený na akcích se rozpadne v den, kdy akce skončí.
+- Powerton EDGE TOP 6 706 Kč („doporučená MOC“) vedle 7 853 Kč u pracuj-zdrave.cz — to nejsou dvě ceny téhož typu. Doporučená MOC výrobce nepatří do kalkulačky, která má vyjít v Kč na konci objednávky; použít jen cenu prodejce.
+- Odhad rohové desky na míru 7 000–8 000 Kč pro 211×148 — odvozeno ze dvou cen za jiné výrobky (7 139 Kč set dvou dílů, 7 865 Kč konkrétní dekor neznámého rozměru). Zdola to nesedí: L 211×148 při hloubce 70/70 má 2,02 m² a 7,18 bm hrany (obvod L = obvod opsaného obdélníku), vejde se do jedné tabule 2800×2070; lamino + ~7,2 bm olepení (180–260 Kč) + řezy vychází spíš na 2,5–4 tis. Rozptyl proti 7–8 tis. je 2–3×, což je přesně ten rozdíl, který rozhoduje o odpovědi na otázku s 20 tis.
+- Doporučená výchozí hodnota „25 Kč/bm olepení a 25 Kč/bm řezu“ — míchá tři různé účtovací jednotky. INTEMO účtuje Kč/bm řezu (bez DPH), DŘEVO TRUST Kč/m² dílce (37/61), OBI Kč/kus řezu a vlastní materiál zdarma. Průměr přes nesouměřitelné jednotky dá číslo, které neplatí nikde. Modelovat řez a olepení odděleně a s jednotkou u sazby.
+- Ceník DŘEVO TRUST 1/2023 — 3,5 roku starý, sama rešerše ho označuje jako zastaralý a pak z něj bere sazby. Buď ho vyhodit, nebo v kalkulačce ukázat s rokem u čísla.
+- Sazby z fóra: „Brno ~30 Kč/bm olepení ABS“ a „20 Kč práce + 12–35 Kč hrana“ z rybicky.net, a ceny řezání v OBI/Hornbach popsané jako „údaje z fóra a starší“. Diskuze není ceník.
+- Forbo Furniture Linoleum ~1 150–1 400 Kč/m² — přepočet z GBP bez českého distributora, bez cla/marže/DPH a bez ceny služby nalepení. Vlastní přiznaný odhad.
+- LED pásek 120–350 Kč/bm a truhlářská montáž 2–6 tis. Kč — rozpětí 3×, resp. bez jakéhokoli zdroje. Do kalkulačky jen jako ručně zadatelná položka, ne jako předvyplněná cena.
+- Ceny z Heureky brané jako ověření (Liftor Rise, Liftor Up, AlzaErgo ET2 Essential, Liftor L „ověřeno liftor.cz + Heureka“) — zadání explicitně říká agregátory jako ověřené neuznávat, jen jako vodítko.
+- B2B Partner rohový 160×120 = 9 260 vs 180×120 = 9 271 Kč — o 20 cm delší rameno za 11 Kč navíc je nepravděpodobné; obě čísla nejspíš pochází z výpisu kategorie („od“), ne z produktu. Řádek 180×160 má navíc v názvu 180×160, ale v URL 160x160 — u toho se neví ani rozměr.
+- Řádky rámů bez rozsahu šířky: Ultradesk UPLIFT 8 546, Powerton ERGO UNO 6 400, Digitus 3nohý 14 772, Liftor Entry 3 999, Flexispot E7Q „od 22 799“. Kalkulačka vybírá podle rozměru; cena bez limitujícího parametru je v ní nepoužitelná a jen zvyšuje počet položek.
+- IKEA MITTZON podnoží 7 300 Kč se „šířkou 1200/1400/1600 mm“ — to nejsou meze teleskopu, ale tři různé SKU. A nosnost 80 kg je uvedena pro celý stůl, ne pro podnož. Nezakládat z toho jednu položku s rozsahem.
+- Fromm & Starck / expondo 10 283 Kč — expondo cenu mění průběžně a řádek nemá datum. Použitelné jako řád, ne jako cena.
+
+## Odpověď na otázku „dá se rohový polohovací stůl 211+148 cm pořídit do 20 tis.?"
+
+Kritická vrstva ji označila za **nepodloženou**. Doslova:
+
+> "Není podložená — je to pravděpodobná hypotéza, ne odpověď. Tvrzení „ANO, dá se to“ stojí na třech nohách a dvě z nich jsou měkké. (1) Rám: jediný kus pod 8 tis., který má rameno 211 cm zvládnout, je Powerton rohový, a to jen podle údaje „doporučená deska 1100–2200 mm“, který si v témže řádku protiřečí s „šířka rámu 1000–1700 mm“; rešerše sama v nezjištěném přiznává, že poměr ramen 211/148 potvrzený není. Druhý blok rešerše navíc Powerton jako rohové řešení vůbec nezná a tvrdí, že 211 cm zvládne prakticky jen Liftor Expert — dvě kola si na klíčové otázce odporují. (2) Deska: 7–8 tis. je odhad ze dvou cen jiných výrobků, žádná nabídka na 211×148 neexistuje; zdola vychází lamino L (2,02 m², 7,18 bm hrany, vejde se do jedné tabule 2800×2070) spíš na 2,5–4 tis., shora může zakázková frézovaná deska klidně přesáhnout 10 tis. Rozptyl toho jednoho čísla je větší než celá rezerva do 20 tis. (3) 
+
+Poctivá formulace tedy zní: **pravděpodobně ano, orientačně 15–17 tis. Kč, ale
+potvrzené to není** — dva nezávislé průchody si na klíčové otázce (jestli Powerton
+rohový rám na 211 cm dosáhne) odporují a odhad ceny rohové desky na míru má rozptyl
+větší než zbývající rezerva do 20 tisíc.
+
+Jedinou ověřenou sestavou, která na 211 × 148 cm rozměrově opravdu jde, je
+**Liftor L** (3 sloupy, desky až 290 × 100 cm) — rám za 16 999 Kč, k tomu deska na míru.
+Tím se to nad 20 tis. dostane.
+
+## Co se nepodařilo zjistit ani ve třetím kole
+
+- IKEA TROTTEN samostatné podnoží (art. 405.073.42) — cena bez desky; search vracel jen kompletní stoly (120×70 od 2 490 Kč akce, 160×80 od 3 490 Kč akce)
+- Flexispot EG1 a EF1 jako rám bez desky u českého prodejce — nalezeny jen kompletní stoly EG1 na Kaufland.cz (3 999 / 4 499 Kč)
+- Sundesk podnož — u českých prodejců nedohledáno vůbec
+- Ergotrend rám stolu — značka se v českých výsledcích neobjevila; místo ní nalezeny alternativy (Powerton, Digitus, Ergosolid, Haltimo)
+- Deska přesně 180×70 cm lamino — konkrétní produkt s cenou nenalezen; běžné velikosti jsou 160×80 a 180×80
+- Liftor Rise — počet motorů (uvedena jen 2segmentová podnož, 150 kg, 20 mm/s)
+- IKEA MITTZON podnoží — nosnost samotného podnoží bez desky
+- Ultradesk UPLIFT Frame — zdvih, nosnost, počet motorů, rozsah šířky
+- Digitus 3nohý rám 120° — rozsah šířky ramen a zdvih
+- Rohová deska na míru 211×148 cm — konkrétní cenová nabídka (potvrzena jen zakázková výroba, dodání 3–4 týdny)
+- Cena kompletu Liftor Expert + lamino deska 180×80 přímo z konfigurátoru liftor.cz
+- Ověření, zda Liftor Expert traverza 110–220 cm zvládne desku hloubky jen 55 cm (uvedeno 60–100 cm)
+- Přesná cena rohové desky na míru v rozměru 211 × 148 cm (pracuj-zdrave.cz i Powerton ji dělají zakázkově, ceník na webu není — nutná poptávka; použil jsem odhad 7–8 tis. Kč podle ověřených cen jiných rohových desek 7 139 a 7 865 Kč).
+- Zda Powerton rohový rám (110–220 cm deska) zvládne obě ramena současně v poměru 211/148 — údaj 'šířka rámu 1000–1700 mm' se pravděpodobně týká delšího ramene; kratší rameno je potřeba potvrdit u prodejce.
+- Jak přesně Liftor L rozděluje max. desku 290 × 100 cm mezi obě ramena (jestli 211 + 148 projde v úhlu 90°).
+- Dostupnost a cena dopravy/montáže do Brna u jednotlivých e-shopů.
+- Konkrétní naměřené hodnoty hlučnosti (dB) u Powerton rohového rámu, DeskTherapy A3+ a Liftor L — výrobci uvádějí jen 'tichý chod'.
+- Zda jsou uvedené akční ceny (IKEA TROTTEN 3 490 Kč, AlzaErgo ET1 6 993 Kč s kódem) platné k 3. 9. 2026 — vyhledávač je vrátil, ale bez data platnosti akce.
+- Cena a dostupnost přesné konfigurace B2B Partner rohový 200 × 120 / 200 × 160 cm (v nabídce se nezobrazila, největší nalezené 180 × 180 cm).
+- CZ cena IKEA SKOGSÅ pracovní deska dub dýha 186x3.8 cm — search vracel jen SEK/GBP/NOK
+- Cena IKEA KARLBY ořech dýha 186x3.8 cm v Kč
+- Cena Bauhaus Exclusivholz spárovka dub 18 x 600 x 2200 mm
+- Přesná cena dubové spárovky Hornbach 2000x600x18 mm — rozpor mezi dvěma dotazy (1 895 Kč vs. 1 989 Kč), do kalkulačky dát ~1 950 Kč a ověřit
+- Ceny IKEA KARLBY a MÖLLEKULLA ve variantě 'na míru' (45,1–63,5 cm) za běžný metr
+- Aktuální ceník řezání na prodejně Hornbach a OBI pro rok 2026 — dostupné údaje pocházejí z fóra a jsou starší
+- Cena bukové spárovky Hornbach 2000x400x18 mm
+- Cena Walteco kovový rám tvar U 410x380 mm
+- Cena OBI nosná konstrukce stolu ve tvaru V 700x710 mm
+- Cena Solorety černá kovová podnož z oceli 45x45 cm, výška 73 cm
+- Dubové spárovky v šířce 800 mm pro hloubku desky 80 cm — v hobbymarketech se nezdají být vedené vůbec, nutný truhlářský velkoobchod nebo lepení ze dvou kusů
+- Porovnání s cenami, které má aktuálně appka — seznam nebyl v zadání přiložen (odkaz 'viz níže' vedl do prázdna), diff nelze udělat bez dodání současných hodnot z kalkulačky
+- Ceny spotřebního materiálu (olej na dřevo, spojovací materiál, ABS lišty na zaříznuté hrany) — v modelových sestavách uvedeno jako odhad ~800 Kč
+- Démos trade – konkrétní ceník nářezového centra (řez Kč/bm, olepení Kč/bm). Služba je inzerovaná, ale ceník je jen na dotaz / po přihlášení do B2B účtu.
+- Kili – ceník služeb nářezu a olepování. Na webu je jen katalog desek a hran, ne sazby za práci.
+- Dřevocentrum – vlastní ceník řezání se v rešerši nikdy neobjevil; výsledky vždy sklouzly k jiným nářezovým centrům.
+- OBI – oficiální kompletní ceník řezu 2026. PDF ceník se našel a dala se z něj vytáhnout položka olepování 15 Kč/bm, kolmý řez zdarma, přířez cizího materiálu 40 Kč/kus a výřez dřezu 200/300 Kč, ale ne úplná tabulka sazeb za řez podle materiálu.
+- Hornbach – kompletní ceník přířezu podle materiálu. Známo jen 'od 11,73 Kč za kus'.
+- Forbo Furniture Linoleum – cena v Kč od českého distributora. Nalezeny jen UK a US e-shopy (£38,90 bez DPH / £46,68 s DPH za m²); přepočet ~1 150–1 400 Kč/m² je můj odhad. Nezjištěna ani cena služby nalepení linolea na nosnou desku v ČR.
+- LED pásek 24 V – cena za běžný metr. Search vrátil jen profily, ne pásky. Odhad 120–350 Kč/bm.
+- Kuchyňská pracovní deska 38 mm / 60 cm – cena za bm u konkrétního produktu. Údaj 'od 600 Kč/m' nemá jasnou vazbu na konkrétní zboží; Hornbach uvádí 2 295–4 780 Kč za kus bez uvedení délky.
+- Ceníky konkrétních brněnských nářezových center (KPP Truhlářství Čebín, Hezký domov) – kontakty nalezeny, sazby nikoli. Nutno obvolat.
+- Cena truhlářské montáže na místě (kotvení L-desky do zdi, sesazení dvou ramen, srovnání v rohu). Žádný veřejný ceník; odhad 2–6 tis. Kč není podložený zdrojem.
+- Velkoobchodní ceny lamina Egger za celou desku 2800x2070 u Démosu / Kili (vyžaduje přihlášení). Použity maloobchodní ceny OBI za m².
+- Aktuální ceník DŘEVO TRUST – dostupný jen ve verzi z ledna 2023, tj. cca 3,5 roku starý.
+
+---
+
+
+## Rámy (podnože) bez desky — české ceny, září 2026 (dotazů: 28)
+
+### Rámy (podnože) bez desky — české ceny, září 2026
+
+#### Hlavní zjištění: rameno 211 cm je limit, ne rozpočet
+
+Naprostá většina dvousloupových rámů má traverzu roztažitelnou jen do **160–190 cm**. Pro rameno A = 211 cm to nestačí. Z ověřených nabídek na to dosáhne prakticky **jen Liftor Expert (110–220 cm)** — a z rohových sestav **Liftor L** (3 sloupy, desky až 290×100 cm).
+
+---
+
+#### Tabulka rámů
+
+| Model | Prodejce | Zdvih (cm) | Nosnost | Motory | Rozsah šířky | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|---|---|---|---|
+| **Liftor Expert** (3seg.) | Liftor.cz | 63,5–128,5 | 125–150 kg | 2 | **1100–2200 mm** | **8 999** (běžně 14 999) | ✅ cena i rozsah | [liftor.cz](https://www.liftor.cz/liftor-expert-sedy-id10622.html) |
+| **Liftor L** (rohový, 3 sloupy) | Liftor.cz | 58–123 | 150 kg | 3 | desky až **2900×1000 mm**, úhly 90/120/180° | **16 999** | ✅ | [liftor.cz](https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html) |
+| Liftor Rise | Liftor.cz / Heureka | 72–120 | 150 kg | neuvedeno (2seg. nohy) | 1050–1800 mm | od **4 999** | ✅ cena, ✅ rozsah | [heureka](https://stolove-podnoze.heureka.cz/liftor-rise-seda-16212/) |
+| Liftor Up (dobíhá) | Liftor.cz | 71–121 | 70 kg | 1 | desky do 1600×800 mm | od **4 999–6 299** | ✅ | [heureka](https://kancelarske-stoly.heureka.cz/liftor-up-vyskove-nastavitelny-stul-bez-desky/) |
+| **AlzaErgo Table ET1 Essential** | Alza | 62–128 | 125 kg | 2 | **1000–1700 mm** | **7 189** | ✅ | [alza.cz](https://www.alza.cz/alzaergo-table-et1-essential-cerny-d7121744.htm) |
+| AlzaErgo Table ET1 NewGen | Alza | 62–128 | 125 kg | 2 | 1000–1700 mm | **8 219** (bílý/šedý), 9 990 (černý) | ✅ | [alza.cz](https://www.alza.cz/alzaergo-table-et1-newgen-white-d5647311.htm) |
+| AlzaErgo Table ET1 Ionic | Alza | 62–128 | 125 kg | 2 | 1000–1700 mm | **9 990** | ✅ | [alza.cz](https://www.alza.cz/alzaergo-table-et1-ionic-cerny-d7121747.htm) |
+| **AlzaErgo Table ET2 Core** | Alza | 73–123 | 80 kg | 1 | **1000–1600 mm** | **4 990** | ✅ | [alza.cz](https://www.alza.cz/alzaergo-table-et2-core-cerny-d12930757.htm) |
+| AlzaErgo Table ET2 | Alza | 73–123 | 80 kg | 1 | 1000–1600 mm | **7 990** | ✅ | [alza.cz](https://www.alza.cz//alzapower-ergotable-et2-d5608246.htm) |
+| AlzaErgo Table ET2 Essential | Heureka/Alza | 73–123 | 80 kg | 1 | 1000–1600 mm | **6 490** (akce 4 539) | ✅ | [heureka](https://stolove-podnoze.heureka.cz/alzaergo-table-et2-essential-cerny/) |
+| **Flexispot E7B Pro** (rám, černý) | vyprodavamesklady.cz | 58–123 | 125 kg | 2 | **1100–1900 mm** | **7 449** (běžně 11 999) | ✅ cena, ✅ rozsah | [vyprodavamesklady.cz](https://www.vyprodavamesklady.cz/cs/brand/741-flexispot) |
+| Flexispot E7Q (4 nohy) | Kaufland.cz | ~58–123 | 160 kg | 2 | neuvedeno | od **22 799** | ✅ cena | [kaufland.cz](https://www.kaufland.cz/product/458087839/) |
+| **IKEA MITTZON** podnoží elektr. | IKEA CZ | 60–124 | 80 kg (u celého stolu) | neuvedeno | **1200 / 1400 / 1600 mm** | **7 300** | ✅ | [ikea.com](https://www.ikea.com/cz/cs/p/mittzon-polohovaci-podnozi-ps-stolu-elektricky-cerna-20527911/) |
+| Ultradesk UPLIFT Frame | kupzidle.cz | neuvedeno | neuvedeno | 2 (dle popisu) | neuvedeno | **8 546** | ✅ cena | [kupzidle.cz](https://www.kupzidle.cz/p/ultradesk-uplift-frame-elektricky-nastavitelny-ram-stolu-cerny) |
+| Digitus rám 3 nohy 120° (rohový) | pekro.cz | neuvedeno | neuvedeno | 3 | neuvedeno | **14 772** | ✅ cena | [pekro.cz](https://www.pekro.cz/digitus-electricky-vyskove-nastavitelny-ram-stolu-3-nohy-120-stupnu-cerna-P/) |
+| Fromm & Starck rohový rám 90° | expondo.cz | 69–118 | 80 kg | 3 | **900–1500 mm (levé) / 1100–1900 mm (pravé)** | **10 283** | ✅ | [expondo.cz](https://www.expondo.cz/fromm-starck-vyskove-nastavitelny-ram-stolu-elektricky-120-w-80-kg-cerny-10260060) |
+| Powerton ERGO UNO | opaz.cz | zdvih 500 mm | 100 kg | neuvedeno | neuvedeno | **6 400** | ✅ cena | [opaz.cz](https://www.opaz.cz/ram-stolu-elektricky-nastavitelna-vyska-rozsah-500-mm-antikolizni-system-sedy-100-kg-nosnost-p-eanl_MOXYM08AWP-skup131022600.php) |
+| Liftor Entry (manuální klika) | Liftor.cz | neuvedeno | neuvedeno | 0 (manuál) | neuvedeno | **3 999** | ✅ cena | [liftor.cz](https://www.liftor.cz/liftor-entry-id11004.html) |
+
+---
+
+#### Pevné podnože 75 cm — pokud opravdu stačí pevná výška
+
+Zadání zmiňuje **pevnou výšku 75 cm**. Pak je elektrika zbytečná a rám vyjde na zlomek:
+
+| Podnož | Prodejce | Výška | Rozsah šířky | Cena Kč | Ověřeno |
+|---|---|---|---|---|---|
+| Pevná stolová podnož | zlklshop.cz | 755 mm | **1180–1580 mm** | 1 590 bez DPH / **1 924 s DPH** | ✅ |
+| Podnož LEVEL L+P (bez nosníku) | drevotrust.cz | 723–730 mm | dle nosníku | **1 628** (černá) / 1 929 (šedá) | ✅ |
+| ALUPRESS SKCH-O excentrická | drevotrust.cz | 725 mm | **1340–1820 mm** | **2 662** | ✅ |
+
+Pozn.: ani jedna nedosáhne 2110 mm — na 211 cm rameno by byly potřeba **dvě podnože** (cca 3 300–5 300 Kč celkem) nebo nosník na míru.
+
+---
+
+#### Priorita 3: kompletní sestava a co s L deskou
+
+**Rovná sestava 180×70 (rám + deska):**
+
+| Položka | Cena Kč | Ověřeno |
+|---|---|---|
+| AlzaErgo ET1 Essential (rám, 100–170 cm) | 7 189 | ✅ |
+| AlzaErgo TTE-03 deska 160×80 lamino (bříza / šedý dub / kaštan / dub) | 1 939 / 1 999 / 2 490 / 2 585 | ✅ ([alza.cz](https://www.alza.cz/alzaergo-tte-03-160x80-cm-lamino-briza-d6799602.htm)) |
+| **Celkem ET1 + deska 160×80** | **≈ 9 100 – 9 800** | ✅ (součet ověřených) |
+| Deska přesně 180×70 lamino | **odhad 2 000 – 3 000** | ❌ odhad — konkrétní kus se nepodařilo dohledat |
+| Liftor Expert + deska 180×80 lamino | **odhad 12 000 – 14 000** | ❌ odhad (rám 8 999 ověřen, deska ne) |
+| Liftor deska **masiv dub 180×80×4 cm** | 16 991 | ✅ ([liftor.cz](https://www.liftor.cz/sestavit-stul/samostatne-desky/desky-z-masivu/)) — mimo rozpočet |
+
+**L deska 211 × 148 cm — vejde se pod ni jeden rám?**
+
+Ne. Jeden dvousloupový rám L desku neunese ani geometricky (traverza max 190–220 cm, a to jen po dlouhém rameni), ani staticky — krátké rameno 148 cm by zůstalo bez podpory a deska by se v rohu prohýbala. Reálné varianty:
+
+| Varianta | Popis | Cena Kč | Ověřeno |
+|---|---|---|---|
+| **A) Rohová sestava se 3 sloupy — Liftor L** | 3 motory, 150 kg, úhly 90/120/180°, desky až 290×100 cm — jediná ověřená, která na 211×148 opravdu jde | rám **16 999** + rohová deska | ✅ rám |
+| **B) Fromm & Starck rohový rám 90°** | 3 nohy, rozsahy 90–150 / 110–190 cm — **na 211 cm nedosáhne** | 10 283 | ✅ (ale rozměrově nevyhoví) |
+| **C) Digitus 3nohý 120°** | 3 sloupy, rozsahy neuvedeny | 14 772 | ✅ cena, ❌ rozsahy |
+| **D) Liftor Expert (dlouhé rameno) + samostatná noha/kontejner pod krátké** | rám 110–220 cm pod rameno A, krátké rameno podepřít skříňkou nebo pevnou nohou | 8 999 + ~1 500–2 500 | ✅ rám, ❌ zbytek odhad |
+| **E) Dvě pevné podnože 75 cm pod L desku** | nejlevnější, pokud výška opravdu zůstane pevná | ~3 300 – 5 300 | ✅ podnože |
+
+**Rohové desky — ověřené ceny (žádná ale není 211×148, to je zakázka):**
+
+| Deska | Prodejce | Cena Kč | Ověřeno |
+|---|---|---|---|
+| ErgoDesk Corner 160×110-60×2,5 cm lamino | kupzidle.cz | **2 190** | ✅ ([kupzidle.cz](https://www.kupzidle.cz/p/deska-stolu-rohova-ergodesk-corner-160x110-60x2-5-cm-laminovana-drevotriska-vice-barev)) |
+| Powerton rohová 160×110-60×1,8 cm | pracuj-zdrave.cz | **3 624** | ✅ |
+| Rohová deska LUX (dekory, dýhy) | pracuj-zdrave.cz | **7 139 – 9 559** | ✅ |
+| Rohová deska **na míru 211×148** | pracuj-zdrave.cz / woooooo.cz | **odhad 4 000 – 8 000**, dodání 3–4 týdny | ❌ odhad — jen potvrzeno, že se vyrábí zakázkově |
+
+---
+
+#### Doporučené rozpočtové scénáře
+
+| Scénář | Sestava | Odhad celkem Kč |
+|---|---|---|
+| **Nejlevnější, pevná výška** | 2× pevná podnož 75 cm + rohová deska na míru | **7 500 – 13 000** (rámy ověřené, deska odhad) |
+| **Elektrika, rovná deska 180×70** | AlzaErgo ET1 Essential 7 189 + deska ~2 500 | **≈ 9 700** |
+| **Elektrika na dlouhé rameno 211 cm** | Liftor Expert 8 999 + deska na míru | **13 000 – 17 000** |
+| **Plná L sestava, elektrika** | Liftor L 16 999 + rohová deska | **21 000 – 25 000** — nad rozpočet |
+
+**Praktický závěr:** v rozpočtu 5–20 tis. Kč je L deska 211×148 s elektrickým polohováním prakticky jen přes Liftor Expert + podpora krátkého ramene (varianta D). Plnohodnotný tříslopový Liftor L rozpočet přestřelí už samotným rámem.
+
+---
+
+#### Poznámka ke spolehlivosti
+
+Ceny označené ✅ vrátil search jako konkrétní číslo z konkrétního e-shopu. Ceny označené ❌ jsou moje odhady na základě sousedních velikostí — neber je jako nabídku. Akční ceny (Liftor Expert 8 999 vs. 14 999, Flexispot E7B Pro 7 449 vs. 11 999, ET2 Essential 4 539 vs. 6 490) se mohou během dní změnit; před nákupem ověř přímo na stránce produktu.
+
+
+**Zdroje:**
+
+- [Liftor Expert, šedý — polohovací stoly](https://www.liftor.cz/liftor-expert-sedy-id10622.html)
+- [Liftor L, černá](https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html)
+- [Liftor Rise, šedá — Heureka](https://stolove-podnoze.heureka.cz/liftor-rise-seda-16212/)
+- [Liftor Up výškově nastavitelný stůl bez desky — Heureka](https://kancelarske-stoly.heureka.cz/liftor-up-vyskove-nastavitelny-stul-bez-desky/)
+- [Liftor Entry](https://www.liftor.cz/liftor-entry-id11004.html)
+- [Liftor — desky z masivu](https://www.liftor.cz/sestavit-stul/samostatne-desky/desky-z-masivu/)
+- [AlzaErgo Table ET1 Essential černý za 7 189 Kč](https://www.alza.cz/alzaergo-table-et1-essential-cerny-d7121744.htm)
+- [AlzaErgo Table ET1 NewGen bílý za 8 219 Kč](https://www.alza.cz/alzaergo-table-et1-newgen-white-d5647311.htm)
+- [AlzaErgo Table ET1 Ionic černý za 9 990 Kč](https://www.alza.cz/alzaergo-table-et1-ionic-cerny-d7121747.htm)
+- [AlzaErgo Table ET1 — parametry (Alza)](https://www.alza.cz/alzaergo-table-et1-newgen)
+- [AlzaErgo Table ET2 Core černý za 4 990 Kč](https://www.alza.cz/alzaergo-table-et2-core-cerny-d12930757.htm)
+- [AlzaErgo Table ET2 černý za 7 990 Kč](https://www.alza.cz//alzapower-ergotable-et2-d5608246.htm)
+- [AlzaErgo Table ET2 Essential černý — Heureka](https://stolove-podnoze.heureka.cz/alzaergo-table-et2-essential-cerny/)
+- [AlzaErgo TTE-03 160×80 cm lamino bříza za 1 939 Kč](https://www.alza.cz/alzaergo-tte-03-160x80-cm-lamino-briza-d6799602.htm)
+- [AlzaErgo TTE-03 160×80 cm lamino bílý dub za 2 590 Kč](https://www.alza.cz/alzaergo-tte-03-160x80cm-lamino-bily-dub-d5641181.htm)
+- [FLEXISPOT — vyprodavamesklady.cz](https://www.vyprodavamesklady.cz/cs/brand/741-flexispot)
+- [FLEXISPOT výškově nastavitelný rám stolu E7Q — Kaufland.cz](https://www.kaufland.cz/product/458087839/)
+- [MITTZON polohovací podnoží ps. stolu, elektrický/černá — IKEA](https://www.ikea.com/cz/cs/p/mittzon-polohovaci-podnozi-ps-stolu-elektricky-cerna-20527911/)
+- [Desky a podnoží stolů TROTTEN — IKEA](https://www.ikea.com/cz/cs/cat/desky-a-podnozi-stolu-trotten-55991/)
+- [TROTTEN polohovací stůl, bílá, 160x80 cm — IKEA](https://www.ikea.com/cz/cs/p/trotten-polohovaci-stul-bila-s79429602/)
+- [Ultradesk UPLIFT Frame — elektricky nastavitelný rám stolu](https://www.kupzidle.cz/p/ultradesk-uplift-frame-elektricky-nastavitelny-ram-stolu-cerny)
+- [Rohová stolní deska ErgoDesk Corner 160x110 cm](https://www.kupzidle.cz/p/deska-stolu-rohova-ergodesk-corner-160x110-60x2-5-cm-laminovana-drevotriska-vice-barev)
+- [Digitus elektrický výškově nastavitelný rám stolu, 3 nohy 120°](https://www.pekro.cz/digitus-electricky-vyskove-nastavitelny-ram-stolu-3-nohy-120-stupnu-cerna-P/)
+- [Fromm & Starck výškově nastavitelný rám stolu — expondo.cz](https://www.expondo.cz/fromm-starck-vyskove-nastavitelny-ram-stolu-elektricky-120-w-80-kg-cerny-10260060)
+- [Powerton ERGO UNO rám stolu — opaz.cz](https://www.opaz.cz/ram-stolu-elektricky-nastavitelna-vyska-rozsah-500-mm-antikolizni-system-sedy-100-kg-nosnost-p-eanl_MOXYM08AWP-skup131022600.php)
+- [Pevná stolová podnož 755 mm — zlklshop.cz](https://www.zlklshop.cz/p/pevna-stolova-podnoz/174)
+- [Podnože a rámy pod stoly pevné i stavitelné — DŘEVO Trust](https://drevotrust.cz/cs/podnoze/qu8)
+- [Rohové stolové desky laminátové — pracuj-zdrave.cz](https://www.pracuj-zdrave.cz/rohove-stolove-desky/)
+- [Stolní desky na míru — pracuj-zdrave.cz](https://www.pracuj-zdrave.cz/stolni-deska-na-miru/)
+- [Stolové a stolní desky na míru — woooooo.cz](https://www.woooooo.cz/stolove-desky/)
+- [Recenze elektrického zvedacího stolu Liftor Expert — testado.cz](https://www.testado.cz/recenze-liftor-expert/)
+- [Stolové podnože výškově nastavitelné — Heureka](https://stolove-podnoze.heureka.cz/f:35323:1/)
+
+
+---
+
+
+## Rohový polohovací (sit-stand) stůl 211 × 148 cm do 20 tis. Kč — co reálně existuje v ČR (dotazů: 28)
+
+### Rohový polohovací (sit-stand) stůl 211 × 148 cm do 20 tis. Kč — co reálně existuje v ČR
+
+**Krátká odpověď: ANO, dá se to — ale jen cestou "rohový RÁM + deska zvlášť".** Hotová rohová sestava v přesně vašich rozměrech (rameno 211 cm) se sériově neprodává; nejběžnější hotové rohové stoly končí na 180–200 cm delšího ramene. Rám, který 211 cm unese, existuje a stojí pod 8 tis. Kč.
+
+---
+
+#### 1) Rohové rámy / podnože (bez desky) — jádro řešení
+
+| Produkt | Motory / nohy | Podporovaná deska | Cena vč. DPH | Ověření |
+|---|---|---|---|---|
+| [Powerton rohový rám (ERGO EDGE), 2 motory](https://www.pracuj-zdrave.cz/rohovy-elektricky-nastavitelny-stul-powerton/) | 2 motory, rohová (L) konstrukce, nosnost 125 kg, antikolize, paměť 3 pozice | **1100–2200 × 600–1100 mm**, rám šířka 1000–1700 mm, výška 620–1280 mm | **7 853 Kč** (6 490 bez DPH), prodává se **bez desky** | ověřená (pracuj-zdrave.cz) |
+| [Powerton EDGE TOP — tentýž rám u výrobce](https://www.powerton.eu/cs/produkty/powerton-ergo/nastavitelne-stoly/edge-top-vyskove-nastavitelny-ram-rohoveho-stolu) | 2 motory, výška 62–128 cm, šířka 100–170 cm | doporučeno 110–220 × 60–110 cm | **6 706 Kč** (doporučená MOC) | ověřená (powerton.eu) |
+| [Liftor L (rohová podnož, ČR)](https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html) | **3 motory, 3 nohy**, 3segmentové sloupky, 150 kg, úhly 90/120/180°, rychlost 38 mm/s | deska až **290 × 100 cm** | **16 999 Kč** (14 049 bez DPH), bez desky | ověřená (liftor.cz, Heureka) |
+| [DeskTherapy A3+ rohový / DEF 223](https://www.pracuj-zdrave.cz/desktherapy-a3--rohovy-elektricky-vyskove-nastavitelny-stul/) | 3 motory, 3 segmenty, 58–123,5 cm, 125 kg, úhly 90/120/180° | šířka desky **110–200 cm**, hloubka 60–80 cm | **16 323 Kč** (13 490 bez DPH) | ověřená (pracuj-zdrave.cz) |
+| [DeskTherapy E3+ STRONG rohový](https://www.pracuj-zdrave.cz/desktherapy-e3-strong-elektricky-rohovy-vyskove-polohovaci-stul/) | 3 motory, 3 segmenty, zdvih 62,5–127 cm | u rovné verze max. deska 190 × 85 cm; rohová konfigurace na dotaz | **18 743 Kč** (15 490 bez DPH) | ověřená (pracuj-zdrave.cz) |
+| [DeskTherapy iE5+ BOSCH rohový](https://www.pracuj-zdrave.cz/rohove-stoly-vyskove-a-elektricky-nastavitelne/) | 3 motory Bosch | — | 29 034 Kč | ověřená, **mimo rozpočet** |
+| [Flexispot E7Q (4 nohy, obdélník — ne L)](https://www.kaufland.cz/product/458087839/) | 4 motory, 200 kg | velké desky | **od 22 799 Kč** | ověřená, **mimo rozpočet a není L** |
+
+**Pointa:** jediný rám, který podle výrobce zvládne **rameno 211 cm** a přitom stojí pod 8 tis., je **Powerton rohový (110–220 cm)**. Liftor L zvládne rozvinutou délku až 290 cm (211 + 148 s hloubkou ~70 dává rozvinutou délku ≈ 289 cm — sedí na doraz), ale sám stojí 17 tis., takže s deskou už rozpočet přeteče.
+
+#### 2) Hotové rohové stoly (rám + deska v ceně) — levné, ale menší
+
+| Produkt | Rozměr | Motory | Cena vč. DPH | Ověření |
+|---|---|---|---|---|
+| [B2B Partner rohový 180 × 120 cm](https://www.b2bpartner.cz/rohovy-vyskove-nastavitelny-stul-180x120-cm-2-motory-l-p-cerna-podnoz-grafit/) | 180 × 120 | 2 | **9 271 Kč** (7 662 bez DPH) | ověřená |
+| [B2B Partner rohový 160 × 120 cm](https://www.b2bpartner.cz/rohove-polohovaci-stoly/) | 160 × 120 | 2 | **9 260 Kč** | ověřená |
+| [B2B Partner rohový 180 × 160 cm](https://www.b2bpartner.cz/rohovy-vyskove-nastavitelny-stul-160x160-cm-3-motory-l-p-bila-podnoz-orech/) | 180 × 160 | 3 | **14 752 Kč** | ověřená |
+| B2B Partner rohový 1 motor 180 × 120 | 180 × 120 | 1 | cca **7 533 Kč** | ověřená (výpis kategorie) |
+| [Delso SHAPER rohový 130 × 180 cm](https://delso.cz/kategorie-produktu/elektricke-vyskove-nastavitelne-stoly/rohove-vyskove-nastavitelne-stoly/) | 130 × 180 | 3 | **17 590 Kč** (z 23 453) | ověřená |
+| [DESK FIX 100 rohový — ruční, šrouby](https://www.pracuj-zdrave.cz/desk-fix-100-rohovy-vyskove-nastavitelny-stul/) | rohový | ruční (nastavení šrouby, ne pravé sit-stand) | **od 7 018 Kč** | ověřená |
+| [ALUDESK 750 ROHOVÝ — ruční, hliník](https://www.pracuj-zdrave.cz/rohove-stoly-vyskove-a-elektricky-nastavitelne/) | rohový | ruční šrouby | **10 884 Kč** (8 995 bez DPH) | ověřená |
+
+Žádný z nich nedosahuje 211 cm na delším rameni — max. 180–200 cm.
+
+#### 3) Desky (když jdete cestou rám + deska)
+
+| Deska | Rozměr | Cena vč. DPH | Ověření |
+|---|---|---|---|
+| [Powerton rohová deska (Ergoline)](https://www.powerton.eu/cs/produkty/powerton-ergoline/nastavitelne-stoly/rohova-deska-na-stul) | 160 × 110 × 60 cm, tl. 2,5 cm | **od 2 039 Kč** | ověřená |
+| Powerton rohová deska starší (tl. 1,8 cm) | 160 × 110 × 60 cm | **3 624 Kč** | ověřená |
+| [Rohová deska DELUX na míru](https://www.pracuj-zdrave.cz/rohove-stolove-desky/) | zakázkový rozměr, frézovaná z jednoho kusu, 2–3 týdny | **7 865 Kč** (konkrétní dekor) | ověřená |
+| [Rohový set dvou desek EXCLUSIVE](https://www.pracuj-zdrave.cz/rohove-stolove-desky/) | rohová sestava ze 2 dílů, do 14 dnů | **7 139 Kč** | ověřená |
+| [IKEA LAGKAPTEN 200 × 60 cm](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bile-moridlo-vzor-dub-30460830/) | 200 × 60 (2 ks do L, nutné zkrátit/spojit) | **999 Kč / ks** | ověřená |
+| [Liftor desky na míru](https://www.liftor.cz/konfigurator/samostatne-desky/) | jen do **180 × 100 cm** — na rohovou desku nestačí | od 7 999 Kč | ověřená |
+
+#### 4) Modelové rozpočty pro váš roh 211 + 148 cm
+
+| Varianta | Sestava | Cena celkem | Typ ceny |
+|---|---|---|---|
+| **A — nejlevnější funkční** | Powerton rohový rám (7 853) + rohová deska na míru lamino (~7 000–8 000) | **cca 15–16 tis. Kč** | rám ověřený, deska odhad podle ověřených 7 139 / 7 865 Kč |
+| **B — rozpočtová DIY** | Powerton rohový rám (7 853) + 2× IKEA LAGKAPTEN 200×60 (1 998), zkrátit na 211 a 148, spojit spojkami | **cca 10 tis. Kč** | ověřené ceny obou dílů; práce/spoj navíc |
+| **C — 3 nohy, prémiová** | Liftor L (16 999) + rohová deska (~7 000) | **cca 24 tis. Kč** | **přes rozpočet** |
+| **D — kompromis rozměru** | hotový B2B Partner rohový 180 × 160, 3 motory | **14 752 Kč** | ověřená, ale rameno jen 180 cm |
+| **E — bez motorů** | DESK FIX 100 rohový, ruční (7 018) | **cca 7 tis. Kč** | ověřená; výšku měníte šroubovákem, ne během dne |
+
+#### 5) Levné alternativy k drahým rámům (PRIORITA 2)
+
+| Řešení | Cena vč. DPH | Poznámka | Ověření |
+|---|---|---|---|
+| [AlzaErgo Table ET2 Core — rám bez desky](https://www.alza.cz/polohovaci-stoly-bez-desky/18909893.htm) | **4 990 Kč** | 1 motor, šířka 100–160 cm, 73–123 cm, tlačítkové ovládání | ověřená |
+| [AlzaErgo Table ET1 NewGen](https://www.alza.cz/alzaergo-table-et1-newgen-white-d5647311.htm) | **8 219 Kč**, akčně **6 993 Kč** s kódem | 2 motory | ověřená |
+| [Liftor Rise — podnož](https://www.liftor.cz/liftor-rise-cerna-id16211.html) | **4 999 Kč** | český výrobce, 1 nižší třída | ověřená |
+| [Liftor Rise — celý stůl s deskou](https://www.liftor.cz/liftor-rise-id16265.html) | **9 490 Kč** | | ověřená |
+| [IKEA TROTTEN 160 × 80 — ruční klika](https://www.ikea.com/cz/cs/p/trotten-polohovaci-stul-bila-s79429602/) | **3 490 Kč** (akce, z 4 990) | výška 70–120 cm klikou | ověřená |
+| [IKEA TROTTEN 120 × 70](https://www.ikea.com/cz/cs/p/trotten-polohovaci-stul-bezova-bila-s89434127/) | **3 990 Kč** | | ověřená |
+| [IKEA MITTZON elektrický 140 × 60](https://www.ikea.com/cz/cs/p/mittzon-polohovaci-stul-elektricky-dyha-dub-cerna-s29528299/) | **8 490 Kč** | rovný, 10 let záruka | ověřená |
+| [TRINFIT Office Riser malý (nástavec)](https://www.domaci-fitness.cz/nastavec-na-stul-trinfit-office-riser-maly) | **od 1 590 Kč** | položí se na stávající stůl | ověřená |
+| [TRINFIT Riser velký 94 × 40 cm](https://www.domaci-fitness.cz/nastavec-na-stul-trinfit-riser-velky) | **2 565 Kč** | zdvih 11–50 cm | ověřená |
+| [Konvertor DV-192ODC](https://di-volio.com/cz/stojany-na-notebook/nastavec-konvertor-na-psaci-stul-pro-praci-vsede-i-ve-stoje-dv-192odc-bily/5902308242968) | **1 850 Kč** | zdvih 4–39 cm | ověřená |
+| [Liftor Riser 10 cm (jen pod monitor)](https://www.liftor.cz/liftor-riser-10-cm-podstavec-pod-monitor-u999-id10899.html) | **599 Kč** | ne pro stání | ověřená |
+
+**Chytrý kompromis do obýváku:** rohová deska na pevné podnoži ve výšce 75 cm (levné, tiché, bez kabelů) + **nástavec 1 590–2 565 Kč** na tu část stolu, kde stojíte. Ušetříte 10+ tis. a v obýváku nemáte motory ani trafo.
+
+Druhá varianta: **jen jedno rameno udělat polohovací** (např. AlzaErgo ET2 Core rám 4 990 Kč pod desku 148 cm) a delší rameno 211 cm nechat pevné jako odkládací/tiskárnovou plochu. Pozor, tyto dvě části se pak musí odsadit — nesmí být pevně spojené, jinak zvedání zablokujete.
+
+#### 6) Na co si dát pozor v obýváku (PRIORITA 3)
+
+- **Hlučnost.** Doporučená hranice je **do 50 dB**; [AlzaErgo ET2 uvádí pod 50 dB](https://www.nezavislyradce.cz/polohovaci-stoly/recenze-alzaergo-table-et2-polohovaci-stul/), [Liftor Expert cca 29 dB](https://www.liftor.cz/blog/jak-vybrat-polohovaci-stul.html). Recenze se shodují, že **dvou- a třímotorové stoly jedou tišeji než jednomotorové** (u jednoho motoru se pohon přenáší hřídelemi). U [Adaptic SmartDesk recenzent uvádí](https://www.testado.cz/stul-smartdesk-home-office/), že motory nejsou slyšet ani do mikrofonu při videohovoru. V obýváku, kde vedle sedí rodina u televize, je to rozdíl mezi "nevšimnou si" a "zvedá stůl".
+- **Stabilita a kmitání.** [Slabinou levných stolů bývá horní poloha](https://www.liftor.cz/blog/7-veci-na-ktere-pri-vyberu-polohovaciho-stolu-nezapomenout.html) — deska se při psaní kýve a vibrace se přenesou do monitoru. U vaší velikosti (211 × 148, tedy velká plocha) to platí dvojnásob: **3segmentové sloupky a 3 nohy** jsou u rohu prakticky povinnost, 2motorový rám s jednou nohou na dlouhém rameni bude houpat.
+- **Kabeláž.** Rohový stůl u zdi v obýváku znamená napájecí kabel rámu (u Powertonu 3 m), zdroj, monitor, notebook — a to všechno se s deskou **pohybuje o 50–60 cm nahoru**. Recenze doporučují [kabelový organizér / žlab pod desku a rezervu v délce kabelů](https://www.liftor.cz/blog/7-veci-na-ktere-pri-vyberu-polohovaciho-stolu-nezapomenout.html); jinak vám při zvednutí vypadne zástrčka nebo se něco strhne. Do obýváku počítejte s podstolovým žlabem a jednou "páteřní" prodlužkou pověšenou na desce.
+- **Vzhled.** Kancelářské rámy (šedá/černá práškový lak) v obýváku ruší — Powerton, Liftor i DeskTherapy nabízejí **bílou podnož**, což u světlé stěny zmizí nejlépe. Deska v dubovém dekoru + bílý rám je nejbezpečnější kombinace pro obytný prostor.
+- **Hloubka.** Váš rozsah 55–80 cm: Powerton rám podporuje desku **od 60 cm hloubky**, DeskTherapy A3+ **60–80 cm**. Pod 60 cm už rohové rámy nejdou — počítejte tedy s 60–80.
+- **Pevná výška 75 cm.** Pokud vám 75 cm sedí a stání je jen "hezké mít", varianta pevná deska + nástavec (bod 5) je v obýváku tišší, levnější a bez elektroinstalace.
+
+---
+
+#### Závěr
+
+**Ano — rohový polohovací stůl 211 + 148 cm se do 20 tis. Kč pořídit dá, ale ne jako hotový produkt z regálu.**
+
+- Nejlevnější reálná cesta: **[Powerton rohový rám 7 853 Kč](https://www.pracuj-zdrave.cz/rohovy-elektricky-nastavitelny-stul-powerton/)** (podporuje desku **až 220 × 110 cm**, tedy vaše rameno 211 cm) **+ rohová deska na míru cca 7–8 tis. Kč** → **celkem ~15–16 tis. Kč**, s rezervou v rozpočtu. S IKEA deskami místo zakázky spadnete až na ~10 tis. Kč.
+- Pokud chcete **3 nohy** (nejstabilnější řešení pro takhle velkou desku), je nejlepší [Liftor L za 16 999 Kč](https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html) s deskou až 290 × 100 cm — ale s deskou skončíte kolem **24 tis. Kč, tedy nad rozpočtem**.
+- **Hotové** rohové sit-stand stoly do 20 tis. existují ([B2B Partner 180 × 160 / 3 motory za 14 752 Kč](https://www.b2bpartner.cz/rohove-polohovaci-stoly/), [Delso SHAPER 130 × 180 za 17 590 Kč](https://delso.cz/kategorie-produktu/elektricke-vyskove-nastavitelne-stoly/rohove-vyskove-nastavitelne-stoly/)), ale **nikde nedosáhnete 211 cm** — musíte slevit na 180 cm.
+- Do 8 tis. Kč pravý elektrický rohový sit-stand v vašem rozměru **s deskou** nekoupíte; pod 8 tis. jsou buď ruční rohové stoly ([DESK FIX 100 od 7 018 Kč](https://www.pracuj-zdrave.cz/desk-fix-100-rohovy-vyskove-nastavitelny-stul/)), nebo nástavce (1 590–2 565 Kč) na pevnou desku.
+
+
+**Zdroje:**
+
+- [Powerton — rohový elektricky nastavitelný stůl 2 motory (pracuj-zdrave.cz)](https://www.pracuj-zdrave.cz/rohovy-elektricky-nastavitelny-stul-powerton/)
+- [Powerton ERGO EDGE — výškově nastavitelný rám rohového stolu](https://www.powerton.eu/cs/produkty/powerton-ergo/nastavitelne-stoly/edge-top-vyskove-nastavitelny-ram-rohoveho-stolu)
+- [Powerton — deska na rohový pracovní stůl (Ergoline)](https://www.powerton.eu/cs/produkty/powerton-ergoline/nastavitelne-stoly/rohova-deska-na-stul)
+- [Liftor L, černá — rohová polohovací podnož](https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html)
+- [Liftor — rohové stoly](https://www.liftor.cz/stoly/rohove-stoly/)
+- [Liftor — samostatné desky (konfigurátor)](https://www.liftor.cz/konfigurator/samostatne-desky/)
+- [Liftor Rise, černá — polohovací podnož 4 999 Kč](https://www.liftor.cz/liftor-rise-cerna-id16211.html)
+- [Liftor Rise — celý stůl](https://www.liftor.cz/liftor-rise-id16265.html)
+- [Liftor blog — Jak vybrat polohovací stůl](https://www.liftor.cz/blog/jak-vybrat-polohovaci-stul.html)
+- [Liftor blog — 7 věcí, na které při výběru polohovacího stolu nezapomenout](https://www.liftor.cz/blog/7-veci-na-ktere-pri-vyberu-polohovaciho-stolu-nezapomenout.html)
+- [DeskTherapy A3+ rohový elektricky výškově nastavitelný stůl](https://www.pracuj-zdrave.cz/desktherapy-a3--rohovy-elektricky-vyskove-nastavitelny-stul/)
+- [DeskTherapy E3+ STRONG rohový výškově polohovací stůl](https://www.pracuj-zdrave.cz/desktherapy-e3-strong-elektricky-rohovy-vyskove-polohovaci-stul/)
+- [Pracuj zdravě — rohové stoly výškově a elektricky nastavitelné](https://www.pracuj-zdrave.cz/rohove-stoly-vyskove-a-elektricky-nastavitelne/)
+- [Pracuj zdravě — rohové stolové desky laminátové](https://www.pracuj-zdrave.cz/rohove-stolove-desky/)
+- [DESK FIX 100 rohový výškově nastavitelný stůl (manuální)](https://www.pracuj-zdrave.cz/desk-fix-100-rohovy-vyskove-nastavitelny-stul/)
+- [B2B Partner — rohové polohovací stoly](https://www.b2bpartner.cz/rohove-polohovaci-stoly/)
+- [B2B Partner — rohový výškově nastavitelný stůl 180x120 cm, 2 motory](https://www.b2bpartner.cz/rohovy-vyskove-nastavitelny-stul-180x120-cm-2-motory-l-p-cerna-podnoz-grafit/)
+- [B2B Partner — rohový výškově nastavitelný stůl 160x160 cm, 3 motory](https://www.b2bpartner.cz/rohovy-vyskove-nastavitelny-stul-160x160-cm-3-motory-l-p-bila-podnoz-orech/)
+- [Delso — rohové výškově nastavitelné stoly (SHAPER)](https://delso.cz/kategorie-produktu/elektricke-vyskove-nastavitelne-stoly/rohove-vyskove-nastavitelne-stoly/)
+- [Alza — polohovací stoly bez desky (AlzaErgo ET2 Core)](https://www.alza.cz/polohovaci-stoly-bez-desky/18909893.htm)
+- [AlzaErgo Table ET1 NewGen](https://www.alza.cz/alzaergo-table-et1-newgen-white-d5647311.htm)
+- [IKEA TROTTEN polohovací stůl 160x80 cm (ruční klika)](https://www.ikea.com/cz/cs/p/trotten-polohovaci-stul-bila-s79429602/)
+- [IKEA TROTTEN polohovací stůl 120x70 cm](https://www.ikea.com/cz/cs/p/trotten-polohovaci-stul-bezova-bila-s89434127/)
+- [IKEA MITTZON polohovací stůl elektrický 140x60 cm](https://www.ikea.com/cz/cs/p/mittzon-polohovaci-stul-elektricky-dyha-dub-cerna-s29528299/)
+- [IKEA LAGKAPTEN stolní deska 200x60 cm](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bile-moridlo-vzor-dub-30460830/)
+- [TRINFIT Office Riser malý — nástavec na stůl](https://www.domaci-fitness.cz/nastavec-na-stul-trinfit-office-riser-maly)
+- [TRINFIT Riser velký — nástavec na stůl](https://www.domaci-fitness.cz/nastavec-na-stul-trinfit-riser-velky)
+- [di-volio — nástavec (konvertor) na psací stůl DV-192ODC](https://di-volio.com/cz/stojany-na-notebook/nastavec-konvertor-na-psaci-stul-pro-praci-vsede-i-ve-stoje-dv-192odc-bily/5902308242968)
+- [Liftor Riser 10 cm — podstavec pod monitor](https://www.liftor.cz/liftor-riser-10-cm-podstavec-pod-monitor-u999-id10899.html)
+- [Recenze AlzaErgo Table ET2 (nezavislyradce.cz)](https://www.nezavislyradce.cz/polohovaci-stoly/recenze-alzaergo-table-et2-polohovaci-stul/)
+- [Recenze polohovacího stolu Adaptic SmartDesk Home Office (testado.cz)](https://www.testado.cz/stul-smartdesk-home-office/)
+- [Recenze elektrického zvedacího stolu Liftor Expert (testado.cz)](https://www.testado.cz/recenze-liftor-expert/)
+- [Nejlepší výškově nastavitelné stoly 2026 (testado.cz)](https://www.testado.cz/vyskove-nastavitelne-stoly/)
+- [FLEXISPOT rám stolu E7Q se 4 nohami (Kaufland.cz)](https://www.kaufland.cz/product/458087839/)
+- [NO+BL — rohová elektrická výškově nastavitelná podnož DEF 223](https://eshop.nobl.cz/podnoze-bez-desky/rohova-elektricka-vyskove-nastavitelna-podnoz-def-223/)
+
+
+---
+
+
+## Ceník komponent pro rohový stůl — ověřená čísla (3. 9. 2026, Kč vč. DPH) (dotazů: 25)
+
+### Ceník komponent pro rohový stůl — ověřená čísla (3. 9. 2026, Kč vč. DPH)
+
+**Zadání pro kontrolu vhodnosti:** rameno A ≤ 211 cm, rameno B ≤ 148 cm, hloubka 55–80 cm, pevná výška 75 cm, rozpočet 5–20 tis. Kč.
+
+**Metodická poznámka:** "ověřeno = ano" znamená, že search vrátil konkrétní číslo z konkrétního obchodu (většinou přímo z produktové stránky). WebFetch byl v tomto sezení blokovaný, takže čísla nejsou přečtená z živého HTML — jsou to hodnoty, které vyhledávač vrátil z indexu daných stránek. U dvou položek jsem dostal rozporná čísla, viz poznámky.
+
+---
+
+#### 1. Desky IKEA (priorita 1)
+
+| Položka | Prodejce | Rozměry mm | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| KARLBY pracovní deska, dub dýha | IKEA CZ | 1860 × 635 × 38 | **3 490** (1 876 Kč/m) | ano | [ikea.com](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-70335189/) |
+| KARLBY pracovní deska, dub dýha | IKEA CZ | 2460 × 635 × 38 | **4 490** (1 825 Kč/m) | ano | [ikea.com](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-60335199/) |
+| KARLBY pracovní deska, ořech dýha | IKEA CZ | 2460 × 635 × 38 | **6 990** (2 841 Kč/m) | ano | [ikea.com](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/) |
+| KARLBY pracovní deska, ořech dýha | IKEA CZ | 1860 × 635 × 38 | nezjištěno | ne | [ikea.com](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-30335191/) |
+| MÖLLEKULLA pracovní deska, dub dýha | IKEA CZ | 1860 × 635 × 38 | **4 490** (2 414 Kč/m) | ano | [ikea.com](https://www.ikea.com/cz/cs/p/moellekulla-pracovni-deska-dub-dyha-70299247/) |
+| SÄLJAN pracovní deska, vzor dub / laminát | IKEA CZ | 1860 × 635 × 38 | **1 690** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/saeljan-pracovni-deska-vzor-dub-laminat-60439173/) |
+| SÄLJAN pracovní deska, vzor dub / laminát | IKEA CZ | 2460 × 635 × 38 | **1 890** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/saeljan-pracovni-deska-vzor-dub-laminat-80439209/) |
+| LAGKAPTEN stolní deska | IKEA CZ | 2000 × 600 × 34 | **999** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-00460836/) |
+| LAGKAPTEN stolní deska | IKEA CZ | 1400 × 600 × 34 | **799** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-40460815/) |
+| LAGKAPTEN stolní deska | IKEA CZ | 1200 × 600 × 34 | **599** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-10460666/) |
+| LINNMON stolní deska, černohnědá | IKEA CZ | 2000 × 600 × 34 | **899** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/linnmon-stolni-deska-cernohneda-80251358/) |
+| LINNMON / ADILS kompletní stůl | IKEA CZ | 2000 × 600 | **1 399** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/linnmon-adils-stul-cernohneda-cerna-s49001965/) |
+| ANFALLARE stolní deska, bambus | IKEA CZ | 1400 × 650 × 30 | **2 490** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/anfallare-stolni-deska-bambus-00465141/) |
+| SKOGSÅ pracovní deska, dub dýha | IKEA CZ | 1860 × 635 × 38 | **nezjištěno** (CZ cena) | ne | [ikea.com](https://www.ikea.com/cz/cs/p/skogsa-pracovni-deska-dub-dyha-80382986/) |
+
+**Poznámky k pasování:**
+- Rameno A (211 cm): KARLBY/MÖLLEKULLA/SÄLJAN **186 cm sedí bez řezu**. Verze 246 cm je nutné zkrátit na ≤ 211 cm (a zaříznutou hranu u dýhované desky dořešit — olejem nebo ABS lištou).
+- Rameno B (148 cm): LAGKAPTEN 140×60 sedí, LINNMON 140×60 taky, ANFALLARE 140×65 taky.
+- Hloubka: KARLBY/MÖLLEKULLA/SÄLJAN 63,5 cm, LAGKAPTEN/LINNMON 60 cm, ANFALLARE 65 cm — všechno v pásmu 55–80 cm.
+
+---
+
+#### 2. Spárovky v hobbymarketech (priorita 2)
+
+| Položka | Prodejce | Rozměry mm | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| Dubová spárovka | Hornbach | 2000 × 600 × 18 | **1 895** *(v jednom dotazu vráceno 1 989 — viz poznámka)* | ano, s výhradou | [hornbach.cz](https://www.hornbach.cz/p/dubova-sparovka-600x2000x18-mm/8203386/) |
+| Dubová spárovka | Hornbach | 2000 × 400 × 18 | **1 425** | ano | [hornbach.cz](https://www.hornbach.cz/p/dubova-sparovka-400x2000x18-mm/8203385/) |
+| Dubová spárovka | Hornbach | 2000 × 200 × 18 | **699** | ano | [hornbach.cz](https://www.hornbach.cz/p/dubova-sparovka-200x2000x18-mm/8203384/) |
+| Dubová spárovka | Hornbach | 800 × 200 × 18 | **295** (1 844 Kč/m²) | ano | [hornbach.cz](https://www.hornbach.cz/p/dubova-sparovka-200x800x18-mm/8203381/) |
+| Spárovka buková | Hornbach | 2000 × 600 × 18 | **1 149** (958 Kč/m²) | ano | [hornbach.cz](https://www.hornbach.cz/p/sparovka-bukova-18-x-600-x-2000-mm/5065827/) |
+| Spárovka buková | Hornbach | 2000 × 400 × 18 | nezjištěno | ne | [hornbach.cz](https://www.hornbach.cz/p/sparovka-bukova-18-x-400-x-2000-mm/5036317/) |
+| Spárovka smrková Standard | Hornbach | 2000 × 400 × 18 | **549** | ano | [hornbach.cz](https://www.hornbach.cz/shop/Sparovka-smrkova-Standard-18-x-400-x-2000-mm/1063189/artikl.html) |
+| Spárovka smrková Standard | Hornbach | 2000 × 300 × 18 | **410** | ano | [hornbach.cz](https://www.hornbach.cz/p/sparovka-smrkova-standard-18-x-300-x-2000-mm/1063178/) |
+| Spárovka smrková Standard | Hornbach | 2000 × 200 × 18 | **335** | ano | [hornbach.cz](https://www.hornbach.cz/p/sparovka-smrkova-standard-18-x-200-x-2000-mm/1063156/) |
+| OBI Spárovka Standard dub | OBI | 2000 × 300 × 18 | **1 579** | ano | [obi.cz](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-200-x-30-x-1-8-cm/p/5190814) |
+| OBI Spárovka Standard dub | OBI | 2000 × 200 × 18 | **789** | ano | [obi.cz](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-200-x-20-x-1-8-cm/p/5190830) |
+| OBI Spárovka Standard dub | OBI | 1200 × 200 × 18 | **479** | ano | [obi.cz](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-120-x-20-x-1-8-cm/p/5190863) |
+| Exclusivholz Spárovka Rustic, dub | Bauhaus | 2000 × 600 × 20 | **2 190** (1 825 Kč/m²) | ano | [bauhaus.cz](https://www.bauhaus.cz/exclusivholz-sparovka-rustic-25499939) |
+| Exclusivholz Spárovka, dub | Bauhaus | 2200 × 600 × 18 | nezjištěno | ne | [bauhaus.cz](https://www.bauhaus.cz/exclusivholz-sparovka-14089254) |
+
+**Poznámka k rozporu u dubové spárovky 2000×600×18 (Hornbach):** dva různé dotazy vrátily **1 989 Kč** a **1 895 Kč** na tutéž produktovou stránku. Do kalkulačky bych dal **1 950 Kč ± 50** a před nákupem cenu potvrdil na stránce. Ostatní hornbachovské ceny byly konzistentní.
+
+**Poznámka k šířkám:** OBI ani Hornbach nevedou dub v šířce 600 mm ve všech pobočkách skladem, Hornbach 600 mm ano. Šířky nad 600 mm (např. 800 mm) v hobbymarketech nejsou — pro hloubku 80 cm je nutné lepit ze dvou kusů nebo jít do truhlářského velkoobchodu.
+
+---
+
+#### 3. Silné dubové desky 40 mm (truhlářské zdroje, mimo hobbymarkety)
+
+| Položka | Prodejce | Rozměry mm | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| Pracovní deska DUB cink | Drevomaterialy.cz | 1200 × 650 × 40 | **4 357** | ano | [drevomaterialy.cz](http://www.drevomaterialy.cz/shop/category.php?id_category=34) |
+| Pracovní deska DUB cink | Drevomaterialy.cz | 1600 × 650 × 40 | **6 007** | ano | [drevomaterialy.cz](http://www.drevomaterialy.cz/shop/category.php?id_category=34) |
+| Pracovní deska DUB cink | Drevomaterialy.cz | 4200 × 650 × 40 | **11 556** | ano | [drevomaterialy.cz](http://www.drevomaterialy.cz/shop/product.php?id_product=656) |
+| Spárovka DUB cink | Woodseedseshop.cz | 4000 × 650 × 40 | **8 431** | ano | [woodseedseshop.cz](https://www.woodseedseshop.cz/sparovky/sparovka-dub-cink-40x650-4-m-c) |
+| Spárovka dub 40 mm, průběžná A/B | Harv.cz | 2250 × 1100 × 40 | ~7 292 Kč/m² → **~18 050 za desku** | odhad z ceny za m² | [harv.cz](https://www.harv.cz/sparovka-dub-a-b-2250-1100-40-prubezna/) |
+
+Cinkovaný dub 40 mm vychází zhruba na **2 000–2 900 Kč/m²**, průběžná (necinkovaná) lamela na **7 000–7 300 Kč/m²** — to je pro rozpočet 20 tis. Kč na hraně, jakmile potřebuješ dvě ramena.
+
+---
+
+#### 4. Podnože a nohy (priorita 3)
+
+| Položka | Prodejce | Rozměry mm | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| ADILS noha (černá / bílá / tmavě šedá) | IKEA CZ | v. 700, ⌀ 40, nosnost 50 kg | **100 / ks** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/adils-noha-cerna-70217973/) |
+| OLOV noha nastavitelná (černá / bílá) | IKEA CZ | v. 600–900 | **250 / ks** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/olov-noha-nastavitelna-cerna-30264301/) |
+| ALEX zásuvkový díl, bílá | IKEA CZ | 360 × 700 | **1 590** (akce, běžně 1 790) | ano | [ikea.com](https://www.ikea.com/cz/cs/p/alex-zasuvkovy-dil-bila-00473546/) |
+| ALEX zásuvkový díl, černomodrá | IKEA CZ | 360 × 700 | **1 790** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/alex-zasuvkovy-dil-cernomodra-00590475/) |
+| ALEX úložný díl (bez zásuvek), bílá | IKEA CZ | 360 × 700 | **1 290** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/alex-ulozny-dil-bila-50563752/) |
+| MITTBACK podnoží (koza), bříza | IKEA CZ | 580 × 700/930 | **1 000 / ks** | ano | [ikea.com](https://www.ikea.com/cz/cs/p/mittback-podnozi-briza-30459997/) |
+| Hairpin nohy, sada 4 ks, 3-ramenné | Melgo.cz | v. 711, nosnost 99,8 kg | **760 / sada** | ano | [melgo.cz](https://www.melgo.cz/stolove-nohy--desky-a-skladaci-stoly/) |
+| Hairpin nohy, sada 4 ks, 3-ramenné, černé (vč. podložek a šroubů) | Walteco.cz | v. 710 | **1 659 / sada** | ano | [walteco.cz](https://www.walteco.cz/hairpin-nohy/) |
+| Nohy nastavitelné, chrom, sada 4 ks | Allegro.cz | v. 710 | **273 / sada** | ano | [allegro.cz](https://allegro.cz/produkt/nohy-k-stolu-nastavitelne-chrom-710-mm-4-ks-a9e5cd0e-af31-40c2-915a-0b83b6e3a73c) |
+| Kovový rám pro stoly, tvar U, černý | Walteco.cz | 710 × 740 × 150 | **1 890 / ks** | ano | [walteco.cz](https://www.walteco.cz/kovovy-ram-pro-stoly-710x740mm--tvar-u--cerny/) |
+| Kovový rám pro stoly, tvar U, černý (malý) | Walteco.cz | 410 × 380 | nezjištěno | ne | [walteco.cz](https://www.walteco.cz/kovovy-ram-pro-stoly-410x380mm--tvar-u--cerny/) |
+| Základna stolu LOFT, jekl 80×80, černá | Misterweld.cz | v. 720 | **1 750 / ks** | ano | [misterweld.cz](https://www.misterweld.cz/zakladna-stolu-72-cm-cerna-loft-jekl-80x80-kovova-noha-ke-stol/) |
+| Nosná konstrukce stolu ve tvaru V, černá | OBI | 700 × 710 | nezjištěno | ne | [obi.cz](https://www.obi.cz/nabytkove-nohy/nosna-konstrukce-stolu-ve-tvaru-v-cerna-700-mm-x-710-mm/p/5634118) |
+| Podnož SH-3046-1/B, černá | Allegro.cz | 580 × 580, v. 730 | **1 184** | ano | [allegro.cz](https://allegro.cz/vyhledavani?string=podno%C5%BE+stolu) |
+| Kruhová stolová podnož, černá | Loomah.cz | ⌀ 800, v. 725 | **2 338** | ano | [loomah.cz](https://www.loomah.cz/kovove-podnoze/) |
+
+**Kritická poznámka k výšce 75 cm** — tohle je v kalkulačce nejčastější zdroj chyby:
+
+| Kombinace | Výsledná výška | Sedí na 75 cm? |
+|---|---|---|
+| ADILS 70,0 + KARLBY 3,8 | 73,8 cm | ne, chybí 1,2 cm |
+| ADILS 70,0 + LAGKAPTEN 3,4 | 73,4 cm | ne, chybí 1,6 cm |
+| **OLOV 60–90 + jakákoli deska** | **libovolně 75,0** | **ano — jediné bezstarostné IKEA řešení** |
+| Hairpin 71,0 + KARLBY 3,8 | 74,8 cm | prakticky ano |
+| Hairpin 71,0 + LAGKAPTEN 3,4 | 74,4 cm | téměř |
+| ALEX 36×70 (v. 70) + KARLBY 3,8 | 73,8 cm | ne, chybí 1,2 cm |
+| Rám U Walteco 71,0 + KARLBY 3,8 | 74,8 cm | prakticky ano |
+| Jekl Misterweld 72,0 + KARLBY 3,8 | 75,8 cm | mírně přes |
+
+Pokud je 75 cm opravdu pevné a nesmlouvavé, dej do kalkulačky **OLOV jako výchozí nohu** a ADILS označ jako "vyžaduje podložení".
+
+---
+
+#### 5. Služby — řezání na míru
+
+| Položka | Prodejce | Cena Kč | Ověřeno | Odkaz |
+|---|---|---|---|---|
+| Přířez online na míru | Hornbach | **od 11,73 / kus** | ano | [hornbach.cz](https://www.hornbach.cz/conf/prirez-online-na-miru/80000/) |
+| Rovný řez na prodejně | Hornbach | ~20 / řez | ne — údaj z fóra, starší, neověřeno pro 2026 | [poradte.cz](https://www.poradte.cz/domacnost-a-bydleni/44194-hornbach-prirez-desky-cena-podminky-atd.html) |
+| Řezání | OBI | údajně zdarma, užší sortiment | ne — pouze z fóra | [poradte.cz](https://www.poradte.cz/domacnost-a-bydleni/44194-hornbach-prirez-desky-cena-podminky-atd.html) |
+
+---
+
+#### 6. Modelové sestavy do rozpočtu
+
+| Varianta | Sestava | Cena Kč | Ověřenost |
+|---|---|---|---|
+| **Nejlevnější** | LAGKAPTEN 200×60 (999) + LAGKAPTEN 140×60 (799) + 6× ADILS (600) | **2 398** | vše ověřeno |
+| **Rozumný střed** | SÄLJAN 186 (1 690) + SÄLJAN 186 zkrácená na rameno B (1 690) + 6× OLOV (1 500) | **4 880** | vše ověřeno |
+| **Masiv dýha, IKEA** | KARLBY 186 dub (3 490) + KARLBY 186 dub řezaná na 148 (3 490) + 6× OLOV (1 500) | **8 480** | vše ověřeno |
+| **Masiv dýha + úložné** | KARLBY 246 dub řezaná (4 490) + KARLBY 186 dub řezaná (3 490) + 2× ALEX 36×70 (3 180) + 2× OLOV (500) | **11 660** | vše ověřeno |
+| **Spárovka + kovová podnož** | Hornbach dub 2000×600×18 (~1 950) + Hornbach dub 2000×600×18 řezaná (~1 950) + 3× rám U Walteco (5 670) + olej/šrouby (~800 odhad) | **~10 370** | desky ověřené, spotřební materiál odhad |
+| **Buk, úsporná masivní** | 2× Hornbach buk 2000×600×18 (2 298) + 2× rám U Walteco (3 780) | **6 078** | vše ověřeno |
+
+Všechny varianty se vejdou do rozpočtu 5–20 tis. Kč. 18mm spárovka na 211 cm rozpětí **potřebuje střední podporu** — v kalkulačce by u desek do 20 mm měla vyskočit třetí noha automaticky.
+
+---
+
+#### 7. Porovnání s cenami v appce
+
+**Nemám je k dispozici.** Zadání odkazovalo na "viz níže", ale seznam cen z appky nebyl v promptu přiložený. Nechci hádat, které položky se liší — pošli mi současné hodnoty z kalkulačky a udělám diff proti tabulkám výše. Do té doby ber tuhle rešerši jako referenční sadu, ne jako diff.
+
+---
+
+#### 8. Co zůstalo nedodělané
+
+- CZ cena IKEA SKOGSÅ 186 (dub dýha) — search vracel jen zahraniční měny
+- KARLBY ořech 186 cm
+- Bauhaus Exclusivholz dub 18 × 600 × 2200 mm
+- Přesná cena dubové spárovky Hornbach 2000×600×18 (rozpor 1 895 vs. 1 989)
+- Ceny KARLBY / MÖLLEKULLA "na míru" (varianta 45,1–63,5 cm) za běžný metr
+- Aktuální ceník řezání na prodejně Hornbach a OBI pro rok 2026
+- Buková spárovka Hornbach 2000×400×18 a Walteco rám U 410×380 mm
+- Dubové spárovky v šířce 800 mm (pro hloubku 80 cm) — v hobbymarketech se zdá, že nejsou vůbec
+
+*Poznámka na závěr: WebFetch byl blokovaný, takže žádnou z cen jsem nemohl přečíst přímo z živé produktové stránky. Před tím, než čísla natvrdo zapíšeš do kalkulačky, doporučuju u položek, které tam půjdou jako výchozí hodnoty (KARLBY, SÄLJAN, LAGKAPTEN, ADILS, OLOV), rychlé ruční ověření na ikea.com/cz — je to pět kliknutí a odstraní to poslední zbytek nejistoty.*
+
+
+**Zdroje:**
+
+- [IKEA KARLBY pracovní deska, dub dýha, 186x3.8 cm](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-70335189/)
+- [IKEA KARLBY pracovní deska, dub/dýha, 246x3.8 cm](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-60335199/)
+- [IKEA KARLBY pracovní deska, ořech, dýha, 246x3.8 cm](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/)
+- [IKEA KARLBY pracovní deska, ořech, dýha, 186x3.8 cm](https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-30335191/)
+- [IKEA MÖLLEKULLA pracovní deska, dub/dýha, 186x3.8 cm](https://www.ikea.com/cz/cs/p/moellekulla-pracovni-deska-dub-dyha-70299247/)
+- [IKEA SÄLJAN pracovní deska, vzor dub, laminát, 186x3.8 cm](https://www.ikea.com/cz/cs/p/saeljan-pracovni-deska-vzor-dub-laminat-60439173/)
+- [IKEA SÄLJAN pracovní deska, vzor dub, laminát, 246x3.8 cm](https://www.ikea.com/cz/cs/p/saeljan-pracovni-deska-vzor-dub-laminat-80439209/)
+- [IKEA LAGKAPTEN stolní deska, bílá, 200x60 cm](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-00460836/)
+- [IKEA LAGKAPTEN stolní deska, bílá, 140x60 cm](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-40460815/)
+- [IKEA LAGKAPTEN stolní deska, bílá, 120x60 cm](https://www.ikea.com/cz/cs/p/lagkapten-stolni-deska-bila-10460666/)
+- [IKEA LINNMON stolní deska, černohnědá, 200x60 cm](https://www.ikea.com/cz/cs/p/linnmon-stolni-deska-cernohneda-80251358/)
+- [IKEA LINNMON / ADILS stůl, černohnědá, černá, 200x60 cm](https://www.ikea.com/cz/cs/p/linnmon-adils-stul-cernohneda-cerna-s49001965/)
+- [IKEA ANFALLARE stolní deska, bambus, 140x65 cm](https://www.ikea.com/cz/cs/p/anfallare-stolni-deska-bambus-00465141/)
+- [IKEA SKOGSÅ pracovní deska, dub, dýha, 186x3.8 cm](https://www.ikea.com/cz/cs/p/skogsa-pracovni-deska-dub-dyha-80382986/)
+- [IKEA ADILS noha, černá](https://www.ikea.com/cz/cs/p/adils-noha-cerna-70217973/)
+- [IKEA OLOV noha, nastavitelná, černá](https://www.ikea.com/cz/cs/p/olov-noha-nastavitelna-cerna-30264301/)
+- [IKEA ALEX zásuvkový díl, bílá, 36x70 cm](https://www.ikea.com/cz/cs/p/alex-zasuvkovy-dil-bila-00473546/)
+- [IKEA ALEX zásuvkový díl, černomodrá, 36x70 cm](https://www.ikea.com/cz/cs/p/alex-zasuvkovy-dil-cernomodra-00590475/)
+- [IKEA ALEX úložný díl, bílá, 36x70 cm](https://www.ikea.com/cz/cs/p/alex-ulozny-dil-bila-50563752/)
+- [IKEA MITTBACK podnoží, bříza, 58x70/93 cm](https://www.ikea.com/cz/cs/p/mittback-podnozi-briza-30459997/)
+- [Hornbach – Dubová spárovka 600x2000x18 mm](https://www.hornbach.cz/p/dubova-sparovka-600x2000x18-mm/8203386/)
+- [Hornbach – Dubová spárovka 400x2000x18 mm](https://www.hornbach.cz/p/dubova-sparovka-400x2000x18-mm/8203385/)
+- [Hornbach – Dubová spárovka 200x2000x18 mm](https://www.hornbach.cz/p/dubova-sparovka-200x2000x18-mm/8203384/)
+- [Hornbach – Dubová spárovka 200x800x18 mm](https://www.hornbach.cz/p/dubova-sparovka-200x800x18-mm/8203381/)
+- [Hornbach – Spárovka buková 18 x 600 x 2000 mm](https://www.hornbach.cz/p/sparovka-bukova-18-x-600-x-2000-mm/5065827/)
+- [Hornbach – Spárovka smrková Standard 18 x 400 x 2000 mm](https://www.hornbach.cz/shop/Sparovka-smrkova-Standard-18-x-400-x-2000-mm/1063189/artikl.html)
+- [Hornbach – Spárovka smrková Standard 18 x 300 x 2000 mm](https://www.hornbach.cz/p/sparovka-smrkova-standard-18-x-300-x-2000-mm/1063178/)
+- [Hornbach – Spárovka smrková Standard 18 x 200 x 2000 mm](https://www.hornbach.cz/p/sparovka-smrkova-standard-18-x-200-x-2000-mm/1063156/)
+- [Hornbach – Přířez online na míru](https://www.hornbach.cz/conf/prirez-online-na-miru/80000/)
+- [OBI Spárovka Standard dub 200 x 30 x 1,8 cm](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-200-x-30-x-1-8-cm/p/5190814)
+- [OBI Spárovka Standard dub 200 x 20 x 1,8 cm](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-200-x-20-x-1-8-cm/p/5190830)
+- [OBI Spárovka Standard dub 120 x 20 x 1,8 cm](https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-120-x-20-x-1-8-cm/p/5190863)
+- [OBI – Nosná konstrukce stolu ve tvaru V, černá 700x710 mm](https://www.obi.cz/nabytkove-nohy/nosna-konstrukce-stolu-ve-tvaru-v-cerna-700-mm-x-710-mm/p/5634118)
+- [Bauhaus – Exclusivholz Spárovka Rustic (dub 20x600x2000)](https://www.bauhaus.cz/exclusivholz-sparovka-rustic-25499939)
+- [Bauhaus – Exclusivholz Spárovka 18 × 600 × 2200 mm; dub](https://www.bauhaus.cz/exclusivholz-sparovka-14089254)
+- [Drevomaterialy.cz – Dubové pracovní desky](http://www.drevomaterialy.cz/shop/category.php?id_category=34)
+- [Drevomaterialy.cz – Pracovní deska DUB cink 40x650x4200](http://www.drevomaterialy.cz/shop/product.php?id_product=656)
+- [Woodseedseshop.cz – Spárovka DUB CINK 40x650 / 4 m](https://www.woodseedseshop.cz/sparovky/sparovka-dub-cink-40x650-4-m-c)
+- [Harv.cz – Spárovka dub A/B 2250/1100/40 průběžná](https://www.harv.cz/sparovka-dub-a-b-2250-1100-40-prubezna/)
+- [Walteco.cz – Kovový rám pro stoly 710x740mm, tvar U, černý](https://www.walteco.cz/kovovy-ram-pro-stoly-710x740mm--tvar-u--cerny/)
+- [Walteco.cz – Hairpin nohy](https://www.walteco.cz/hairpin-nohy/)
+- [Walteco.cz – Kovový rám pro stoly 410x380mm, tvar U, černý](https://www.walteco.cz/kovovy-ram-pro-stoly-410x380mm--tvar-u--cerny/)
+- [Melgo.cz – Stolové nohy, desky a skládací stoly](https://www.melgo.cz/stolove-nohy--desky-a-skladaci-stoly/)
+- [Allegro.cz – Nohy ke stolu nastavitelné chrom 710 mm 4 ks](https://allegro.cz/produkt/nohy-k-stolu-nastavitelne-chrom-710-mm-4-ks-a9e5cd0e-af31-40c2-915a-0b83b6e3a73c)
+- [Allegro.cz – Podnož stolu (vyhledávání)](https://allegro.cz/vyhledavani?string=podno%C5%BE+stolu)
+- [Misterweld.cz – Základna stolu 72 cm černá LOFT jekl 80x80](https://www.misterweld.cz/zakladna-stolu-72-cm-cerna-loft-jekl-80x80-kovova-noha-ke-stol/)
+- [Loomah.cz – Kovové podnože ke stolu](https://www.loomah.cz/kovove-podnoze/)
+- [Poradte.cz – Hornbach přířez desky (cena, podmínky)](https://www.poradte.cz/domacnost-a-bydleni/44194-hornbach-prirez-desky-cena-podminky-atd.html)
+
+
+---
+
+
+## Podklady pro kalkulačku: deska na míru, materiál a kování (ČR, září 2026) (dotazů: 24)
+
+### Podklady pro kalkulačku: deska na míru, materiál a kování (ČR, září 2026)
+
+Vše v Kč **včetně DPH**, pokud není uvedeno jinak. Sloupec „ověřeno“ = search vrátil konkrétní číslo přiřaditelné ke konkrétnímu obchodu; „odhad/dopočet“ = moje kalkulace nebo rozpětí bez jednoho pevného zdroje.
+
+---
+
+#### 1. Služby „deska na míru“ — formátování (řezání) a olepení hrany
+
+Tohle je v kalkulačce nejdůležitější blok, protože se účtuje **zvlášť řez** (Kč/bm řezu nebo Kč/m² dílce) a **zvlášť olepení** (Kč/bm hrany), a k tomu ještě **materiál hrany** (ABS) jako samostatná položka.
+
+| Položka | Jednotka | Cena Kč | Prodejce | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| Formátování DTDL/DTD/MDF/překližka/spárovka do tl. 19 mm | bm řezu | **24** (bez DPH) → ~29 s DPH | INTEMO (ceník platný od 1. 5. 2025) | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Formátování materiálu nad tl. 19 mm | bm řezu | **40** (bez DPH) → ~48 s DPH | INTEMO | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Olepení ABS, výška hrany **do 23 mm** | bm hrany | **25** (bez DPH) → ~30 s DPH | INTEMO | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Olepení ABS, výška hrany **nad 23 mm** (tj. deska 25+ mm) | bm hrany | **30** (bez DPH) → ~36 s DPH | INTEMO | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Sleva na formátování + olepení po registraci IČO (CUT RITE) | — | **−10 %** | INTEMO | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Manuální optimalizace nářezového plánu | řádek | **20** (bez DPH) | INTEMO | ano | [ceník PDF](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf) |
+| Formátování — sazba za plochu, 1–5 řezů | m² dílce | **37** (bez DPH) | DŘEVO TRUST (ceník 1/2023 — **zastaralý**) | ano, ale starý | [ceník PDF](https://webdata.drevotrust.cz/ceniky/sluzby/cenik_narez_KM_1_2023.pdf) |
+| Formátování — 6–32 řezů | m² dílce | **61** (bez DPH) | DŘEVO TRUST (1/2023) | ano, ale starý | [ceník PDF](https://webdata.drevotrust.cz/ceniky/sluzby/cenik_narez_KM_1_2023.pdf) |
+| Olepení PUR 0,5–2 mm, materiál tl. 10–22 mm | bm | **25** (bez DPH) | DŘEVO TRUST (1/2023) | ano, ale starý | [ceník PDF](https://webdata.drevotrust.cz/ceniky/sluzby/cenik_narez_KM_1_2023.pdf) |
+| Olepení PUR, materiál tl. 23–40 mm | bm | **29** (bez DPH) | DŘEVO TRUST (1/2023) | ano, ale starý | [ceník PDF](https://webdata.drevotrust.cz/ceniky/sluzby/cenik_narez_KM_1_2023.pdf) |
+| Olepení hrany, deska 18 mm | bm | **13** | Truhlářství FUTO | ano | [odkaz](http://www.truhlarstvi-futo.cz/formatovani-a-olepovani/) |
+| Olepení hrany, deska 36 mm (tuplovaná) | bm | **26** | Truhlářství FUTO | ano | [odkaz](http://www.truhlarstvi-futo.cz/formatovani-a-olepovani/) |
+| Formátování (řez) | bm řezu | **12** | Truhlářství FUTO | ano | [odkaz](http://www.truhlarstvi-futo.cz/formatovani-a-olepovani/) |
+| Olepení hrany, deska do 18 mm | bm | **17** | Truhlářství Šustr | ano | [odkaz](https://www.truhlarstvi-sustr.cz/olepovani-hran) |
+| Olepení hrany, deska nad 18 mm | bm | **19** | Truhlářství Šustr | ano | [odkaz](https://www.truhlarstvi-sustr.cz/olepovani-hran) |
+| Olepení lesklé hrany | bm | **21** | Truhlářství Šustr | ano | [odkaz](https://www.truhlarstvi-sustr.cz/olepovani-hran) |
+| Olepování hran (jen sortiment koupený u nich) | bm | **15** | OBI | ano (z ceníku OBI v PDF) | [ceník OBI PDF](https://obi.imgix.net/api/disc/cms/public/dam/czech/pdfs/p---ez-d-eva-cen-k-l0057_pos_wood_cutting_cz_a2_v6.pdf) |
+| Kolmý řez materiálu **zakoupeného v OBI** | řez | **zdarma** | OBI | ano | [ceník OBI PDF](https://obi.imgix.net/api/disc/cms/public/dam/czech/pdfs/p---ez-d-eva-cen-k-l0057_pos_wood_cutting_cz_a2_v6.pdf) |
+| Přířez vlastního materiálu (OSB/MDF/HDF) | kus | **40** | OBI | ano | [ceník OBI PDF](https://obi.imgix.net/api/disc/cms/public/dam/czech/pdfs/p---ez-d-eva-cen-k-l0057_pos_wood_cutting_cz_a2_v6.pdf) |
+| Výřez pro dřez / úprava pracovní desky | úkon | **200** (deska), **300** (deska + dřez) | OBI | ano | [ceník OBI PDF](https://obi.imgix.net/api/disc/cms/public/dam/czech/pdfs/p---ez-d-eva-cen-k-l0057_pos_wood_cutting_cz_a2_v6.pdf) |
+| Přířez online na míru — nejnižší položka | kus | **od 11,73** | HORNBACH | ano | [Přířez online](https://www.hornbach.cz/conf/prirez-online-na-miru/80000/) |
+| Formátování frézou (celá deska), běžný termín | deska | **600** bez DPH / **726** s DPH | ZUDO Praha | ano | [ceník](https://www.zudo.cz/cenik-sluzeb/) |
+| Formátování frézou express do 24 h | deska | **1 150** bez DPH / **1 391,50** s DPH | ZUDO Praha | ano | [ceník](https://www.zudo.cz/cenik-sluzeb/) |
+| Olepení lamina 18 mm | bm | **23** | nářezové centrum (přehled z rešerše) | částečně | [Dřevocentrum/NC rešerše](https://dilcenamiru.cz/cenik/) |
+| Olepení lesklého materiálu | bm | **24** | totéž | částečně | [odkaz](https://dilcenamiru.cz/cenik/) |
+| Olepení „tuplu“ 2×18 mm | bm | **27** | totéž | částečně | [odkaz](https://dilcenamiru.cz/cenik/) |
+| Soulep (slepení 2 desek) vč. ořezu | m² | **295** bez DPH | totéž | částečně | [odkaz](https://dilcenamiru.cz/cenik/) |
+| Olepení ABS vč. materiálu hrany — Brno, orientačně | bm | **~30** | brněnská truhlářství (fórum) | odhad | [diskuze](https://rybicky.net/forum/14131) |
+| Hranění lamina 18 mm (práce) + hrana (materiál) | bm | **20** práce + **12–35** hrana | brněnská truhlářství | odhad | [diskuze](https://rybicky.net/forum/14131) |
+
+**Poznámka pro kalkulačku:** rozptyl je velký a systematický — nářezová centra pro truhláře (INTEMO, DŘEVO TRUST) účtují 25–30 Kč/bm olepení, malá truhlářství 13–23 Kč/bm. Do kalkulačky bych dal **výchozí 25 Kč/bm olepení a 25 Kč/bm řezu** s posuvníkem 13–36.
+
+**Neověřeno / nedostupné online:** Démos trade a Kili ceníky nářezových center nejsou veřejné — [Démos](https://www.demos-trade.cz/) i [Kili](https://www.kili.cz/desky-a-hrany/) uvádějí službu, ale cenu jen na dotaz/po přihlášení B2B. Brněnské kontakty na nářez: [KPP Truhlářství Čebín](https://www.kpptruhlarstvi.cz/cs/nase-sluzby/narezove-centrum/), [Hezký domov – nářezové centrum Brno](https://www.hezkydomov.cz/narezove-centrum).
+
+---
+
+#### 2. Materiál — cena za m²
+
+| Materiál | Jednotka | Cena Kč | Prodejce | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| Lamino Egger H1145 ST10 dub Bardolino, 18 mm, metráž | m² | **579** | OBI | ano | [odkaz](https://www.obi.cz/p/6488365/egger-lamino-drevotriskova-deska-h1145-st10-dub-bardolino-tl-18-mm-metraz) |
+| Lamino Egger U780 ST9 monumentální šedá, 18 mm, metráž | m² | **599** | OBI | ano | [odkaz](https://www.obi.cz/police-a-nabytkove-desky/lamino-dtdl-egger-u780-st9-monumentalni-seda-tloustka-18-mm-metraz/p/5761507) |
+| DTD dýhovaná dub A/B, 19 mm, 2800×2070 (5,80 m²) | deska | **3 874,42** → **668 Kč/m²** | Delika.cz | ano (cena desky), dopočet /m² | [odkaz](https://delika.cz/velkoplosny-material/296-drevotriskova-deska-dyhovana-dtd-19mm-dyha-dub-ab-2070x2800.html) |
+| DTD dýha dub, 19 mm, 2800×2070 | deska | **5 185,60** → **894 Kč/m²** | Dřevoobchod Doležal | ano / dopočet | [odkaz](https://drevoobchoddolezal.cz/dtd-dyha-dub-2800207019/) |
+| DTD dýha dub evropský, 19 mm, 2800×2070 | deska | **4 814,46** → **830 Kč/m²** | DŘEVO TRUST | ano / dopočet | [odkaz](https://drevotrust.cz/cs/dub/4Ty) |
+| Dubová spárovka A/B napojovaná, 27 mm, 630×4000 (2,52 m²) | deska | **9 089,17** → **~3 607 Kč/m²** | Kili | ano / dopočet | [odkaz](https://www.kili.cz/rezivo/sparovka/sparovka-dub-a-b-napojovana-balena-tl-27-30-mm-s466740008) |
+| Dubová spárovka | m² | **od 1 900** | Spárovky.eu | ano | [odkaz](https://www.sparovky.eu/dubove-sparovky/) |
+| Dubová spárovka | m² | **od 2 140** | Spárovky Brenus | ano | [odkaz](https://www.sparovky-brenus.cz/) |
+| Dubová spárovka 26 mm | m² | **2 892** | HAPex | ano | [odkaz](https://shop.hapex.cz/dubove-sparovky) |
+| HPL kompakt FunderMax 12 mm | m² | **~3 168** | čeští distributoři (Sortim / Levné frézování) | ano (jedna varianta) | [odkaz](https://www.levne-frezovani.cz/s3-hpl---kompaktni-desky) |
+| HPL kompakt FunderMax 12 mm, 1300×4100 (5,33 m²) | deska | **15 644 – 28 327** → **2 935–5 315 Kč/m²** | JAF Holz / Sortim | ano / dopočet | [odkaz](https://www.jafholz.cz/shop/Kompaktni-deska-FunderMax-Exterior-HPL-0085-NT-Bila~p2014372) |
+| Překližka bříza pohledová BB/BB 18 mm, 2500×1250 (3,125 m²) | deska | **2 590,16** → **829 Kč/m²** | Palubky Vencl | ano / dopočet | [odkaz](https://palubky-vencl.cz/preklizka-pohledova-brezova-bbbb-18x1250x2500-mm) |
+| Překližka MULTIPLEX bříza 18 mm, 2500×1250 | deska | **2 832,27** → **906 Kč/m²** | DŘEVO TRUST | ano / dopočet | [odkaz](https://drevotrust.cz/cs/prekl-multiplex-briza-182500x1250-bbcp/26685) |
+| MDF tenká oboustranně lakovaná (Egger) | m² | **358 – 408** | Dřevoobchod Doležal / GHZ | ano | [odkaz](https://drevoobchoddolezal.cz/mdf-lakovane/) |
+| MDF Egger PerfectSense (matné/lesklé lakované) | m² | **1 557 – 1 942** | DŘEVO TRUST | ano | [odkaz](https://drevotrust.cz/cs/mdf-lakovane/3Gi) |
+| Lakování MDF barevným emailem (mat/polomat) — služba | m² | **1 100** | Obrábění dřeva | ano | [ceník](https://www.obrabeni-dreva.cz/cz/lakovani-a-povrchova-uprava/cenik/) |
+| Lakování MDF vysoký lesk bílá / ostatní odstíny | m² | **2 000 / 2 200** | Obrábění dřeva | ano | [ceník](https://www.obrabeni-dreva.cz/cz/lakovani-a-povrchova-uprava/cenik/) |
+| ABS hrana Egger 22×1 mm | bm | **0,36 – 0,76 €** → **~9 – 19 Kč** | KNN.sk (SK, kurz ~25 Kč/€) | ano (EUR), přepočet odhad | [odkaz](https://www.knn.sk/egger-abs-hrany/) |
+| ABS hrana Egger, prémiové dekory (U727 PM) | bm | **1,21 €** → **~30 Kč** | KNN.sk | ano (EUR), přepočet odhad | [odkaz](https://www.knn.sk/hrana-egger-abs-u727-pm-22-x-1-mm/) |
+| Kuchyňská pracovní deska 38 mm, š. 600 mm, Egger | bm | **od ~600** | Nábytek Sprint | odhad (rozpětí ze srovnávače) | [odkaz](https://www.nabyteksprint.cz/c/3-pracovni-desky/1/oblibene/127-kuchynske-pracovni-desky-egger) |
+| Kuchyňská pracovní deska (hotové délky) | kus | **2 295 – 4 780** | HORNBACH | ano (rozpětí kategorie) | [odkaz](https://www.hornbach.cz/c/kuchyne/kuchynske-pracovni-desky-a-prislusenstvi/kuchynske-pracovni-desky/S12688/) |
+| **Forbo Furniture Linoleum (Desktop)** | m² | **£38,90 bez DPH / £46,68 s DPH** → **~1 150 – 1 400 Kč** | jen UK/US e-shopy | **NE pro ČR** — přepočet, bez českého distributora | [Lino-online UK](https://www.lino-online.co.uk/desktop-linoleum-1/) |
+
+**Pozor na past v kalkulačce:** velkoformátové desky se prodávají **po celých kusech** (2800×2070 = 5,80 m², resp. 2500×1250 = 3,125 m²). Na L-desku o ploše ~2 m² zaplatíte celou desku, pokud nejde o metráž (OBI/Hornbach prodávají lamino Egger na m²). Do kalkulačky proto patří přepínač „metráž vs. celá deska“ — jinak se u dýhy nebo HPL spletete o 2–3násobek.
+
+---
+
+#### 3. Kování zásuvek a doplňky
+
+| Položka | Jednotka | Cena Kč | Prodejce | Ověřeno | Odkaz |
+|---|---|---|---|---|---|
+| Blum TANDEMBOX antaro, sada M, 450 mm, 30 kg, bílá | sada | **894,72** | Bartrosa | ano | [odkaz](https://www.bartrosa.cz/set-zasuvka-blum-tandembox-antaro-blumotion-30kg-vyska-m-450mm-s-inserta-bila) |
+| Blum TANDEMBOX antaro, 450 mm, 30 kg, bílá | sada | **od 895** | In-duro | ano | [odkaz](https://www.in-duro.cz/zasuvky-blum-antaro/) |
+| Blum TANDEMBOX antaro, 450 mm, 65 kg, bílá | sada | **od 1 062** | In-duro | ano | [odkaz](https://www.in-duro.cz/zasuvky-blum-antaro/) |
+| Blum TANDEMBOX antaro TIP-ON Blumotion, sada K, 450 mm, 30 kg, šedá | sada | **1 054** | Exkalibr | ano | [odkaz](https://www.exkalibr.cz/blum-tandembox-antaro-tip-on-blumotion-sada-k-delka-450mm-30kg-seda_d35035.html) |
+| Blum TANDEMBOX antaro TIP-ON Blumotion, sada K, 450 mm, 65 kg, šedá | sada | **1 213** | Exkalibr | ano | [odkaz](https://www.exkalibr.cz/blum-tandembox-antaro-tip-on-blumotion-sada-k-delka-450mm-65kg-seda_d35013.html) |
+| Blum LEGRABOX pure, výška M, 500 mm, 70 kg, šedá orion | sada | **1 336** | Exkalibr | ano | [odkaz](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-m-blumotion-s-70kg-delka-500mm-seda-orion_d8178.html) |
+| Blum LEGRABOX pure, výška C, 500 mm, 40 kg, hedvábně bílá | sada | **1 436** | Exkalibr | ano | [odkaz](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-c-blumotion-s-40kg-delka-500mm-hedvabne-bila_d8112.html) |
+| Blum LEGRABOX pure, výška F, 500 mm, 40 kg, šedá orion | sada | **1 965** | Exkalibr | ano | [odkaz](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-f-blumotion-s-40kg-delka-500mm-seda-orion_d8127.html) |
+| Blum LEGRABOX pure, sada F 500 / 40 kg, bez čelního kování | sada | **2 127,47** | Ardea-cz | ano | [odkaz](https://www.ardea-cz.cz/blum-legrabox-pure-sedy-sada-f-500-40-kg-bez-celniho-kovani) |
+| Hettich InnoTech Atira 470 / 70 mm, šedá | sada | **686,10** | Truhlářské věci | ano | [odkaz](https://www.truhlarskeveci.cz/kategorie/vysuvy-hettich-innotech/) |
+| Hettich InnoTech Atira 470 / 144 mm s relingem, stříbrná | sada | **855** | Šimek | ano | [odkaz](https://www.simek.eu/hettich-zasuvka-innotech-atira-470-144-mm-s-relingem-stribrna/) |
+| Hettich InnoTech Atira 470 / 176 mm s relingem, stříbrná | sada | **978** | Šimek | ano | [odkaz](https://www.simek.eu/zasuvka-innotech-atira-470-176-mm-s-relingem-stribrna/) |
+| Plnovýsuv kuličkový 450 mm, 35 kg | pár | **289** | Walteco | ano | [odkaz](https://www.walteco.cz/kulickovy-plnovysuv-450-mm--35-kg--1-par/) |
+| Plnovýsuv boční kuličkový s tlumením, 45 kg, 450 mm | pár | **381** | KUTIL.cz | ano | [odkaz](https://www.kutil.cz/zelezarstvi/zamky-a-kovani/nabytkove-kovani/spojovaci-kovani/plnovysuv-bocni-kulickovy-s-tlumenim-45kg/) |
+| Plnovýsuv 450 mm s dotahem, 35 kg | pár | **429** | HORNBACH | ano | [odkaz](https://www.hornbach.cz/c/zelezarstvi/nabytkova-mechanika/zasuvkove-vysuvy/S11990/) |
+| Plnovýsuv 450 mm s tlumením, 30 kg | pár | **529** | HORNBACH | ano | [odkaz](https://www.hornbach.cz/c/zelezarstvi/nabytkova-mechanika/zasuvkove-vysuvy/S11990/) |
+| Kabelová průchodka kulatá Ø 80 mm, kov | kus | **98** | Dřevoobchod K&C | ano | [odkaz](https://www.drevoobchod-eshop.cz/pruchodka-na-kabely-kovova-o-80-mm---matchrom) |
+| Kabelová průchodka Ø 80 mm, kov (chrom mat/satin/inox) | kus | **109** | Arden | ano | [odkaz](https://www.arden.cz/pruchodka-80mm-kovova/) |
+| Kabelová průchodka Ø 80 mm, černá matná / chrom lesk | kus | **125** | Loomah / In-duro | ano | [odkaz](https://www.loomah.cz/pruchodka-na-kabely-do-stolu-80-mm-cerna-matna/) |
+| Kabelová průchodka 80×80 mm, kov | kus | **161** | Arden | ano | [odkaz](https://www.arden.cz/pruchodka-80x80mm-kovova/) |
+| Kabelová průchodka podélná 80×280 mm, černá | kus | **504** | Truhlashop | ano | [odkaz](https://www.truhlashop.cz/kabelova-pruchodka-do-stolu-80x280-cerna/) |
+| Kabelová průchodka podélná 80×500 mm, černá | kus | **780** | Truhlashop | ano | [odkaz](https://www.truhlashop.cz/kabelova-pruchodka-do-stolu-80x500-cerna/) |
+| LED profil hliníkový MICRO-ALU, 2 m | kus | **299** | LXF / T-LED | ano | [odkaz](https://www.lxf.cz/led-profily-hlinikove/) |
+| LED profil PIKO, 2 m | kus | **279** | LXF | ano | [odkaz](https://www.lxf.cz/led-profily-hlinikove/) |
+| LED profil povrchový SURFACE 1 PRO | kus | **98 – 148** | LED Solution | ano | [odkaz](https://eshop.ledsolution.cz/hlinikove-profily-pro-led-pasky/) |
+| LED profil MIKRO / WIDE24 | bm | **41 / 175** | T-LED | ano | [odkaz](https://www.t-led.cz/listy-a-profily-pro-led-pasky/) |
+| **LED pásek 24 V** | bm | **~120 – 350** | (nezjištěno konkrétně) | **odhad** | [T-LED](https://www.t-led.cz/listy-a-profily-pro-led-pasky/) |
+| Kovová noha ke stolu, v. 72 cm, jednoduchá | kus | **564** | Allegro (Pavouk 72 cm loft) | ano | [odkaz](https://allegro.cz/vyhledavani?string=podno%C5%BE+stolu) |
+| Kovová noha na stůl SKN07, 60×72 cm | kus | **908** | Tvůj Regál | ano | [odkaz](https://www.tvujregal.cz/kovove-stolove-nohy/) |
+| Noha DMBAU SIMPLE 72 cm | kus | **od 995** | Mister Weld | ano | [odkaz](https://www.misterweld.cz/zakladna-stolu-72-cm-kovova-noha-ke-stolu/) |
+| Sada nohou DMBAU XT-60 (60×72 cm) | sada | **2 350** | Mister Weld | ano | [odkaz](https://www.misterweld.cz/stoly-2/) |
+| Stolová podnož kovová SH-2011-2 (45×45×72 cm, černá) | kus | **1 489** | Kaufland | ano | [odkaz](https://www.kaufland.cz/c/stolove-nohy/~5701/) |
+
+---
+
+#### 4. Kontrolní propočet na tvůj rozměr (A 211 cm × B 148 cm, hloubka 65 cm)
+
+Slouží jako sanity check, jestli kalkulačka počítá řádově správně.
+
+| Vstup | Hodnota | Poznámka |
+|---|---|---|
+| Plocha L-desky | **~1,9 m²** | 2110×650 + 830×650 |
+| Obvod (hrany k olepení) | **~7,2 bm** | u „L“ je obvod stejný jako u opsaného obdélníku: 2×(2110+1480) |
+| Délka řezů z formátu | **~6–7 bm** | 4–6 řezů |
+
+| Kalkulace | Nízko | Vysoko |
+|---|---|---|
+| Materiál — lamino Egger 18 mm, metráž OBI (579–599 Kč/m²) | **1 100** | **1 140** |
+| Materiál — lamino jako celá deska 2800×2070 u velkoobchodu | **~2 500** | **~3 500** |
+| Formátování (12–29 Kč/bm × 6,5 bm) | **80** | **190** |
+| Olepení hrany (práce, 17–30 Kč/bm × 7,2 bm) | **120** | **220** |
+| ABS hrana (materiál, 9–30 Kč/bm × 7,2 bm) | **65** | **215** |
+| **Deska hotová (lamino, metráž)** | **~1 400** | **~1 800** |
+| Deska v dubové dýze (668–894 Kč/m², ale celá deska 5,8 m²) | **~4 300** | **~5 700** |
+| Deska v dubové spárovce (1 900–3 600 Kč/m² × 1,9 m²) | **~3 900** | **~7 100** |
+| Podnož / nohy (2–3 ks) | **1 100** | **3 000** |
+| Zásuvka 1× Blum antaro 450 | **895** | **1 213** |
+| Kabelová průchodka Ø80 | **98** | **125** |
+| LED profil 2 m + pásek | **420** | **950** |
+| **Celkem lamino + jedna zásuvka + doplňky** | **~3 900** | **~7 100** |
+| **Celkem dub (spárovka/dýha) + zásuvka + doplňky** | **~6 400** | **~12 400** |
+
+Obě varianty se vejdou do rozpočtu 5–20 tis. Kč. Pozor: **nezahrnuje truhlářskou práci na montáži** (kotvení do zdi, sesazení dvou ramen, srovnání v rohu) — to je typicky 2–6 tis. Kč navíc a nepodařilo se mi k tomu najít veřejný ceník.
+
+---
+
+#### 5. Co je dost spolehlivé pro kalkulačku
+
+**Použij natvrdo (jednoznačné číslo z konkrétního ceníku nebo karty produktu):**
+- **INTEMO ceník formátování a olepování** — 24 / 40 Kč/bm řez, 25 / 30 Kč/bm olepení, bez DPH, platnost od 5/2025. Nejlepší jediný zdroj v celé rešerši: je to PDF ceník s jasnou strukturou a rozlišením podle tloušťky a výšky hrany. Toto ber jako výchozí sazby.
+- **Ceny Blum a Hettich** — všechny sady mají konkrétní cenu u konkrétního e-shopu (Exkalibr, In-duro, Bartrosa, Ardea, Šimek). Rozptyl 890–2 130 Kč je dán výškou bočnice a nosností, ne nespolehlivostí dat.
+- **Plnovýsuvy 450 mm** — 289 / 381 / 429 / 529 Kč za pár, čtyři nezávislé obchody, konzistentní.
+- **Kabelové průchodky Ø80** — 98 / 109 / 125 Kč, tři obchody, těsný rozptyl.
+- **Lamino Egger 18 mm metráž OBI** — 579 a 599 Kč/m², cena z karty produktu.
+- **OBI**: kolmý řez zdarma u vlastního sortimentu, olepení 15 Kč/bm, přířez cizího materiálu 40 Kč/kus.
+
+**Použij jako rozpětí, ne jako pevné číslo:**
+- Ceny malých truhlářství za olepení (13–23 Kč/bm) — jsou reálné, ale platné jen pro toho konkrétního živnostníka; v Brně si to bude potřeba obvolat.
+- Dubová spárovka: 1 900 až 3 600 Kč/m² podle kvality (A/B vs. B/C, fix vs. cink) — to je skoro dvojnásobný rozdíl a kalkulačka musí nabídnout výběr třídy.
+- HPL kompakt: 2 900–5 300 Kč/m² podle dekoru; jediné pevné číslo je 3 168 Kč/m².
+- ABS hrana: mám ceny ze slovenského e-shopu v eurech, přepočet je můj. Před použitím ověřit u českého dodavatele.
+
+**Nepoužívej bez doověření:**
+- **DŘEVO TRUST ceník 1/2023** — tři a půl roku starý. Čísla jsou konkrétní, ale inflačně mimo. Uvádím je jen pro srovnání struktury (řezy podle počtu, olepení podle tloušťky).
+- **Forbo Furniture Linoleum** — žádný český prodejce se cenou. UK cena přepočtená na ~1 150–1 400 Kč/m² je jen orientační a nezahrnuje nalepení na nosnou desku (což je další služba, kterou v ČR dělá jen pár dílen).
+- **LED pásek 24 V za bm** — nemám ověřenou cenu, jen profily. Odhad 120–350 Kč/bm.
+- **Kuchyňská pracovní deska „od 600 Kč/bm“** — to číslo se v rešerši objevilo bez jasné vazby na konkrétní produkt. Hornbachovo rozpětí 2 295–4 780 Kč za kus je ověřené, ale bez uvedení délky se z toho cena za bm nedá spočítat.
+- **Démos trade a Kili** — ceníky nářezových center nejsou veřejné, potřebuješ B2B účet nebo poptávku. Pro kalkulačku je nahraď sazbami INTEMO.
+
+
+**Zdroje:**
+
+- [INTEMO — Ceník formátování a olepování (platnost od 1. 5. 2025)](https://intemo.cz/wp-content/uploads/2025/05/2023_02_28_INT_cenik-formatovani_2025_05_01.pdf)
+- [DŘEVO TRUST — Ceník řezání plošného materiálu a olepování ABS hran (1/2023)](https://webdata.drevotrust.cz/ceniky/sluzby/cenik_narez_KM_1_2023.pdf)
+- [OBI — Ceník řezu dřeva a olepování hran (PDF)](https://obi.imgix.net/api/disc/cms/public/dam/czech/pdfs/p---ez-d-eva-cen-k-l0057_pos_wood_cutting_cz_a2_v6.pdf)
+- [HORNBACH — Přířez online na míru](https://www.hornbach.cz/conf/prirez-online-na-miru/80000/)
+- [Truhlářství FUTO — Formátování a olepování](http://www.truhlarstvi-futo.cz/formatovani-a-olepovani/)
+- [Truhlářství Šustr — Olepování hran](https://www.truhlarstvi-sustr.cz/olepovani-hran)
+- [ZUDO — Ceník služeb](https://www.zudo.cz/cenik-sluzeb/)
+- [Nářezové centrum Libřice (dilcenamiru.cz) — Ceník služeb](https://dilcenamiru.cz/cenik/)
+- [KPP Truhlářství Čebín — nářezové centrum (Brno-venkov)](https://www.kpptruhlarstvi.cz/cs/nase-sluzby/narezove-centrum/)
+- [Hezký domov — nářezové centrum Brno a okolí](https://www.hezkydomov.cz/narezove-centrum)
+- [Diskuze: Kde v Brně dělají lamino na míru](https://rybicky.net/forum/14131)
+- [OBI — Egger lamino DTD H1145 ST10 dub Bardolino 18 mm, metráž](https://www.obi.cz/p/6488365/egger-lamino-drevotriskova-deska-h1145-st10-dub-bardolino-tl-18-mm-metraz)
+- [OBI — Egger lamino DTDL U780 ST9 monumentální šedá 18 mm, metráž](https://www.obi.cz/police-a-nabytkove-desky/lamino-dtdl-egger-u780-st9-monumentalni-seda-tloustka-18-mm-metraz/p/5761507)
+- [Delika.cz — DTD dýhovaná 19 mm dýha dub A/B 2070x2800](https://delika.cz/velkoplosny-material/296-drevotriskova-deska-dyhovana-dtd-19mm-dyha-dub-ab-2070x2800.html)
+- [Dřevoobchod Doležal — DTD dýha dub 2800x2070x19](https://drevoobchoddolezal.cz/dtd-dyha-dub-2800207019/)
+- [DŘEVO TRUST — Dýhované DTD dub](https://drevotrust.cz/cs/dub/4Ty)
+- [Kili — Spárovka dub A/B napojovaná tl. 27–30 mm](https://www.kili.cz/rezivo/sparovka/sparovka-dub-a-b-napojovana-balena-tl-27-30-mm-s466740008)
+- [Spárovky.eu — Dubové spárovky](https://www.sparovky.eu/dubove-sparovky/)
+- [Spárovky Brenus — prodej spárovek](https://www.sparovky-brenus.cz/)
+- [HAPex — Dubové spárovky](https://shop.hapex.cz/dubove-sparovky)
+- [Levné frézování — HPL kompaktní desky](https://www.levne-frezovani.cz/s3-hpl---kompaktni-desky)
+- [JAF Holz — Kompaktní deska FunderMax Exterior HPL 0085 NT bílá](https://www.jafholz.cz/shop/Kompaktni-deska-FunderMax-Exterior-HPL-0085-NT-Bila~p2014372)
+- [Sortim — Kompaktní deska FunderMax Interior 0927 Creek](https://www.sortim.cz/kompaktni-desky-max-compact-interior-plus/kompaktni-deska-pro-interier-fundermax-0927-creek/)
+- [Palubky Vencl — Překližka pohledová březová BB/BB 18x1250x2500](https://palubky-vencl.cz/preklizka-pohledova-brezova-bbbb-18x1250x2500-mm)
+- [DŘEVO TRUST — Překližka MULTIPLEX bříza 18/2500x1250](https://drevotrust.cz/cs/prekl-multiplex-briza-182500x1250-bbcp/26685)
+- [Dřevoobchod Doležal — MDF lakované](https://drevoobchoddolezal.cz/mdf-lakovane/)
+- [DŘEVO TRUST — MDF desky lakované](https://drevotrust.cz/cs/mdf-lakovane/3Gi)
+- [Obrábění dřeva — Ceník lakování a povrchové úpravy](https://www.obrabeni-dreva.cz/cz/lakovani-a-povrchova-uprava/cenik/)
+- [KNN.sk — Egger ABS hrany (ceny za bm)](https://www.knn.sk/egger-abs-hrany/)
+- [KNN.sk — Hrana Egger ABS U727 PM 22x1 mm](https://www.knn.sk/hrana-egger-abs-u727-pm-22-x-1-mm/)
+- [HORNBACH — Kuchyňské pracovní desky](https://www.hornbach.cz/c/kuchyne/kuchynske-pracovni-desky-a-prislusenstvi/kuchynske-pracovni-desky/S12688/)
+- [Nábytek Sprint — Kuchyňské pracovní desky Egger](https://www.nabyteksprint.cz/c/3-pracovni-desky/1/oblibene/127-kuchynske-pracovni-desky-egger)
+- [Lino-online (UK) — Forbo Desktop Furniture Linoleum](https://www.lino-online.co.uk/desktop-linoleum-1/)
+- [Bartrosa — Set zásuvka Blum Tandembox Antaro Blumotion 30 kg M 450 mm](https://www.bartrosa.cz/set-zasuvka-blum-tandembox-antaro-blumotion-30kg-vyska-m-450mm-s-inserta-bila)
+- [In-duro — Zásuvky Blum Tandembox antaro](https://www.in-duro.cz/zasuvky-blum-antaro/)
+- [Exkalibr — Blum TANDEMBOX antaro TIP-ON Blumotion sada K 450 mm 30 kg](https://www.exkalibr.cz/blum-tandembox-antaro-tip-on-blumotion-sada-k-delka-450mm-30kg-seda_d35035.html)
+- [Exkalibr — Blum TANDEMBOX antaro TIP-ON Blumotion sada K 450 mm 65 kg](https://www.exkalibr.cz/blum-tandembox-antaro-tip-on-blumotion-sada-k-delka-450mm-65kg-seda_d35013.html)
+- [Exkalibr — Blum LEGRABOX pure sada výška M 500 mm 70 kg](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-m-blumotion-s-70kg-delka-500mm-seda-orion_d8178.html)
+- [Exkalibr — Blum LEGRABOX pure sada výška C 500 mm 40 kg](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-c-blumotion-s-40kg-delka-500mm-hedvabne-bila_d8112.html)
+- [Exkalibr — Blum LEGRABOX pure sada výška F 500 mm 40 kg](https://www.exkalibr.cz/blum-legrabox-pure-sada-vyska-f-blumotion-s-40kg-delka-500mm-seda-orion_d8127.html)
+- [Ardea-cz — Blum Legrabox pure šedý sada F 500/40 kg](https://www.ardea-cz.cz/blum-legrabox-pure-sedy-sada-f-500-40-kg-bez-celniho-kovani)
+- [Truhlářské věci — Výsuvy Hettich InnoTech](https://www.truhlarskeveci.cz/kategorie/vysuvy-hettich-innotech/)
+- [Šimek — Hettich zásuvka InnoTech Atira 470/144 mm s relingem](https://www.simek.eu/hettich-zasuvka-innotech-atira-470-144-mm-s-relingem-stribrna/)
+- [Šimek — Hettich zásuvka InnoTech Atira 470/176 mm s relingem](https://www.simek.eu/zasuvka-innotech-atira-470-176-mm-s-relingem-stribrna/)
+- [Walteco — Kuličkový plnovýsuv 450 mm, 35 kg, 1 pár](https://www.walteco.cz/kulickovy-plnovysuv-450-mm--35-kg--1-par/)
+- [KUTIL.cz — Plnovýsuv boční kuličkový s tlumením 45 kg](https://www.kutil.cz/zelezarstvi/zamky-a-kovani/nabytkove-kovani/spojovaci-kovani/plnovysuv-bocni-kulickovy-s-tlumenim-45kg/)
+- [HORNBACH — Zásuvkové výsuvy](https://www.hornbach.cz/c/zelezarstvi/nabytkova-mechanika/zasuvkove-vysuvy/S11990/)
+- [Dřevoobchod K&C — Průchodka na kabely kovová Ø 80 mm](https://www.drevoobchod-eshop.cz/pruchodka-na-kabely-kovova-o-80-mm---matchrom)
+- [Arden — Kabelová nábytková průchodka kovová 80 mm](https://www.arden.cz/pruchodka-80mm-kovova/)
+- [Arden — Kabelová nábytková průchodka 80x80 mm](https://www.arden.cz/pruchodka-80x80mm-kovova/)
+
+
+---
+

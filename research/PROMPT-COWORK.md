@@ -26,6 +26,12 @@ Stav ceníku k 3. 9. 2026:
 
 Sekce `stoly` a `kovani` jsou neověřené celé — u nich má doověření největší přínos.
 
+Třetí kolo rešerše (105 dotazů) mezitím doplnilo sit-stand rámy a pevné podnože
+a jeho kritická vrstva zamítla několik čísel jako nepoužitelných do kalkulačky:
+akční ceny vydávané za běžné, doporučenou MOC zaměněnou s prodejní cenou, průměr
+ze dvou rozporných hodnot a u Liftoru tři různá čísla na dvou produktech.
+Detaily jsou v `research/trh.md`, sekce „Třetí kolo rešerše".
+
 ---
 
 ## PROMPT (odsud kopíruj)
@@ -131,15 +137,29 @@ Otevři aktuální katalogy a dohledej:
 - **Forbo Furniture Linoleum** — konkrétní barvy a jejich kódy, kdo to v ČR dodává
 - ceny za desku 2800×2070 nebo za m² u českého dodavatele
 
-**Priorita 4 — výškově stavitelné rámy.**
+**Priorita 4 — rozsoudit jeden konkrétní rozpor u sit-stand rámů.**
 
-Tohle téma je v rešerši nejslabší. Uživatel chce pevnou výšku, takže je to jen pro
-srovnání, ale zajímá ho odpověď na jednu konkrétní otázku: **dá se rohová (L) polohovací
-sestava pro 211 + 148 cm pořídit do 20 tis. Kč, nebo ne?**
+Tohle téma proběhlo ve třetím kole a je z větší části hotové. Zjistilo se, že
+**u ramene 211 cm je limitem rozsah šířky rámu, ne cena** — většina dvousloupových
+rámů jde jen do 160–190 cm. Zbývá jedna věc, kterou dva nezávislé průchody
+rozhodly různě a kritická vrstva ji označila za nepodloženou:
 
-Ověř ceny rámů bez desky u českých prodejců (Flexispot, AlzaErgo, IKEA, Liftor,
-Ergotrend, Ultradesk) a hlavně **rozsah šířky traverzy** — pro desku 211 cm je to
-limitující parametr. A zjisti, jestli existují rohové sestavy se třemi sloupy.
+- Jeden průchod tvrdí, že **Powerton rohový rám** zvládne desku 1100–2200 mm,
+  ale v témže řádku uvádí „šířka rámu 1000–1700 mm" — samo si to odporuje.
+- Druhý průchod Powerton jako rohové řešení vůbec nezná a tvrdí, že na 211 cm
+  dosáhne prakticky **jen Liftor Expert** (110–220 cm).
+- **Liftor L** (3 sloupy, desky až 290×100 cm, 16 999 Kč) je jediná ověřená sestava,
+  která na 211 × 148 cm rozměrově jde. Cena ale ověřená není — u Liftoru rešerše
+  narazila na **tři různá čísla na dvou produktech**.
+
+Otevři stránky Liftoru a Powertonu a rozsuď:
+
+1. Jaká je dnes skutečná cena **Liftor L** a **Liftor Expert**?
+2. Zvládne **Powerton rohový rám** rameno 211 cm, nebo ne? Jaký je jeho skutečný
+   rozsah šířky u obou ramen?
+3. Kolik stojí **rohová deska na míru 211 × 148 cm** u pracuj-zdrave.cz nebo
+   woooooo.cz? Odhad z rešerše je 4 000 – 8 000 Kč, což je rozptyl větší než
+   celá rezerva do 20 tisíc — jedno konkrétní číslo tuhle otázku uzavře.
 
 ### Jak to vrátit
 

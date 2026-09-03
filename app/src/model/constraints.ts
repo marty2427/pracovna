@@ -1,4 +1,4 @@
-import { SPACE, MAX_RAMENO_A, maxRamenoB, TISKARNA } from './space'
+import { SPACE, MAX_RAMENO_A, maxRamenoB, TISKARNA, STAVITELNY_RAM, PEVNA_PODNOZ_MAX } from './space'
 import type { DeskConfig, Rect } from './types'
 import { material } from './materials'
 import { podpory, skutecnyRozpon, dovolenyRozpon, MAX_ROZPON, maxRozponMat } from './podpory'
@@ -149,7 +149,42 @@ export function kontroly(c: DeskConfig): Kontrola[] {
     })
   }
 
-  // 6) Rozpon desky bez podpory
+  // 6) Dosah podnože — u dlouhého ramene je limitem rozměr rámu, ne cena
+  const nejdelsiRameno = Math.max(r.ramenoADelka, c.tvar === 'L' ? r.ramenoBDelka : 0)
+  if (c.podnoz.typ === 'stavitelny-ram') {
+    const stav: Zavaznost =
+      nejdelsiRameno <= STAVITELNY_RAM.bezneMax ? 'ok'
+      : nejdelsiRameno <= STAVITELNY_RAM.nejdelsiDvousloupovy ? 'pozor' : 'chyba'
+    out.push({
+      id: 'dosah-ramu',
+      nazev: 'Dosah stavitelného rámu',
+      hodnota: nejdelsiRameno,
+      jednotka: 'mm',
+      cil: `běžné rámy do ${STAVITELNY_RAM.bezneMax} mm`,
+      stav,
+      zprava:
+        stav === 'ok'
+          ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm zvládne běžný dvousloupový rám (AlzaErgo, IKEA Mittzon).`
+          : stav === 'pozor'
+            ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm je nad dosahem běžných rámů (do ${STAVITELNY_RAM.bezneMax / 10} cm). Zvládne ho jen nejdelší dvousloupový rám, nebo rohová sestava se třemi sloupy.`
+            : `Rameno ${Math.round(nejdelsiRameno / 10)} cm nedosáhne žádný běžný rám. Jen rohová sestava se třemi sloupy.`,
+    })
+  } else if (c.podnoz.typ !== 'bocnice' && c.podnoz.typ !== 'kozy' && !c.podnoz.typ.startsWith('nohy') && c.podnoz.typ !== 'hairpin') {
+    const potrebaDvou = nejdelsiRameno > PEVNA_PODNOZ_MAX
+    out.push({
+      id: 'dosah-podnoze',
+      nazev: 'Dosah hotové podnože',
+      hodnota: nejdelsiRameno,
+      jednotka: 'mm',
+      cil: `hotové podnože do ${PEVNA_PODNOZ_MAX} mm`,
+      stav: 'ok',
+      zprava: potrebaDvou
+        ? `Nejdelší hotová pevná podnož jde do ${PEVNA_PODNOZ_MAX / 10} cm. Na rameno ${Math.round(nejdelsiRameno / 10)} cm proto počítej se dvěma, nebo s rámem svařeným na míru.`
+        : `Rameno ${Math.round(nejdelsiRameno / 10)} cm pokryje jedna hotová podnož.`,
+    })
+  }
+
+  // 7) Rozpon desky bez podpory
   const rozpon = skutecnyRozpon(c)
   const max = dovolenyRozpon(c)
   const pocetPodpor = podpory(c).length
@@ -169,7 +204,7 @@ export function kontroly(c: DeskConfig): Kontrola[] {
           + `. Podpor celkem ${pocetPodpor}` + (maMezilehlou ? ', z toho jedna mezilehlá.' : '.'),
   })
 
-  // 7) Prostor pro nohy pod deskou
+  // 8) Prostor pro nohy pod deskou
   const svetlaVyska = r.vyska - c.deska.tloustka - (c.ulozne.some((u) => u.typ === 'zasuvka-plocha') ? 80 : 0)
   out.push({
     id: 'legroom',

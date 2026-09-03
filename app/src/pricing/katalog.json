@@ -537,6 +537,20 @@
    "overeno": true,
    "poznamka": "~8 281 Kč/m² – nejdražší položka přehledu, sama o sobě vyčerpá 65 % rozpočtu 20 tis. Kč. Nutné zkrátit pod 236 cm.",
    "varovani": "13043 Kč / 1,575 m2 = 8281 Kč/m2. To je 2× nad cinkovanou spárovkou (DOMESTAV 4259, BRENUS 2840) a 1,4× nad K&C (5776 Kč/m2). Buď jde o průběžnou lamelu prémiové kvality (pak to doplnit do popisu), nebo je cena chybná."
+  },
+  {
+   "id": "ergodesk-corner-160x110",
+   "nazev": "ErgoDesk Corner rohová deska 160×110-60 cm, lamino",
+   "prodejce": "kupzidle.cz",
+   "popis": "Hotová rohová deska 25 mm. Menší, než potřebuješ (211×148), ale ukazuje cenovou hladinu sériové rohové desky.",
+   "delka": 1600,
+   "sirka": 1100,
+   "tloustka": 25,
+   "cena": 2190,
+   "jednotka": "ks",
+   "url": "https://www.kupzidle.cz/p/deska-stolu-rohova-ergodesk-corner-160x110-60x2-5-cm-laminovana-drevotriska-vice-barev",
+   "overeno": true,
+   "poznamka": "Ověřeno ve 3. kole rešerše."
   }
  ],
  "podnoze": [
@@ -1006,6 +1020,105 @@
    "url": "https://drevotrust.cz/cs/podnoz-stolova-elektricky-vyskove-stavitelna-luk-up-seda-ral-7045/114936",
    "overeno": true,
    "poznamka": "Přesná cena 10 244,92 Kč. Varianta LUK ANCOLL bílá RAL 9010 existuje, cena neověřena. Šedá RAL 7045 - rešerše hodnotí šedou jako nejhorší barvu do tohoto interiéru."
+  },
+  {
+   "id": "zlkl-pevna-podnoz-755",
+   "nazev": "Pevná stolová podnož 755 mm",
+   "prodejce": "zlklshop.cz",
+   "popis": "Pevná výška 755 mm, nosník roztažitelný 1180–1580 mm. Na rameno 211 cm nedosáhne — potřeba dvě, nebo nosník na míru.",
+   "delka": 1580,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 1924,
+   "jednotka": "ks",
+   "url": "https://www.zlklshop.cz/",
+   "overeno": true,
+   "poznamka": "1 590 Kč bez DPH. Ověřeno ve 3. kole rešerše."
+  },
+  {
+   "id": "drevotrust-level-lp",
+   "nazev": "Podnož LEVEL L+P (bez nosníku)",
+   "prodejce": "drevotrust.cz",
+   "popis": "Pevná výška 723–730 mm, pár noh bez nosníku — rozpon určuje nosník, který se dokupuje zvlášť.",
+   "delka": 0,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 1628,
+   "jednotka": "sada",
+   "url": "https://www.drevotrust.cz/",
+   "overeno": true,
+   "poznamka": "Černá; šedá 1 929 Kč. Ověřeno ve 3. kole."
+  },
+  {
+   "id": "aluppress-skch-o",
+   "nazev": "ALUPRESS SKCH-O excentrická podnož",
+   "prodejce": "drevotrust.cz",
+   "popis": "Pevná výška 725 mm, roztažitelná 1340–1820 mm — nejdelší ověřená pevná podnož. Na 211 cm i tak nestačí.",
+   "delka": 1820,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 2662,
+   "jednotka": "ks",
+   "url": "https://www.drevotrust.cz/",
+   "overeno": true,
+   "poznamka": "Ověřeno ve 3. kole rešerše."
+  },
+  {
+   "id": "alzaergo-et1-essential",
+   "nazev": "AlzaErgo Table ET1 Essential (rám bez desky)",
+   "prodejce": "Alza",
+   "popis": "Elektrický, zdvih 62–128 cm, nosnost 125 kg, 2 motory. Šířka traverzy 1000–1700 mm — na rameno 211 cm NEDOSÁHNE.",
+   "delka": 1700,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 7189,
+   "jednotka": "ks",
+   "url": "https://www.alza.cz/alzaergo-table-et1-essential-cerny-d7121744.htm",
+   "overeno": true,
+   "poznamka": "Ověřeno ve 3. kole. Rozsah šířky je limitující parametr, ne cena."
+  },
+  {
+   "id": "alzaergo-et2-core",
+   "nazev": "AlzaErgo Table ET2 Core (rám bez desky)",
+   "prodejce": "Alza",
+   "popis": "Elektrický, zdvih 73–123 cm, nosnost 80 kg, 1 motor. Šířka 1000–1600 mm — na 211 cm nedosáhne.",
+   "delka": 1600,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 4990,
+   "jednotka": "ks",
+   "url": "https://www.alza.cz/alzaergo-table-et2-core-cerny-d12930757.htm",
+   "overeno": true,
+   "poznamka": "Nejlevnější ověřený elektrický rám. Ověřeno ve 3. kole."
+  },
+  {
+   "id": "ikea-mittzon-podnozi-elektr",
+   "nazev": "IKEA MITTZON polohovací podnoží, elektrické",
+   "prodejce": "IKEA ČR",
+   "popis": "Zdvih 60–124 cm. Vyrábí se pro desky 120 / 140 / 160 cm — na rameno 211 cm neexistuje varianta.",
+   "delka": 1600,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 7300,
+   "jednotka": "ks",
+   "url": "https://www.ikea.com/cz/cs/p/mittzon-polohovaci-podnozi-ps-stolu-elektricky-cerna-20527911/",
+   "overeno": true,
+   "poznamka": "Ověřeno ve 3. kole rešerše."
+  },
+  {
+   "id": "liftor-l-rohovy",
+   "nazev": "Liftor L — rohový rám, 3 sloupy",
+   "prodejce": "Liftor.cz",
+   "popis": "JEDINÁ ověřená sestava, která na 211 × 148 cm rozměrově jde: 3 motory, 150 kg, desky až 2900 × 1000 mm, úhly 90/120/180°.",
+   "delka": 2900,
+   "sirka": 1000,
+   "tloustka": 0,
+   "cena": 16999,
+   "jednotka": "ks",
+   "url": "https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html",
+   "overeno": false,
+   "poznamka": "Cena NEOVĚŘENA — kritika našla u Liftoru tři různá čísla na dvou produktech.",
+   "varovani": "Ceny Liftoru si ověř přímo na jejich webu, rešerše u nich narazila na rozpory."
   }
  ],
  "stoly": [
@@ -2064,9 +2177,10 @@
  ],
  "meta": {
   "zdroj": "research/trh.md a research/_raw2.json — vytáhlo pět agentů, prošlo kontrolou",
-  "stav": "145 položek, 80 označeno jako ověřených, 23 s výhradou kontroly",
+  "stav": "153 položek, 87 označeno jako ověřených",
   "datum": "2026-09-03",
   "kontrola": "Ceník má tři systémové problémy. (1) Sekce 'sluzby' duplikuje sedm položek ze sekce 'desky' — stejný produkt, stejná cena, jiné id (Hornbach dub 2000×600×18, Hornbach stolová deska 1600×800×26, Bauhaus dub 2200×600, Hornbach buk, Hornbach kuchyňská deska 4100, K&C spárovka 40 mm, DOMESTAV cink 40 mm). To nafukuje počet položek a při automatickém výběru nejlevnější varianty zkresluje výsledek. (2) Zhruba 20 položek v sekci 'kovani' a několik podnoží má cenu 0 Kč — celá sekce výsuvů (Blum, Hettich, GTV), LED, kabelové vedení, Flexispot rámy. Ty se do rozpočtu nedají použít vůbec. (3) Sekce 'stol",
-  "odstraneno": "16 vyřazeno kontrolou (duplicity a nepoužitelné položky), 24 bez zjištěné ceny"
+  "odstraneno": "16 vyřazeno kontrolou (duplicity a nepoužitelné položky), 24 bez zjištěné ceny",
+  "kolo3": "Třetí kolo doplnilo pevné podnože 75 cm a sit-stand rámy s ověřenými cenami. Klíčové zjištění: u ramene 211 cm je limitem rozsah šířky rámu, ne cena — většina rámů jde jen do 160–190 cm."
  }
 }

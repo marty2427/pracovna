@@ -61,3 +61,20 @@ export const LIMITY = {
 
 /** Minimální hloubka ramene B, aby se na něj vešla běžná A4 multifunkce. */
 export const TISKARNA = { sirka: 450, hloubka: 400, vyska: 260 }
+
+/**
+ * Dosah výškově stavitelných rámů — zjištění ze 3. kola rešerše (research/trh.md).
+ * Naprostá většina dvousloupových rámů má traverzu roztažitelnou jen do 1600-1900 mm.
+ * U dlouhého ramene tak není limitem cena, ale rozměr.
+ */
+export const STAVITELNY_RAM = {
+  /** Co zvládne běžný dvousloupový rám (AlzaErgo ET1/ET2, IKEA Mittzon). */
+  bezneMax: 1700,
+  /** Nejdelší ověřený dvousloupový rám (Liftor Expert 1100-2200 mm). */
+  nejdelsiDvousloupovy: 2200,
+  /** Rohová sestava se třemi sloupy (Liftor L, desky až 2900x1000 mm). */
+  rohovaSestava: 2900,
+}
+
+/** Nejdelší ověřená PEVNÁ podnož (ALUPRESS SKCH-O, 1340-1820 mm). */
+export const PEVNA_PODNOZ_MAX = 1820
