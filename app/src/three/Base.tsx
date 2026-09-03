@@ -280,6 +280,15 @@ export function Podnoz({ config }: { config: DeskConfig }) {
             />
           </group>
         ))}
+        {/* třetí sloup u vnitřního rohu — bez něj by roh L visel na vzduchu */}
+        {samostatne.map((b, i) => (
+          <group key={`rs${i}`}>
+            <Box pos={[b.x, 0.022, b.z]} size={[0.30, 0.044, 0.07]} material={kov} radius={0.006} />
+            <Box pos={[b.x, H * 0.30, b.z]} size={[0.082, H * 0.58, 0.082]} material={kov} radius={0.005} />
+            <Box pos={[b.x, H * 0.68, b.z]} size={[0.068, H * 0.52, 0.068]} material={kov} radius={0.005} />
+            <Box pos={[b.x, H - 0.018, b.z]} size={[0.22, 0.036, 0.09]} material={kov} radius={0.004} />
+          </group>
+        ))}
       </group>
     )
   }

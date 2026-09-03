@@ -1,5 +1,6 @@
 import type { DeskConfig } from '@/model/types'
 import { m } from './shapes'
+import { poziceSezeni } from '@/model/constraints'
 import { Box } from './Bar'
 import { useKov, usePovrch, useMat } from './useMaterials'
 
@@ -18,6 +19,7 @@ export function Doplnky({ config }: { config: DeskConfig }) {
   const led = useMat('#FFE7C4', 0.4)
 
   const zOd = (jeL ? DB : 0) + 0.12
+  const sez = m(poziceSezeni(config))
 
   return (
     <group>
@@ -47,16 +49,16 @@ export function Doplnky({ config }: { config: DeskConfig }) {
               </mesh>
             </>
           )}
-          <pointLight position={[DA - 0.1, podDeskou - 0.08, LA * 0.55]} intensity={0.5} distance={1.4} color="#FFD8A0" />
+          <pointLight position={[DA - 0.1, podDeskou - 0.10, sez]} intensity={0.30} distance={1.1} color="#FFD8A0" />
         </group>
       )}
 
-      {/* nástavec na monitor */}
+      {/* nástavec na monitor — stojí pod monitorem, ne někde vedle */}
       {doplnky.nastavecMonitor && (
         <group>
-          <Box pos={[DA * 0.5, H + 0.098, LA * 0.52]} size={[0.30, m(20), 0.62]} material={drevo} radius={0.003} />
-          <Box pos={[DA * 0.5 - 0.13, H + 0.045, LA * 0.52]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
-          <Box pos={[DA * 0.5 + 0.13, H + 0.045, LA * 0.52]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
+          <Box pos={[0.30, H + 0.098, sez]} size={[0.32, m(20), 0.62]} material={drevo} radius={0.003} />
+          <Box pos={[0.30 - 0.14, H + 0.045, sez]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
+          <Box pos={[0.30 + 0.14, H + 0.045, sez]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
         </group>
       )}
       <group>{led && null}</group>

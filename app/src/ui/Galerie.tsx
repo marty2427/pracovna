@@ -71,7 +71,8 @@ export function Galerie() {
           const r = p.rozmery
           const jeL = p.tvar === 'L' && r.ramenoBDelka > 0
           return (
-            <button key={p.id} className="karta" onClick={() => nactiPreset(p)}>
+            <div key={p.id} className="karta">
+              <button className="karta-hlavni" onClick={() => nactiPreset(p)}>
               <div className="nahled">
                 <Nahled config={p} sirka={260} vyska={168} />
               </div>
@@ -92,7 +93,13 @@ export function Galerie() {
                   {p.ulozne.length > 0 && <span>{p.ulozne.map((u) => u.typ).join(' + ')}</span>}
                 </div>
               </div>
-            </button>
+              </button>
+              <div className="karta-akce">
+                <button onClick={() => nactiPreset(p)}>Upravit</button>
+                <button onClick={() => nactiPreset(p, 'koupit')}>Rozpad ceny</button>
+                <button onClick={() => nactiPreset(p, 'export')}>Poptávka</button>
+              </div>
+            </div>
           )
         })}
       </div>

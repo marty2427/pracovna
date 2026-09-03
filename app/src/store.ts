@@ -12,7 +12,7 @@ interface Stav {
   historie: DeskConfig[]
   nastav: (patch: Partial<DeskConfig> | ((c: DeskConfig) => Partial<DeskConfig>)) => void
   nastavRozmer: (klic: keyof DeskConfig['rozmery'], hodnota: number) => void
-  nactiPreset: (p: DeskConfig) => void
+  nactiPreset: (p: DeskConfig, kam?: Zalozka) => void
   setZalozka: (z: Zalozka) => void
   setUkazMistnost: (v: boolean) => void
   zpet: () => void
@@ -39,11 +39,11 @@ export const useStore = create<Stav>((set, get) => ({
       config: orizniNaProstor({ ...s.config, rozmery: { ...s.config.rozmery, [klic]: hodnota } }),
     })),
 
-  nactiPreset: (p) =>
+  nactiPreset: (p, kam = 'konfigurator') =>
     set((s) => ({
       historie: [...s.historie.slice(-24), s.config],
       config: orizniNaProstor(structuredClone(p)),
-      zalozka: 'konfigurator',
+      zalozka: kam,
     })),
 
   setZalozka: (zalozka) => set({ zalozka }),

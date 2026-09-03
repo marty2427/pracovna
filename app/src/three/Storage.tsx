@@ -205,15 +205,22 @@ function ZadniPanel({ c, u }: { c: DeskConfig; u: UlozneT }) {
   const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [1.2, 0.5] })
   const LA = m(c.rozmery.ramenoADelka)
   const LB = m(c.rozmery.ramenoBDelka)
-  const DB = m(c.rozmery.ramenoBHloubka)
   const jeL = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0
   const H = m(c.rozmery.vyska)
   const vys = 0.30
   const tl = m(18)
   return (
     <group>
+      {/* panel podél levé stěny */}
       <Box pos={[tl / 2 + 0.006, H + vys / 2, LA / 2]} size={[tl, vys, LA - 0.06]} material={mat} radius={0.002} />
-      {jeL && <Box pos={[(DB + LB) / 2, H + vys / 2, tl / 2 + 0.006]} size={[LB - DB - 0.04, vys, tl]} material={mat} radius={0.002} />}
+      {/* panel podél zadní stěny — navazuje na ten první hned za rohem, ne až u ramene B */}
+      {jeL && (
+        <Box
+          pos={[(tl + 0.006 + LB - 0.02) / 2, H + vys / 2, tl / 2 + 0.006]}
+          size={[LB - 0.02 - tl - 0.006, vys, tl]}
+          material={mat} radius={0.002}
+        />
+      )}
     </group>
   )
 }

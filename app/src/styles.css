@@ -134,8 +134,18 @@ button { font: inherit; cursor: pointer; }
 .mriz { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
 .karta {
   background: var(--papir); border: 1px solid var(--linka); border-radius: 12px;
-  overflow: hidden; display: flex; flex-direction: column; text-align: left; padding: 0;
+  overflow: hidden; display: flex; flex-direction: column;
 }
+.karta-hlavni {
+  border: none; background: transparent; padding: 0; text-align: left;
+  display: flex; flex-direction: column; flex: 1; color: inherit; font: inherit;
+}
+.karta-akce { display: flex; gap: 1px; border-top: 1px solid var(--linka); background: var(--linka); }
+.karta-akce button {
+  flex: 1; padding: 7px 4px; border: none; background: var(--krem);
+  color: var(--text-2); font-size: 10.5px;
+}
+.karta-akce button:hover { background: var(--oranz-slaba); color: var(--oranz); }
 .karta:hover { border-color: var(--oranz); box-shadow: 0 3px 14px rgba(196,102,31,.12); }
 .karta .nahled { background: var(--krem-2); border-bottom: 1px solid var(--linka); }
 .karta .info { padding: 9px 11px 11px; }

@@ -120,7 +120,7 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
           )}
 
           {/* MONITOR na hlavní ploše */}
-          <group position={[0.20, H, sez]}>
+          <group position={[0.30, H + (config.doplnky.nastavecMonitor ? 0.108 : 0), sez]}>
             <Box pos={[0, 0.012, 0]} size={[0.20, 0.018, 0.26]} material={plast} radius={0.006} />
             <Box pos={[0.005, 0.13, 0]} size={[0.05, 0.24, 0.06]} material={plast} radius={0.008} />
             <group rotation={[0, Math.PI / 2, 0]}>
