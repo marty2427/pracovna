@@ -18,6 +18,10 @@ export function Room({ config, ukazNabytek = true }: { config: DeskConfig; ukazN
     const t = parketyTexture(podlahaR.dark, podlahaR.base, podlahaR.light)
     // 3.8 opakování na 5.2 m podlahy -> šířka vlysu cca 6.5 cm jako na fotce
     t.repeat.set(3.8, 3.8)
+    // Otočení o 90°. Dlaždice je čtvercová a bezešvá v obou osách, takže
+    // otočení o pravý úhel švy nerozbije.
+    t.center.set(0.5, 0.5)
+    t.rotation = Math.PI / 2
     return t
   }, [podlahaR.dark, podlahaR.base, podlahaR.light])
 

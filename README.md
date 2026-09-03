@@ -53,12 +53,20 @@ app/                      Vite + React + TypeScript + react-three-fiber
 
 ## Spuštění
 
+Appka je čistě klientská, takže stačí statický server. Žádný backend, žádné API klíče.
+
 ```bash
-cd app
+git clone https://github.com/marty2427/pracovna
+cd pracovna/app
 npm ci
 npm run dev        # http://127.0.0.1:5173
 npm run build      # -> app/dist
 ```
+
+**Pozn.:** pokud tenhle repozitář vznikal v Claude Code na webu, dev server tam běžel
+uvnitř izolovaného kontejneru na `127.0.0.1` — z prohlížeče se na něj nedalo dostat,
+protože do kontejneru nevede příchozí síť. Odtud jen screenshoty. Živě to uvidíš
+buď po spuštění lokálně podle návodu výše, nebo po nasazení na Cloudflare Pages.
 
 ## Nasazení na Cloudflare Pages
 

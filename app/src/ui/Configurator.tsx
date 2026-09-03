@@ -70,7 +70,7 @@ export function Configurator() {
         <Posuvnik
           label="Rameno A — délka" hodnota={r.ramenoADelka}
           min={LIMITY.ramenoADelka.min} max={MAX_RAMENO_A}
-          napoveda={`max ${MAX_RAMENO_A / 10} cm`}
+          napoveda={`max ${MAX_RAMENO_A / 10} cm, nemusíš ho vyčerpat`}
           onChange={(v) => nastavRozmer('ramenoADelka', v)}
         />
         <Posuvnik
@@ -90,7 +90,7 @@ export function Configurator() {
             <Posuvnik
               label="Rameno B — hloubka" hodnota={r.ramenoBHloubka}
               min={LIMITY.ramenoBHloubka.min} max={LIMITY.ramenoBHloubka.max}
-              napoveda="tiskárna chce aspoň 46 cm"
+              napoveda="45 cm stačí na šanon naležato"
               onChange={(v) => nastavRozmer('ramenoBHloubka', v)}
             />
             <Posuvnik
@@ -115,9 +115,9 @@ export function Configurator() {
         <Prepinac label="Materiál / dekor" sloupce={2} hodnota={config.deska.materialId}
           volby={materialyVolby}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, materialId: v } }))} />
-        <Prepinac label="Tloušťka" sloupce={4}
+        <Prepinac label="Tloušťka" sloupce={5}
           hodnota={config.deska.tloustka}
-          volby={[18, 25, 30, 40].map((t) => ({ hodnota: t as Tloustka, label: `${t} mm` }))}
+          volby={[18, 25, 30, 38, 40].map((t) => ({ hodnota: t as Tloustka, label: `${t} mm` }))}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, tloustka: v } }))} />
         <Prepinac label="Hrana" sloupce={2} hodnota={config.deska.hrana} volby={HRANY}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, hrana: v } }))} />

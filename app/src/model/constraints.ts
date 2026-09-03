@@ -91,13 +91,21 @@ export function kontroly(c: DeskConfig): Kontrola[] {
       hodnota: mezera,
       jednotka: 'mm',
       cil: `${idealniOd}–${idealniDo} mm`,
-      stav: mezera < 80 ? 'chyba' : mezera < idealniOd || mezera > 250 ? 'pozor' : 'ok',
+      stav:
+        mezera < 80 ? 'chyba'
+        : mezera < idealniOd ? 'pozor'
+        : mezera <= idealniDo ? 'ok'
+        : mezera <= 300 ? 'ok' : 'pozor',
       zprava:
         mezera < 80
           ? `Jen ${Math.round(mezera / 10)} cm ke gauči — stůl bude vypadat namačkaně.`
-          : mezera > 250
-            ? `${Math.round(mezera / 10)} cm ke gauči je zbytečně velká díra, rameno B může být delší.`
-            : `${Math.round(mezera / 10)} cm ke gauči — přesně v pásmu, které jsi chtěl.`,
+          : mezera < idealniOd
+            ? `${Math.round(mezera / 10)} cm ke gauči, těsně pod pásmem ${idealniOd / 10}–${idealniDo / 10} cm, které jsi chtěl.`
+            : mezera <= idealniDo
+              ? `${Math.round(mezera / 10)} cm ke gauči — přesně v pásmu, které jsi chtěl.`
+              : mezera <= 300
+                ? `${Math.round(mezera / 10)} cm ke gauči, víc než pásmo ${idealniOd / 10}–${idealniDo / 10} cm. Není to chyba, jen rameno B může být delší.`
+                : `${Math.round(mezera / 10)} cm ke gauči je zbytečně velká díra — rameno B může být o ${Math.round((mezera - idealniDo) / 10)} cm delší.`,
     })
   }
 

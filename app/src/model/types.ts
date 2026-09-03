@@ -1,6 +1,7 @@
 /** Datový model stolu. Vše v MILIMETRECH, barvy jako HEX. */
 
-export type Tloustka = 18 | 25 | 30 | 40
+/** 38 mm je tloušťka kuchyňských pracovních desek (IKEA KARLBY, MÖLLEKULLA, SÄLJAN). */
+export type Tloustka = 18 | 25 | 30 | 38 | 40
 
 /** Profil hrany desky. */
 export type Hrana =

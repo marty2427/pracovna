@@ -68,7 +68,7 @@ export const MATERIALY: Material[] = [
   {
     id: 'dyha-dub-svetla', nazev: 'Dýhovaná MDF, dub světlý', kratky: 'Dýha dub', kategorie: 'dyha',
     barva: '#C9975F', kresbaTmava: '#9E7040', kresbaSvetla: '#E2BA88',
-    drevo: true, drsnost: 0.55, lesk: 0.22, tloustky: [18, 25, 38],
+    drevo: true, drsnost: 0.55, lesk: 0.22, tloustky: [18, 25, 30, 38],
   },
   {
     id: 'dyha-orech', nazev: 'Dýhovaná MDF, ořech', kratky: 'Dýha ořech', kategorie: 'dyha',
