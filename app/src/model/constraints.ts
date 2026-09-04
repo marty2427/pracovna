@@ -160,22 +160,32 @@ export function kontroly(c: DeskConfig): Kontrola[] {
   // 6) Dosah podnože — u dlouhého ramene je limitem rozměr rámu, ne cena
   const nejdelsiRameno = Math.max(r.ramenoADelka, c.tvar === 'L' ? r.ramenoBDelka : 0)
   if (c.podnoz.typ === 'stavitelny-ram') {
+    const jeL2 = c.tvar === 'L' && r.ramenoBDelka > 0
+    // U rohové sestavy rozhoduje i druhé rameno — Powerton ERGO EDGE podporuje
+    // první rameno do 220 cm, ale druhé jen do 110 cm.
+    const druheRamenoPresahuje = jeL2 && r.ramenoBDelka > STAVITELNY_RAM.rohovaSestavaDruheRameno
+    const nadRohovouSestavu = jeL2 && nejdelsiRameno > STAVITELNY_RAM.rohovaSestava
     const stav: Zavaznost =
-      nejdelsiRameno <= STAVITELNY_RAM.bezneMax ? 'ok'
+      nejdelsiRameno <= STAVITELNY_RAM.bezneMax && !druheRamenoPresahuje ? 'ok'
+      : (jeL2 && (nadRohovouSestavu || druheRamenoPresahuje)) ? 'chyba'
       : nejdelsiRameno <= STAVITELNY_RAM.nejdelsiDvousloupovy ? 'pozor' : 'chyba'
     out.push({
       id: 'dosah-ramu',
       nazev: 'Dosah stavitelného rámu',
       hodnota: nejdelsiRameno,
       jednotka: 'mm',
-      cil: `běžné rámy do ${STAVITELNY_RAM.bezneMax} mm`,
+      cil: jeL2
+        ? `roh 90°: ramena do ${STAVITELNY_RAM.rohovaSestava} a ${STAVITELNY_RAM.rohovaSestavaDruheRameno} mm`
+        : `běžné rámy do ${STAVITELNY_RAM.bezneMax} mm`,
       stav,
       zprava:
-        stav === 'ok'
-          ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm zvládne běžný dvousloupový rám (AlzaErgo, IKEA Mittzon).`
+        stav === 'chyba' && jeL2
+          ? `Rohovou polohovací sestavu na ${Math.round(r.ramenoADelka / 10)} × ${Math.round(r.ramenoBDelka / 10)} cm se nepodařilo najít na trhu. `
+            + `Liftor L uvádí desky až 290 cm, ale jen pro rovné uspořádání — pro roh 90° zvládne ramena do ${STAVITELNY_RAM.rohovaSestava / 10} cm. `
+            + `Powerton ERGO EDGE zvládne první rameno do 220 cm, ale druhé jen do ${STAVITELNY_RAM.rohovaSestavaDruheRameno / 10} cm.`
           : stav === 'pozor'
-            ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm je nad dosahem běžných rámů (do ${STAVITELNY_RAM.bezneMax / 10} cm). Zvládne ho jen nejdelší dvousloupový rám, nebo rohová sestava se třemi sloupy.`
-            : `Rameno ${Math.round(nejdelsiRameno / 10)} cm nedosáhne žádný běžný rám. Jen rohová sestava se třemi sloupy.`,
+            ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm je nad dosahem běžných rámů (do ${STAVITELNY_RAM.bezneMax / 10} cm). Dosáhne na něj jen Liftor Expert, a to jen jako rovný stůl.`
+            : `Rameno ${Math.round(nejdelsiRameno / 10)} cm zvládne běžný dvousloupový rám (AlzaErgo ET1, IKEA MITTZON).`,
     })
   } else if (c.podnoz.typ !== 'bocnice' && c.podnoz.typ !== 'kozy' && !c.podnoz.typ.startsWith('nohy') && c.podnoz.typ !== 'hairpin') {
     const potrebaDvou = nejdelsiRameno > PEVNA_PODNOZ_MAX

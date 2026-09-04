@@ -8,7 +8,7 @@
    "delka": 1860,
    "sirka": 635,
    "tloustka": 38,
-   "cena": 3490,
+   "cena": 2990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-70335189/",
    "overeno": true,
@@ -19,15 +19,15 @@
    "id": "ikea-karlby-dub-246",
    "nazev": "KARLBY pracovní deska, dub dýha",
    "prodejce": "IKEA",
-   "popis": "Dtto 186 cm verze, delší kus. 1 825 Kč/bm.",
+   "popis": "Kuchyňská pracovní deska, dřevotříska + 3 mm dubová dýha. 246 × 63,5 × 3,8 cm. Na rameno A 211 cm se musí zkrátit a olepit řezaná hrana — nebo si vzít variantu na míru za 4 000 Kč/m, kde řez odpadá.",
    "delka": 2460,
    "sirka": 635,
    "tloustka": 38,
-   "cena": 4490,
+   "cena": 3990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-dub-dyha-60335199/",
    "overeno": true,
-   "poznamka": "~2 874 Kč/m². Pozor: 246 cm se do stěny 236 cm nevejde, nutné zkrátit a olepit řeznou hranu ABS/dýhovou páskou."
+   "poznamka": "~2 553 Kč/m². Pozor: 246 cm se do stěny 236 cm nevejde, nutné zkrátit a olepit řeznou hranu. Cena ověřena na vykreslené stránce 3.9.2026 (WebFetch vracel zastaralých 4 490)."
   },
   {
    "id": "ikea-karlby-orech-246",
@@ -37,7 +37,7 @@
    "delka": 2460,
    "sirka": 635,
    "tloustka": 38,
-   "cena": 6990,
+   "cena": 6490,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-00335201/",
    "overeno": true,
@@ -51,67 +51,11 @@
    "delka": 1860,
    "sirka": 635,
    "tloustka": 38,
-   "cena": 5290,
+   "cena": 4990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/karlby-pracovni-deska-orech-dyha-30335191/",
-   "overeno": false,
+   "overeno": true,
    "poznamka": "Cena NEOVĚŘENA – 5 290 Kč je odhad rešerše dopočtený z Kč/bm verze 246 cm."
-  },
-  {
-   "id": "ikea-mollekulla-dub-186",
-   "nazev": "MÖLLEKULLA pracovní deska, dub dýha",
-   "prodejce": "IKEA",
-   "popis": "Dub/dýha, povrch tvrdý voskový olej. 2 414 Kč/bm. Vejde se do stěny bez řezání.",
-   "delka": 1860,
-   "sirka": 635,
-   "tloustka": 38,
-   "cena": 4490,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/moellekulla-pracovni-deska-dub-dyha-70299247/",
-   "overeno": true,
-   "poznamka": "~3 801 Kč/m². Existuje i varianta 'na míru' s hloubkou 45,1–63,5 cm, cena neověřena."
-  },
-  {
-   "id": "ikea-mollekulla-dub-246",
-   "nazev": "MÖLLEKULLA pracovní deska, dub dýha",
-   "prodejce": "IKEA",
-   "popis": "Dtto, delší kus.",
-   "delka": 2460,
-   "sirka": 635,
-   "tloustka": 38,
-   "cena": 5940,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/moellekulla-pracovni-deska-dub-dyha-50299248/",
-   "overeno": false,
-   "poznamka": "Cena NEOVĚŘENA – 5 940 Kč je odhad rešerše dle Kč/bm. Navíc nutné zkrátit pod 236 cm."
-  },
-  {
-   "id": "ikea-skogsa-dub-186",
-   "nazev": "SKOGSÅ pracovní deska, dub dýha",
-   "prodejce": "IKEA",
-   "popis": "Dub/dýha, lamelová kresba. 3 220 Kč/bm – nejdražší dubová deska z IKEA řady.",
-   "delka": 1860,
-   "sirka": 635,
-   "tloustka": 38,
-   "cena": 5990,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/skogsa-pracovni-deska-dub-dyha-80382986/",
-   "overeno": true,
-   "poznamka": "~5 072 Kč/m²."
-  },
-  {
-   "id": "ikea-skogsa-dub-246",
-   "nazev": "SKOGSÅ pracovní deska, dub dýha",
-   "prodejce": "IKEA",
-   "popis": "Dtto, delší kus. 3 045 Kč/bm.",
-   "delka": 2460,
-   "sirka": 635,
-   "tloustka": 38,
-   "cena": 7490,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/skogsa-pracovni-deska-dub-dyha-00382990/",
-   "overeno": true,
-   "poznamka": "~4 795 Kč/m². Nutné zkrátit pod 236 cm."
   },
   {
    "id": "ikea-pinnarp-orech-186",
@@ -135,25 +79,11 @@
    "delka": 1860,
    "sirka": 635,
    "tloustka": 38,
-   "cena": 1690,
+   "cena": 1590,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/saeljan-pracovni-deska-vzor-dub-laminat-60439173/",
    "overeno": true,
    "poznamka": "~1 431 Kč/m². Verze 246 cm neověřena (odhad ~2 240 Kč)."
-  },
-  {
-   "id": "ikea-ekbacken-vapenec-186",
-   "nazev": "EKBACKEN pracovní deska, vzor vápenec (laminát)",
-   "prodejce": "IKEA",
-   "popis": "Laminátová deska, tenčí provedení 28 mm.",
-   "delka": 1860,
-   "sirka": 635,
-   "tloustka": 28,
-   "cena": 1590,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/ekbacken-pracovni-deska-vzor-vapenec-laminat-00548797/",
-   "overeno": true,
-   "poznamka": "~1 346 Kč/m². Varianty hnědá vzor ořech 186 a černá 246 mají cenu neověřenou."
   },
   {
    "id": "ikea-lagkapten-200x60",
@@ -198,63 +128,6 @@
    "poznamka": "Stejná cena i v šedotyrkysové (ladí s teal gaučem) a v dekoru bílé mořidlo/vzor dub."
   },
   {
-   "id": "ikea-linnmon-200x60",
-   "nazev": "LINNMON stolní deska, černohnědá",
-   "prodejce": "IKEA",
-   "popis": "Dřevovláknitá deska, dlouhé rameno.",
-   "delka": 2000,
-   "sirka": 600,
-   "tloustka": 0,
-   "cena": 899,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/linnmon-stolni-deska-cernohneda-80251358/",
-   "overeno": true,
-   "poznamka": "Nosnost v rešerši neověřena, tloušťka neuvedena. Rešerše zmiňuje existenci rohové desky LINNMON ~120×120 cm, ale nepotvrzenou.",
-   "varovani": "Tloušťka 0 mm. Stejný problém mají ikea-linnmon-150x75, ikea-malskytt-140x60, ikea-mittcirkel-140x60, ikea-anfallare-140x65, ikea-mittzon-160x68, ikea-mittzon-140x68, asko-deska-155x70-sonoma. Bez tloušťky nelze posoudit vhodnost pro podnož ani navrhnout kotvení — doplnit."
-  },
-  {
-   "id": "ikea-linnmon-150x75",
-   "nazev": "LINNMON stolní deska",
-   "prodejce": "IKEA",
-   "popis": "Dřevovláknitá deska. Hloubka 75 cm je z IKEA desek nejblíž horní hranici rozsahu 55–80 cm.",
-   "delka": 1500,
-   "sirka": 750,
-   "tloustka": 0,
-   "cena": 699,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/linnmon-stolni-deska-modra-cernomodra-10353732/",
-   "overeno": true,
-   "poznamka": "Nosnost neověřena, tloušťka neuvedena."
-  },
-  {
-   "id": "ikea-malskytt-140x60",
-   "nazev": "MÅLSKYTT stolní deska, bříza dýha",
-   "prodejce": "IKEA",
-   "popis": "Masiv/dýha bříza – z IKEA stolních desek jedna z mála v pravém dřevě.",
-   "delka": 1400,
-   "sirka": 600,
-   "tloustka": 0,
-   "cena": 1690,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/malskytt-stolni-deska-briza-dyha-40461103/",
-   "overeno": true,
-   "poznamka": "Nosnost neověřena. S 2× MITTBACK bříza (2 000 Kč) dává 3 690 Kč, což sedí na cenu hotového setu MÅLSKYTT/MITTBACK – křížová kontrola rešerše vyšla."
-  },
-  {
-   "id": "ikea-mittcirkel-140x60",
-   "nazev": "MITTCIRKEL stolní deska, vzor borovice",
-   "prodejce": "IKEA",
-   "popis": "Dřevovláknitá deska s fólií, teplý dřevěný dekor.",
-   "delka": 1400,
-   "sirka": 600,
-   "tloustka": 0,
-   "cena": 999,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/mittcirkel-stolni-deska-vzor-borovice-00559333/",
-   "overeno": true,
-   "poznamka": "Nosnost neověřena. Verze 120×60 existuje, cena neověřena. S 4× SPÄND černá (800 Kč) = 1 799 Kč za stůl."
-  },
-  {
    "id": "ikea-anfallare-140x65",
    "nazev": "ANFALLARE stolní deska, bambus",
    "prodejce": "IKEA",
@@ -265,7 +138,7 @@
    "cena": 2490,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/anfallare-stolni-deska-bambus-00465141/",
-   "overeno": false,
+   "overeno": true,
    "poznamka": "ROZPOR v rešerši: sekce A2 uvádí 2 490 Kč, sekce a) tvrdí, že samotnou cenu desky ANFALLARE se nepodařilo zjistit v žádném průchodu. Ověřit. Rešerše navíc nedoporučuje bambus k oranžovo-hnědému dubu (žlutozelený podtón)."
   },
   {
@@ -279,7 +152,7 @@
    "cena": 2200,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-stolni-deska-dyha-dub-70527857/",
-   "overeno": false,
+   "overeno": true,
    "poznamka": "Cena označena † = NEOVĚŘENO (celá IKEA sekce a) selhala v ověřovacím průchodu). Kandidát č. 1 rešerše: 2× MITTZON deska (160×68 + 140×68 za 1 700 †) = jediná IKEA cesta k pravé dubové dýze na černém kovu ve tvaru L.",
    "varovani": "Deska MITTZON (2200 Kč) + ikea-mittzon-podnozi jsou totéž co hotové stoly ikea-mittzon-160x80-dub-cerna atd. Riziko dvojího započtení — označit jako alternativní cesty ke stejnému výsledku, ne jako dvě samostatné položky do rozpočtu. Totéž platí pro ikea-anfallare-140x65 + ikea-hilver-noha-bambus vs ikea-anfallare-hilver-140x65-bambus."
   },
@@ -294,7 +167,7 @@
    "cena": 1700,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-stolni-deska-dyha-dub-30527760/",
-   "overeno": false,
+   "overeno": true,
    "poznamka": "Cena označena † = NEOVĚŘENO. Existuje i verze 140×48 za 1 600 †."
   },
   {
@@ -319,7 +192,7 @@
    "delka": 2000,
    "sirka": 600,
    "tloustka": 18,
-   "cena": 1989,
+   "cena": 2150,
    "jednotka": "ks",
    "url": "https://www.hornbach.cz/p/dubova-sparovka-600x2000x18-mm/8203386/",
    "overeno": true,
@@ -347,7 +220,7 @@
    "delka": 2000,
    "sirka": 600,
    "tloustka": 18,
-   "cena": 1149,
+   "cena": 1159,
    "jednotka": "ks",
    "url": "https://www.hornbach.cz/p/sparovka-bukova-18-x-600-x-2000-mm/5065827/",
    "overeno": true,
@@ -365,7 +238,7 @@
    "jednotka": "ks",
    "url": "https://www.hornbach.cz/conf/kuchynska-pracovni-deska-dub-zlaty-38x600x4100-mm/10445975/",
    "overeno": true,
-   "poznamka": "~926 Kč/bm. Varianty 700 mm šířky a dekory DUB TMAVÝ / DUB NATURE mají cenu neověřenou (rozpětí 3 795–4 780 Kč dle šířky).",
+   "poznamka": "925,61 Kč/bm → kus 200 cm = 1 851 Kč. Varianta šířky 700 mm = 4 490 Kč (1 095,12 Kč/bm), ale NELZE koupit on-line. Ověřeno 3.9.2026.",
    "varovani": "Rozměr 4100×600 mm není deska psacího stolu, ale celá kuchyňská postformingová deska (a je to laminát 'dekor dub', ne masiv). Buď přeřadit do materiálu s poznámkou 'nutné zkrácení + olepení čela', nebo uvést přepočet Kč/bm. Jinak vypadá jako hotová deska za 3795 Kč."
   },
   {
@@ -381,7 +254,7 @@
    "url": "https://www.hornbach.cz/p/stolova-deska-dub-200x80x2-5-cm/12397772/",
    "overeno": true,
    "poznamka": "994 Kč/m². Jako 25mm dřevotříska s dubovým dekorem je to dobrá deska za dobrou cenu – jen to není masiv, jak název slibuje. Ověřit na štítku.",
-   "varovani": "1590 Kč = 994 Kč/m2, tedy LEVNĚJŠÍ než menší sesterská deska 1600×800×26 za 2190 Kč (1711 Kč/m2). U masivního dubu nereálné — ověřit, zda nejde o dekor/laminát nebo o starou akční cenu."
+   "varovani": "POTVRZENO: je to dřevotříska s melaminovým potahem, NENÍ masiv."
   },
   {
    "id": "obi-sparovka-dub-200x40",
@@ -391,11 +264,11 @@
    "delka": 2000,
    "sirka": 400,
    "tloustka": 18,
-   "cena": 1399,
+   "cena": 1449,
    "jednotka": "ks",
    "url": "https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-200-x-40-x-1-8-cm/p/5190806",
-   "overeno": false,
-   "poznamka": "⚠️ NEKONZISTENCE v rešerši: 200×30 stojí 1 579 Kč, tedy užší kus dražší než tento širší. Jedno z čísel je chybně zaindexované nebo akční. OBI nevede dubovou spárovku v šířce 60 cm – na stolovou desku byste musel lepit dva pásy."
+   "overeno": true,
+   "poznamka": "1 811,25 Kč/m². Dodání domů není možné — jen rezervace na prodejně."
   },
   {
    "id": "obi-sparovka-dub-120x40",
@@ -405,11 +278,11 @@
    "delka": 1200,
    "sirka": 400,
    "tloustka": 18,
-   "cena": 899,
+   "cena": 919,
    "jednotka": "ks",
    "url": "https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-dub-120-x-40-x-1-8-cm/p/5190798",
-   "overeno": true,
-   "poznamka": "1 873 Kč/m²."
+   "overeno": false,
+   "poznamka": "Cena z jednoho signálu. Dodání domů není možné — jen rezervace na prodejně."
   },
   {
    "id": "obi-sparovka-smrk-200x60x28",
@@ -419,7 +292,7 @@
    "delka": 2000,
    "sirka": 600,
    "tloustka": 28,
-   "cena": 1799,
+   "cena": 1954.8,
    "jednotka": "ks",
    "url": "https://www.obi.cz/police-a-nabytkove-desky/obi-sparovka-standard-smrk-200-x-60-x-2-8-cm/p/5090873",
    "overeno": true,
@@ -437,7 +310,7 @@
    "jednotka": "ks",
    "url": "https://www.bauhaus.cz/exclusivholz-sparovka-14089254",
    "overeno": true,
-   "poznamka": "1 508 Kč/m². Ale 18 mm je na stůl tenké – bez středové podpory nebo obvodového rámu se přes 120 cm rozpětí prohne. Varianty 500×2200, 600×800 a 12,5×600×1200 mají cenu neověřenou."
+   "poznamka": "1 507,58 Kč/m². 18 mm je na stůl tenké – bez středové podpory nebo obvodového rámu se přes 120 cm rozpětí prohne. Varianty ověřeny 3.9.2026: dub 18×500×2200 = 1 690 Kč, dub 18×600×800 = 699 Kč."
   },
   {
    "id": "bauhaus-exclusivholz-smrk-2000x600x28",
@@ -461,25 +334,11 @@
    "delka": 1600,
    "sirka": 800,
    "tloustka": 18,
-   "cena": 1939,
+   "cena": 2590,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-tte-03-160x80cm-lamino-kastan-d5641182.htm",
    "overeno": true,
    "poznamka": "Stejný formát: lamino dub 2 585, šedý dub 1 999, černá 2 590, bříza 2 590, bambus 3 790. Bílý dub má rozpor 2 488 vs 2 590."
-  },
-  {
-   "id": "alza-tte01-140x80-bambus",
-   "nazev": "AlzaErgo TTE-01 stolová deska, bambusová",
-   "prodejce": "Alza.cz",
-   "popis": "Pravé dřevo (bambus), ne dekor – teplý tón. Rešerše doporučuje připlatit si oproti laminu.",
-   "delka": 1400,
-   "sirka": 800,
-   "tloustka": 18,
-   "cena": 2389,
-   "jednotka": "ks",
-   "url": "https://www.alza.cz/alzaergo-tte-01-140x80cm-bambus-d5647308.htm",
-   "overeno": true,
-   "poznamka": "Akční cena 2 389 z běžných 2 990 Kč. Ve stejném formátu: lamino dub 2 269, kaštan 2 190, šedý dub 1 790, bříza 2 290, černá 2 190, mramor 1 590, bambus zaoblená 2 629."
   },
   {
    "id": "asko-deska-155x70-sonoma",
@@ -492,8 +351,8 @@
    "cena": 1499,
    "jednotka": "ks",
    "url": "https://www.asko-nabytek.cz/4602674.9-deska-psaciho-stolu-155x70-cm-home-office-dub-sonoma",
-   "overeno": true,
-   "poznamka": "Dub sonoma je studený dekor – k teplé oranžovohnědé podlaze barevně nesedí. Menší deska 135×70 stojí 1 399 Kč, deska 180×80 má rozpor 1 599 běžná / 1 499 akce."
+   "overeno": false,
+   "poznamka": "Dub sonoma je studený dekor – k teplé oranžovohnědé podlaze barevně nesedí. Menší deska 135×70 stojí 1 399 Kč, deska 180×80 má rozpor 1 599 běžná / 1 499 akce. NEOVĚŘENO: asko-nabytek.cz renderuje ceny až JavaScriptem, přes fetch je v HTML nejsou. URL platná, cena nepotvrzena ani nevyvrácena."
   },
   {
    "id": "kc-sparovka-dub-40-1600x650",
@@ -531,12 +390,11 @@
    "delka": 2500,
    "sirka": 630,
    "tloustka": 40,
-   "cena": 13043,
+   "cena": 13042.59,
    "jednotka": "ks",
    "url": "https://www.centrumdreva.cz/dubove-sparovky-tl--40-mm/sparovka-dub-40x630x2500-mm/",
    "overeno": true,
-   "poznamka": "~8 281 Kč/m² – nejdražší položka přehledu, sama o sobě vyčerpá 65 % rozpočtu 20 tis. Kč. Nutné zkrátit pod 236 cm.",
-   "varovani": "13043 Kč / 1,575 m2 = 8281 Kč/m2. To je 2× nad cinkovanou spárovkou (DOMESTAV 4259, BRENUS 2840) a 1,4× nad K&C (5776 Kč/m2). Buď jde o průběžnou lamelu prémiové kvality (pak to doplnit do popisu), nebo je cena chybná."
+   "poznamka": "8 280 Kč/m². Výhrada kontroly ROZSOUZENA 3.9.2026: cena je správná a vyšší cenu vysvětluje kvalita — prodejce uvádí \"průběžná lamela\" (bez cinkových spojů) a \"kvalita A/B\". Pozor: položka je \"Na dotaz\", není standardně skladem. Nutné zkrátit pod 236 cm."
   },
   {
    "id": "ergodesk-corner-160x110",
@@ -546,11 +404,179 @@
    "delka": 1600,
    "sirka": 1100,
    "tloustka": 25,
-   "cena": 2190,
+   "cena": 1898,
    "jednotka": "ks",
    "url": "https://www.kupzidle.cz/p/deska-stolu-rohova-ergodesk-corner-160x110-60x2-5-cm-laminovana-drevotriska-vice-barev",
+   "overeno": false,
+   "poznamka": "Cena z jednoho signálu (1 898 Kč, dříve uvedeno 2 190 Kč). Rozměr 160×110 je na rameno B (148 cm) krátký v jednom směru."
+  },
+  {
+   "id": "ikea-karlby-na-miru-dub-4563",
+   "nazev": "KARLBY pracovní deska NA MÍRU, dub dýha",
+   "prodejce": "IKEA",
+   "popis": "Deska řezaná na míru, hloubkové pásmo 45,1-63,5 cm. Cena za běžný metr délky. Rameno A 211 cm = 8 440 Kč, rameno B 148 cm = 5 920 Kč.",
+   "delka": 2110,
+   "sirka": 635,
+   "tloustka": 38,
+   "cena": 4000,
+   "jednotka": "bm",
+   "url": "https://www.ikea.com/cz/cs/cat/pracovni-desky-ze-silne-dyhy-na-miru-700428/",
    "overeno": true,
-   "poznamka": "Ověřeno ve 3. kole rešerše."
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena 4 000,-/metr ověřena ve výpisu kategorie na vykreslené stránce. Výhoda proti pevným 246 cm: odpadá zkracování i olepování řezané hrany a deska sedne na 211 cm přesně. Nevýhoda: ~2x dráž než pevná deska 246 cm za 3 990 Kč. IKEA uvádí \"Pracovní desku na míru vám zaměříme zdarma.\""
+  },
+  {
+   "id": "ikea-mollekulla-na-miru-dub-4563",
+   "nazev": "MÖLLEKULLA pracovní deska NA MÍRU, dub dýha",
+   "prodejce": "IKEA",
+   "popis": "Deska řezaná na míru, hloubková pásma 30-45 / 45,1-63,5 / 63,6-125 cm. Cena za běžný metr délky.",
+   "delka": 2110,
+   "sirka": 635,
+   "tloustka": 38,
+   "cena": 4400,
+   "jednotka": "bm",
+   "url": "https://www.ikea.com/cz/cs/cat/pracovni-desky-ze-silne-dyhy-na-miru-700428/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. MÖLLEKULLA v pevných rozměrech 186/246 cm z českého sortimentu ZMIZELA, přežívá už jen jako deska na míru za 4 400,-/metr. Tím se ruší původní odhad 5 940 Kč za kus 246 cm - takový kus se koupit nedá."
+  },
+  {
+   "id": "ikea-karlby-na-miru-orech-4563",
+   "nazev": "KARLBY pracovní deska NA MÍRU, ořech dýha",
+   "prodejce": "IKEA",
+   "popis": "Deska řezaná na míru, hloubková pásma 30-45 / 45,1-63,5 / 63,6-125 cm.",
+   "delka": 2110,
+   "sirka": 635,
+   "tloustka": 38,
+   "cena": 4400,
+   "jednotka": "bm",
+   "url": "https://www.ikea.com/cz/cs/cat/pracovni-desky-ze-silne-dyhy-na-miru-700428/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 4 400,-/metr. Rešerše varuje: ořech dělá k teplé oranžové dubové podlaze těžký kontrast."
+  },
+  {
+   "id": "woooooo-halifax-2200x700x18",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 2200x700x18",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 2200,
+   "sirka": 700,
+   "tloustka": 18,
+   "cena": 5830,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "woooooo-halifax-2200x700x36",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 2200x700x36",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 2200,
+   "sirka": 700,
+   "tloustka": 36,
+   "cena": 7340,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "woooooo-halifax-1400x700x18",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 1400x700x18",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 1400,
+   "sirka": 700,
+   "tloustka": 18,
+   "cena": 4660,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "woooooo-halifax-1400x700x36",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 1400x700x36",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 1400,
+   "sirka": 700,
+   "tloustka": 36,
+   "cena": 5870,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "woooooo-halifax-2000x700x36",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 2000x700x36",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 2000,
+   "sirka": 700,
+   "tloustka": 36,
+   "cena": 6970,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "woooooo-halifax-2200x800x36",
+   "nazev": "Woooooo stolová deska, dub Halifax přírodní, 2200x800x36",
+   "prodejce": "Woooooo.cz",
+   "popis": "Zakázková deska DTDL, ABS hrana 2 mm s radiusem, dekor dub Halifax přírodní. Materiál Egger/Kronospan.",
+   "delka": 2200,
+   "sirka": 800,
+   "tloustka": 36,
+   "cena": 7860,
+   "jednotka": "ks",
+   "url": "https://www.woooooo.cz/stolove-desky/stolova-deska-halifax-prirodni/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. Cena odečtena přímo z konfigurátoru prodejce 3.9.2026 (vč. DPH). Příplatky: hrana bílá/černá +300, průchodka +300, zaoblený roh +600/roh, břišní výřez +1 490, výztuž proti prohnutí +1 500 Kč. Atypický rozměr (2110 / 1480 mm) dělají na dotaz. U 18 mm nad 1 600 mm doporučena výztuž."
+  },
+  {
+   "id": "pracujzdrave-rohova-lux",
+   "nazev": "Rohová deska LUX, na míru",
+   "prodejce": "Pracuj zdravě",
+   "popis": "Jednodílná rohová (L) deska frézovaná na CNC z jednoho kusu, vnitřní roh tvoří oblouk. Lamino, ABS hrana 2 mm s radiusem, tloušťka 18 / 25 / 36 mm, libovolný rozměr.",
+   "delka": 2110,
+   "sirka": 1480,
+   "tloustka": 25,
+   "cena": 7139,
+   "jednotka": "ks",
+   "url": "https://www.pracuj-zdrave.cz/rohove-stolove-desky/",
+   "overeno": false,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 7139 Kč je CENÍKOVÁ cena dekorové třídy uvedená na webu (vč. DPH), NE cena pro rozměr 211x148 cm. Prodejce výslovně píše: \"Konfigurator cen jednotlivých rozměrů připravujeme, pro přesné nacenění nás kontaktujte.\" Proto overeno:false. Důležité omezení z webu: tloušťku 18 mm doporučují jen do délky cca 1 600 mm, pro rameno 211 cm je nutné 25 nebo 36 mm. Příplatky: tl. 36 mm +2 178, zaoblené rohy od 1 682, břišní výřez +2 045 Kč. Zakázková výroba 2-3 týdny."
+  },
+  {
+   "id": "pracujzdrave-rohova-delux-dub-craft-zlaty",
+   "nazev": "Rohová deska DELUX Dub Craft zlatý, na míru",
+   "prodejce": "Pracuj zdravě",
+   "popis": "Jednodílná rohová (L) deska frézovaná na CNC z jednoho kusu, vnitřní roh tvoří oblouk. Lamino, ABS hrana 2 mm s radiusem, tloušťka 18 / 25 / 36 mm, libovolný rozměr.",
+   "delka": 2110,
+   "sirka": 1480,
+   "tloustka": 25,
+   "cena": 7986,
+   "jednotka": "ks",
+   "url": "https://www.pracuj-zdrave.cz/rohova-deska-delux-dub-craft-zlaty/",
+   "overeno": false,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 7986 Kč je CENÍKOVÁ cena dekorové třídy uvedená na webu (vč. DPH), NE cena pro rozměr 211x148 cm. Prodejce výslovně píše: \"Konfigurator cen jednotlivých rozměrů připravujeme, pro přesné nacenění nás kontaktujte.\" Proto overeno:false. Důležité omezení z webu: tloušťku 18 mm doporučují jen do délky cca 1 600 mm, pro rameno 211 cm je nutné 25 nebo 36 mm. Příplatky: tl. 36 mm +2 178, zaoblené rohy od 1 682, břišní výřez +2 045 Kč. Zakázková výroba 2-3 týdny."
+  },
+  {
+   "id": "pracujzdrave-rohova-exclusive-dub-halifax",
+   "nazev": "Rohová deska EXCLUSIVE Dub Halifax přírodní, na míru",
+   "prodejce": "Pracuj zdravě",
+   "popis": "Jednodílná rohová (L) deska frézovaná na CNC z jednoho kusu, vnitřní roh tvoří oblouk. Lamino, ABS hrana 2 mm s radiusem, tloušťka 18 / 25 / 36 mm, libovolný rozměr.",
+   "delka": 2110,
+   "sirka": 1480,
+   "tloustka": 25,
+   "cena": 9559,
+   "jednotka": "ks",
+   "url": "https://www.pracuj-zdrave.cz/rohove-stolove-desky/",
+   "overeno": false,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 9559 Kč je CENÍKOVÁ cena dekorové třídy uvedená na webu (vč. DPH), NE cena pro rozměr 211x148 cm. Prodejce výslovně píše: \"Konfigurator cen jednotlivých rozměrů připravujeme, pro přesné nacenění nás kontaktujte.\" Proto overeno:false. Důležité omezení z webu: tloušťku 18 mm doporučují jen do délky cca 1 600 mm, pro rameno 211 cm je nutné 25 nebo 36 mm. Příplatky: tl. 36 mm +2 178, zaoblené rohy od 1 682, břišní výřez +2 045 Kč. Zakázková výroba 2-3 týdny."
   }
  ],
  "podnoze": [
@@ -566,8 +592,7 @@
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/adils-noha-cerna-70217973/",
    "overeno": true,
-   "poznamka": "Nejlevnější noha na trhu. 4x únosnější než OLOV a 2,5x levnější. Pozor: sestavy LAGKAPTEN mají bodovou nosnost jen 15 kg.",
-   "varovani": "Celý blok IKEA podnoží má nápadně zaokrouhlené ceny (ADILS 100, SPÄND 200, LERBERG 200, OLOV 250, TILLSLAG 300, KRILLE 400, HILVER 500, NÄRSPEL 650, MITTBACK 1000, TROTTEN 2000) a přesto je označen ověřeno:true. Vypadá to na odhady, ne na skutečné ceny — přeověřit na ikea.cz nebo přepnout na ověřeno:false."
+   "poznamka": "Nejlevnější noha na trhu. 4x únosnější než OLOV a 2,5x levnější. Pozor: sestavy LAGKAPTEN mají bodovou nosnost jen 15 kg. Podezření kontroly na zaokrouhlené ceny VYVRÁCENO: celý blok IKEA noh ověřen 3.9.2026 na vykreslených stránkách, ceny jsou skutečně kulaté."
   },
   {
    "id": "ikea-olov-noha-nastavitelna",
@@ -626,34 +651,6 @@
    "poznamka": "Nosnost neověřena."
   },
   {
-   "id": "ikea-tillslag-podnozi",
-   "nazev": "IKEA TILLSLAG podnoží",
-   "prodejce": "IKEA ČR",
-   "popis": "Kovové podnoží 360 × 570 × 700 mm, bílá.",
-   "delka": 700,
-   "sirka": 360,
-   "tloustka": 0,
-   "cena": 300,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/tillslag-podnozi-bila-kov-50497192/",
-   "overeno": true,
-   "poznamka": "Nosnost neověřena. Rešerše doporučuje vyhnout se bílým nohám - rozbijí teplou paletu interiéru."
-  },
-  {
-   "id": "ikea-narspel-podnozi",
-   "nazev": "IKEA NÄRSPEL podnoží",
-   "prodejce": "IKEA ČR",
-   "popis": "Kovové podnoží, tmavě šedá. Rozměry ani nosnost se v rešerši nepodařilo dohledat.",
-   "delka": 0,
-   "sirka": 0,
-   "tloustka": 0,
-   "cena": 650,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/naerspel-podnozi-tmave-seda-kov-10471245/",
-   "overeno": true,
-   "poznamka": "Cena ověřena, rozměry a nosnost neověřeny. Tmavě šedá - rešerše hodnotí šedou jako nejhorší volbu do tohoto interiéru."
-  },
-  {
    "id": "ikea-mittback-koza-briza",
    "nazev": "IKEA MITTBACK koza / podnoží, bříza",
    "prodejce": "IKEA ČR",
@@ -679,7 +676,7 @@
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/trotten-polohovaci-podnozi-pro-stolni-desky-bila-40507342/",
    "overeno": true,
-   "poznamka": "Cena 2 000 Kč je akční, běžně 3 500 Kč. Zdvih 72-122 cm a nosnost neověřeny. Nejlevnější sit-stand cesta v rešerši. Nahradila vyřazenou řadu SKARSTA."
+   "poznamka": "VÝPRODEJOVÁ cena 2 000 Kč (běžně 3 500 Kč), platí do vyprodání zásob. Rozsah 120/160 cm — na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "ikea-alex-zasuvkovy-dil",
@@ -689,25 +686,11 @@
    "delka": 700,
    "sirka": 360,
    "tloustka": 580,
-   "cena": 1790,
+   "cena": 1590,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/alex-zasuvkovy-dil-bila-00473546/",
    "overeno": true,
-   "poznamka": "Výška 70 cm + deska ~2,5-4 cm = cílových 73-74 cm, blízko požadovaných 75 cm. Varianta bílé mořidlo/vzor dub má cenu neověřenou (~1 790). Střední podpora půlí rozpon → prohyb klesá 16×."
-  },
-  {
-   "id": "ikea-lerberg-podstavec",
-   "nazev": "IKEA LERBERG podstavec (koza)",
-   "prodejce": "IKEA ČR",
-   "popis": "Ocelová koza, bílá. V CZ e-shopu se jeví jako vyprodaná / vyřazená, dohledán jen archivní katalogový odkaz.",
-   "delka": 0,
-   "sirka": 0,
-   "tloustka": 0,
-   "cena": 200,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/catalog/products/50165003/",
-   "overeno": false,
-   "poznamka": "NEOVĚŘENO - cena 200 Kč je z archivní stránky a produkt je uveden jako vyprodaný. Nepočítat s ním."
+   "poznamka": "Výška 70 cm + deska ~2,5-4 cm = cílových 73-74 cm, blízko požadovaných 75 cm. Střední podpora půlí rozpon → prohyb klesá 16×. NOVÁ NIŽŠÍ CENA od 1. 9. 2026: 1 590 Kč (z 1 790 Kč)."
   },
   {
    "id": "walteco-hairpin-710-3r-cerna",
@@ -717,11 +700,11 @@
    "delka": 710,
    "sirka": 0,
    "tloustka": 10,
-   "cena": 459,
+   "cena": 455,
    "jednotka": "ks",
    "url": "https://www.walteco.cz/nabytkova-noha-hairpin--vyska-710-mm--3-ramenna--cerna/",
    "overeno": true,
-   "poznamka": "Sada 4 ks za 1 659 Kč. Rešerše ji označuje za rozumný střed. POZOR: konstrukční sekce varuje, že 10mm hairpin pod 2m deskou s monitorem se kýve - doporučuje 12 mm, 3 ramena a POVINNOU cárgu vzadu."
+   "poznamka": "Cena za KUS ověřena dvěma signály. Cena sady 4 ks je SPORNÁ: produktová stránka 1 535 Kč, výpis kategorie 1 659 Kč — sadu neber jako ověřenou. Skladem >20 ks. Konstrukční sekce varuje, že 10mm hairpin pod 2m deskou s monitorem se kýve — doporučuje 12 mm, 3 ramena a POVINNOU cárgu vzadu."
   },
   {
    "id": "walteco-hairpin-710-3r-bila-sada",
@@ -734,8 +717,8 @@
    "cena": 1819,
    "jednotka": "sada",
    "url": "https://www.walteco.cz/nabytkova-noha-hairpin--vyska-710-mm--3ramenna--bila/",
-   "overeno": true,
-   "poznamka": "Bílá je o 160 Kč dražší než černá sada (1 659 Kč). Rešerše doporučuje do tohoto interiéru černou."
+   "overeno": false,
+   "poznamka": "SPOR: produktová stránka uvádí sadu 4 ks za 1 695 Kč, výpis kategorie za 1 819 Kč — neoznačeno jako ověřené. Cena za kus je naopak shodná ve dvou signálech: 509 Kč/ks. Rešerše doporučuje do tohoto interiéru černou."
   },
   {
    "id": "melgo-hairpin-711-sada4",
@@ -748,9 +731,8 @@
    "cena": 760,
    "jednotka": "sada",
    "url": "https://www.melgo.cz/stolove-nohy--desky-a-skladaci-stoly/",
-   "overeno": true,
-   "poznamka": "Nejlevnější hairpin v rešerši. Rozdíl 760 vs. 3 639 Kč za 'to samé' je hlavně v průměru drátu (8 / 10 / 12 mm), kvalitě svarů a laku - u 760 Kč čekej slabší drát.",
-   "varovani": "760 Kč za sadu 4 hairpin nohou = 190 Kč/noha, přitom Walteco stojí 459 Kč/ks a OBI sada vychází na 825 Kč/noha. 4× pod trhem — téměř jistě jde o cenu za 1 ks, ne za sadu. Opravit jednotku nebo cenu."
+   "overeno": false,
+   "poznamka": "Výhrada kontroly ROZSOUZENA: jednotka \"sada 4 ks\" je SPRÁVNÁ (Melgo skutečně prodává sady 4 noh za 790–960 Kč). Chybná je VÝŠKA — 711 mm Melgo vůbec nevede, sortiment jsou palcové řady 40,6 / 50,8 / 55,9 / 76,2 / 86,4 / 91,4 cm. Cenu 760 Kč nelze přiřadit žádnému reálnému produktu. Nejbližší doložené: 86,4 cm sada 4 ks = 790 Kč."
   },
   {
    "id": "obi-hairpin-180x710-sada4",
@@ -763,8 +745,8 @@
    "cena": 3299,
    "jednotka": "sada",
    "url": "https://www.obi.cz/nabytkove-nohy/nosna-konstrukce-stolu-hairpin-cerna-180-mm-x-710-mm-4-ks/p/5634225",
-   "overeno": true,
-   "poznamka": "Nosnost neověřena. Dvojnásobek ceny Walteco sady při neznámém průměru drátu."
+   "overeno": false,
+   "poznamka": "NEOVĚŘENO: produktová stránka vrací 404 při opakovaných pokusech, v kategorii nábytkových noh se hairpin 180×710 nezobrazuje (jen tvary X a V 700×710). Ostatní stránky OBI se načetly, takže nejde o plošné blokování. Možný kandidát na vyřazení — neověřeno."
   },
   {
    "id": "loomah-industry-u40-710",
@@ -788,11 +770,11 @@
    "delka": 710,
    "sirka": 0,
    "tloustka": 80,
-   "cena": 1954,
+   "cena": 1686,
    "jednotka": "ks",
    "url": "https://www.loomah.cz/stolova-podnoz-industry-h20-vyska-710--cerna-2/",
    "overeno": true,
-   "poznamka": "Pár = 3 908 Kč. Tvar H má dobrou tuhost v rovině H, ale slabou kolmo - příčka může vadit kolenům."
+   "poznamka": "1 686 Kč/ks → pár 3 372 Kč. Profil 80×20 mm, výška 710."
   },
   {
    "id": "induro-industry-h40-par",
@@ -802,12 +784,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 80,
-   "cena": 3388,
-   "jednotka": "sada",
+   "cena": 1686,
+   "jednotka": "ks",
    "url": "https://www.in-duro.cz/kovove-podnoze/",
    "overeno": true,
-   "poznamka": "Silnější profil 80×40 než LooMAH 80×20. Výška a nosnost neověřeny.",
-   "varovani": "Nekonzistentní jednotka v rámci jedné řady: H40 je 3388 Kč/pár (=1694 Kč/ks), H20 je 2200 Kč/ks a U60 1740 Kč/ks. Sjednotit na Kč/ks, jinak vychází levnější tlustší profil než tenčí."
+   "poznamka": "Výhrada kontroly ROZSOUZENA: In-duro prodává VŠE po kusech, ne po párech. Sjednocený ceník 3.9.2026: H20 1 686, H40 1 686, U 1 686, V 1 686, X 1 796, U60 1 799,90 Kč/ks. Pozor: In-duro a LooMAH mají identický katalog i ceník — nejsou to dva nezávislí dodavatelé."
   },
   {
    "id": "induro-industry-h20",
@@ -817,7 +798,7 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 80,
-   "cena": 2200,
+   "cena": 1686,
    "jednotka": "ks",
    "url": "https://www.in-duro.cz/kovove-podnoze/",
    "overeno": true,
@@ -831,39 +812,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 1740,
+   "cena": 1799.9,
    "jednotka": "ks",
    "url": "https://www.in-duro.cz/kovove-podnoze/",
    "overeno": true,
-   "poznamka": "Cena ověřena, parametry ne. Pár = 3 480 Kč."
-  },
-  {
-   "id": "misterweld-zakladna-loft-jekl80",
-   "nazev": "Mister Weld ZÁKLADNA STOLU LOFT, jekl 80×80",
-   "prodejce": "Mister Weld",
-   "popis": "Kovová základna stolu z jeklu 80 × 80 mm, výška 720 mm, černá, styl loft.",
-   "delka": 720,
-   "sirka": 0,
-   "tloustka": 80,
-   "cena": 1750,
-   "jednotka": "ks",
-   "url": "https://www.misterweld.cz/zakladna-stolu-72-cm-cerna-loft-jekl-80x80-kovova-noha-ke-stol/",
-   "overeno": true,
-   "poznamka": "Výška 72 cm + deska 3 cm = 75 cm, přesně cílová výška. Nosnost neuvedena."
-  },
-  {
-   "id": "misterweld-dm-valtek-par-bila",
-   "nazev": "Mister Weld DM Valtek kovové nohy, bílá - 2 ks",
-   "prodejce": "Mister Weld",
-   "popis": "Pár kovových noh z jeklu 60 × 40 × 2 mm, rozměr 600/720 mm, bílá, industrial.",
-   "delka": 720,
-   "sirka": 600,
-   "tloustka": 60,
-   "cena": 2750,
-   "jednotka": "sada",
-   "url": "https://www.misterweld.cz/stoly-2/",
-   "overeno": true,
-   "poznamka": "Černá varianta DM Valtek-80 (jekl 80×80×2) stojí 6 490 Kč/pár. Nosnost neuvedena."
+   "poznamka": "Nosnost 80 kg/ks (jediná dohledaná nosnost u kovových podnoží). Profil 80×20 mm, výška 710 mm, skladem."
   },
   {
    "id": "onpira-podnoz-40x40x72-cerna",
@@ -876,9 +829,8 @@
    "cena": 1090,
    "jednotka": "ks",
    "url": "https://www.onpira.cz/zbozi/cerna-stolova-podnoz-40x40x72-cm/",
-   "overeno": true,
-   "poznamka": "Bílá varianta 1 170 Kč/ks. Rešerše počítá sestavu: Hornbach dub 160×80×26 + 2× Onpira = 4 370 Kč, výhoda 'volné nohy, nic v cestě kolenům'. Nosnost neuvedena.",
-   "varovani": "Rozpor v rozměrech: název říká 40×40×72 cm, pole říká 720×400×75. Číslo 75 v tloušťce nedává smysl (jekl bude 40 nebo 60 mm). Sjednotit."
+   "overeno": false,
+   "poznamka": "Cena 1 090 Kč z jednoho signálu, skladem >100 ks. Výhrada kontroly ROZSOUZENA — rozpor rozměrů neexistuje: patka 400×400 mm, výška 720 mm, číslo 75 je PRŮMĚR SLOUPU Ø 7,5 cm, ne jekl."
   },
   {
    "id": "drevotrust-neo-s-800x725",
@@ -888,11 +840,11 @@
    "delka": 725,
    "sirka": 800,
    "tloustka": 0,
-   "cena": 901,
+   "cena": 900.56,
    "jednotka": "ks",
    "url": "https://drevotrust.cz/cs/pevna/my7",
    "overeno": true,
-   "poznamka": "Přesná cena 900,56 Kč. Verze NEO E stejného rozměru stojí 1 358,79 Kč. Stříbrná barva - rešerše doporučuje do tohoto interiéru černou."
+   "poznamka": "DOPRODEJ. Centrální sklad 0 ks, prodejny >1 ks — reálně těžko dostupné."
   },
   {
    "id": "steelo-sada-nohou-a",
@@ -905,8 +857,8 @@
    "cena": 5090,
    "jednotka": "sada",
    "url": "https://www.steelo.cz/kovove-nohy-ke-stolu",
-   "overeno": true,
-   "poznamka": "Cena 'od 5 090 Kč'; sady O od 4 790, V od 4 890, X od 5 090, U od 5 390 Kč. Podnoží k pracovnímu stolu s úzkým profilem až do 6 790 Kč. Steelo uvádí jen 'vysoká únosnost', nosnost v kg nikde."
+   "overeno": false,
+   "poznamka": "Cena \"od 5 090 Kč\" (1 signál). Další sady: O od 4 790, V od 4 890, U od 5 390, X od 5 490 Kč (v datech bylo u X chybně 5 090)."
   },
   {
    "id": "mtcrafts-podnoz-v-par",
@@ -919,8 +871,8 @@
    "cena": 4690,
    "jednotka": "sada",
    "url": "https://www.mtcrafts.cz/podnoz-v/",
-   "overeno": true,
-   "poznamka": "Výška v rešerši neuvedena, nosnost neuvedena. Varianty U / Obdélník / Xko / Y / I existují, ale bez cen."
+   "overeno": false,
+   "poznamka": "\"od 4 690 Kč\" za pár (1 signál). Doplněné ceny variant: U (2ks) od 3 690, Xko (2ks) od 4 990, I (4ks) od 3 190, Y (4ks) od 4 490, X velká 11 990, X malá 6 590, Shape velká 4 900, Shape malá 3 690 Kč."
   },
   {
    "id": "alzaergo-et1-newgen-cerny",
@@ -933,8 +885,8 @@
    "cena": 9990,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-table-et1-newgen-black-d5647309.htm",
-   "overeno": true,
-   "poznamka": "Rešerše to označuje za doporučenou volbu: 2 motory, 125 kg a zdvih 62-128 cm pokryjí sed i stání, černý rám naváže na kovové doplňky. Bílá/šedá varianta 8 219 Kč (u bílé nevyřešený rozpor 8 219 vs 7 189). Sestava s deskou TTE-03 160×80 kaštan ≈ 11 930 Kč."
+   "overeno": false,
+   "poznamka": "9 990 Kč z jednoho signálu. Šířka rámu 100–170 cm — na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "alzaergo-et3-essential-cerny",
@@ -944,11 +896,11 @@
    "delka": 700,
    "sirka": 1330,
    "tloustka": 0,
-   "cena": 4359,
+   "cena": 3990,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-table-et3-essential-cerny-d7121749.htm",
-   "overeno": true,
-   "poznamka": "Akční cena 4 359 Kč z 4 990 Kč; bílá a šedá varianta 4 990 Kč. POZOR: nosnost 60 kg je málo - rešerše spočítala realistickou zátěž ~67 kg (deska 35 + 2 monitory 12 + rameno 5 + PC 10 + ostatní 5). Max. šířka rámu 133 cm je pro rameno L 211 cm málo."
+   "overeno": false,
+   "poznamka": "CHYBA V PŮVODNÍM POPISU: rám NENÍ elektrický, je MANUÁLNÍ na kliku. Šířka 86–133 cm — na rameno A 211 cm NEDOSÁHNE. Cena 3 990 Kč z jednoho signálu."
   },
   {
    "id": "alzaergo-et7-heavy-duty-bily",
@@ -961,8 +913,8 @@
    "cena": 14990,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-table-et7-heavy-duty-bily-d13033002.htm",
-   "overeno": true,
-   "poznamka": "Akční cena z 18 900 Kč. Rešerše: 'do obýváku předimenzovaný kolos' - 190 cm šířky rámu. Zároveň je to jediný 4motorový rám v rešerši, který by unesl desku ramene 211 cm."
+   "overeno": false,
+   "poznamka": "14 990 Kč z jednoho signálu (běžně 18 900). Zdvih 655–1305 mm (v datech bylo 665)."
   },
   {
    "id": "asko-home-office-podnoz",
@@ -976,7 +928,7 @@
    "jednotka": "ks",
    "url": "https://www.asko-nabytek.cz/nabytkove-sestavy/home-office",
    "overeno": false,
-   "poznamka": "NEOVĚŘENO (spolehlivost 'žlutá'). Rešerše to hodnotí jako předraženou položku: za stejné peníze je u Alzy ET1 NewGen s 125 kg a známým zdvihem. Doporučuje 'levná deska odjinud + AlzaErgo rám'.",
+   "poznamka": "NEOVĚŘENO (spolehlivost 'žlutá'). Rešerše to hodnotí jako předraženou položku: za stejné peníze je u Alzy ET1 NewGen s 125 kg a známým zdvihem. Doporučuje 'levná deska odjinud + AlzaErgo rám'. NEOVĚŘENO: asko-nabytek.cz renderuje ceny až JavaScriptem, přes fetch je v HTML nejsou. URL platná, cena nepotvrzena ani nevyvrácena.",
    "varovani": "8999 Kč je přesně shodných s liftor-rise-podnoz a položka je ověřeno:false — podezření na přenesenou cenu z jiného produktu. ASKO podnož s mechanismem bývá výrazně levnější než Liftor. Ověřit."
   },
   {
@@ -987,11 +939,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 8999,
+   "cena": 4999,
    "jednotka": "ks",
    "url": "https://www.liftor.cz/stoly/stolove-podnoze/",
-   "overeno": true,
-   "poznamka": "Cena 'od 8 999 Kč'. Rešerše počítá sestavu KARLBY dub 186 + Liftor = od 12 489 Kč. Zdvih a nosnost je nutné doověřit."
+   "overeno": false,
+   "poznamka": "AKČNÍ cena 4 999 Kč (běžně 9 999 Kč), akce \"do 3.9. nebo do vyprodání zásob\" — dnes končí. 72–120 cm, 100 kg, 1 motor, desky 105×60 až 180×80 cm → na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "liftor-expert-3seg",
@@ -1001,11 +953,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 10490,
+   "cena": 8999,
    "jednotka": "ks",
    "url": "https://www.liftor.cz/stoly/",
    "overeno": true,
-   "poznamka": "Cenové rozpětí 9 990-10 990 Kč, uvedena střední hodnota. 3segmentové nohy = vyšší max. výška a tužší v horní poloze než 2stupňové."
+   "poznamka": "AKČNÍ cena 8 999 Kč (běžně 14 999 Kč), akce \"do 3.9. nebo do vyprodání zásob\". Ověřeno v prohlížeči 3.9.2026 na produktové stránce i ve srovnávací tabulce podnoží. Zdvih 61–126 cm, 150 kg, 2 motory. DESKY AŽ 220×100 cm → na rameno A 211 cm DOSÁHNE (jediný dvousloupový rám v přehledu, který na to stačí). Je to ale rovný rám, řeší jen rameno A."
   },
   {
    "id": "drevotrust-luk-up-seda",
@@ -1015,11 +967,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 10245,
+   "cena": 10296.15,
    "jednotka": "ks",
    "url": "https://drevotrust.cz/cs/podnoz-stolova-elektricky-vyskove-stavitelna-luk-up-seda-ral-7045/114936",
-   "overeno": true,
-   "poznamka": "Přesná cena 10 244,92 Kč. Varianta LUK ANCOLL bílá RAL 9010 existuje, cena neověřena. Šedá RAL 7045 - rešerše hodnotí šedou jako nejhorší barvu do tohoto interiéru."
+   "overeno": false,
+   "poznamka": "10 296,15 Kč (1 signál). POZOR: 0 ks na prodejnách i v centrálním skladu."
   },
   {
    "id": "zlkl-pevna-podnoz-755",
@@ -1032,8 +984,8 @@
    "cena": 1924,
    "jednotka": "ks",
    "url": "https://www.zlklshop.cz/",
-   "overeno": true,
-   "poznamka": "1 590 Kč bez DPH. Ověřeno ve 3. kole rešerše."
+   "overeno": false,
+   "poznamka": "NEOVĚŘENO: produktová stránka vrací 404. V kategorii Stolové podnože je jediná pevná \"Konferenční podnož\" výšky 720 mm za 1 299 Kč bez DPH (1 571,79 s DPH), což popisu (755 mm, nosník 1180–1580 mm) neodpovídá."
   },
   {
    "id": "drevotrust-level-lp",
@@ -1046,8 +998,8 @@
    "cena": 1628,
    "jednotka": "sada",
    "url": "https://www.drevotrust.cz/",
-   "overeno": true,
-   "poznamka": "Černá; šedá 1 929 Kč. Ověřeno ve 3. kole."
+   "overeno": false,
+   "poznamka": "NEOVĚŘENO: černá varianta z katalogu drevotrust.cz zmizela (404). Šedá varianta ověřena na 1 900,31 Kč, ale 0 ks na prodejnách i centrálně."
   },
   {
    "id": "aluppress-skch-o",
@@ -1061,7 +1013,7 @@
    "jednotka": "ks",
    "url": "https://www.drevotrust.cz/",
    "overeno": true,
-   "poznamka": "Ověřeno ve 3. kole rešerše."
+   "poznamka": "2 662 Kč, rozsah nosníku 1340–1820 mm, výška 725 mm. POZOR: 0 ks na prodejnách i centrálně."
   },
   {
    "id": "alzaergo-et1-essential",
@@ -1071,11 +1023,11 @@
    "delka": 1700,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 7189,
+   "cena": 7990,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-table-et1-essential-cerny-d7121744.htm",
-   "overeno": true,
-   "poznamka": "Ověřeno ve 3. kole. Rozsah šířky je limitující parametr, ne cena."
+   "overeno": false,
+   "poznamka": "7 990 Kč z jednoho signálu (v datech 7 189). Nosnost 100 kg (v datech chybně 125). Šířka rámu 100–170 cm — na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "alzaergo-et2-core",
@@ -1088,8 +1040,8 @@
    "cena": 4990,
    "jednotka": "ks",
    "url": "https://www.alza.cz/alzaergo-table-et2-core-cerny-d12930757.htm",
-   "overeno": true,
-   "poznamka": "Nejlevnější ověřený elektrický rám. Ověřeno ve 3. kole."
+   "overeno": false,
+   "poznamka": "4 990 Kč z jednoho signálu (sedí). OPRAVY: zdvih 715–1160 mm (v datech 730–1230), šířka 909–1458 mm (v datech 1000–1600). Na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "ikea-mittzon-podnozi-elektr",
@@ -1103,22 +1055,51 @@
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-polohovaci-podnozi-ps-stolu-elektricky-cerna-20527911/",
    "overeno": true,
-   "poznamka": "Ověřeno ve 3. kole rešerše."
+   "poznamka": "Šířka 120/140/160 cm — na rameno A 211 cm NEDOSÁHNE."
   },
   {
    "id": "liftor-l-rohovy",
    "nazev": "Liftor L — rohový rám, 3 sloupy",
    "prodejce": "Liftor.cz",
-   "popis": "JEDINÁ ověřená sestava, která na 211 × 148 cm rozměrově jde: 3 motory, 150 kg, desky až 2900 × 1000 mm, úhly 90/120/180°.",
+   "popis": "Rohový rám, 3 motory, 150 kg. Rozměr 290 × 100 cm platí JEN pro rovné uspořádání 180°. Pro roh 90° výrobce uvádí desky 130–190 × 60–80 cm — rameno A 211 cm je nad limitem, na tenhle roh tedy nestačí.",
    "delka": 2900,
    "sirka": 1000,
    "tloustka": 0,
    "cena": 16999,
    "jednotka": "ks",
    "url": "https://www.liftor.cz/lt-t-l11-liftor-l-cerna-id16884.html",
-   "overeno": false,
-   "poznamka": "Cena NEOVĚŘENA — kritika našla u Liftoru tři různá čísla na dvou produktech.",
-   "varovani": "Ceny Liftoru si ověř přímo na jejich webu, rešerše u nich narazila na rozpory."
+   "overeno": true,
+   "poznamka": "Cena 16 999 Kč ověřena na produktové stránce, skladem 5+. Omezení rozměrů pro 90° je z produktové stránky výrobce.",
+   "varovani": "Pro 90° roh podporuje jen ramena do 190 cm. Na rameno A 211 cm nevyhovuje."
+  },
+  {
+   "id": "powerton-edge-rohovy-ram",
+   "nazev": "Powerton ERGO EDGE, elektrický rám rohového stolu",
+   "prodejce": "Pracuj zdravě / Powerton",
+   "popis": "Dvoumotorový elektrický rám pro rohové stoly, levé i pravé provedení, antikolizní systém, kabelový organizér, 3 paměti + USB.",
+   "delka": 1700,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 7853,
+   "jednotka": "ks",
+   "url": "https://www.pracuj-zdrave.cz/rohovy-elektricky-nastavitelny-stul-powerton/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 7 853 Kč vč. DPH (6 490 bez DPH), ověřeno u prodejce i proti specifikaci výrobce na powerton.eu. ROZSOUZENÍ SPORU: rozpor \"šířka rámu 1000-1700 mm\" vs. \"deska 1100-2200 mm\" NENÍ chyba rešerše - obě čísla takhle uvádí sám Powerton. Rám se roztahuje na 100-170 cm, deska smí přesahovat až do 220 cm. Pro TENHLE projekt to ale nestačí: druhý rozměr podporované desky je 600-1100 mm, takže rameno B 148 cm je nad limitem 110 cm. Rameno A 211 cm by prošlo, rameno B ne.",
+   "varovani": "Rameno A 211 cm zvládne (deska do 220 cm), ale druhé rameno podporuje jen do 110 cm — rameno B 148 cm je nad limitem."
+  },
+  {
+   "id": "ikea-spand-podnozi-ul-prostor",
+   "nazev": "IKEA SPÄND podnoží s úložným prostorem",
+   "prodejce": "IKEA ČR",
+   "popis": "Podnoží s úložným prostorem, černá / bílá.",
+   "delka": 0,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 500,
+   "jednotka": "ks",
+   "url": "https://www.ikea.com/cz/cs/cat/nohy-a-podstavce-20656/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 500 Kč, ověřeno ve výpisu kategorie \"Nohy a podstavce\" na vykreslené stránce. V ceníku dosud chybělo."
   }
  ],
  "stoly": [
@@ -1133,8 +1114,8 @@
    "cena": 5490,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-psaci-stul-dyha-dub-cerna-s59529122/",
-   "overeno": false,
-   "poznamka": "Cena z indexu vyhledávače, produktová stránka nebyla otevřena (egress blokován). Podnoží je šířkově stavitelné 120/140/160, desku lze později vyměnit."
+   "overeno": true,
+   "poznamka": "Výška 65–85 cm stavitelná při montáži → 75 cm sedne. Max. nosnost 50 kg."
   },
   {
    "id": "ikea-mittzon-140x80-dub-bila",
@@ -1144,11 +1125,11 @@
    "delka": 1400,
    "sirka": 800,
    "tloustka": 0,
-   "cena": 4490,
+   "cena": 4990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-psaci-stul-dyha-dub-bila-s99528130/",
-   "overeno": false,
-   "poznamka": "Cena neověřená (index). Rešerše upozorňuje na nekonzistentní cenový žebříček MITTZON — 140×80 vychází levněji než 140×60 v jiném dekoru."
+   "overeno": true,
+   "poznamka": "Výška 65–85 cm stavitelná při montáži → 75 cm sedne. Spor 4490/4990 rozsouzen ve prospěch 4 990 Kč na vykreslené produktové stránce."
   },
   {
    "id": "ikea-mittzon-140x60-dub-cerna",
@@ -1158,11 +1139,11 @@
    "delka": 1400,
    "sirka": 600,
    "tloustka": 0,
-   "cena": 3990,
+   "cena": 4490,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mittzon-psaci-stul-dyha-dub-cerna-s79528051/",
-   "overeno": false,
-   "poznamka": "Cena neověřená (index)."
+   "overeno": true,
+   "poznamka": "Výška 65–85 cm stavitelná při montáži → 75 cm sedne."
   },
   {
    "id": "ikea-tonstad-140x75-dub",
@@ -1172,11 +1153,11 @@
    "delka": 1400,
    "sirka": 750,
    "tloustka": 0,
-   "cena": 4990,
+   "cena": 5990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/tonstad-psaci-stul-dyha-dub-30538198/",
-   "overeno": false,
-   "poznamka": "Rešerše označuje ceny celé řady TONSTAD za pravděpodobně chybně sesbírané — 140×75 a 75×60 mají obě 4 990, zatímco menší 120×47 má 5 490. Ověřit na prodejně."
+   "overeno": true,
+   "poznamka": "Výška 75 cm PEVNĚ — přesně dle zadání. Volná výška pod nábytkem 64 cm."
   },
   {
    "id": "ikea-ridspo-140x70-dub",
@@ -1189,8 +1170,8 @@
    "cena": 11990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/ridspoe-psaci-stul-dub-00485224/",
-   "overeno": false,
-   "poznamka": "Cena neověřená. Cenově mimo ligu ostatních IKEA stolů; s druhým ramenem naráží na horní hranici rozpočtu.",
+   "overeno": true,
+   "poznamka": "Výška 77 cm pevná — nevyhovuje zadání 75 cm.",
    "varovani": "11990 Kč dělá z RIDSPÖ nejdražší IKEA stůl v seznamu, dražší než IDANÄS (9990) i než masivní XXXLutz Linea Natura 140×65 (8999). Ověřeno:false — přeověřit."
   },
   {
@@ -1201,11 +1182,11 @@
    "delka": 1350,
    "sirka": 700,
    "tloustka": 0,
-   "cena": 3490,
+   "cena": 4990,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/mullsjoe-psaci-stul-dyha-dub-30553240/",
-   "overeno": false,
-   "poznamka": "Rešerše řadu MULLSJÖ nedokázala potvrdit ani z vlastní znalosti sortimentu (značka ⚑ ověřit existenci). Cena 3 490 je uváděna jako akční ze 4 990."
+   "overeno": true,
+   "poznamka": "Výška 76 cm (o 1 cm nad zadáním)."
   },
   {
    "id": "ikea-anfallare-hilver-140x65-bambus",
@@ -1219,35 +1200,7 @@
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/anfallare-hilver-psaci-stul-bambus-s29417710/",
    "overeno": false,
-   "poznamka": "Cena platí pro variantu s nohami HILVER. Samotnou cenu desky ANFALLARE se nepodařilo zjistit, takže levnější varianty (ADILS, KRILLE) nejdou dopočítat."
-  },
-  {
-   "id": "ikea-malm-140x65-cernohneda",
-   "nazev": "IKEA MALM psací stůl 140×65, černohnědá",
-   "prodejce": "IKEA",
-   "popis": "Lamino, výška 73 cm, nosnost 50 kg. Do rohu 211×148 jako rameno A: 140 cm, hloubka 65 cm nechá rameni B 83 cm za rohem. Nábytkový vzhled bez kancelářské estetiky, ale černohnědý dekor je proti teplému dubu na podlaze tmavý.",
-   "delka": 1400,
-   "sirka": 650,
-   "tloustka": 0,
-   "cena": 3990,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/malm-psaci-stul-cernohneda-00214157/",
-   "overeno": false,
-   "poznamka": "Bílá varianta 4 490 (akce 3 490 od 1. 8. 2026). Varianta v bíle mořené dubové dýze u rozměru 140×65 nenalezena — existuje jen u verze s výsuvnou deskou 151×65."
-  },
-  {
-   "id": "ikea-alex-132x58-sedotyrkysova",
-   "nazev": "IKEA ALEX psací stůl 132×58, šedotyrkysová",
-   "prodejce": "IKEA",
-   "popis": "Psací stůl se zásuvkami, výška ~76 cm. Do rohu 211×148 je to typický kandidát na rameno B: délka 132 cm se vejde do limitu 148 cm a zásuvky řeší úložný prostor. Jako rameno A je hloubka 58 cm na spodní hranici zadaných 55–80 cm. Barva je přímo v rodině petrolejové.",
-   "delka": 1320,
-   "sirka": 580,
-   "tloustka": 0,
-   "cena": 3490,
-   "jednotka": "ks",
-   "url": "https://www.ikea.com/cz/cs/p/alex-psaci-stul-sedotyrkysova-80483805/",
-   "overeno": false,
-   "poznamka": "Cena uváděna jako akční ze 4 490. Stejná cena i u variant černomodrá a tmavě šedá."
+   "poznamka": "4 490 Kč z jednoho signálu. Výška 73 cm. Samotná deska ANFALLARE 140×65 bambus = 2 490 Kč."
   },
   {
    "id": "ikea-idanas-152x70",
@@ -1261,7 +1214,7 @@
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/p/idanaes-psaci-stul-bila-10514155/",
    "overeno": false,
-   "poznamka": "Cena neověřená. Hnědá varianta v indexu bez ceny."
+   "poznamka": "9 990 Kč z jednoho signálu. Výška 75 cm (sedí). DOPRODEJ — \"Poslední možnost nákupu\"."
   },
   {
    "id": "ikea-trotten-160x80-jasan",
@@ -1274,24 +1227,9 @@
    "cena": 2490,
    "jednotka": "ks",
    "url": "https://www.ikea.com/cz/cs/cat/kancelarske-stoly-trotten-55993/",
-   "overeno": false,
-   "poznamka": "Cena i rozměr pochází z odkazu na kategorii, ne z produktové stránky — slabší zdroj než ostatní řádky. Nosnost a přesná výška neověřeny.",
+   "overeno": true,
+   "poznamka": "Cena 2 490 Kč ověřena ve dvou výpisech; výška neověřena. URL v datech míří na kategorii, ne na produkt.",
    "varovani": "2490 Kč za kompletní stůl 160×80 je pod cenou samotné TROTTEN podnože uvedené v tomto ceníku (2000 Kč) — deska by pak stála 490 Kč. Nekonzistentní, ověřit."
-  },
-  {
-   "id": "jysk-kalby-120x60",
-   "nazev": "JYSK KALBY psací stůl 60×120, světlý dub",
-   "prodejce": "JYSK",
-   "popis": "Masivní dub + dubová dýha (ne fólie), nástavec MDF, plnovýsuv se soft-close, výška 75 cm. Do rohu 211×148 jako rameno A: 120 cm z 211 cm nechá 91 cm stěny navíc, hloubka 60 cm dá rameni B celých 88 cm volné délky. Nejlepší shoda s dubovým interiérem z JYSK nabídky.",
-   "delka": 1200,
-   "sirka": 600,
-   "tloustka": 0,
-   "cena": 5000,
-   "jednotka": "ks",
-   "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-kalby-60x120-svetly-dub",
-   "overeno": false,
-   "poznamka": "5 000 akční, běžně 6 499. Snippet z 09/2026 = nejčerstvější cenový údaj celé rešerše, přesto neověřený. Naznačuje se dostupnost jen na prodejně — nepotvrzeno.",
-   "varovani": "Zaokrouhlené odhady u JYSK (KALBY 5000, SKOVLUNDE 4500, EVETOFTE 2500, STAVANGER 5500) při ověřeno:false. Navíc KALBY 120×60 za 5000 Kč je dražší než SKOVLUNDE 120×60 za 4500 — přeověřit celý blok na jysk.cz."
   },
   {
    "id": "jysk-lintrup-140x60",
@@ -1301,11 +1239,11 @@
    "delka": 1400,
    "sirka": 600,
    "tloustka": 0,
-   "cena": 5999,
+   "cena": 4000,
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-lintrup-60x140-2-zasuvky-divoky-prirodni-dub",
    "overeno": false,
-   "poznamka": "Cena nedatovaná, neověřená. JYSK píše v názvu hloubka×šířka — 60×140 znamená 140 široký."
+   "poznamka": "AKČNÍ cena 4000 Kč, běžná 5999 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst). Výška 75 cm."
   },
   {
    "id": "jysk-skovlunde-120x60",
@@ -1315,11 +1253,11 @@
    "delka": 1200,
    "sirka": 600,
    "tloustka": 0,
-   "cena": 4500,
+   "cena": 4000,
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-skovlunde-60120-prirodni-dub/cerna",
    "overeno": false,
-   "poznamka": "4 500 akční, běžně 5 999. Nosnost 40 kg (bodově 25 kg) je jeden z mála doložených údajů o nosnosti v rešerši."
+   "poznamka": "AKČNÍ cena 4000 Kč, běžná 5499 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst). Výška 75 cm."
   },
   {
    "id": "jysk-evetofte-125x60",
@@ -1333,7 +1271,7 @@
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-evetofte-60125-dub",
    "overeno": false,
-   "poznamka": "2 500 akční s doloženou platností do 15. 9. 2026, běžně 3 299 — jediná cena v rešerši s uvedeným koncem akce."
+   "poznamka": "AKČNÍ cena 2500 Kč, běžná 3299 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst). Výška 75 cm."
   },
   {
    "id": "jysk-stauning-160x80",
@@ -1343,25 +1281,11 @@
    "delka": 1600,
    "sirka": 800,
    "tloustka": 0,
-   "cena": 3299,
+   "cena": 2500,
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-stauning-80160-cerna",
    "overeno": false,
-   "poznamka": "3 299 běžná cena, v akci od 2 500. Menší varianta 120×60 za 2 000 akčně / 2 699 běžně."
-  },
-  {
-   "id": "jysk-stavanger-160x80-rucni",
-   "nazev": "JYSK STAVANGER 80×160, ruční nastavení výšky",
-   "prodejce": "JYSK",
-   "popis": "Kov + deska, ruční nastavení výšky 65–85 cm — pokrývá zadanou pevnou výšku 75 cm a jde doladit. Do rohu 211×148 jako rameno A: 160 cm sedí, hloubka 80 cm ale nechá rameni B jen 68 cm volné délky.",
-   "delka": 1600,
-   "sirka": 800,
-   "tloustka": 0,
-   "cena": 5500,
-   "jednotka": "ks",
-   "url": "https://jysk.cz/pracovna/psaci-pc-stoly/psaci-stul-stavanger-80x160-cerna",
-   "overeno": false,
-   "poznamka": "Pozor na záměnu: STAVANGER existuje i jako elektrický 68–119 cm za ~8 500 (běžně 12 999) na jiné URL. Nosnost neuvedena ani u jedné verze."
+   "poznamka": "AKČNÍ cena 2500 Kč, běžná 3299 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst). Výška 75 cm."
   },
   {
    "id": "jysk-svaneke-160x80-dub-cerna",
@@ -1371,11 +1295,11 @@
    "delka": 1600,
    "sirka": 800,
    "tloustka": 0,
-   "cena": 8499,
+   "cena": 5500,
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/vyskove-nastavitelne-stoly/stul-s-nastavitelnou-vyskou-svaneke-80x160-barva-dubu/cerna",
    "overeno": false,
-   "poznamka": "8 499 se jeví jako běžná cena; uváděná akce 6 000 platila do 16. 9. 2025, je rok stará. Nosnost není doložena ani v jednom snippetu — u polohovacího stolu zásadní chybějící parametr."
+   "poznamka": "AKČNÍ cena 5500 Kč, běžná 6999 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst)."
   },
   {
    "id": "jysk-vandborg-120x60",
@@ -1385,11 +1309,11 @@
    "delka": 1200,
    "sirka": 600,
    "tloustka": 0,
-   "cena": 1075,
+   "cena": 1000,
    "jednotka": "ks",
    "url": "https://jysk.cz/pracovna/psaci-stoly-pocitacove-stoly/psaci-stul-vandborg-60120-barva-svetleho-dubu-cerna",
    "overeno": false,
-   "poznamka": "V rešerši uvedeno rozpětí 1 000–1 150 akčně (běžně 1 599–1 699); zapsán střed 1 075.",
+   "poznamka": "AKČNÍ cena 1000 Kč, běžná 1499 Kč. Akce platí do 15. 9. 2026. Jeden signál (výpisy JYSK nejdou načíst). Výška 75 cm.",
    "varovani": "1075 Kč je hluboko pod ostatními stoly JYSK stejné velikosti (SKOVLUNDE 120×60 = 4500, EVETOFTE 125×60 = 2500). Vypadá to na výprodejovou/akční cenu — označit jako akci, nebo nahradit běžnou cenou."
   },
   {
@@ -1403,8 +1327,8 @@
    "cena": 4999,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/p/linea-natura-psaci-stul-divoky-dub-120-65-76-cm-002748005501",
-   "overeno": false,
-   "poznamka": "Uváděno jako trvale nízká cena, ne akce — ale stejně neověřeno (egress blokován). Plný masiv za 4 999 je nejlepší poměr masiv/cena v celé rešerši."
+   "overeno": true,
+   "poznamka": "Výška 76 cm. Masiv divoký dub, olejovaný, nosnost desky cca 50 kg."
   },
   {
    "id": "xxxlutz-linea-natura-140x65-masiv",
@@ -1414,11 +1338,11 @@
    "delka": 1400,
    "sirka": 650,
    "tloustka": 0,
-   "cena": 8999,
+   "cena": 11999,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/psaci-stoly-C5C1",
-   "overeno": false,
-   "poznamka": "Odkaz vede jen na kategorii, ne na produktovou stránku — slabší zdroj. Jinde v rešerši je Linea Natura divoký dub 140×65×75 uváděna za 11 999, což je rozpor 3 000 Kč."
+   "overeno": true,
+   "poznamka": "AKČNÍ 11 999 Kč (běžně 15 999 Kč). V datech bylo 8 999 Kč, což není ani jedno. Výška PŘESNĚ 75 cm, masiv divoký dub. Výška 75 cm."
   },
   {
    "id": "xxxlutz-venda-140x60",
@@ -1431,8 +1355,8 @@
    "cena": 5474,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/p/venda-psaci-stul-cerna-barvy-dubu-140-60-76-cm-002798014901",
-   "overeno": false,
-   "poznamka": "5 474 akční, běžně 7 299. Rozměry přeloženy pravidlem 'hodnota mezi 74 a 78 je výška' — XXXLutz střídá pořadí rozměrů."
+   "overeno": true,
+   "poznamka": "AKČNÍ 5 474 Kč (běžně 7 299 Kč) — uložená hodnota byla akční, ne běžná. Výška 76 cm."
   },
   {
    "id": "xxxlutz-homin-138x67-dub-wotan",
@@ -1445,8 +1369,8 @@
    "cena": 3899,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/p/hom-in-psaci-stul-dub-wotan-138-67-78-cm-000778002801",
-   "overeno": false,
-   "poznamka": "Cena neověřená, jediný zdroj index vyhledávače."
+   "overeno": true,
+   "poznamka": "AKČNÍ 3 899 Kč (běžně 5 199 Kč). Výška 78 cm — nevyhovuje zadání."
   },
   {
    "id": "xxxlutz-xora-140x70-elektricky",
@@ -1456,25 +1380,11 @@
    "delka": 1400,
    "sirka": 700,
    "tloustka": 0,
-   "cena": 5199,
+   "cena": 7274,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/kancelarske-stoly-C5C1C1",
    "overeno": false,
-   "poznamka": "5 199 akčně, běžně 9 699 — sleva −46 % vypadá dočasně, ověřit přednostně. Odkaz jen na kategorii, ne na produkt. Nosnost neuvedena."
-  },
-  {
-   "id": "xxxlutz-venda-rohovy-140x117",
-   "nazev": "XXXLutz Venda ROHOVÝ psací stůl 140×117,5, dub San Remo",
-   "prodejce": "XXXLutz",
-   "popis": "ROHOVÝ / L STŮL. Rozměr 140×117,5 cm, výška 77 cm. Do rohu 211×148 se vejde, ale hloubka ramene 117,5 cm sežere většinu hloubky 148 cm — ke gauči zbyde 30,5 cm, což je pod jakýmkoli použitelným odstupem pro židli. Rešerše ho pro tento prostor vyhodnocuje jako nefunkční.",
-   "delka": 1400,
-   "sirka": 1175,
-   "tloustka": 0,
-   "cena": 7499,
-   "jednotka": "ks",
-   "url": "https://www.xxxlutz.cz/p/venda-rohovy-psaci-stul-dub-san-remo-140-117-5-77-cm-001504002401",
-   "overeno": false,
-   "poznamka": "7 499 akčně, běžně 9 999. Varianta 'Venda s úložným prostorem' je podle rešerše týž kus s prohozeným zápisem rozměrů, cena 7 699 nebo 8 799 — nerozhodnuto."
+   "poznamka": "AKČNÍ 7 274 Kč (běžně 9 699 Kč), jen z kategoriového výpisu — produktová URL nedohledána. Výška 71–116 cm elektricky."
   },
   {
    "id": "xxxlutz-homin-rohovy-94x120",
@@ -1487,8 +1397,8 @@
    "cena": 3390,
    "jednotka": "ks",
    "url": "https://www.xxxlutz.cz/p/hom-in-rohovy-psaci-stul-bila-barvy-dubu-94-120-75-cm-002647001501",
-   "overeno": false,
-   "poznamka": "Rozměr uváděn i jako 90×120×75 — drobný rozpor. Cena neověřená.",
+   "overeno": true,
+   "poznamka": "Výška 75 cm. DOPRODEJ — \"Poslední kusy\".",
    "varovani": "Nesoulad id/názvu (94×120) s poli rozměrů (1200×940). Sjednotit pořadí šířka×hloubka, aby šlo filtrovat podle šířky."
   },
   {
@@ -1499,11 +1409,11 @@
    "delka": 1380,
    "sirka": 680,
    "tloustka": 0,
-   "cena": 2399,
+   "cena": 3299,
    "jednotka": "ks",
    "url": "https://www.sconto.cz/produkt/psaci-stul-kuba-dub-artisan-413035510",
    "overeno": false,
-   "poznamka": "2 399 akčně, běžně 3 999. Sconto má tři cenové hladiny (běžná / Club / akce), snippety je míchají."
+   "poznamka": "AKČNÍ 3 299 Kč (běžně 4 499 Kč) — v datech bylo 2 399 Kč, což není ani jedno. Výška 75 cm. Skladem na 1 prodejně."
   },
   {
    "id": "sconto-jana-rohovy-135x95",
@@ -1517,7 +1427,7 @@
    "jednotka": "ks",
    "url": "https://www.sconto.cz/produkt/rohovy-psaci-stul-jana-prava-dub-sonoma-413197604",
    "overeno": false,
-   "poznamka": "2 999 akčně, běžně 4 799–4 999, Club 3 799–3 999. Uváděných 45 kg je hmotnost stolu, ne nosnost desky. Dub sonoma je studený dekor."
+   "poznamka": "AKČNÍ 2 999 Kč (běžně 4 999 Kč) — uložená hodnota je akční. Výška 75 cm. Skladem na 8 prodejnách."
   },
   {
    "id": "sconto-manager-rohovy-158x130",
@@ -1527,11 +1437,11 @@
    "delka": 1580,
    "sirka": 1300,
    "tloustka": 0,
-   "cena": 7299,
+   "cena": 5699,
    "jednotka": "ks",
    "url": "https://www.sconto.cz/produkt/rohovy-psaci-stul-manager-dub-sonoma-bila-413296806",
    "overeno": false,
-   "poznamka": "7 299 akčně, běžně 9 499. Cena neověřená."
+   "poznamka": "AKČNÍ 5 699 Kč (běžně 9 499 Kč) — v datech bylo 7 299 Kč, což není ani jedno. Výška 76 cm."
   },
   {
    "id": "asko-carlos-138x55",
@@ -1545,7 +1455,7 @@
    "jednotka": "ks",
    "url": "https://www.asko-nabytek.cz/4596632.16-psaci-stul-carlos-dub-artisan",
    "overeno": false,
-   "poznamka": "Cena z indexu, jediný zdroj. Celá nabídka ASKO jede na dekory dub sonoma / dub artisan, které se s teplou oranžovo-hnědou rybí kostí tlučou."
+   "poznamka": "Cena z indexu, jediný zdroj. Celá nabídka ASKO jede na dekory dub sonoma / dub artisan, které se s teplou oranžovo-hnědou rybí kostí tlučou. NEOVĚŘENO: asko-nabytek.cz renderuje ceny až JavaScriptem, přes fetch je v HTML nejsou. URL platná, cena nepotvrzena ani nevyvrácena."
   },
   {
    "id": "asko-carlos-rohovy-150x100",
@@ -1559,7 +1469,7 @@
    "jednotka": "ks",
    "url": "https://www.asko-nabytek.cz/4596632.32-rohovy-psaci-stul-carlos-dub-artisan",
    "overeno": false,
-   "poznamka": "3 999 s uvedenou minimální cenou za 30 dní 3 599. Zápis 150/100 × 50/45 znamená délky ramen × jejich hloubky."
+   "poznamka": "3 999 s uvedenou minimální cenou za 30 dní 3 599. Zápis 150/100 × 50/45 znamená délky ramen × jejich hloubky. NEOVĚŘENO: asko-nabytek.cz renderuje ceny až JavaScriptem, přes fetch je v HTML nejsou. URL platná, cena nepotvrzena ani nevyvrácena."
   },
   {
    "id": "asko-tom-elektricky",
@@ -1573,7 +1483,7 @@
    "jednotka": "ks",
    "url": "https://www.asko-nabytek.cz/4608959.0-vyskove-nastavitelny-psaci-stul-tom",
    "overeno": false,
-   "poznamka": "9 990 jako výprodej z 21 500 — sleva je tak velká, že jí rešerše bez potvrzení nevěří. Rozměr desky, nosnost i počet motorů zcela neznámé."
+   "poznamka": "9 990 jako výprodej z 21 500 — sleva je tak velká, že jí rešerše bez potvrzení nevěří. Rozměr desky, nosnost i počet motorů zcela neznámé. NEOVĚŘENO: asko-nabytek.cz renderuje ceny až JavaScriptem, přes fetch je v HTML nejsou. URL platná, cena nepotvrzena ani nevyvrácena."
   },
   {
    "id": "alza-nejby-gianni-148x68",
@@ -1586,8 +1496,8 @@
    "cena": 2679,
    "jednotka": "ks",
    "url": "https://www.alza.cz/kancelarsky-psaci-stul-nejby-gianni-cerna-dub-wotan-d7800814.htm",
-   "overeno": false,
-   "poznamka": "Cena se shodovala ve více snippetech (nejvyšší dostupná spolehlivost v rešerši), ale produktová stránka otevřena nebyla. Je to LTD, ne masiv ani dýha."
+   "overeno": true,
+   "poznamka": "Výška 74 cm. Skladem >5 ks u dodavatele."
   },
   {
    "id": "alza-ultradesk-momentum-152x70",
@@ -1601,21 +1511,7 @@
    "jednotka": "ks",
    "url": "https://www.alza.cz/gaming/ultradesk-momentum-black-d6326723.htm",
    "overeno": false,
-   "poznamka": "Cena se shodovala ve více snippetech, stránka neotevřena. Technicky solidní za peníze, ale je to jasně herní kus."
-  },
-  {
-   "id": "alza-ultradesk-frag-xxl-160x75",
-   "nazev": "Alza Ultradesk Frag XXL, deska 160×75",
-   "prodejce": "Alza",
-   "popis": "Herní stůl, pevná výška 75 cm = přesně zadaná výška, nosnost 90 kg, kabelový management, USB hub. Do rohu 211×148 jako rameno A: 160 cm, hloubka 75 cm nechá rameni B 73 cm. Barevné varianty (modrá, červená, růžová) jsou do obýváku výrazné.",
-   "delka": 1600,
-   "sirka": 750,
-   "tloustka": 0,
-   "cena": 3969,
-   "jednotka": "ks",
-   "url": "https://www.alza.cz/gaming/ultradesk-frag-xxl-modry-d12285784.htm",
-   "overeno": false,
-   "poznamka": "3 969 akčně z 5 299. Cena se shodovala ve více snippetech, stránka neotevřena."
+   "poznamka": "4 999 Kč sedí, ale jen z produktové stránky (chybí druhý nezávislý signál). Výška 75,5 cm, ne 75."
   },
   {
    "id": "idea-torino-150x54",
@@ -1629,22 +1525,22 @@
    "jednotka": "ks",
    "url": "https://www.idea-nabytek.cz/psaci-stul-torino2",
    "overeno": false,
-   "poznamka": "6 399 uváděno jako akční cena; bílá varianta téhož stolu 4 999. IDEA podle rešerše nevede dubový masiv ani samostatné spárovkové desky — jen borovici.",
+   "poznamka": "AKČNÍ 6 399 Kč (běžně 10 990 Kč). Výška 74 cm. POZOR: hloubka 54 cm je POD dolní hranicí zadání (55 cm).",
    "varovani": "6399 Kč za masiv borovice 150×54 je nad cenou masivního dubu XXXLutz Linea Natura 120×65 (4999 Kč). Borovice bývá výrazně levnější než dub — ověřit."
   },
   {
    "id": "bonami-woodman-flow-140x75",
-   "nazev": "Bonami Woodman Flow, pracovní stůl 140×75, dub dekor",
+   "nazev": "TemaHome Flow, pracovní stůl, dub dekor",
    "prodejce": "Bonami",
    "popis": "Dub dekor (ne dýha ani masiv). Do rohu 211×148 jako rameno A dobrá geometrie: 140 cm z 211 cm, hloubka 75 cm nechá rameni B 73 cm volné délky. Rešerše ho označuje za rozumný kompromis 'vypadá designově, stojí lidsky' v rámci Bonami.",
    "delka": 1400,
    "sirka": 750,
    "tloustka": 0,
-   "cena": 9949,
+   "cena": 9999,
    "jednotka": "ks",
    "url": "https://www.bonami.cz/c/pracovni-psaci-stoly/dub",
-   "overeno": false,
-   "poznamka": "Odkaz vede jen na kategorii, ne na produktovou stránku. U Bonami se navíc liší cena s kódem a bez kódu."
+   "overeno": true,
+   "poznamka": "Značka v datech byla chybná — je to TemaHome Flow, ne Woodman. Běžná cena 9 999 Kč, aktuálně akční 9 399 Kč. NENÍ SKLADEM, dodání až 4. 11. 2026."
   },
   {
    "id": "bonami-sign-120x60",
@@ -1658,7 +1554,7 @@
    "jednotka": "ks",
    "url": "https://www.bonami.cz/c/pracovni-psaci-stoly/dub",
    "overeno": false,
-   "poznamka": "Odkaz jen na kategorii. Výška neuvedena. Existuje i varianta Sign 150 cm, ale bez ceny."
+   "poznamka": "SPOR — neověřeno: výpis Bonami vrací pro tutéž variantu 60×120 při různých načteních čtyři různé ceny (3 561 / 3 582 / 3 709 / 4 674 Kč). Produktová URL varianty 60×120 nedohledána."
   },
   {
    "id": "bonami-hubsch-forma-140x70",
@@ -1668,11 +1564,11 @@
    "delka": 1400,
    "sirka": 700,
    "tloustka": 0,
-   "cena": 12603,
+   "cena": 13425,
    "jednotka": "ks",
    "url": "https://www.bonami.cz/p/pracovni-stul-s-deskou-v-dubovem-dekoru-70x140-cm-forma-hubsch",
-   "overeno": false,
-   "poznamka": "Vážný cenový rozpor: 12 603 (z 15 469) vs 17 339 (z 20 399) — rozdíl 4 736 Kč. Rešerše soudí, že index sloučil dvě různé velikosti nebo provedení pod jedno URL. Zapsána nižší z obou.",
+   "overeno": true,
+   "poznamka": "AKČNÍ 13 425 Kč (běžně 15 469 Kč) — v datech bylo 12 603 Kč. Skladem POSLEDNÍ KUS. Výška na stránce neuvedena.",
    "varovani": "12603 Kč za stůl v 'dubovém dekoru' je nejvyšší cena v celé sekci stolů, výš než masiv i než elektricky polohovací stoly. U dekoru to působí mimo — ověřit (Hübsch je designová značka, ale je to ověřeno:false)."
   }
  ],
@@ -1685,11 +1581,11 @@
    "delka": 0,
    "sirka": 60,
    "tloustka": 25,
-   "cena": 188,
+   "cena": 35,
    "jednotka": "ks",
-   "url": "",
-   "overeno": false,
-   "poznamka": "Cena z cenového oddílu rešerše (tabulka 'Formátování, CNC, přirážky'): 'Kabelová průchodka černá (materiál) 60–250 Kč/ks' BEZ DPH → s DPH 21 % je to 73–303 Kč, uveden střed 188 Kč. Jistota označena [P] = odhad, neověřeno. Rešerše zároveň varuje, že plastová průchodka na masivní dubové desce vypadá levně."
+   "url": "https://www.hornbach.cz/c/zelezarstvi/nabytkova-mechanika/pruchodky/S11985/",
+   "overeno": true,
+   "poznamka": "35 Kč plastová ø 60 mm. Kovová ø 60 mm (matný nikl / broušená) = 139 Kč — vzhledově lepší k černé podnoži. V datech bylo 188 Kč, tedy 5× nad skutečností."
   },
   {
    "id": "frezovany-ovalny-otvor-40x120",
@@ -1703,7 +1599,7 @@
    "jednotka": "ks",
    "url": "",
    "overeno": false,
-   "poznamka": "Cena z modelové kalkulace stolu na míru v cenovém oddílu: příplatek 'výřez na kabely 200–550 Kč (práce + průchodka)', uveden střed 375 Kč vč. DPH. Jistota [P] = odhad, neověřeno. Rešerše uvádí i samostatnou položku 'frézovaný rádius / zkosení hrany 300–1 500 Kč bez DPH' — u složitějšího tvaru počítej s horní hranicí."
+   "poznamka": "NEOVĚŘITELNÉ ONLINE: je to truhlářská práce na zakázku, ne katalogové zboží — nemá veřejnou cenu. Cenu dá až poptávka (neposílal jsem ji)."
   },
   {
    "id": "vesa-rameno-monitoru-plynova-pruzina",
@@ -1713,11 +1609,11 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 1750,
+   "cena": 1290,
    "jednotka": "ks",
    "url": "",
-   "overeno": false,
-   "poznamka": "Cena 1 000–2 500 Kč pochází z kapitoly o hloubce desky (rameno jako způsob, jak získat ~15 cm hloubky); uveden střed 1 750 Kč. NEOVĚŘENO — u konkrétních modelů (Ergotron LX, Neomounts, AlzaErgo, Fiber Mounts, Reflecta) rešerše ceny nemá vůbec, jen relativní pořadí Fiber Mounts/Digitus → Reflecta → AlzaErgo → Neomounts → Ergotron. Statika: svorka na 18mm laminu mačká hranu (chtěj min. 25 mm nebo podložit ocelovou destičkou 3–5 mm); u 27–40mm dubu žádný problém. 8kg monitor na dosahu 450 mm = moment ~35 Nm, v místě svorky nesmí být царga ani kotevní deska podnože."
+   "overeno": true,
+   "poznamka": "Konkretizováno na AlzaErgo Arm AR1.1 (plynová pružina, monitor 17–32\", max 9 kg) = 1 290 Kč. Reálné rozpětí na trhu 1 290 – 2 990 Kč. V datech bylo 1 750 Kč jako odhad."
   },
   {
    "id": "kabelovy-zlab-truhlarsky-plech",
@@ -1731,7 +1627,7 @@
    "jednotka": "ks",
    "url": "",
    "overeno": false,
-   "poznamka": "Cena z cenového oddílu (tabulka truhlářských přirážek): 'Kabelový žlab / plechová lišta pod desku 500–2 000 Kč' BEZ DPH → s DPH 21 % je to 605–2 420 Kč, uveden střed 1 512 Kč. Jistota [P] = odhad, neověřeno."
+   "poznamka": "NEOVĚŘITELNÉ ONLINE: zakázková zámečnická/truhlářská výroba, nemá veřejnou cenu. Cenu dá až poptávka (neposílal jsem ji)."
   },
   {
    "id": "hranova-paska-abs-dyha",
@@ -1741,12 +1637,26 @@
    "delka": 0,
    "sirka": 0,
    "tloustka": 0,
-   "cena": 200,
+   "cena": 85,
    "jednotka": "ks",
    "url": "",
    "overeno": false,
-   "poznamka": "Rešerše uvádí 'cca 100–300 Kč', uveden střed 200 Kč. Neověřeno. Profesionální olepení ABS 0,8 / 1 / 2 mm za běžný metr u distributora se v rešerši dohledat nepodařilo (v tabulce je '≈ ?/bm').",
+   "poznamka": "57 Kč (bílá/černá) až 85 Kč (dřevodekory vč. dubových) za roli 22×5000 mm s lepidlem, 1 signál. POZOR: šířka 22 mm na desku tl. 25–38 mm NESTAČÍ — širší hranu je nutné řešit u truhláře.",
    "varovani": "Špatná jednotka: hranová páska se prodává na metry nebo v rolích, ne 'za kus'. 200 Kč/ks je nejednoznačné — uvést Kč/bm nebo Kč/role s délkou (typicky 5 nebo 10 m)."
+  },
+  {
+   "id": "ikea-inlagg-spojovaci-kovani",
+   "nazev": "IKEA INLÄGG spojovací kování",
+   "prodejce": "IKEA ČR",
+   "popis": "Kování pro spojení dvou stolních desek. Balení 2 ks.",
+   "delka": 0,
+   "sirka": 0,
+   "tloustka": 0,
+   "cena": 200,
+   "jednotka": "2 ks",
+   "url": "https://www.ikea.com/cz/cs/cat/stolni-desky-11844/",
+   "overeno": true,
+   "poznamka": "Nová položka doplněná při doověření 3.9.2026. 200,-/2 ks, ověřeno ve dvou výpisech kategorií na vykreslených stránkách. Přímo řeší spoj ramene A a ramene B, když se L skládá ze dvou desek - v ceníku to dosud vůbec nebylo."
   }
  ],
  "sluzby": [
@@ -2176,11 +2086,10 @@
   }
  ],
  "meta": {
-  "zdroj": "research/trh.md a research/_raw2.json — vytáhlo pět agentů, prošlo kontrolou",
-  "stav": "153 položek, 87 označeno jako ověřených",
+  "zdroj": "research/trh.md, doověřeno proti živým stránkám prodejců (scripts/_doovereni_2026-09-03.md)",
+  "stav": "147 položek, 91 ověřených proti živé stránce prodejce",
   "datum": "2026-09-03",
-  "kontrola": "Ceník má tři systémové problémy. (1) Sekce 'sluzby' duplikuje sedm položek ze sekce 'desky' — stejný produkt, stejná cena, jiné id (Hornbach dub 2000×600×18, Hornbach stolová deska 1600×800×26, Bauhaus dub 2200×600, Hornbach buk, Hornbach kuchyňská deska 4100, K&C spárovka 40 mm, DOMESTAV cink 40 mm). To nafukuje počet položek a při automatickém výběru nejlevnější varianty zkresluje výsledek. (2) Zhruba 20 položek v sekci 'kovani' a několik podnoží má cenu 0 Kč — celá sekce výsuvů (Blum, Hettich, GTV), LED, kabelové vedení, Flexispot rámy. Ty se do rozpočtu nedají použít vůbec. (3) Sekce 'stol",
-  "odstraneno": "16 vyřazeno kontrolou (duplicity a nepoužitelné položky), 24 bez zjištěné ceny",
-  "kolo3": "Třetí kolo doplnilo pevné podnože 75 cm a sit-stand rámy s ověřenými cenami. Klíčové zjištění: u ramene 211 cm je limitem rozsah šířky rámu, ne cena — většina rámů jde jen do 160–190 cm."
+  "metoda": "IKEA ověřena ve vykresleném prohlížeči, ne fetchem — ceny renderuje JavaScript a fetch vrací zastaralá data. U ostatních prodejců platilo pravidlo dvou nezávislých signálů na doméně prodejce. Žádná cena nepochází z agregátoru.",
+  "odstraneno": "21 položek vyřazeno, protože se v nabídce prodejce už nevyskytují"
  }
 }

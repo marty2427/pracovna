@@ -9,10 +9,24 @@ Sestavili ho dva nezávislí agenti přes fulltextové vyhledávání — jeden 
 druhý v okolí do 40 km a přes katalogy, aby zachytil firmy, které přímé hledání mine.
 Dohromady položili **106 vyhledávacích dotazů**.
 
-**Omezení:** v prostředí, kde rešerše běžela, nešlo otevírat konkrétní webové stránky
-(`WebFetch` blokovaný egress politikou), takže **kontakty nejsou ověřené proti živému webu firmy**.
-Telefony a e-maily jsou uvedené jen tam, kde je vrátilo vyhledávání; jinde je napsáno „nezjištěno“.
-**Než někomu zavoláš, ověř si kontakt na jeho webu.**
+**Omezení původní rešerše:** vznikla v prostředí, kde nešlo otevírat webové stránky
+(`WebFetch` blokovaný egress politikou), takže kontakty nebyly ověřené proti webům firem.
+
+**Doověření proběhlo 3. 9. 2026** v prostředí, které stránky otevírat umí — výsledky jsou
+v [`vyrobci-overeni-2026-09-03.md`](vyrobci-overeni-2026-09-03.md). Tabulka tam u každé firmy
+uvádí, jestli web žije, jestli telefon a e-mail sedí s tím, co je níž, jestli firma dělá stoly
+a jestli má veřejný ceník.
+
+Co doověření našlo:
+
+- **Značná část českých webů odmítá automatické čtení** (HTTP 429, timeout, neplatný certifikát).
+  To ale **neznamená, že firma zanikla** — dokument to rozlišuje ve sloupci „web žije“.
+- **Dvě nesrovnalosti v adresách:** ZETO má zrušený zápis na Jílkově a aktivní na Vídeňské;
+  Roháč & Fejta má podle katalogu jiné telefonní číslo i adresu, než uvádí seznam níž.
+- Několik firem, které seznam vede jako výrobce nábytku, **stoly vůbec nedělá** — soustředí se
+  na skříně a kuchyně. Je to v tabulce u každé firmy.
+
+**Než někomu zavoláš, projdi si tabulku v doověření.**
 
 ## Co se ptát
 

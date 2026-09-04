@@ -398,7 +398,7 @@ export const PRESETY: DeskConfig[] = [
 
   // ---------- PRESETY ODVOZENÉ Z PRAHŮ V REŠERŠI ----------
   mk({ id: 'pr-01', rodina: 'skandi', nazev: 'Bez řezání — přesně na KARLBY',
-    popis: 'Rameno A 186 × 63,5 cm je přesně rozměr IKEA KARLBY. Deska se nemusí zkracovat ani olepovat řeznou hranu — nejlevnější cesta k dýhovanému dubu.',
+    popis: 'Rameno A 186 × 63,5 cm je přesně rozměr IKEA KARLBY za 2 990 Kč (ověřeno). Deska se nemusí zkracovat ani olepovat řeznou hranu. Na plných 211 cm existuje varianta na míru za 4 000 Kč/bm, tedy 8 440 Kč.',
     rozmery: R({ ramenoADelka: 1860, ramenoAHloubka: 635, ramenoBDelka: 1300, ramenoBHloubka: 520 }),
     deska: D({ materialId: 'dyha-dub-svetla', tloustka: 38, hrana: 'srazena', radiusRohu: 10, radiusVnitrni: 90 }),
     podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 50, odsazeni: 85 }),

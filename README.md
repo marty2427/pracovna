@@ -40,11 +40,13 @@ research/
   trh.md                  rešerše trhu (sériové stoly, stavebnice, materiály,
                           kování, ergonomie, statika, cenová pásma)
   vyrobci.md              truhláři v Brně a okolí — kontakty a specializace
-  _raw.json, _raw2.json   tytéž rešerše strojově čitelně, po tématech;
-                          z nich se generuje ceník v appce
-  _kontrola_ceniku.json   výhrady kontroly k jednotlivým položkám ceníku
-  PROMPT-COWORK.md        zadání pro doověření cen a kontaktů v prostředí,
-                          které umí otevírat webové stránky
+  doovereni-*.md          doověření cen proti živým stránkám prodejců
+  vyrobci-overeni-*.md     doověření kontaktů truhlářů proti jejich webům
+  dekory-*.md              dekory Egger a Kronospan k tónu podlahy
+  zmeny-ceniku-*.md        seznam změn v ceníku s odůvodněním
+  _raw*.json               rešerše strojově čitelně, po tématech
+  _kontrola_*.json         výhrady kontrolní vrstvy k položkám ceníku
+  PROMPT-COWORK.md        zadání pro doověření (už proběhlo)
 scripts/
   sample_palette.py       vzorkování skutečných pixelů z fotky
   screenshots.mjs         Playwright průlet appkou
@@ -132,8 +134,14 @@ egress politikou) — fungovalo jen fulltextové vyhledávání. Ceny a rozměry
 z výsledků vyhledávání, ne z produktových stránek. Položky, které se nepodařilo ověřit,
 jsou v dokumentech i v appce označené. **Před objednáním si čísla ověř u prodejce.**
 
-Stav ceníku: 145 položek, z toho 80 označených jako ověřené. Sekce `stoly` (39 položek)
-a `kovani` (5 položek) jsou neověřené celé — u nich má doověření největší přínos.
+**Doověření proběhlo 3. 9. 2026** v prostředí, které stránky otevírat umí.
+Stav ceníku: **147 položek, 91 ověřených proti živé stránce prodejce**, 21 položek
+vyřazeno, protože se v nabídce už nevyskytují.
 
-Na doověření v prostředí, které weby otevírat umí, je připravené zadání
-v `research/PROMPT-COWORK.md`.
+Dvě věci z doověření stojí za zmínku:
+
+- **IKEA renderuje ceny až JavaScriptem.** Fetch produktové stránky KARLBY vracel
+  4 490 Kč, vykreslená stránka 3 990 Kč. Všechny ceny IKEA jsou proto z vykreslené stránky.
+- **Rohová polohovací sestava pro 211 × 148 cm na trhu není.** Liftor L uvádí desky
+  až 290 cm, ale jen pro rovné uspořádání — pro roh 90° zvládne ramena do 190 cm.
+  Powerton ERGO EDGE zvládne první rameno do 220 cm, druhé jen do 110 cm.

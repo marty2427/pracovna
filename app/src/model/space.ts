@@ -63,18 +63,30 @@ export const LIMITY = {
 export const TISKARNA = { sirka: 450, hloubka: 400, vyska: 260 }
 
 /**
- * Dosah výškově stavitelných rámů — zjištění ze 3. kola rešerše (research/trh.md).
- * Naprostá většina dvousloupových rámů má traverzu roztažitelnou jen do 1600-1900 mm.
- * U dlouhého ramene tak není limitem cena, ale rozměr.
+ * Dosah výškově stavitelných rámů — ověřeno proti stránkám výrobců
+ * (scripts/_doovereni_2026-09-03.md). Naprostá většina dvousloupových rámů
+ * má traverzu roztažitelnou jen do 1600-1700 mm. U dlouhého ramene tak není
+ * limitem cena, ale rozměr.
  */
 export const STAVITELNY_RAM = {
-  /** Co zvládne běžný dvousloupový rám (AlzaErgo ET1/ET2, IKEA Mittzon). */
+  /** Běžný dvousloupový rám: AlzaErgo ET1 (1000-1700), IKEA MITTZON (1200/1400/1600). */
   bezneMax: 1700,
-  /** Nejdelší ověřený dvousloupový rám (Liftor Expert 1100-2200 mm). */
+  /** Nejdelší ověřený dvousloupový rám: Liftor Expert, desky do 2200 x 1000 mm. */
   nejdelsiDvousloupovy: 2200,
-  /** Rohová sestava se třemi sloupy (Liftor L, desky až 2900x1000 mm). */
-  rohovaSestava: 2900,
+  /**
+   * Rohová sestava: pozor, tady je snadné se splést.
+   * Liftor L uvádí desky až 2900 x 1000 mm, ale JEN pro rovné uspořádání 180°.
+   * Pro roh 90° výrobce sám uvádí desky 1300-1900 x 600-800 mm.
+   * Powerton ERGO EDGE zvládne první rameno do 2200 mm, ale druhé jen do 1100 mm.
+   * Rohová polohovací sestava pro 2110 + 1480 mm tedy na trhu ověřená není.
+   */
+  rohovaSestava: 1900,
+  /** Nejdelší druhé rameno, které rohová sestava podpoří (Powerton ERGO EDGE). */
+  rohovaSestavaDruheRameno: 1100,
 }
 
-/** Nejdelší ověřená PEVNÁ podnož (ALUPRESS SKCH-O, 1340-1820 mm). */
+/**
+ * Nejdelší ověřená PEVNÁ podnož: ALUPRESS SKCH-O, roztažitelná 1340-1820 mm.
+ * Ověřeno proti stránce prodejce.
+ */
 export const PEVNA_PODNOZ_MAX = 1820
