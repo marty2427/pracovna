@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import type { DeskConfig } from '@/model/types'
 import { m, roundedBox } from './shapes'
-import { podpory } from '@/model/podpory'
+import { podpory, sediSeVRohu } from '@/model/podpory'
 import { Bar, Box } from './Bar'
 import { useKov, usePovrch, useMat } from './useMaterials'
 import { useMemo } from 'react'
@@ -76,12 +76,21 @@ function Ram({ pozice, stred, smer, rozpeti, vyskaHorni, profil, material, typ }
         </group>
       )
     case 'ram-hranaty':
+      // Uzavřený obdélník ze čtyřhranného jeklu: svislé nohy, horní i spodní
+      // traverza. Stojí na rektifikačních nožkách, takže se srovná na starých
+      // vlysech, které nikdy nejsou v rovině.
       return (
         <group>
           <Bar a={at(-half, y0 + p / 2)} b={at(-half, y1)} w={p} d={p} material={material} />
           <Bar a={at(half, y0 + p / 2)} b={at(half, y1)} w={p} d={p} material={material} />
           <Bar a={at(-half, y1)} b={at(half, y1)} w={p} d={p} material={material} />
           <Bar a={at(-half, y0 + p / 2)} b={at(half, y0 + p / 2)} w={p} d={p} material={material} />
+          <mesh position={at(-half, y0 / 2)} material={material}>
+            <cylinderGeometry args={[p * 0.36, p * 0.42, y0, 14]} />
+          </mesh>
+          <mesh position={at(half, y0 / 2)} material={material}>
+            <cylinderGeometry args={[p * 0.36, p * 0.42, y0, 14]} />
+          </mesh>
         </group>
       )
     case 'ram-U':
@@ -218,24 +227,64 @@ export function Podnoz({ config }: { config: DeskConfig }) {
     )
   }
 
-  // --- plné bočnice ---
+  // --- plné bočnice: silné panely v tloušťce desky, „plavou" na stínové spáře ---
   if (typ === 'bocnice') {
-    const tl = Math.max(m(18), p * 0.5)
+    // Panel má stejnou tloušťku jako deska (min. 25 mm), takže deska a bočnice
+    // tvoří jeden rám — ne tenká dýhovaná bočnice z kancelářského stolu z 90. let.
+    const tl = Math.max(m(25), m(config.deska.tloustka))
+    const nozka = 0.028
+    const vys = H - nozka
+    const yS = nozka + vys / 2
+    const vRohu = sediSeVRohu(config)
+    const LB = m(rozmery.ramenoBDelka)
+    const Nozky = ({ a, b, smer }: { a: [number, number, number]; b: [number, number, number]; smer: 'x' | 'z' }) => (
+      <group>
+        <Box pos={a} size={smer === 'x' ? [0.06, nozka, tl * 0.7] : [tl * 0.7, nozka, 0.06]} material={guma} radius={0.002} />
+        <Box pos={b} size={smer === 'x' ? [0.06, nozka, tl * 0.7] : [tl * 0.7, nozka, 0.06]} material={guma} radius={0.002} />
+      </group>
+    )
+    const stred = (a: number, b: number) => (a + b) / 2
     return (
       <group>
-        {ramy.map((r, i) => (
-          <group key={i}>
-            {r.smer === 'x'
-              ? <Box pos={[r.stred, H / 2, r.pozice]} size={[r.rozpeti + tl, H, tl]} material={mat} radius={0.003} />
-              : <Box pos={[r.pozice, H / 2, r.stred]} size={[tl, H, r.rozpeti + tl]} material={mat} radius={0.003} />}
-            {r.smer === 'x'
-              ? <Box pos={[r.stred, 0.004, r.pozice]} size={[r.rozpeti - 0.02, 0.008, tl * 0.7]} material={guma} radius={0.001} />
-              : <Box pos={[r.pozice, 0.004, r.stred]} size={[tl * 0.7, 0.008, r.rozpeti - 0.02]} material={guma} radius={0.001} />}
+        {ramy.map((r, i) => {
+          const delka = r.rozpeti + tl
+          return r.smer === 'x' ? (
+            <group key={i}>
+              <Box pos={[r.stred, yS, r.pozice]} size={[delka, vys, tl]} material={mat} radius={0.002} />
+              <Nozky smer="x" a={[r.stred - delka / 2 + 0.06, nozka / 2, r.pozice]} b={[r.stred + delka / 2 - 0.06, nozka / 2, r.pozice]} />
+            </group>
+          ) : (
+            <group key={i}>
+              <Box pos={[r.pozice, yS, r.stred]} size={[tl, vys, delka]} material={mat} radius={0.002} />
+              <Nozky smer="z" a={[r.pozice, nozka / 2, r.stred - delka / 2 + 0.06]} b={[r.pozice, nozka / 2, r.stred + delka / 2 - 0.06]} />
+            </group>
+          )
+        })}
+        {/* podpora rohu: při sezení v rohu krátký panel vzadu u zdi (schovaný za monitorem),
+            jinak panel v místě napojení ramen přes celou hloubku ramene A */}
+        {samostatne.map((b, i) => vRohu ? (
+          <Box key={`s${i}`} pos={[b.x + 0.14, yS, b.z]} size={[0.30, vys, tl]} material={mat} radius={0.002} />
+        ) : (
+          <group key={`s${i}`}>
+            <Box pos={[stred(o, DA - o), yS, b.z]} size={[DA - 2 * o + tl, vys, tl]} material={mat} radius={0.002} />
+            <Nozky smer="x" a={[o + 0.03, nozka / 2, b.z]} b={[DA - o - 0.03, nozka / 2, b.z]} />
           </group>
         ))}
-        {samostatne.map((b, i) => (
-          <Box key={`s${i}`} pos={[b.x, H / 2, b.z]} size={[tl, H, tl * 2.4]} material={mat} radius={0.003} />
-        ))}
+        {/* zadní výztužný panel mezi bočnicemi — zpevní rám a schová kabely, zepředu není vidět */}
+        {podnoz.vyztuha && (() => {
+          const z0 = (vRohu ? o : (jeL ? DB - o : o)) + tl / 2
+          const z1 = LA - o - tl / 2
+          const x0 = (vRohu ? o : DA - o) + tl / 2
+          const x1 = LB - o - tl / 2
+          return (
+            <group>
+              <Box pos={[o + 0.02 + tl * 0.4, H - 0.065, stred(z0, z1)]} size={[tl * 0.8, 0.13, Math.max(0.05, z1 - z0)]} material={mat} radius={0.002} />
+              {jeL && x1 > x0 + 0.1 && (
+                <Box pos={[stred(x0, x1), H - 0.065, o + 0.02 + tl * 0.4]} size={[x1 - x0, 0.13, tl * 0.8]} material={mat} radius={0.002} />
+              )}
+            </group>
+          )
+        })()}
       </group>
     )
   }

@@ -11,7 +11,8 @@ const IKONA = { ok: '✓', pozor: '!', chyba: '×' } as const
 
 export function Kontroly() {
   const config = useStore((s) => s.config)
-  const k = useMemo(() => kontroly(config), [config])
+  const mistnost = useStore((s) => s.mistnost)
+  const k = useMemo(() => kontroly(config, mistnost), [config, mistnost])
   const celkem = nejhorsiStav(k)
   const odhad = useMemo(() => odhadNaMiru(config), [config])
   const stredCeny = (odhad.celkem.od + odhad.celkem.do) / 2

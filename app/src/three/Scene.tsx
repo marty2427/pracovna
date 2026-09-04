@@ -10,13 +10,19 @@ import { Doplnky } from './Extras'
 import { Room } from './Room'
 import { m } from './shapes'
 
-export type Pohled = 'perspektiva' | 'celne' | 'bok' | 'shora'
+export type Pohled = 'perspektiva' | 'celne' | 'bok' | 'pruchod' | 'shora'
 
+/**
+ * Kamery. Perspektiva stojí dál a výš, aby židle nezakrývala roh, a ze strany
+ * průchodu, takže je vidět i hrana tlusté zdi. „Od gauče" se dívá přes lehátko,
+ * „z průchodu" stojí v otvoru ve zdi a kouká podél ramene A.
+ */
 const POHLEDY: Record<Pohled, [number, number, number]> = {
-  perspektiva: [2.7, 1.85, 3.1],
-  celne: [2.05, 1.30, 4.0],
-  bok: [4.2, 1.25, 1.05],
-  shora: [0.75, 4.6, 1.15],
+  perspektiva: [3.0, 2.35, 4.1],
+  celne: [2.1, 1.35, 4.2],
+  bok: [2.55, 1.85, 2.75],
+  pruchod: [0.95, 1.65, 3.95],
+  shora: [0.75, 4.8, 1.2],
 }
 
 /** Přepínání pohledů — v R3F se prop `camera` po mountu neaplikuje, musí se to udělat ručně. */
@@ -50,19 +56,21 @@ export function Stul({ config }: { config: DeskConfig }) {
 }
 
 export function Scene({
-  config, pohled = 'perspektiva', ukazMistnost = true, onReady,
+  config, pohled = 'perspektiva', ukazMistnost = true, lehatko, onReady,
 }: {
   config: DeskConfig
   pohled?: Pohled
   ukazMistnost?: boolean
+  /** Délka lehátka gauče u stolu (mm) — z nastavení místnosti. */
+  lehatko?: number
   onReady?: () => void
 }) {
   const LA = m(config.rozmery.ramenoADelka)
   const LB = m(config.rozmery.ramenoBDelka)
   const stred: [number, number, number] = [
-    Math.max(0.35, LB * 0.35),
-    0.42,
-    Math.max(0.45, LA * 0.42),
+    Math.max(0.35, LB * 0.38),
+    0.48,
+    Math.max(0.45, LA * 0.40),
   ]
 
   return (
@@ -110,7 +118,7 @@ export function Scene({
           <Lightformer form="rect" intensity={1.1} color="#FFE8CC" position={[-4, 2, -3]} rotation={[0, Math.PI / 3, 0]} scale={[4, 3, 1]} />
         </Environment>
         <group position={[0, 0, 0]}>
-          {ukazMistnost && <Room config={config} />}
+          {ukazMistnost && <Room config={config} lehatko={lehatko} />}
           <Stul config={config} />
           {!ukazMistnost && (
             <ContactShadows position={[0, 0.001, 0]} opacity={0.45} scale={7} blur={2.2} far={2.4} resolution={1024} color="#4A2E16" />

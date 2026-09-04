@@ -7,6 +7,7 @@ import { Galerie } from './ui/Galerie'
 import { Koupit } from './ui/Koupit'
 import { Export } from './ui/Export'
 import { useState } from 'react'
+import { SPACE } from './model/space'
 
 const ZALOZKY: Array<{ id: Zalozka; label: string }> = [
   { id: 'konfigurator', label: 'Konfigurátor' },
@@ -15,7 +16,13 @@ const ZALOZKY: Array<{ id: Zalozka; label: string }> = [
   { id: 'export', label: 'Export poptávky' },
 ]
 
-const POHLEDY: Pohled[] = ['perspektiva', 'celne', 'bok', 'shora']
+const POHLEDY: Array<{ id: Pohled; label: string }> = [
+  { id: 'perspektiva', label: 'Perspektiva' },
+  { id: 'celne', label: 'Zepředu' },
+  { id: 'bok', label: 'Od gauče' },
+  { id: 'pruchod', label: 'Z průchodu' },
+  { id: 'shora', label: 'Shora' },
+]
 
 export function App() {
   const config = useStore((s) => s.config)
@@ -24,6 +31,8 @@ export function App() {
   const ukazMistnost = useStore((s) => s.ukazMistnost)
   const setUkazMistnost = useStore((s) => s.setUkazMistnost)
   const zpet = useStore((s) => s.zpet)
+  const mistnost = useStore((s) => s.mistnost)
+  const setMistnost = useStore((s) => s.setMistnost)
   const [pohled, setPohled] = useState<Pohled>('perspektiva')
 
   return (
@@ -31,7 +40,7 @@ export function App() {
       <header className="hlavicka">
         <div className="znacka">
           <strong>Pracovní stůl do obýváku</strong>
-          <span>roh 160 × 236 cm · L deska · pevná výška</span>
+          <span>roh 160 × 236 cm · L deska · pevná výška · gauč do U · monitor 32"</span>
         </div>
         <nav>
           {ZALOZKY.map((z) => (
@@ -51,17 +60,23 @@ export function App() {
         <div className="telo">
           <aside className="vlevo"><Configurator /></aside>
           <main className="viewport">
-            <Scene config={config} pohled={pohled} ukazMistnost={ukazMistnost} />
+            <Scene config={config} pohled={pohled} ukazMistnost={ukazMistnost} lehatko={mistnost.lehatko} />
             <div className="pohledy">
               {POHLEDY.map((p) => (
-                <button key={p} className={p === pohled ? 'on' : ''} onClick={() => setPohled(p)}>{p}</button>
+                <button key={p.id} data-pohled={p.id} className={p.id === pohled ? 'on' : ''} onClick={() => setPohled(p.id)}>{p.label}</button>
               ))}
               <button className={ukazMistnost ? 'on' : ''} onClick={() => setUkazMistnost(!ukazMistnost)}>místnost</button>
             </div>
           </main>
           <aside className="vpravo">
             <h3>Půdorys a rezervy</h3>
-            <FloorPlan config={config} sirka={396} />
+            <FloorPlan config={config} sirka={396} mistnost={mistnost} />
+            <label className="posuvnik lehatko">
+              <span className="radek"><span>Lehátko gauče od zadní stěny</span><output>{Math.round(mistnost.lehatko / 10)} cm</output></span>
+              <input type="range" min={SPACE.gauc.lehatko.min} max={SPACE.gauc.lehatko.max} step={50} value={mistnost.lehatko}
+                     onChange={(e) => setMistnost({ lehatko: Number(e.target.value) })} />
+              <span className="meze"><span>{SPACE.gauc.lehatko.min / 10}</span><em>doměř si to doma, výchozí je odhad</em><span>{SPACE.gauc.lehatko.max / 10}</span></span>
+            </label>
             <Kontroly />
           </aside>
         </div>
@@ -78,7 +93,7 @@ export function App() {
               <Scene config={config} pohled="perspektiva" ukazMistnost={false} />
             </div>
             <h3 style={{ marginTop: 14 }}>Půdorys a rezervy</h3>
-            <FloorPlan config={config} sirka={396} />
+            <FloorPlan config={config} sirka={396} mistnost={mistnost} />
             <Kontroly />
           </aside>
         </div>

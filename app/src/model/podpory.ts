@@ -35,7 +35,11 @@ export interface Podpora {
   /** Půdorysná poloha v mm. */
   x: number
   z: number
-  /** Rám, jehož je součástí: 'A' = konec ramene A, 'B' = konec ramene B, 'roh' = vnitřní roh L, 'mezi' = mezilehlá. */
+  /**
+   * Rám, jehož je součástí: 'A' = konec ramene A, 'B' = konec ramene B,
+   * 'roh' = podpora rohu L (u vnitřního rohu, nebo v rohu místnosti při sezení v rohu),
+   * 'mezi' = mezilehlá.
+   */
   skupina: 'A' | 'B' | 'roh' | 'mezi'
 }
 
@@ -60,9 +64,17 @@ export function dovolenyRozpon(c: DeskConfig): number {
   return c.podnoz.vyztuha ? Math.round(zaklad * 1.5) : zaklad
 }
 
+/** Sedí se v rohu L? Pak nesmí být noha u vnitřního rohu — stála by mezi koleny. */
+export function sediSeVRohu(c: DeskConfig): boolean {
+  return c.tvar === 'L' && c.rozmery.ramenoBDelka > 0 && c.doplnky.monitorUmisteni === 'roh'
+}
+
 /**
  * Kde stůl reálně stojí. U L desky nestačí podpory na koncích ramen —
- * bez podpory u vnitřního rohu je celý roh na vzduchu.
+ * bez podpory u rohu je celý roh na vzduchu.
+ *
+ * Když se sedí v rohu (monitor v rohu), jde rohová podpora dozadu do rohu
+ * místnosti, kde ji schová monitor. Jinak stojí u vnitřního rohu L.
  */
 export function podpory(c: DeskConfig): Podpora[] {
   const { ramenoADelka: LA, ramenoAHloubka: DA, ramenoBDelka: LB, ramenoBHloubka: DB } = c.rozmery
@@ -83,19 +95,25 @@ export function podpory(c: DeskConfig): Podpora[] {
     return p
   }
 
+  const vRohu = sediSeVRohu(c)
+  // Podpora rohu: buď u vnitřního rohu L, nebo vzadu v rohu místnosti.
+  const rohX = vRohu ? Math.max(o, 80) : DA - o
+  const rohZ = vRohu ? Math.max(o, 80) : DB - o
+
   const p: Podpora[] = [
     { x: o, z: LA - o, skupina: 'A' },
     { x: DA - o, z: LA - o, skupina: 'A' },
-    { x: DA - o, z: DB - o, skupina: 'roh' },     // vnitřní roh L
+    { x: rohX, z: rohZ, skupina: 'roh' },
   ]
   if (!nosnyKontejner) {
     p.push({ x: LB - o, z: DB - o, skupina: 'B' }, { x: LB - o, z: o, skupina: 'B' })
   }
 
   // Rozpon podél ramene A mezi rohovou podporou a koncem ramene
-  const rozponA = (LA - o) - (DB - o)
+  const odZ = vRohu ? rohZ : DB - o
+  const rozponA = (LA - o) - odZ
   if (potrebaMezilehle(c, rozponA)) {
-    const zStred = (DB - o + LA - o) / 2
+    const zStred = (odZ + LA - o) / 2
     p.push({ x: o, z: zStred, skupina: 'mezi' }, { x: DA - o, z: zStred, skupina: 'mezi' })
   }
   return p
@@ -112,13 +130,18 @@ export function skutecnyRozpon(c: DeskConfig): number {
   const p = podpory(c)
   const { ramenoAHloubka: DA, ramenoBHloubka: DB } = c.rozmery
   const jeL = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0
+  const vRohu = sediSeVRohu(c)
+  const o = c.podnoz.odsazeni
 
-  // podél ramene A: podpory na straně místnosti (x ~ DA - o)
-  const podelA = p.filter((q) => Math.abs(q.x - (DA - c.podnoz.odsazeni)) < 1).map((q) => q.z).sort((a, b) => a - b)
+  // podél ramene A: podpory na straně místnosti (x ~ DA - o); při sezení v rohu
+  // začíná rozpon u rohové podpory vzadu
+  const podelA = p.filter((q) => Math.abs(q.x - (DA - o)) < 1).map((q) => q.z).sort((a, b) => a - b)
+  if (vRohu) podelA.unshift(Math.max(o, 80))
   // podél ramene B: podpory na straně místnosti (z ~ DB - o)
   const podelB = jeL
-    ? p.filter((q) => Math.abs(q.z - (DB - c.podnoz.odsazeni)) < 1).map((q) => q.x).sort((a, b) => a - b)
+    ? p.filter((q) => Math.abs(q.z - (DB - o)) < 1).map((q) => q.x).sort((a, b) => a - b)
     : []
+  if (jeL && vRohu) podelB.unshift(Math.max(o, 80))
 
   const maxMezera = (arr: number[]) =>
     arr.length < 2 ? (arr.length === 1 ? arr[0] : 0) : Math.max(...arr.slice(1).map((v, i) => v - arr[i]))

@@ -1,9 +1,10 @@
 import type { DeskConfig } from '@/model/types'
 import { m } from './shapes'
-import { poziceSezeni } from '@/model/constraints'
+import { pracoviste } from '@/model/constraints'
 import { Box } from './Bar'
-import { useKov, usePovrch, useMat } from './useMaterials'
+import { useKov } from './useMaterials'
 
+/** Kabelová lávka a LED podsvícení. Nástavec na monitor kreslí Pracoviste — sleduje monitor. */
 export function Doplnky({ config }: { config: DeskConfig }) {
   const { rozmery, doplnky } = config
   const LA = m(rozmery.ramenoADelka)
@@ -15,11 +16,9 @@ export function Doplnky({ config }: { config: DeskConfig }) {
   const podDeskou = H - m(config.deska.tloustka)
 
   const kov = useKov('#2A2B2C')
-  const drevo = usePovrch(config.deska.materialId, { meritko: [0.8, 0.4] })
-  const led = useMat('#FFE7C4', 0.4)
+  const p = pracoviste(config)
 
   const zOd = (jeL ? DB : 0) + 0.12
-  const sez = m(poziceSezeni(config))
 
   return (
     <group>
@@ -49,19 +48,9 @@ export function Doplnky({ config }: { config: DeskConfig }) {
               </mesh>
             </>
           )}
-          <pointLight position={[DA - 0.1, podDeskou - 0.10, sez]} intensity={0.30} distance={1.1} color="#FFD8A0" />
+          <pointLight position={[m(p.hrana.x) - p.smer.x * 0.1, podDeskou - 0.10, m(p.hrana.z) - p.smer.z * 0.1]} intensity={0.30} distance={1.1} color="#FFD8A0" />
         </group>
       )}
-
-      {/* nástavec na monitor — stojí pod monitorem, ne někde vedle */}
-      {doplnky.nastavecMonitor && (
-        <group>
-          <Box pos={[0.30, H + 0.098, sez]} size={[0.32, m(20), 0.62]} material={drevo} radius={0.003} />
-          <Box pos={[0.30 - 0.14, H + 0.045, sez]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
-          <Box pos={[0.30 + 0.14, H + 0.045, sez]} size={[0.022, 0.09, 0.58]} material={drevo} radius={0.003} />
-        </group>
-      )}
-      <group>{led && null}</group>
     </group>
   )
 }

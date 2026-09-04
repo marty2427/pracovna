@@ -45,7 +45,7 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
     delka: r.ramenoADelka, sirka: r.ramenoAHloubka, tloustka: t,
     material: mat.nazev,
     hrany: `${hranaPopis} — čelní a boční hrana; zadní hrana k stěně bez úpravy`,
-    poznamka: c.deska.radiusRohu > 0 ? `vnější rohy R${c.deska.radiusRohu}` : undefined,
+    poznamka: [c.deska.radiusRohu > 0 ? `vnější rohy R${c.deska.radiusRohu}` : '', c.deska.radiusUZdi > 0 ? `roh u zdi R${c.deska.radiusUZdi}` : '', c.deska.vyrez > 0 ? `výřez v přední hraně ${c.deska.vyrez} mm v místě sezení` : ''].filter(Boolean).join(', ') || undefined,
   })
   if (jeL) {
     dilce.push({

@@ -27,6 +27,14 @@ export type UlozneTyp =
 
 export type Rameno = 'A' | 'B'
 
+/**
+ * Kde stojí monitor a tedy i kde se sedí.
+ *   roh      — monitor v rohu L, sedí se na úhlopříčce (klasické rohové pracoviště)
+ *   ramenoA  — monitor u levé stěny na dlouhém rameni
+ *   ramenoB  — monitor u zadní stěny na kratším rameni
+ */
+export type MonitorUmisteni = 'roh' | 'ramenoA' | 'ramenoB'
+
 export interface Deska {
   materialId: string
   tloustka: Tloustka
@@ -36,7 +44,14 @@ export interface Deska {
   /** Zaoblení vnitřního rohu L, mm. */
   radiusVnitrni: number
   /**
+   * Zaoblení rohu desky u zdi (v rohu místnosti), mm. 0 = deska roh vyplní celý.
+   * Větší rádius nechá za monitorem mezeru na kabely a deska nemusí sedět
+   * na milimetr do rohu, který stejně nikdy není přesně pravý.
+   */
+  radiusUZdi: number
+  /**
    * Ergonomický výřez v přední hraně v místě sezení (0 = žádný).
+   * Kde přesně je, určuje umístění monitoru (doplnky.monitorUmisteni).
    * Přesah desky přes podnož se nastavuje jako `podnoz.odsazeni` — je to
    * tatáž veličina měřená z druhé strany, mít ji dvakrát by se rozešlo.
    */
@@ -58,7 +73,7 @@ export interface Podnoz {
    * 'auto' ji přidá, jen když by rozpon překročil limit materiálu.
    */
   mezilehlaPodpora: 'auto' | 'ano' | 'ne'
-  /** Podélná výztuha (jekl) pod deskou — zvýší dovolený rozpon. */
+  /** Podélná výztuha (jekl) pod deskou — zvýší dovolený rozpon. U bočnic je to zadní výztužný panel. */
   vyztuha: boolean
 }
 
@@ -78,8 +93,10 @@ export interface Doplnky {
   ledPodsviceni: boolean
   nastavecMonitor: boolean
   zadniPanel: boolean
-  /** Tiskárna v rohu L — zadání uživatele. */
-  tiskarnaVRohu: boolean
+  /** Kde stojí monitor (a kde se sedí). */
+  monitorUmisteni: MonitorUmisteni
+  /** Posun monitoru od zdi / z rohu směrem k sedícímu, mm (0 = stojan u zdi). */
+  monitorPosun: number
 }
 
 export interface Rozmery {
@@ -114,3 +131,6 @@ export interface DeskConfig {
 export interface Rect {
   x0: number; z0: number; x1: number; z1: number
 }
+
+/** Bod v půdorysu (mm). */
+export type Bod = { x: number; z: number }

@@ -1,7 +1,8 @@
-import { SPACE, MAX_RAMENO_A, maxRamenoB, TISKARNA, STAVITELNY_RAM, PEVNA_PODNOZ_MAX } from './space'
-import type { DeskConfig, Rect } from './types'
+import { SPACE, MAX_RAMENO_A, maxRamenoB, STAVITELNY_RAM, PEVNA_PODNOZ_MAX, MONITOR } from './space'
+import type { DeskConfig, Rect, Bod, MonitorUmisteni } from './types'
 import { material } from './materials'
 import { podpory, skutecnyRozpon, dovolenyRozpon, MAX_ROZPON, maxRozponMat } from './podpory'
+import { obrysDeskyBody, prusecikSHranou, poziceSezeniA, poziceSezeniB, type Pt } from './obrys'
 
 export type Zavaznost = 'ok' | 'pozor' | 'chyba'
 
@@ -14,6 +15,13 @@ export interface Kontrola {
   stav: Zavaznost
   zprava: string
 }
+
+/** Co o místnosti není v konfiguraci stolu, ale ovlivňuje kontroly. */
+export interface Mistnost {
+  /** Jak daleko od zadní stěny sahá lehátko gauče u stolu (mm). */
+  lehatko: number
+}
+export const VYCHOZI_MISTNOST: Mistnost = { lehatko: SPACE.gauc.lehatko.delka }
 
 /** Půdorysné obdélníky desky (rameno A a rameno B). */
 export function pudorys(c: DeskConfig): { a: Rect; b: Rect | null } {
@@ -54,40 +62,123 @@ export function viditelnaHrana(c: DeskConfig): number {
   return (ramenoADelka + ramenoBDelka) / 1000
 }
 
-/** Kde uživatel sedí — střed volné části ramene A (osa Z), mm. */
-export function poziceSezeni(c: DeskConfig): number {
-  const { ramenoADelka, ramenoBHloubka } = c.rozmery
-  const od = c.tvar === 'L' ? ramenoBHloubka + 250 : 250
-  return od + (ramenoADelka - od) / 2
+/** Kde uživatel sedí u ramene A (osa Z), mm — zpětná kompatibilita. */
+export const poziceSezeni = poziceSezeniA
+
+/** Skutečné umístění monitoru: u rovné desky nemá „roh" ani „rameno B" smysl. */
+export function umisteniMonitoru(c: DeskConfig): MonitorUmisteni {
+  const jeL = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0
+  return jeL ? c.doplnky.monitorUmisteni : 'ramenoA'
 }
 
-export function kontroly(c: DeskConfig): Kontrola[] {
+export interface Pracoviste {
+  umisteni: MonitorUmisteni
+  /** Střed obrazovky v půdorysu (mm) a natočení: úhel normály obrazovky (směr k divákovi) kolem osy Y. */
+  monitor: Bod & { rot: number }
+  /** Jednotkový směr od zdi k sedícímu. */
+  smer: Bod
+  /** Odkud paprsek vychází (bod na zdi / v rohu). */
+  pocatek: Bod
+  /** Přední hrana desky před sedícím. */
+  hrana: Bod
+  /** Oči sedícího. */
+  oci: Bod
+  /** Střed židle. */
+  zidle: Bod
+  /** Vzdálenost očí od obrazovky, mm. */
+  vzdalenost: number
+  /** Vzdálenost obrazovky od počátku (zdi / rohu) ve směru paprsku. */
+  monitorOdZdi: number
+  /** Přední hrana desky od počátku ve směru paprsku. */
+  hranaOdZdi: number
+}
+
+/**
+ * Kde stojí monitor, kde se sedí a jak daleko jsou oči od obrazovky.
+ * Počítá se z opravdového obrysu desky, takže výřez, zaoblení vnitřního rohu
+ * i roh u zdi se do vzdálenosti promítnou.
+ */
+export function pracoviste(c: DeskConfig): Pracoviste {
+  const um = umisteniMonitoru(c)
+  const posun = c.doplnky.monitorPosun
+  const poly = obrysDeskyBody(c)
+
+  let pocatek: Pt, smer: Pt, monitorOdZdi: number, rot: number
+  if (um === 'roh') {
+    const s = Math.SQRT1_2
+    pocatek = [0, 0]; smer = [s, s]
+    // Podstavec 480 mm široký natočený o 45°: jeho zadní rohy leží na
+    // b/√2 ∓ 240/√2 od stěn, takže zadní hrana musí být aspoň 240 mm
+    // (= polovina šířky podstavce) od rohu po úhlopříčce.
+    const zadniHranaPodstavce = MONITOR.stojan.sirka / 2
+    monitorOdZdi = zadniHranaPodstavce + MONITOR.obrazovkaOdZadu + posun
+    rot = Math.PI / 4
+  } else if (um === 'ramenoB') {
+    pocatek = [poziceSezeniB(c), 0]; smer = [0, 1]
+    monitorOdZdi = MONITOR.obrazovkaOdZadu + posun
+    rot = 0
+  } else {
+    pocatek = [0, poziceSezeniA(c)]; smer = [1, 0]
+    monitorOdZdi = MONITOR.obrazovkaOdZadu + posun
+    rot = Math.PI / 2
+  }
+
+  const hranaOdZdi = prusecikSHranou(poly, pocatek, smer) ?? c.rozmery.ramenoAHloubka
+  const at = (t: number): Bod => ({ x: pocatek[0] + smer[0] * t, z: pocatek[1] + smer[1] * t })
+  const oci = at(hranaOdZdi + MONITOR.ociZaHranou)
+  return {
+    umisteni: um,
+    monitor: { ...at(monitorOdZdi), rot },
+    smer: { x: smer[0], z: smer[1] },
+    pocatek: { x: pocatek[0], z: pocatek[1] },
+    hrana: at(hranaOdZdi),
+    oci,
+    zidle: at(hranaOdZdi + 360),
+    vzdalenost: hranaOdZdi + MONITOR.ociZaHranou - monitorOdZdi,
+    monitorOdZdi,
+    hranaOdZdi,
+  }
+}
+
+/** Kolik zbývá od krajů obrazovky ke stěnám při monitoru v rohu (mm). */
+export function odstupObrazovkyOdSten(c: DeskConfig): number {
+  const p = pracoviste(c)
+  if (p.umisteni !== 'roh') return Infinity
+  // Zakřivený panel: kraje jsou o sagitu blíž k divákovi než střed.
+  const pul = MONITOR.sirka / 2
+  const sagita = MONITOR.zakriveni - Math.sqrt(MONITOR.zakriveni ** 2 - pul ** 2)
+  const okraj = pul * Math.SQRT1_2
+  const dopredu = (p.monitorOdZdi + sagita) * Math.SQRT1_2
+  return dopredu - okraj
+}
+
+export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): Kontrola[] {
   const r = c.rozmery
   const out: Kontrola[] = []
+  const jeL = c.tvar === 'L' && r.ramenoBDelka > 0
 
   // 1) Délka ramene A vs. běh levé stěny
   const zbyvaOdHrany = SPACE.levaStenaRun - r.ramenoADelka
   out.push({
     id: 'rameno-a',
-    nazev: 'Konec ramene A od hrany',
+    nazev: 'Konec ramene A od hrany průchodu',
     hodnota: zbyvaOdHrany,
     jednotka: 'mm',
     cil: `≥ ${SPACE.odstupOdHrany} mm`,
-    stav: zbyvaOdHrany < SPACE.odstupOdHrany - 1 ? 'chyba'
-        : zbyvaOdHrany < SPACE.odstupOdHrany + 50 ? 'ok' : 'ok',
+    stav: zbyvaOdHrany < SPACE.odstupOdHrany - 1 ? 'chyba' : 'ok',
     zprava:
       zbyvaOdHrany < SPACE.odstupOdHrany
         ? `Rameno A je o ${SPACE.odstupOdHrany - zbyvaOdHrany} mm delší, než dovoluje odstup ${SPACE.odstupOdHrany} mm od hrany.`
-        : `Od hrany zbývá ${Math.round(zbyvaOdHrany / 10)} cm. Maximum délky je ${MAX_RAMENO_A / 10} cm.`,
+        : `Od hrany průchodu zbývá ${Math.round(zbyvaOdHrany / 10)} cm (stěna má ${SPACE.levaStenaRun / 10} cm, maximum délky je ${MAX_RAMENO_A / 10} cm).`,
   })
 
-  // 2) Mezera ke gauči
-  if (c.tvar === 'L') {
+  // 2) Mezera ke gauči — lehátko gauče stojí vedle konce ramene B po celé jeho hloubce
+  if (jeL) {
     const mezera = SPACE.zadniStenaKeGauci - r.ramenoBDelka
     const { idealniOd, idealniDo } = SPACE.mezeraKeGauci
     out.push({
       id: 'mezera-gauc',
-      nazev: 'Mezera ke gauči',
+      nazev: 'Mezera k lehátku gauče',
       hodnota: mezera,
       jednotka: 'mm',
       cil: `${idealniOd}–${idealniDo} mm`,
@@ -102,15 +193,16 @@ export function kontroly(c: DeskConfig): Kontrola[] {
           : mezera < idealniOd
             ? `${Math.round(mezera / 10)} cm ke gauči, těsně pod pásmem ${idealniOd / 10}–${idealniDo / 10} cm, které jsi chtěl.`
             : mezera <= idealniDo
-              ? `${Math.round(mezera / 10)} cm ke gauči — přesně v pásmu, které jsi chtěl.`
+              ? `${Math.round(mezera / 10)} cm mezi koncem ramene B a bokem lehátka — přesně v pásmu, které jsi chtěl.`
               : mezera <= 300
                 ? `${Math.round(mezera / 10)} cm ke gauči, víc než pásmo ${idealniOd / 10}–${idealniDo / 10} cm. Není to chyba, jen rameno B může být delší.`
                 : `${Math.round(mezera / 10)} cm ke gauči je zbytečně velká díra — rameno B může být o ${Math.round((mezera - idealniDo) / 10)} cm delší.`,
     })
   }
 
-  // 3) Zóna pro odsunutí židle
+  // 3) Zóna pro odsunutí židle: mezi přední hranou ramene A a bokem lehátka gauče
   const zona = SPACE.zadniStenaKeGauci - r.ramenoAHloubka
+  const lehatkoKryje = mistnost.lehatko >= pracoviste(c).zidle.z
   out.push({
     id: 'zona-zidle',
     nazev: 'Volno na odsunutí židle',
@@ -120,10 +212,10 @@ export function kontroly(c: DeskConfig): Kontrola[] {
     stav: zona < SPACE.zonaZidle.min ? 'chyba' : zona < SPACE.zonaZidle.doporuceno ? 'pozor' : 'ok',
     zprava:
       zona < SPACE.zonaZidle.min
-        ? `Jen ${Math.round(zona / 10)} cm od hrany desky — židle se pořádně neodsune.`
+        ? `Jen ${Math.round(zona / 10)} cm mezi hranou ramene A a lehátkem gauče — židle se pořádně neodsune.`
         : zona < SPACE.zonaZidle.doporuceno
-          ? `${Math.round(zona / 10)} cm od hrany desky. Jde to, ale pohodlné je ${SPACE.zonaZidle.doporuceno / 10} cm.`
-          : `${Math.round(zona / 10)} cm volné podlahy před stolem — na odsunutí židle pohodlné.`,
+          ? `${Math.round(zona / 10)} cm mezi hranou ramene A a lehátkem gauče. Jde to, ale pohodlné je ${SPACE.zonaZidle.doporuceno / 10} cm.`
+          : `${Math.round(zona / 10)} cm volné podlahy mezi hranou ramene A a lehátkem gauče` + (lehatkoKryje ? ' — lehátko sahá až za místo sezení, takže tohle je opravdu celá šířka.' : '.'),
   })
 
   // 4) Vyčnívání ramene A do místnosti
@@ -140,46 +232,64 @@ export function kontroly(c: DeskConfig): Kontrola[] {
         : `Deska sahá ${Math.round(r.ramenoAHloubka / 10)} cm od levé stěny.`,
   })
 
-  // 5) Tiskárna v rohu
-  if (c.doplnky.tiskarnaVRohu) {
-    const hloubkaRohu = c.tvar === 'L' ? r.ramenoBHloubka : r.ramenoAHloubka
-    out.push({
-      id: 'tiskarna',
-      nazev: 'Místo na tiskárnu v rohu',
-      hodnota: hloubkaRohu,
-      jednotka: 'mm',
-      cil: `≥ ${TISKARNA.hloubka + 60} mm`,
-      stav: hloubkaRohu < TISKARNA.hloubka + 60 ? 'pozor' : 'ok',
-      zprava:
-        hloubkaRohu < TISKARNA.hloubka + 60
-          ? `Hloubka ${Math.round(hloubkaRohu / 10)} cm je na A4 multifunkci (${TISKARNA.hloubka / 10} cm) těsná.`
-          : `Roh unese A4 multifunkci ${TISKARNA.sirka / 10}×${TISKARNA.hloubka / 10} cm s rezervou.`,
-    })
-  }
+  // 5) Vzdálenost očí od monitoru
+  const pr = pracoviste(c)
+  const d = pr.vzdalenost
+  const { min, max } = MONITOR.vzdalenost
+  const kde = pr.umisteni === 'roh' ? 'v rohu' : pr.umisteni === 'ramenoB' ? 'na rameni B' : 'na rameni A'
+  const okrajeOdSten = odstupObrazovkyOdSten(c)
+  const podstavecVDire = pr.umisteni === 'roh'
+    && c.deska.radiusUZdi > (MONITOR.stojan.sirka / 2 + c.doplnky.monitorPosun) * Math.SQRT1_2 + (MONITOR.stojan.sirka / 2) * Math.SQRT1_2 - 40
+  let stavM: Zavaznost = d >= min && d <= max ? 'ok' : d >= min - 80 && d <= max + 100 ? 'pozor' : 'chyba'
+  if (pr.umisteni === 'roh' && okrajeOdSten < 25) stavM = 'chyba'
+  if (podstavecVDire && stavM === 'ok') stavM = 'pozor'
+  const tip =
+    d < min
+      ? (pr.umisteni === 'roh'
+          ? ` Zvětši zaoblení vnitřního rohu (deska se kolem tebe obtočí a odsune tě) nebo prohlub ramena.`
+          : ` Buď hlubší deska (na ${Math.round((r.ramenoAHloubka + (min - d)) / 10)} cm), nebo monitor do rohu — tam vychází úhlopříčka delší.`)
+      : d > max
+        ? ` Přisuň monitor posuvníkem „posun monitoru", nebo zmenši hloubku.`
+        : ''
+  out.push({
+    id: 'monitor',
+    nazev: `Oči od monitoru (${MONITOR.nazev.replace(/ .*/, '')} 32", ${kde})`,
+    hodnota: d,
+    jednotka: 'mm',
+    cil: `${min}–${max} mm`,
+    stav: stavM,
+    zprava:
+      `Oči ${Math.round(d / 10)} cm od obrazovky` +
+      (d >= min && d <= max ? ' — v pásmu 70–100 cm, které chceš.' : d < min ? ' — příliš blízko.' : ' — dál, než chceš.') +
+      tip +
+      (pr.umisteni === 'roh'
+        ? (okrajeOdSten < 25
+            ? ` Kraje obrazovky by narazily do stěn (${Math.round(okrajeOdSten)} mm) — posuň monitor dopředu.`
+            : ` Kraje 71 cm široké obrazovky jsou ${Math.round(okrajeOdSten / 10)} cm od stěn.`)
+        : '') +
+      (podstavecVDire ? ' Zaoblení rohu u zdi je tak velké, že podstavec monitoru přesahuje nad mezeru — zmenši ho nebo posuň monitor dopředu.' : ''),
+  })
 
   // 6) Dosah podnože — u dlouhého ramene je limitem rozměr rámu, ne cena
-  const nejdelsiRameno = Math.max(r.ramenoADelka, c.tvar === 'L' ? r.ramenoBDelka : 0)
+  const nejdelsiRameno = Math.max(r.ramenoADelka, jeL ? r.ramenoBDelka : 0)
   if (c.podnoz.typ === 'stavitelny-ram') {
-    const jeL2 = c.tvar === 'L' && r.ramenoBDelka > 0
-    // U rohové sestavy rozhoduje i druhé rameno — Powerton ERGO EDGE podporuje
-    // první rameno do 220 cm, ale druhé jen do 110 cm.
-    const druheRamenoPresahuje = jeL2 && r.ramenoBDelka > STAVITELNY_RAM.rohovaSestavaDruheRameno
-    const nadRohovouSestavu = jeL2 && nejdelsiRameno > STAVITELNY_RAM.rohovaSestava
+    const druheRamenoPresahuje = jeL && r.ramenoBDelka > STAVITELNY_RAM.rohovaSestavaDruheRameno
+    const nadRohovouSestavu = jeL && nejdelsiRameno > STAVITELNY_RAM.rohovaSestava
     const stav: Zavaznost =
       nejdelsiRameno <= STAVITELNY_RAM.bezneMax && !druheRamenoPresahuje ? 'ok'
-      : (jeL2 && (nadRohovouSestavu || druheRamenoPresahuje)) ? 'chyba'
+      : (jeL && (nadRohovouSestavu || druheRamenoPresahuje)) ? 'chyba'
       : nejdelsiRameno <= STAVITELNY_RAM.nejdelsiDvousloupovy ? 'pozor' : 'chyba'
     out.push({
       id: 'dosah-ramu',
       nazev: 'Dosah stavitelného rámu',
       hodnota: nejdelsiRameno,
       jednotka: 'mm',
-      cil: jeL2
+      cil: jeL
         ? `roh 90°: ramena do ${STAVITELNY_RAM.rohovaSestava} a ${STAVITELNY_RAM.rohovaSestavaDruheRameno} mm`
         : `běžné rámy do ${STAVITELNY_RAM.bezneMax} mm`,
       stav,
       zprava:
-        stav === 'chyba' && jeL2
+        stav === 'chyba' && jeL
           ? `Rohovou polohovací sestavu na ${Math.round(r.ramenoADelka / 10)} × ${Math.round(r.ramenoBDelka / 10)} cm se nepodařilo najít na trhu. `
             + `Liftor L uvádí desky až 290 cm, ale jen pro rovné uspořádání — pro roh 90° zvládne ramena do ${STAVITELNY_RAM.rohovaSestava / 10} cm. `
             + `Powerton ERGO EDGE zvládne první rameno do 220 cm, ale druhé jen do ${STAVITELNY_RAM.rohovaSestavaDruheRameno / 10} cm.`
@@ -204,22 +314,25 @@ export function kontroly(c: DeskConfig): Kontrola[] {
 
   // 7) Rozpon desky bez podpory
   const rozpon = skutecnyRozpon(c)
-  const max = dovolenyRozpon(c)
-  const pocetPodpor = podpory(c).length
-  const maMezilehlou = podpory(c).some((q) => q.skupina === 'mezi')
+  const maxR = dovolenyRozpon(c)
+  const pods = podpory(c)
+  const maMezilehlou = pods.some((q) => q.skupina === 'mezi')
+  const rohVzadu = jeL && pr.umisteni === 'roh'
   out.push({
     id: 'rozpon',
     nazev: 'Rozpon desky bez podpory',
     hodnota: rozpon,
     jednotka: 'mm',
-    cil: `≤ ${max} mm`,
-    stav: rozpon > max ? 'chyba' : rozpon > max * 0.9 ? 'pozor' : 'ok',
+    cil: `≤ ${maxR} mm`,
+    stav: rozpon > maxR ? 'chyba' : rozpon > maxR * 0.9 ? 'pozor' : 'ok',
     zprava:
-      rozpon > max
+      rozpon > maxR
         ? `${Math.round(rozpon / 10)} cm mezi podporami je na ${material(c.deska.materialId).nazev} ${c.deska.tloustka} mm moc. Zesil desku, zapni výztuhu, nebo přidej mezilehlou podporu.`
-        : `${Math.round(rozpon / 10)} cm mezi podporami, limit pro tuhle desku je ${Math.round(max / 10)} cm`
+        : `${Math.round(rozpon / 10)} cm mezi podporami, limit pro tuhle desku je ${Math.round(maxR / 10)} cm`
           + (c.podnoz.vyztuha ? ' (včetně podélné výztuhy)' : '')
-          + `. Podpor celkem ${pocetPodpor}` + (maMezilehlou ? ', z toho jedna mezilehlá.' : '.'),
+          + `. Podpor celkem ${pods.length}`
+          + (maMezilehlou ? ', z toho jedna mezilehlá' : '')
+          + (rohVzadu ? '; rohová podpora je vzadu v rohu místnosti, aby nestála mezi koleny.' : '.'),
   })
 
   // 8) Prostor pro nohy pod deskou

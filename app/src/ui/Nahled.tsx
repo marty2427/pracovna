@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import type { DeskConfig } from '@/model/types'
 import { material } from '@/model/materials'
 import { podpory } from '@/model/podpory'
+import { obrysDeskyBody } from '@/model/obrys'
 
 /**
  * Izometrický náhled generovaný ze stejných parametrů jako 3D model.
@@ -33,9 +34,8 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
       (x + z) * SIN30 - y,
     ]
 
-    const obrys: Array<[number, number]> = jeL
-      ? [[0, 0], [LB, 0], [LB, DB], [DA, DB], [DA, LA], [0, LA]]
-      : [[0, 0], [DA, 0], [DA, LA], [0, LA]]
+    // skutečný obrys se zaoblením rohů, obloukem v rohu i výřezem — ať náhled odpovídá modelu
+    const obrys: Array<[number, number]> = obrysDeskyBody(config, 5)
 
     const top = obrys.map(([x, z]) => iso(x, H, z))
     const bot = obrys.map(([x, z]) => iso(x, H - T, z))

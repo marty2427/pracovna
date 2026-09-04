@@ -7,16 +7,20 @@ export interface Rodina {
   popis: string
 }
 
+/**
+ * Presety po zúžení zadání: JEN dřevo a dřevěné dekory, podnož jen hranatý
+ * profil nebo plné bočnice. Rodiny se liší tím, co v místnosti opravdu
+ * rozhoduje — kde stojí monitor, jaká podnož, kolik úložného, jak velký stůl.
+ */
 export const RODINY: Rodina[] = [
-  { id: 'truhlar', nazev: 'Truhlářský masiv', popis: 'Silná masivní deska, masivní nákližek, dřevěné bočnice a traverzy. Nejdražší, ale vypadá to jako nábytek, ne jako sestava dílů.' },
-  { id: 'skandi', nazev: 'Skandinávský / IKEA hack', popis: 'Dýhovaná nebo lamino deska z katalogu na kónických nohách nebo zásuvkové jednotce. Nejlevnější cesta k slušnému vzhledu.' },
-  { id: 'industrial', nazev: 'Industriál kov + masiv', popis: 'Jeklové rámy v černém komaxitu pod silnou dřevěnou deskou. Nejsilnější vazba na černé rámy fotek a židli v místnosti.' },
-  { id: 'kontejner', nazev: 'S kontejnerem', popis: 'Zásuvky pod ramenem B. Kontejner buď stojí vedle, nebo přímo nese desku.' },
-  { id: 'panel', nazev: 'Se zadním panelem', popis: 'Zadní panel a police nad ramenem B. Schová kabely a udělá ze stolu uzavřený celek.' },
-  { id: 'plovouci', nazev: 'Minimalistický plovoucí', popis: 'Tenká deska, subtilní podnož, LED podsvícení. Stůl se v místnosti co nejmíň hlásí o slovo.' },
-  { id: 'kompakt', nazev: 'Kompaktní do rohu', popis: 'Kratší ramena a mělčí deska. Když nechceš zabrat celý roh.' },
+  { id: 'roh', nazev: 'Monitor v rohu', popis: 'Sedí se na úhlopříčce, deska se kolem tebe obtočí velkým rádiusem. Roh L, který je jinak mrtvý, dělá práci — a 32" monitor tam má na oči nejvíc místa.' },
+  { id: 'rameno-a', nazev: 'Monitor u obrazu (rameno A)', popis: 'Klasické sezení čelem k levé stěně. Pro 32" monitor chce deska hloubku 75+ cm, což ubírá ze zóny na židli — ten kompromis je tu vidět.' },
+  { id: 'rameno-b', nazev: 'Monitor u gauče (rameno B)', popis: 'Sezení čelem k zadní stěně, gauč po pravé ruce. Rameno B musí být hluboké 75+ cm, takže je to spíš druhý stůl než hlavní plocha.' },
+  { id: 'hranaty', nazev: 'Hranatý rám', popis: 'Tvůj favorit ve variantách: síla jeklu, barva komaxitu, tloušťka desky, odsazení. Jedna konstrukce, jiný výraz.' },
+  { id: 'bocnice', nazev: 'Plné bočnice', popis: 'Silné panely ve stejné tloušťce jako deska, na stínové spáře, se zadním výztužným panelem. Ne bočnice z kancelářského stolu z 90. let.' },
+  { id: 'ulozne', nazev: 'Zásuvky a kontejnery', popis: 'Kam s věcmi: pojezdový nebo pevný kontejner, ploché zásuvky, skříňka, police, zadní panel.' },
+  { id: 'kompakt', nazev: 'Kompaktní 160–200', popis: 'Kratší rameno A, mělčí deska. Když nechceš zabrat celý roh — pořád se sedí v rohu u monitoru.' },
   { id: 'rovna', nazev: 'Rovná deska', popis: 'Bez ramene B, jen běh podél levé stěny. Alternativa, kdyby sis L rozmyslel.' },
-  { id: 'polohovatelny', nazev: 'Kancelářský polohovatelný', popis: 'Elektricky stavitelné rámy. Zvolil sis pevnou výšku, takže je to tu jen pro srovnání.' },
 ]
 
 /**
@@ -26,404 +30,293 @@ export const RODINY: Rodina[] = [
  */
 const R = (p: Partial<Rozmery> = {}): Rozmery => ({
   ramenoADelka: 2000, ramenoAHloubka: 700,
-  ramenoBDelka: 1480, ramenoBHloubka: 550,
+  ramenoBDelka: 1480, ramenoBHloubka: 600,
   vyska: 750, mezeraKeGauci: 120, ...p,
 })
 
 const D = (p: Partial<Deska> = {}): Deska => ({
   materialId: 'dub-svetly-masiv', tloustka: 30, hrana: 'srazena',
-  radiusRohu: 12, radiusVnitrni: 90, vyrez: 0, ...p,
+  radiusRohu: 12, radiusVnitrni: 320, radiusUZdi: 160, vyrez: 0, ...p,
 })
 
 const P = (p: Partial<Podnoz> = {}): Podnoz => ({
-  typ: 'ram-U', profil: 40, odsazeni: 90, barva: '#1F2021',
+  typ: 'ram-hranaty', profil: 40, odsazeni: 90, barva: '#1F2021',
   material: 'kov', mezilehlaPodpora: 'auto', vyztuha: true, ...p,
 })
 
-const U = (typ: Ulozne['typ'], rameno: Ulozne['rameno'] = 'B', pozice = 0.85, extra: Partial<Ulozne> = {}): Ulozne[] =>
+/** Plné bočnice ze stejného dřeva jako deska, malé odsazení. */
+const PB = (materialId: string, p: Partial<Podnoz> = {}): Podnoz =>
+  P({ typ: 'bocnice', material: 'drevo', materialId, odsazeni: 60, ...p })
+
+const U = (typ: Ulozne['typ'], rameno: Ulozne['rameno'] = 'A', pozice = 0.9, extra: Partial<Ulozne> = {}): Ulozne[] =>
   typ === 'nic' ? [] : [{ typ, rameno, pozice, ...extra }]
 
 const DO = (p: Partial<Doplnky> = {}): Doplnky => ({
-  kabelovaLavka: true, pruchodka: 'kulata', ledPodsviceni: false,
-  nastavecMonitor: false, zadniPanel: false, tiskarnaVRohu: false, ...p,
+  kabelovaLavka: true, pruchodka: 'zadna', ledPodsviceni: false,
+  nastavecMonitor: false, zadniPanel: false, monitorUmisteni: 'roh', monitorPosun: 0, ...p,
 })
 
 type Vstup = Omit<DeskConfig, 'tvar'> & { tvar?: DeskConfig['tvar'] }
 const mk = (v: Vstup): DeskConfig => ({ tvar: 'L', ...v })
 
 export const PRESETY: DeskConfig[] = [
-  // ---------- TRUHLÁŘSKÝ MASIV ----------
-  mk({ id: 'tr-01', rodina: 'truhlar', nazev: 'Dubová deska 40 na bočnicích',
-    popis: 'Spárovka 40 mm s masivním nákližkem, plné dubové bočnice. Nejtěžší a nejtišší varianta.',
-    rozmery: R({ ramenoADelka: 2110 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 20, radiusVnitrni: 140 }),
-    podnoz: P({ typ: 'bocnice', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 40, odsazeni: 140 }),
-    ulozne: U('kontejner-pevny'), doplnky: DO({ pruchodka: 'obdelnikova' }) }),
+  // ---------- MONITOR V ROHU ----------
+  mk({ id: 'ro-01', rodina: 'roh', nazev: 'Rohové pracoviště, dub 30',
+    popis: 'Výchozí bod: dub 30 mm na hranatém rámu, vnitřní roh R320, roh u zdi R160 na kabely. Oči vychází 78 cm od obrazovky.',
+    rozmery: R(), deska: D(), podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'tr-02', rodina: 'truhlar', nazev: 'Jasan 40 na kozách',
-    popis: 'Jasanová deska na dřevěných kozách s příčkou. Odkazuje na truhlářský ponk.',
-    rozmery: R({ ramenoBDelka: 1400 }), deska: D({ materialId: 'jasan-masiv', tloustka: 40, hrana: 'zkosena', radiusRohu: 16, radiusVnitrni: 120 }),
-    podnoz: P({ typ: 'kozy', material: 'drevo', materialId: 'jasan-masiv', profil: 55, odsazeni: 180 }),
-    ulozne: U('zasuvka-plocha', 'A', 0.35), doplnky: DO() }),
+  mk({ id: 'ro-02', rodina: 'roh', nazev: 'Velký oblouk R400',
+    popis: 'Největší možný rádius vnitřního rohu — deska se kolem tebe obtočí, předloktí leží na obou ramenech. Oči 83 cm od obrazovky.',
+    rozmery: R({ ramenoBHloubka: 650 }), deska: D({ radiusVnitrni: 400, radiusUZdi: 200 }),
+    podnoz: P(), ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'tr-03', rodina: 'truhlar', nazev: 'Kouřový dub, kónické nohy',
-    popis: 'Tmavší mořený dub na kónických nohách. Stůl se opticky odsadí od podlahy.',
-    rozmery: R({ ramenoADelka: 1900, ramenoBDelka: 1300 }), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160, vyrez: 110 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-kourovy-masiv', profil: 60, odsazeni: 110 }),
-    ulozne: U('kontejner-3'), doplnky: DO({ ledPodsviceni: true }) }),
+  mk({ id: 'ro-03', rodina: 'roh', nazev: 'Roh bez mezery u zdi, s průchodkou',
+    popis: 'Deska vyplní roh celý; kabely od monitoru jdou dolů kulatou průchodkou za stojanem.',
+    rozmery: R(), deska: D({ radiusUZdi: 0, radiusVnitrni: 300 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO({ pruchodka: 'kulata' }) }),
 
-  mk({ id: 'tr-04', rodina: 'truhlar', nazev: 'Ořech 30 se zásuvkou',
-    popis: 'Ořechová deska, plochá zásuvka pod hlavní plochou na drobnosti.',
-    rozmery: R({ ramenoAHloubka: 720 }), deska: D({ materialId: 'orech-masiv', tloustka: 30, hrana: 'srazena', radiusRohu: 10, radiusVnitrni: 100 }),
-    podnoz: P({ typ: 'nohy-rovne', material: 'drevo', materialId: 'orech-masiv', profil: 65, odsazeni: 100 }),
-    ulozne: U('zasuvka-plocha', 'A', 0.4), doplnky: DO({ nastavecMonitor: true }) }),
+  mk({ id: 'ro-04', rodina: 'roh', nazev: 'Hlubší ramena 75 / 70',
+    popis: 'O 5 cm hlubší obě ramena: oči 88 cm od obrazovky, ale zóna na židli klesne na 85 cm.',
+    rozmery: R({ ramenoAHloubka: 750, ramenoBHloubka: 700 }), deska: D(),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'tr-05', rodina: 'truhlar', nazev: 'Dub v tónu podlahy',
-    popis: 'Deska mořená do tónu vlysů — stůl se v podlaze rozpustí a roh vypadá větší.',
-    rozmery: R(), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 18, radiusVnitrni: 130 }),
-    podnoz: P({ typ: 'bocnice', material: 'drevo', materialId: 'dub-podlaha-masiv', odsazeni: 150 }),
-    ulozne: U('skrinka', 'B', 0.9), doplnky: DO() }),
+  mk({ id: 'ro-05', rodina: 'roh', nazev: 'Mělká ramena 65 / 55',
+    popis: 'Nejmělčí deska, která v rohu ještě dá 70 cm na oči. Zóna na židli 95 cm, stůl vyčnívá nejmíň.',
+    rozmery: R({ ramenoAHloubka: 650, ramenoBHloubka: 550 }), deska: D({ radiusVnitrni: 360 }),
+    podnoz: P({ profil: 35 }), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
 
-  mk({ id: 'tr-06', rodina: 'truhlar', nazev: 'Buk 30, šikmé nohy',
-    popis: 'Buková deska na rozkročených nohách. Světlý, obytný, ne kancelářský.',
-    rozmery: R({ ramenoADelka: 1800, ramenoBDelka: 1250 }), deska: D({ materialId: 'buk-masiv', tloustka: 30, hrana: 'radius', radiusRohu: 30, radiusVnitrni: 180, vyrez: 125 }),
-    podnoz: P({ typ: 'nohy-sikme', material: 'drevo', materialId: 'buk-masiv', profil: 55, odsazeni: 120 }),
-    ulozne: U('police', 'B', 0.85), doplnky: DO({ kabelovaLavka: false }) }),
+  mk({ id: 'ro-06', rodina: 'roh', nazev: 'Roh na maximum 211 × 148',
+    popis: 'Rameno A až na 25 cm od hrany průchodu. Nejvíc plochy, nejdelší rozpon — proto masiv 30 s výztuhou.',
+    rozmery: R({ ramenoADelka: MAX_RAMENO_A }), deska: D(),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.92), doplnky: DO() }),
 
-  // ---------- SKANDINÁVSKÝ / IKEA HACK ----------
-  mk({ id: 'sk-01', rodina: 'skandi', nazev: 'Dýhovaná deska na kónických nohách',
-    popis: 'Dýhovaná MDF 25 mm a kónické nohy. Nejjednodušší cesta ke skandinávskému vzhledu.',
-    rozmery: R({ ramenoADelka: 1860, ramenoBDelka: 1300, ramenoAHloubka: 650 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25, hrana: 'srazena', radiusRohu: 14, radiusVnitrni: 110 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 50, odsazeni: 90 }),
-    ulozne: U('kontejner-3'), doplnky: DO({ ledPodsviceni: false }) }),
+  mk({ id: 'ro-07', rodina: 'roh', nazev: 'Roh 180 cm',
+    popis: 'Rameno A jen 180 cm — od hrany průchodu zbude 56 cm a stůl je na pohled lehčí. V rohu se sedí stejně pohodlně.',
+    rozmery: R({ ramenoADelka: 1800 }), deska: D(),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'sk-02', rodina: 'skandi', nazev: 'Deska na zásuvkové jednotce',
-    popis: 'Klasický IKEA hack: deska položená na zásuvkové jednotce a jednom rámu.',
-    rozmery: R({ ramenoBDelka: 1420 }), deska: D({ materialId: 'lamino-dub-svetly', tloustka: 25, hrana: 'rovna', radiusRohu: 8, radiusVnitrni: 80 }),
-    podnoz: P({ typ: 'kontejner-nosny', profil: 35, odsazeni: 70 }),
-    ulozne: U('kontejner-pevny', 'B', 0.9), doplnky: DO() }),
+  mk({ id: 'ro-08', rodina: 'roh', nazev: 'Ořech 40 s nákližkem',
+    popis: 'Tmavý ořech 40 mm s masivním nákližkem. Nejtěžší a nejdražší deska v galerii — ale rozpon zvládne i bez výztuhy.',
+    rozmery: R(), deska: D({ materialId: 'orech-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 18, radiusVnitrni: 340 }),
+    podnoz: P({ vyztuha: false }), ulozne: U('kontejner-pevny', 'A', 0.95), doplnky: DO() }),
 
-  mk({ id: 'sk-03', rodina: 'skandi', nazev: 'Bílé nohy, světlá deska',
-    popis: 'Bílá podnož a světlý dekor. Nejvíc splyne se stěnou, nejmíň se hlásí o pozornost.',
-    rozmery: R({ ramenoAHloubka: 620 }), deska: D({ materialId: 'lamino-dub-svetly', tloustka: 25, hrana: 'srazena', radiusRohu: 10, radiusVnitrni: 90 }),
-    podnoz: P({ typ: 'ram-U', barva: '#E8E6E1', profil: 35, odsazeni: 80 }),
-    ulozne: U('zasuvky-2', 'A', 0.3), doplnky: DO() }),
+  mk({ id: 'ro-09', rodina: 'roh', nazev: 'Kouřový dub, bílý rám',
+    popis: 'Tmavší deska a bílý komaxit — rám splyne se stěnou, deska vypadá, že se vznáší.',
+    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv' }),
+    podnoz: P({ barva: '#E8E6E1' }), ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'sk-04', rodina: 'skandi', nazev: 'Bambusová deska, hairpin',
-    popis: 'Tenká deska na hairpin nohách. Vzdušné a levné, ale unese míň.',
-    rozmery: R({ ramenoADelka: 1800, ramenoBDelka: 1250, ramenoAHloubka: 600 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25, hrana: 'radius', radiusRohu: 20, radiusVnitrni: 120 }),
-    podnoz: P({ typ: 'hairpin', profil: 12, odsazeni: 80 }),
-    ulozne: U('nic'), doplnky: DO({ kabelovaLavka: true }) }),
+  mk({ id: 'ro-10', rodina: 'roh', nazev: 'Dýha dub 25 — levnější roh',
+    popis: 'Dýhovaná MDF 25 mm místo masivu. Na dlouhé rameno si sama přidá mezilehlou podporu.',
+    rozmery: R(), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25, hrana: 'srazena' }),
+    podnoz: P({ profil: 35 }), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
 
-  mk({ id: 'sk-05', rodina: 'skandi', nazev: 'Světlá deska, dřevěné rovné nohy',
-    popis: 'Nejjednodušší poctivá varianta: deska a čtyři hranaté nohy.',
-    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'srazena', radiusRohu: 12, radiusVnitrni: 100 }),
-    podnoz: P({ typ: 'nohy-rovne', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 60, odsazeni: 100 }),
-    ulozne: U('kontejner-3', 'B', 0.8), doplnky: DO() }),
+  mk({ id: 'ro-11', rodina: 'roh', nazev: 'Roh s rohovou poličkou a LED',
+    popis: 'Nástavec v rohu je pětiúhelníková polička, monitor stojí na ní. LED pásek pod přední hranou obou ramen.',
+    rozmery: R(), deska: D({ materialId: 'dub-podlaha-masiv' }),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO({ nastavecMonitor: true, ledPodsviceni: true }) }),
 
-  mk({ id: 'sk-06', rodina: 'skandi', nazev: 'Krémová deska, dubové nohy',
-    popis: 'Krémová deska v tónu stěn, dubové nohy. Stůl ustoupí, vynikne gauč a obraz.',
-    rozmery: R({ ramenoADelka: 1900, ramenoAHloubka: 660 }), deska: D({ materialId: 'lamino-krem', tloustka: 25, hrana: 'srazena', radiusRohu: 16, radiusVnitrni: 110 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 52, odsazeni: 95 }),
-    ulozne: U('police', 'B', 0.88), doplnky: DO() }),
+  mk({ id: 'ro-12', rodina: 'roh', nazev: 'Roh na dubových bočnicích',
+    popis: 'Stejné rohové sezení, ale místo rámu plné dubové bočnice. Rohová podpora je vzadu u zdi, mezi koleny nic není.',
+    rozmery: R(), deska: D(), podnoz: PB('dub-svetly-masiv'),
+    ulozne: U('kontejner-pevny', 'A', 0.95), doplnky: DO() }),
 
-  // ---------- INDUSTRIÁL ----------
-  mk({ id: 'in-01', rodina: 'industrial', nazev: 'Jekl U + masiv 40',
-    popis: 'Černý U rám z jeklu 40×40 pod dubovou spárovkou 40 mm. Tvrdý kontrast, jasná konstrukce.',
-    rozmery: R({ ramenoADelka: 2110, ramenoBDelka: 1480 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 40, hrana: 'srazena', radiusRohu: 8, radiusVnitrni: 90 }),
-    podnoz: P({ typ: 'ram-U', profil: 40, odsazeni: 110 }), ulozne: U('kontejner-3'),
-    doplnky: DO({ pruchodka: 'obdelnikova' }) }),
+  // ---------- MONITOR U OBRAZU (RAMENO A) ----------
+  mk({ id: 'ra-01', rodina: 'rameno-a', nazev: 'Čelem k obrazu, hloubka 75',
+    popis: 'Monitor u levé stěny. Aby oči byly aspoň 70 cm od obrazovky, musí mít deska 75 cm — zóna na židli tím klesne na 85 cm.',
+    rozmery: R({ ramenoAHloubka: 750 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'in-02', rodina: 'industrial', nazev: 'Rám A, kouřový dub',
-    popis: 'Áčkový rám — nohy se rozbíhají, takže stůl stojí pevněji a působí lehčeji.',
-    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 30, hrana: 'srazena', radiusRohu: 10, radiusVnitrni: 100 }),
-    podnoz: P({ typ: 'ram-A', profil: 35, odsazeni: 130 }), ulozne: U('zasuvky-2', 'A', 0.35), doplnky: DO() }),
+  mk({ id: 'ra-02', rodina: 'rameno-a', nazev: 'Hloubka 80 s výřezem pro předloktí',
+    popis: 'Deska 80 cm hluboká a v místě sezení výřez 6 cm. Předloktí leží na desce, oči přesně 70 cm od obrazovky.',
+    rozmery: R({ ramenoAHloubka: 800 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100, vyrez: 60 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'in-03', rodina: 'industrial', nazev: 'Rám H, antracit',
-    popis: 'H rám s příčkou v polovině výšky. Nejtužší z rámových variant.',
-    rozmery: R({ ramenoADelka: 1900 }), deska: D({ materialId: 'orech-masiv', tloustka: 30, hrana: 'zkosena', radiusRohu: 6, radiusVnitrni: 80 }),
-    podnoz: P({ typ: 'ram-H', barva: '#33383B', profil: 40, odsazeni: 120 }),
-    ulozne: U('kontejner-pevny'), doplnky: DO({ ledPodsviceni: true }) }),
+  mk({ id: 'ra-03', rodina: 'rameno-a', nazev: 'Ořech 30 u obrazu',
+    popis: 'Tmavý ořech proti světlé stěně s obrazem. Hloubka 80, monitor u zdi.',
+    rozmery: R({ ramenoAHloubka: 800 }), deska: D({ materialId: 'orech-masiv', radiusVnitrni: 140, radiusUZdi: 80 }),
+    podnoz: P({ profil: 45 }), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'in-04', rodina: 'industrial', nazev: 'Trapézový rám',
-    popis: 'Nohy se sbíhají dolů. Zabírá míň podlahy, ale drží šířku pod deskou.',
-    rozmery: R({ ramenoAHloubka: 680 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30, hrana: 'srazena', radiusRohu: 12, radiusVnitrni: 100 }),
-    podnoz: P({ typ: 'ram-trapez', profil: 40, odsazeni: 100 }), ulozne: U('kontejner-3'), doplnky: DO() }),
+  mk({ id: 'ra-04', rodina: 'rameno-a', nazev: 'Jasan 40 na bočnicích, u obrazu',
+    popis: 'Světlý jasan 40 mm s bočnicemi ve stejné síle. Sedí se u ramene A, kontejner pod ramenem B.',
+    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'jasan-masiv', tloustka: 40, hrana: 'radius', radiusRohu: 20, radiusVnitrni: 140, radiusUZdi: 100 }),
+    podnoz: PB('jasan-masiv'), ulozne: U('kontejner-pevny', 'B', 0.9), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'in-05', rodina: 'industrial', nazev: 'Hranatý uzavřený profil',
-    popis: 'Uzavřený obdélníkový rám. Nejvíc „dílenský" a nejlevnější na výrobu u zámečníka.',
-    rozmery: R({ ramenoADelka: 1800, ramenoBDelka: 1250 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30, hrana: 'rovna', radiusRohu: 4, radiusVnitrni: 70 }),
-    podnoz: P({ typ: 'ram-hranaty', profil: 30, odsazeni: 90 }), ulozne: U('police', 'B', 0.85), doplnky: DO() }),
+  mk({ id: 'ra-05', rodina: 'rameno-a', nazev: 'U obrazu, zásuvky na konci ramene',
+    popis: 'Dvě ploché zásuvky až na konci ramene A, mimo kolena. Police pod ramenem B na tiskárnu nebo šanony.',
+    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100 }),
+    podnoz: P(), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'in-06', rodina: 'industrial', nazev: 'Kov + linoleum',
-    popis: 'Antracitové linoleum na MDF v černém rámu. Matné, nelesklé, příjemné na psaní.',
-    rozmery: R({ ramenoAHloubka: 700 }), deska: D({ materialId: 'lino-antracit', tloustka: 25, hrana: 'naklizek', radiusRohu: 10, radiusVnitrni: 100 }),
-    podnoz: P({ typ: 'ram-U', profil: 40, odsazeni: 110 }), ulozne: U('kontejner-3'),
-    doplnky: DO({ ledPodsviceni: true, pruchodka: 'obdelnikova' }) }),
+  mk({ id: 'ra-06', rodina: 'rameno-a', nazev: 'Buk 30 u obrazu',
+    popis: 'Teplý buk, zaoblená hrana. Světlá, obytná varianta.',
+    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'buk-masiv', hrana: 'radius', radiusRohu: 24, radiusVnitrni: 160, radiusUZdi: 120 }),
+    podnoz: P({ barva: '#33383B' }), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  // ---------- S KONTEJNEREM ----------
-  mk({ id: 'ko-01', rodina: 'kontejner', nazev: 'Pojezdový kontejner u gauče',
-    popis: 'Tři zásuvky na kolečkách pod ramenem B, dá se vytáhnout ven.',
-    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-U' }),
-    ulozne: U('kontejner-3', 'B', 0.9), doplnky: DO() }),
+  mk({ id: 'ra-07', rodina: 'rameno-a', nazev: 'U obrazu na 211 cm',
+    popis: 'Nejdelší rameno A a monitor u zdi. Sezení uprostřed dlouhé desky, po obou stranách metr plochy.',
+    rozmery: R({ ramenoADelka: MAX_RAMENO_A, ramenoAHloubka: 760 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'ko-02', rodina: 'kontejner', nazev: 'Kontejner nese desku',
-    popis: 'Deska leží přímo na kontejneru — o dvě nohy míň a víc úložného.',
-    rozmery: R({ ramenoADelka: 1860, ramenoBDelka: 1300 }), deska: D({ materialId: 'lamino-dub-teply', tloustka: 25, hrana: 'srazena' }),
-    podnoz: P({ typ: 'kontejner-nosny', profil: 40, odsazeni: 80 }),
-    ulozne: U('kontejner-pevny', 'B', 0.92), doplnky: DO() }),
+  mk({ id: 'ra-08', rodina: 'rameno-a', nazev: 'Lamino teplý dub 25 u obrazu',
+    popis: 'Nejlevnější deska v galerii na hranatém rámu s výztuhou. Mezilehlá podpora se přidá sama.',
+    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'lamino-dub-teply', tloustka: 25, hrana: 'rovna', radiusRohu: 6, radiusVnitrni: 100, radiusUZdi: 80 }),
+    podnoz: P({ profil: 35 }), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'ko-03', rodina: 'kontejner', nazev: 'Kontejner pod hlavní plochou',
-    popis: 'Zásuvky pod ramenem A po ruce, rameno B zůstane volné pro tiskárnu.',
-    rozmery: R(), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 30 }), podnoz: P({ typ: 'ram-U' }),
-    ulozne: U('kontejner-3', 'A', 0.75), doplnky: DO() }),
+  // ---------- MONITOR U GAUČE (RAMENO B) ----------
+  mk({ id: 'rb-01', rodina: 'rameno-b', nazev: 'Čelem k zadní stěně, rameno B 75',
+    popis: 'Monitor u zadní stěny, gauč po pravé ruce. Rameno B musí být 75 cm hluboké; rameno A zůstává odkládací plocha.',
+    rozmery: R({ ramenoBHloubka: 750 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
-  mk({ id: 'ko-04', rodina: 'kontejner', nazev: 'Kontejner s petrolejovými čely',
-    popis: 'Dřevěný korpus, čela v petroleji gauče. Barevná vazba na zbytek místnosti.',
-    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-U' }),
-    ulozne: U('kontejner-3', 'B', 0.88, { barvaCel: '#0F5A78' }), doplnky: DO() }),
+  mk({ id: 'rb-02', rodina: 'rameno-b', nazev: 'U gauče s výřezem, hloubka 80',
+    popis: 'Rameno B 80 cm hluboké s výřezem 6 cm v místě sezení. Oči 70 cm od obrazovky.',
+    rozmery: R({ ramenoBHloubka: 800 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100, vyrez: 60 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
-  mk({ id: 'ko-05', rodina: 'kontejner', nazev: 'Kontejner s hořčicovými čely',
-    popis: 'Čela v hořčicové z obrazu a koberce. Malá plocha, výrazný efekt.',
-    rozmery: R({ ramenoADelka: 1900 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-A', profil: 35 }),
-    ulozne: U('kontejner-3', 'B', 0.88, { barvaCel: '#C58114' }), doplnky: DO() }),
+  mk({ id: 'rb-03', rodina: 'rameno-b', nazev: 'U gauče, ořechové bočnice',
+    popis: 'Ořech 30 na ořechových bočnicích, sezení u zadní stěny.',
+    rozmery: R({ ramenoBHloubka: 760 }), deska: D({ materialId: 'orech-masiv', radiusVnitrni: 140, radiusUZdi: 100 }),
+    podnoz: PB('orech-masiv'), ulozne: U('kontejner-pevny', 'A', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
-  mk({ id: 'ko-06', rodina: 'kontejner', nazev: 'Skříňka s dvířky',
-    popis: 'Místo zásuvek dvířka — levnější a schová i vyšší věci.',
-    rozmery: R(), deska: D({ materialId: 'lamino-dub-svetly', tloustka: 25 }), podnoz: P({ typ: 'ram-U', barva: '#E8E6E1' }),
-    ulozne: U('skrinka', 'B', 0.9), doplnky: DO() }),
+  mk({ id: 'rb-04', rodina: 'rameno-b', nazev: 'U gauče, rameno B kratší a hluboké',
+    popis: 'Rameno B jen 130 cm, zato 80 cm hluboké — ke gauči zbude 30 cm a rameno A dostane víc prostoru pro kolena.',
+    rozmery: R({ ramenoBDelka: 1300, ramenoBHloubka: 800, mezeraKeGauci: 250 }), deska: D({ radiusVnitrni: 140, radiusUZdi: 100 }),
+    podnoz: P(), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
-  // ---------- SE ZADNÍM PANELEM ----------
-  mk({ id: 'pa-01', rodina: 'panel', nazev: 'Zadní panel po obou ramenech',
-    popis: 'Panel podél obou stěn schová kabely a odděluje pracovní zónu od obývací.',
-    rozmery: R({ ramenoADelka: 2110, ramenoBDelka: 1480 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-U' }),
-    ulozne: [{ typ: 'zadni-panel', rameno: 'A', pozice: 0.5 }], doplnky: DO({ zadniPanel: true, ledPodsviceni: true }) }),
+  // ---------- HRANATÝ RÁM ----------
+  mk({ id: 'hr-01', rodina: 'hranaty', nazev: 'Jekl 50 × 50, dub 40',
+    popis: 'Nejmasivnější provedení: silný jekl a deska 40 mm s nákližkem. Rám je vidět a má být vidět.',
+    rozmery: R(), deska: D({ tloustka: 40, hrana: 'naklizek', radiusRohu: 16 }),
+    podnoz: P({ profil: 50, odsazeni: 110 }), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'pa-02', rodina: 'panel', nazev: 'Panel + nástavec na monitor',
-    popis: 'Monitor výš, pod ním místo na klávesnici. Ergonomicky nejlepší z galerie.',
-    rozmery: R({ ramenoAHloubka: 720 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 30 }),
-    podnoz: P({ typ: 'ram-H', profil: 40 }),
-    ulozne: [{ typ: 'zadni-panel', rameno: 'A', pozice: 0.5 }], doplnky: DO({ nastavecMonitor: true, zadniPanel: true }) }),
+  mk({ id: 'hr-02', rodina: 'hranaty', nazev: 'Jekl 30 × 30, subtilní',
+    popis: 'Tenký jekl pod deskou 30 mm — rám skoro zmizí, deska dominuje. Výztuha pod deskou nese rozpon.',
+    rozmery: R(), deska: D(),
+    podnoz: P({ profil: 30, odsazeni: 80 }), ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'pa-03', rodina: 'panel', nazev: 'Panel a police nad ramenem B',
-    popis: 'Otevřená police nad tiskárnou. Roh se využije do výšky.',
-    rozmery: R({ ramenoADelka: 1900 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-U' }),
-    ulozne: [{ typ: 'police', rameno: 'B', pozice: 0.85 }], doplnky: DO({ zadniPanel: true }) }),
+  mk({ id: 'hr-03', rodina: 'hranaty', nazev: 'Antracitový rám, dub v tónu podlahy',
+    popis: 'Antracit (RAL 7016) místo černé — měkčí kontrast k mořenému dubu v tónu vlysů.',
+    rozmery: R(), deska: D({ materialId: 'dub-podlaha-masiv' }),
+    podnoz: P({ barva: '#33383B' }), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'pa-04', rodina: 'panel', nazev: 'Panel v krému, deska dub',
-    popis: 'Panel v barvě stěny zmizí, deska zůstane dřevěná.',
-    rozmery: R(), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25 }), podnoz: P({ typ: 'ram-U', barva: '#E8E6E1' }),
-    ulozne: [{ typ: 'zadni-panel', rameno: 'A', pozice: 0.5, materialId: 'lamino-krem' }], doplnky: DO({ zadniPanel: true }) }),
+  mk({ id: 'hr-04', rodina: 'hranaty', nazev: 'Bílý rám, jasan',
+    popis: 'Bílý komaxit a nejsvětlejší dřevo. Nejméně se hlásí o slovo, vynikne gauč a obraz.',
+    rozmery: R(), deska: D({ materialId: 'jasan-masiv', radiusRohu: 16 }),
+    podnoz: P({ barva: '#E8E6E1' }), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
 
-  mk({ id: 'pa-05', rodina: 'panel', nazev: 'Panel + LED + lávka',
-    popis: 'Všechny doplňky najednou: panel, kabelová lávka, průchodka i podsvícení.',
-    rozmery: R(), deska: D({ materialId: 'orech-masiv', tloustka: 30, hrana: 'radius' }), podnoz: P({ typ: 'ram-hranaty', profil: 35 }),
-    ulozne: [{ typ: 'zadni-panel', rameno: 'A', pozice: 0.5 }],
-    doplnky: DO({ zadniPanel: true, ledPodsviceni: true, pruchodka: 'obdelnikova', nastavecMonitor: true }) }),
+  mk({ id: 'hr-05', rodina: 'hranaty', nazev: 'Nerezový rám, kouřový dub',
+    popis: 'Kartáčovaný nerez pod tmavou deskou. Ladí s kovovými prvky konferenčního stolku.',
+    rozmery: R(), deska: D({ materialId: 'dub-kourovy-masiv' }),
+    podnoz: P({ barva: '#B9BCC0', profil: 40 }), ulozne: U('nic'), doplnky: DO() }),
 
-  // ---------- MINIMALISTICKÝ PLOVOUCÍ ----------
-  mk({ id: 'pl-01', rodina: 'plovouci', nazev: 'Tenká deska 18, úzký rám',
-    popis: 'Nejtenčí možná deska na subtilním rámu. Pod stolem prosvítá podlaha.',
-    rozmery: R({ ramenoAHloubka: 620 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 18, hrana: 'zkosena', radiusRohu: 10, radiusVnitrni: 90 }),
-    podnoz: P({ typ: 'ram-hranaty', profil: 25, odsazeni: 120, vyztuha: true }),
-    ulozne: U('nic'), doplnky: DO({ ledPodsviceni: true, kabelovaLavka: true }) }),
+  mk({ id: 'hr-06', rodina: 'hranaty', nazev: 'Jekl 40, deska 40 bez výztuhy',
+    popis: 'Masiv 40 mm unese rozpon i bez podélné výztuhy — pod deskou je jen rám, nic navíc.',
+    rozmery: R(), deska: D({ tloustka: 40, hrana: 'zkosena', radiusRohu: 10 }),
+    podnoz: P({ vyztuha: false }), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'pl-02', rodina: 'plovouci', nazev: 'Plovoucí s podsvícením',
-    popis: 'LED profil po celé délce. Ve večerním obýváku stůl působí, že se vznáší.',
-    rozmery: R({ ramenoADelka: 1800, ramenoBDelka: 1250, ramenoAHloubka: 640 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110, vyrez: 95 }),
-    podnoz: P({ typ: 'ram-U', profil: 25, odsazeni: 140 }), ulozne: U('zasuvka-plocha', 'A', 0.4),
-    doplnky: DO({ ledPodsviceni: true }) }),
+  mk({ id: 'hr-07', rodina: 'hranaty', nazev: 'Jekl 60, velké odsazení',
+    popis: 'Rámy zasunuté 18 cm pod desku. Deska přesahuje, stůl vypadá jako plovoucí, nohy nikde nepřekáží.',
+    rozmery: R(), deska: D({ radiusRohu: 20 }),
+    podnoz: P({ profil: 60, odsazeni: 180 }), ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'pl-03', rodina: 'plovouci', nazev: 'Hairpin, tenká deska',
-    popis: 'Tři tenké pruty na nohu. Nejvzdušnější varianta v galerii.',
-    rozmery: R({ ramenoADelka: 1850, ramenoAHloubka: 600, ramenoBDelka: 1300 }),
-    deska: D({ materialId: 'jasan-masiv', tloustka: 25, hrana: 'radius', radiusRohu: 25, radiusVnitrni: 150 }),
-    podnoz: P({ typ: 'hairpin', profil: 12, odsazeni: 90 }), ulozne: U('nic'), doplnky: DO({ kabelovaLavka: false }) }),
+  // ---------- PLNÉ BOČNICE ----------
+  mk({ id: 'bo-01', rodina: 'bocnice', nazev: 'Dubové bočnice, deska 30',
+    popis: 'Deska i bočnice z dubu 30 mm, odsazení jen 6 cm — jeden rám, ne deska na nohách. Stínová spára u podlahy.',
+    rozmery: R(), deska: D(), podnoz: PB('dub-svetly-masiv'),
+    ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'pl-04', rodina: 'plovouci', nazev: 'Bílá na bílé',
-    popis: 'Krémová deska, bílá podnož. Stůl se ztratí ve stěně.',
-    rozmery: R({ ramenoADelka: 1850, ramenoBDelka: 1300, ramenoAHloubka: 620 }), deska: D({ materialId: 'lamino-krem', tloustka: 25, hrana: 'zkosena', radiusRohu: 14, radiusVnitrni: 110 }),
-    podnoz: P({ typ: 'ram-U', barva: '#E8E6E1', profil: 30, odsazeni: 120 }), ulozne: U('nic'), doplnky: DO() }),
+  mk({ id: 'bo-02', rodina: 'bocnice', nazev: 'Ořech 40 na bočnicích',
+    popis: 'Silný ořech s nákližkem, bočnice 40 mm. Vypadá jako jeden kus nábytku, ne jako sestava.',
+    rozmery: R(), deska: D({ materialId: 'orech-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 14 }),
+    podnoz: PB('orech-masiv'), ulozne: U('kontejner-pevny', 'A', 0.95), doplnky: DO() }),
 
-  mk({ id: 'pl-05', rodina: 'plovouci', nazev: 'Kompakt 18 mm na nerezu',
-    popis: 'HPL kompakt — nejtenčí deska, která ještě unese rozpon. Nerezová podnož.',
-    rozmery: R({ ramenoAHloubka: 620 }), deska: D({ materialId: 'hpl-antracit', tloustka: 18, hrana: 'zkosena', radiusRohu: 8, radiusVnitrni: 80 }),
-    podnoz: P({ typ: 'ram-hranaty', barva: '#B9BCC0', profil: 25, odsazeni: 120 }), ulozne: U('nic'), doplnky: DO({ ledPodsviceni: true }) }),
+  mk({ id: 'bo-03', rodina: 'bocnice', nazev: 'Dub v tónu podlahy, deska 38',
+    popis: 'Tloušťka 38 jako u kuchyňských pracovních desek — bočnice stejné síly. Stůl se v podlaze rozpustí.',
+    rozmery: R(), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 38 }),
+    podnoz: PB('dub-podlaha-masiv'), ulozne: U('nic'), doplnky: DO() }),
 
-  // ---------- KOMPAKTNÍ DO ROHU ----------
-  mk({ id: 'km-01', rodina: 'kompakt', nazev: 'Krátká ramena 160 + 110',
-    popis: 'Nezabírá celý roh. Zbyde místo na skříňku nebo rostlinu.',
-    rozmery: R({ ramenoADelka: 1600, ramenoBDelka: 1100, ramenoAHloubka: 620, ramenoBHloubka: 500 }),
-    deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25 }), podnoz: P({ typ: 'ram-U', profil: 35, odsazeni: 80 }),
-    ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO() }),
+  mk({ id: 'bo-04', rodina: 'bocnice', nazev: 'Jasanové bočnice, monitor u obrazu',
+    popis: 'Bočnice s klasickým sezením u ramene A. Panel v místě napojení ramen kryje kolena zprava.',
+    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'jasan-masiv', radiusVnitrni: 140, radiusUZdi: 100 }),
+    podnoz: PB('jasan-masiv'), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'km-02', rodina: 'kompakt', nazev: 'Mělká deska 55 cm',
-    popis: 'Jen 55 cm hloubky. Nechá maximum volné podlahy pro židli.',
-    rozmery: R({ ramenoAHloubka: 550, ramenoBHloubka: 470 }),
-    deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25 }), podnoz: P({ typ: 'ram-U', profil: 30, odsazeni: 70 }),
-    ulozne: U('zasuvka-plocha', 'A', 0.4), doplnky: DO({ nastavecMonitor: true }) }),
+  mk({ id: 'bo-05', rodina: 'bocnice', nazev: 'Dýhované bočnice, deska 25',
+    popis: 'Dýhovaná MDF 25 mm na desce i bočnicích — levnější, mezilehlý panel si rozpon vyžádá sám.',
+    rozmery: R(), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25 }),
+    podnoz: PB('dyha-dub-svetla'), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
 
-  mk({ id: 'km-03', rodina: 'kompakt', nazev: 'Jen rameno B krátké',
-    popis: 'Plné rameno A, ale kratší B — mezi stolem a gaučem zůstane víc vzduchu.',
-    rozmery: R({ ramenoBDelka: 1050 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30 }),
-    podnoz: P({ typ: 'ram-U' }), ulozne: U('kontejner-3', 'B', 0.9), doplnky: DO() }),
+  mk({ id: 'bo-06', rodina: 'bocnice', nazev: 'Bočnice s pevným kontejnerem',
+    popis: 'Pevný kontejner na konci ramene A zapadne mezi bočnice — uzavřený celek.',
+    rozmery: R(), deska: D(), podnoz: PB('dub-svetly-masiv'),
+    ulozne: U('kontejner-pevny', 'A', 1.0), doplnky: DO() }),
 
-  mk({ id: 'km-04', rodina: 'kompakt', nazev: 'Kompakt na hairpinech',
-    popis: 'Malá deska na tenkých nohách. Nejmenší vizuální stopa v místnosti.',
-    rozmery: R({ ramenoADelka: 1500, ramenoBDelka: 1000, ramenoAHloubka: 580, ramenoBHloubka: 470 }),
-    deska: D({ materialId: 'jasan-masiv', tloustka: 25, hrana: 'radius', radiusRohu: 24, radiusVnitrni: 140 }),
-    podnoz: P({ typ: 'hairpin', profil: 12, odsazeni: 70 }), ulozne: U('nic'), doplnky: DO() }),
+  mk({ id: 'bo-07', rodina: 'bocnice', nazev: 'Buk, zaoblené hrany',
+    popis: 'Buk 30 se zaoblenou hranou R8 a rohy R30. Měkčí, obytnější tvar.',
+    rozmery: R(), deska: D({ materialId: 'buk-masiv', hrana: 'radius', radiusRohu: 30 }),
+    podnoz: PB('buk-masiv'), ulozne: U('nic'), doplnky: DO() }),
 
-  mk({ id: 'km-05', rodina: 'kompakt', nazev: 'Kompakt s policí',
-    popis: 'Otevřená police místo kontejneru — levnější a opticky lehčí.',
-    rozmery: R({ ramenoADelka: 1700, ramenoBDelka: 1150, ramenoAHloubka: 600 }),
-    deska: D({ materialId: 'lamino-dub-svetly', tloustka: 25 }), podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 48, odsazeni: 80 }),
-    ulozne: U('police', 'B', 0.85), doplnky: DO() }),
+  // ---------- ZÁSUVKY A KONTEJNERY ----------
+  mk({ id: 'ul-01', rodina: 'ulozne', nazev: 'Pojezdový kontejner pod ramenem A',
+    popis: 'Tři zásuvky na kolečkách na konci ramene A. Dá se vytáhnout, když je potřeba víc místa na nohy.',
+    rozmery: R(), deska: D(), podnoz: P(),
+    ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
 
-  mk({ id: 'km-06', rodina: 'kompakt', nazev: 'Kompakt s velkou mezerou ke gauči',
-    popis: 'Mezera ke gauči 25 cm. Když chceš mít mezi stolem a gaučem viditelnou pauzu.',
-    rozmery: R({ ramenoBDelka: 1350, mezeraKeGauci: 250 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30 }),
-    podnoz: P({ typ: 'ram-A', profil: 35 }), ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO() }),
+  mk({ id: 'ul-02', rodina: 'ulozne', nazev: 'Pevný kontejner u gauče',
+    popis: 'Pevný kontejner na konci ramene B — hned vedle lehátka gauče, mimo sezení v rohu.',
+    rozmery: R(), deska: D(), podnoz: P(),
+    ulozne: U('kontejner-pevny', 'B', 0.95), doplnky: DO() }),
+
+  mk({ id: 'ul-03', rodina: 'ulozne', nazev: 'Dvě ploché zásuvky pod deskou',
+    popis: 'Ploché zásuvky na drobnosti na konci ramene A. Berou 8 cm výšky pod deskou, kolena mají pořád 64 cm.',
+    rozmery: R(), deska: D(), podnoz: P(),
+    ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
+
+  mk({ id: 'ul-04', rodina: 'ulozne', nazev: 'Skříňka s dvířky u gauče',
+    popis: 'Uzavřená skříňka pod ramenem B na tiskárnu nebo papír. Dvířka s frézovaným úchytem.',
+    rozmery: R(), deska: D(), podnoz: P(),
+    ulozne: U('skrinka', 'B', 0.95), doplnky: DO() }),
+
+  mk({ id: 'ul-05', rodina: 'ulozne', nazev: 'Otevřená police pod ramenem B',
+    popis: 'Dvě police pod ramenem B na šanony a knihy. Bez čel, nejlevnější úložné.',
+    rozmery: R(), deska: D(), podnoz: P(),
+    ulozne: U('police', 'B', 0.95), doplnky: DO() }),
+
+  mk({ id: 'ul-06', rodina: 'ulozne', nazev: 'Zadní panel po obou stěnách',
+    popis: 'Nízký panel podél obou stěn schová kabely a zásuvky na stěně. Deska pak nemusí sedět přesně ke zdi.',
+    rozmery: R(), deska: D({ radiusUZdi: 0 }), podnoz: P(),
+    ulozne: U('zadni-panel', 'A', 0), doplnky: DO() }),
+
+  // ---------- KOMPAKTNÍ ----------
+  mk({ id: 'km-01', rodina: 'kompakt', nazev: '180 × 148 v rohu',
+    popis: 'Rameno A 180 cm. Od hrany průchodu zbude 56 cm, sezení v rohu je stejné.',
+    rozmery: R({ ramenoADelka: 1800 }), deska: D(), podnoz: P(),
+    ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO() }),
+
+  mk({ id: 'km-02', rodina: 'kompakt', nazev: '180 × 130, mělčí',
+    popis: 'Kratší obě ramena a mělčí deska 65 / 55. Ke gauči zbude 30 cm, zóna na židli 95 cm.',
+    rozmery: R({ ramenoADelka: 1800, ramenoBDelka: 1300, ramenoAHloubka: 650, ramenoBHloubka: 550, mezeraKeGauci: 250 }),
+    deska: D({ radiusVnitrni: 360 }), podnoz: P({ profil: 35 }),
+    ulozne: U('nic'), doplnky: DO() }),
+
+  mk({ id: 'km-03', rodina: 'kompakt', nazev: '200 × 148, hloubka 60 / 55',
+    popis: 'Plná délka, ale mělká deska — do místnosti vyčnívá jen 60 cm. V rohu vyjde na oči přesně 70 cm — díky velkému rádiusu R400.',
+    rozmery: R({ ramenoAHloubka: 600, ramenoBHloubka: 550 }), deska: D({ radiusVnitrni: 400 }),
+    podnoz: P({ profil: 35 }), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO() }),
+
+  mk({ id: 'km-04', rodina: 'kompakt', nazev: '160 × 148 minimum',
+    popis: 'Nejkratší rameno A, které ještě dává smysl. Od hrany průchodu zbude 76 cm.',
+    rozmery: R({ ramenoADelka: 1600 }), deska: D(), podnoz: P({ profil: 35 }),
+    ulozne: U('nic'), doplnky: DO() }),
 
   // ---------- ROVNÁ DESKA ----------
-  mk({ id: 'ro-01', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná 211 na U rámu',
-    popis: 'Jen běh podél levé stěny. Roh u gauče zůstane volný.',
-    rozmery: R({ ramenoBDelka: 0 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30 }),
-    podnoz: P({ typ: 'ram-U' }), ulozne: U('kontejner-3', 'A', 0.85), doplnky: DO() }),
+  mk({ id: 'rv-01', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná 200 × 75 u obrazu',
+    popis: 'Bez ramene B. Monitor u levé stěny, deska 75 cm hluboká kvůli vzdálenosti očí.',
+    rozmery: R({ ramenoBDelka: 0, ramenoAHloubka: 750 }), deska: D({ radiusVnitrni: 0, radiusUZdi: 60 }),
+    podnoz: P(), ulozne: U('kontejner-3', 'A', 0.9), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'ro-02', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná na bočnicích',
-    popis: 'Plné bočnice po stranách, jako současný stůl v místnosti.',
-    rozmery: R({ ramenoBDelka: 0 }), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 40, hrana: 'naklizek' }),
-    podnoz: P({ typ: 'bocnice', material: 'drevo', materialId: 'dub-podlaha-masiv', odsazeni: 130 }),
-    ulozne: U('zasuvky-2', 'A', 0.3), doplnky: DO() }),
-
-  mk({ id: 'ro-03', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná mělká 55',
-    popis: 'Úzká deska podél stěny. Nejvíc volné podlahy v místnosti.',
-    rozmery: R({ ramenoBDelka: 0, ramenoAHloubka: 550 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25 }),
-    podnoz: P({ typ: 'ram-hranaty', profil: 25, odsazeni: 100 }), ulozne: U('nic'),
-    doplnky: DO({ nastavecMonitor: true }) }),
-
-  mk({ id: 'ro-04', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná na kozách',
-    popis: 'Dvě kozy a deska. Nejrychleji rozebratelné řešení.',
-    rozmery: R({ ramenoBDelka: 0 }), deska: D({ materialId: 'jasan-masiv', tloustka: 40, hrana: 'zkosena' }),
-    podnoz: P({ typ: 'kozy', material: 'drevo', materialId: 'jasan-masiv', profil: 55, odsazeni: 170 }),
-    ulozne: U('nic'), doplnky: DO() }),
-
-  mk({ id: 'ro-05', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná s kontejnerem u gauče',
-    popis: 'Deska podél stěny, kontejner na konci u gauče.',
-    rozmery: R({ ramenoBDelka: 0 }), deska: D({ materialId: 'lamino-dub-teply', tloustka: 25 }),
-    podnoz: P({ typ: 'kontejner-nosny', odsazeni: 80 }), ulozne: U('kontejner-pevny', 'A', 0.9),
-    doplnky: DO() }),
-
-  // ---------- POLOHOVATELNÝ ----------
-  mk({ id: 'po-01', rodina: 'polohovatelny', nazev: 'Stavitelný rám, L deska',
-    popis: 'Elektrický rám pod L deskou. Pozor: rám omezí, kam se vejde kontejner.',
-    rozmery: R({ ramenoADelka: 1900, ramenoBDelka: 1400 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25 }),
-    podnoz: P({ typ: 'stavitelny-ram', profil: 60, odsazeni: 120, vyztuha: false }),
-    ulozne: U('nic'), doplnky: DO({ kabelovaLavka: true }) }),
-
-  mk({ id: 'po-02', rodina: 'polohovatelny', tvar: 'rovna', nazev: 'Stavitelný, rovná deska',
-    popis: 'Nejobvyklejší sit-stand sestava: rám plus deska 180 × 70.',
-    rozmery: R({ ramenoBDelka: 0, ramenoADelka: 1800 }), deska: D({ materialId: 'dyha-dub-svetla', tloustka: 25 }),
-    podnoz: P({ typ: 'stavitelny-ram', profil: 60, odsazeni: 110, vyztuha: false }),
-    ulozne: U('nic'), doplnky: DO({ kabelovaLavka: true }) }),
-
-  mk({ id: 'po-03', rodina: 'polohovatelny', nazev: 'Stavitelný v bílé',
-    popis: 'Bílý rám a světlá deska. Nejmíň kancelářský vzhled ze sit-stand variant.',
-    rozmery: R({ ramenoADelka: 1900, ramenoBDelka: 1350 }), deska: D({ materialId: 'lamino-dub-svetly', tloustka: 25 }),
-    podnoz: P({ typ: 'stavitelny-ram', barva: '#E8E6E1', profil: 60, odsazeni: 110, vyztuha: false }),
-    ulozne: U('nic'), doplnky: DO() }),
-
-  mk({ id: 'po-04', rodina: 'polohovatelny', nazev: 'Stavitelný s nástavcem',
-    popis: 'Rám plus nástavec na monitor. Ve stoje i v sedu správná výška očí.',
-    rozmery: R({ ramenoADelka: 1900, ramenoBDelka: 1400, ramenoAHloubka: 720 }),
-    deska: D({ materialId: 'orech-masiv', tloustka: 25 }),
-    podnoz: P({ typ: 'stavitelny-ram', profil: 60, odsazeni: 110, vyztuha: false }),
-    ulozne: U('nic'), doplnky: DO({ nastavecMonitor: true }) }),
-
-  // ---------- DOPLŇKOVÉ VARIANTY ----------
-  mk({ id: 'tr-07', rodina: 'truhlar', nazev: 'Dub 40 s velkým vnitřním rádiusem',
-    popis: 'Vnitřní roh zaoblený R260. Loket nenarazí do hrany a roh se líp uklízí.',
-    rozmery: R({ ramenoADelka: 2110, ramenoBDelka: 1480 }), deska: D({ materialId: 'dub-svetly-masiv', tloustka: 40, hrana: 'naklizek', radiusRohu: 30, radiusVnitrni: 260, vyrez: 110 }),
-    podnoz: P({ typ: 'nohy-rovne', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 70, odsazeni: 120 }),
-    ulozne: U('kontejner-pevny'), doplnky: DO() }),
-
-  mk({ id: 'sk-07', rodina: 'skandi', nazev: 'Teplý dub, černé kónické nohy',
-    popis: 'Lamino v teplém dubu a černé nohy. Levné, ale vazba na černé rámy fotek drží.',
-    rozmery: R({ ramenoAHloubka: 640 }), deska: D({ materialId: 'lamino-dub-teply', tloustka: 25, hrana: 'srazena', radiusRohu: 12 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'kov', profil: 45, odsazeni: 85 }),
-    ulozne: U('zasuvky-2', 'A', 0.35), doplnky: DO() }),
-
-  mk({ id: 'in-07', rodina: 'industrial', nazev: 'Šedé linoleum, nerezový rám',
-    popis: 'Šedé linoleum na MDF a nerezový rám. Studenější, ale k chromové lampě to sedí.',
-    rozmery: R(), deska: D({ materialId: 'lino-seda', tloustka: 25, hrana: 'naklizek', radiusRohu: 10 }),
-    podnoz: P({ typ: 'ram-U', barva: '#B9BCC0', profil: 35, odsazeni: 100 }),
-    ulozne: U('kontejner-3'), doplnky: DO({ pruchodka: 'obdelnikova' }) }),
-
-  mk({ id: 'in-08', rodina: 'industrial', nazev: 'Silný jekl 60, deska 40',
-    popis: 'Nejmasivnější varianta: jekl 60 a spárovka 40. Unese cokoliv, ale je vidět.',
-    rozmery: R({ ramenoADelka: 2110, ramenoBDelka: 1480 }), deska: D({ materialId: 'dub-kourovy-masiv', tloustka: 40, hrana: 'srazena', radiusRohu: 6 }),
-    podnoz: P({ typ: 'ram-hranaty', profil: 60, odsazeni: 130 }), ulozne: U('kontejner-pevny'), doplnky: DO() }),
-
-  mk({ id: 'ko-07', rodina: 'kontejner', nazev: 'Zásuvka pod deskou + police',
-    popis: 'Plochá zásuvka pod hlavní plochou a police u gauče. Rozdělené úložné.',
-    rozmery: R(), deska: D({ materialId: 'jasan-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-A', profil: 35 }),
-    ulozne: [{ typ: 'zasuvka-plocha', rameno: 'A', pozice: 0.4 }, { typ: 'police', rameno: 'B', pozice: 0.88 }],
-    doplnky: DO() }),
-
-  mk({ id: 'pl-06', rodina: 'plovouci', nazev: 'Tenká deska, kónické kovové nohy',
-    popis: 'Kónické nohy z komaxitu pod 18mm deskou. Skoro nic tam nestojí.',
-    rozmery: R({ ramenoAHloubka: 600, ramenoADelka: 1950 }),
-    deska: D({ materialId: 'lamino-dub-svetly', tloustka: 18, hrana: 'zkosena', radiusRohu: 16, radiusVnitrni: 120 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'kov', profil: 40, odsazeni: 100 }),
-    ulozne: U('nic'), doplnky: DO({ ledPodsviceni: true }) }),
-
-  mk({ id: 'km-07', rodina: 'kompakt', nazev: 'Rohové minimum 140 + 95',
-    popis: 'Nejmenší varianta, která ještě unese monitor a tiskárnu. Zbytek rohu zůstane volný.',
-    rozmery: R({ ramenoADelka: 1400, ramenoBDelka: 950, ramenoAHloubka: 600, ramenoBHloubka: 470 }),
-    deska: D({ materialId: 'dub-svetly-masiv', tloustka: 25, radiusRohu: 18, radiusVnitrni: 120 }),
-    podnoz: P({ typ: 'ram-U', profil: 30, odsazeni: 70 }), ulozne: U('zasuvka-plocha', 'A', 0.45), doplnky: DO() }),
-
-  mk({ id: 'pa-06', rodina: 'panel', nazev: 'Panel, police a kontejner',
-    popis: 'Maximum úložného: panel, police nad ramenem B a kontejner pod ním.',
-    rozmery: R(), deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30 }), podnoz: P({ typ: 'ram-H', profil: 40 }),
-    ulozne: [{ typ: 'zadni-panel', rameno: 'A', pozice: 0.5 }, { typ: 'kontejner-3', rameno: 'B', pozice: 0.9 }],
-    doplnky: DO({ zadniPanel: true, ledPodsviceni: true }) }),
-
-  mk({ id: 'ro-06', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná na hairpinech',
-    popis: 'Nejlehčí rovná varianta. Do obýváku působí spíš jako konzolový stolek.',
-    rozmery: R({ ramenoBDelka: 0, ramenoADelka: 1800, ramenoAHloubka: 580 }),
-    deska: D({ materialId: 'jasan-masiv', tloustka: 25, hrana: 'radius', radiusRohu: 24 }),
-    podnoz: P({ typ: 'hairpin', profil: 12, odsazeni: 80 }), ulozne: U('nic'),
-    doplnky: DO() }),
-
-  // ---------- PRESETY ODVOZENÉ Z PRAHŮ V REŠERŠI ----------
-  mk({ id: 'pr-01', rodina: 'skandi', nazev: 'Bez řezání — přesně na KARLBY',
-    popis: 'Rameno A 186 × 63,5 cm je přesně rozměr IKEA KARLBY za 2 990 Kč (ověřeno). Deska se nemusí zkracovat ani olepovat řeznou hranu. Na plných 211 cm existuje varianta na míru za 4 000 Kč/bm, tedy 8 440 Kč.',
-    rozmery: R({ ramenoADelka: 1860, ramenoAHloubka: 635, ramenoBDelka: 1300, ramenoBHloubka: 520 }),
-    deska: D({ materialId: 'dyha-dub-svetla', tloustka: 38, hrana: 'srazena', radiusRohu: 10, radiusVnitrni: 90 }),
-    podnoz: P({ typ: 'nohy-konicke', material: 'drevo', materialId: 'dub-svetly-masiv', profil: 50, odsazeni: 85 }),
-    ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO() }),
-
-  mk({ id: 'pr-02', rodina: 'kompakt', nazev: 'Na jednu podnož — 180 cm',
-    popis: 'Nejdelší hotová pevná podnož jde do 182 cm. Při rameni 180 cm tak stačí jedna místo dvou, což je podle rešerše úspora kolem 1,5-2,5 tis. Kč.',
-    rozmery: R({ ramenoADelka: 1800, ramenoAHloubka: 680, ramenoBDelka: 1250, ramenoBHloubka: 520 }),
-    deska: D({ materialId: 'dub-svetly-masiv', tloustka: 30, hrana: 'srazena', radiusRohu: 14, radiusVnitrni: 110 }),
-    podnoz: P({ typ: 'ram-U', profil: 40, odsazeni: 90 }),
-    ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO() }),
-
-  mk({ id: 'pr-03', rodina: 'kompakt', nazev: 'Do boku 200 cm',
-    popis: 'Střední cesta: 200 cm místo maxima 211. Od hrany zbyde 36 cm místo 25, roh působí vzdušněji a rozdíl v pracovní ploše je zanedbatelný.',
-    rozmery: R({ ramenoADelka: 2000, ramenoAHloubka: 700, ramenoBDelka: 1400, ramenoBHloubka: 550 }),
-    deska: D({ materialId: 'dub-podlaha-masiv', tloustka: 30, hrana: 'srazena', radiusRohu: 14, radiusVnitrni: 110 }),
-    podnoz: P({ typ: 'ram-U', profil: 40, odsazeni: 90 }),
-    ulozne: U('kontejner-3', 'B', 0.85), doplnky: DO({ ledPodsviceni: true }) }),
+  mk({ id: 'rv-02', rodina: 'rovna', tvar: 'rovna', nazev: 'Rovná 211 × 80 s výřezem',
+    popis: 'Nejdelší rovná deska, 80 cm hluboká, s výřezem v místě sezení. Bočnice z dubu.',
+    rozmery: R({ ramenoADelka: MAX_RAMENO_A, ramenoBDelka: 0, ramenoAHloubka: 800 }), deska: D({ radiusVnitrni: 0, radiusUZdi: 60, vyrez: 60 }),
+    podnoz: PB('dub-svetly-masiv'), ulozne: U('zasuvky-2', 'A', 1.0), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 ]
 
-// pojistka: žádný preset nesmí přesáhnout prostor
-for (const p of PRESETY) {
-  if (p.rozmery.ramenoADelka > MAX_RAMENO_A) {
-    throw new Error(`Preset ${p.id} má rameno A ${p.rozmery.ramenoADelka} > ${MAX_RAMENO_A}`)
-  }
-}
-
-export const PRESETY_MAP = new Map(PRESETY.map((p) => [p.id, p]))
+export const presetPodleId = (id: string) => PRESETY.find((p) => p.id === id)

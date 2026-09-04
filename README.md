@@ -7,28 +7,42 @@ Parametrický 3D konfigurátor pracovního stolu do konkrétního rohu konkrétn
 
 ```
               ROH
-               ╔════════════ ZADNÍ  STĚNA ════════════════════
+               ╔════════════ ZADNÍ  STĚNA ══════════════════════════════════
                ║  ◄────────────── 160 cm ─────────────────►
-               ║ ┌──────────────────────────┐  10–15 ┌────────
-    ▲          ║ │   RAMENO B   ≤ 148 cm    │   cm   │  GAUČ
-    │          ║ │   tiskárna v rohu        │ ◄────► │
-  236 cm       ║ └────────────┬─────────────┘        └────────
-  (levá        ║ │            │
-   stěna)      ║ │  RAMENO A  │      ⊙ židle
-    │          ║ │  ≤ 211 cm  │
+               ║ ┌──────────────────────────┐  10–15 ┌───────────────────────┐
+    ▲          ║ │   RAMENO B   ≤ 148 cm    │   cm   │  GAUČ DO U (zadní díl)│
+    │          ║ │   monitor 32" v rohu     │ ◄────► ├────────┐              ├──┐
+  236 cm       ║ └────────────┬─────────────┘        │lehátko │              │  │
+  (levá        ║ │            │                      │u stolu │              │  │
+   stěna)      ║ │  RAMENO A  │      ⊙ židle         │        │              │  │
+    │          ║ │  ≤ 211 cm  │                      └────────┘              └──┘
     ▼          ║ └────────────┘
-               ║        ▼  směrem do místnosti
+               ╬  hrana metr tlusté zdi — tady začíná průchod (bez dveří)
+               ║  průchod 90 cm
 ```
 
 | Prvek | Limit | Odkud |
 |---|---|---|
-| Rameno A (levá stěna, hlavní plocha) | ≤ **211 cm** | 236 cm běh stěny − 25 cm od hrany |
-| Rameno B (zadní stěna, ke gauči) | ≤ **148 cm** | 160 cm − mezera 10–15 cm ke gauči |
-| Volno na odsunutí židle | ≥ 90 cm | 160 cm − hloubka ramene A |
+| Rameno A (levá stěna, hlavní plocha) | ≤ **211 cm** | 236 cm běh stěny − 25 cm od hrany průchodu |
+| Rameno B (zadní stěna, ke gauči) | ≤ **148 cm** | 160 cm − mezera 10–15 cm k lehátku gauče |
+| Volno na odsunutí židle | ≥ 90 cm | 160 cm − hloubka ramene A (lehátko gauče sahá podél celého stolu) |
+| Oči od monitoru (MSI Optix AG321CQR 31,5", 1500R) | 70–100 cm | volba zadavatele; počítá se ze skutečného obrysu desky |
 | Výška | 75 cm, pevná | volba zadavatele |
 | Rozpočet | 5–20 tis. Kč | volba zadavatele |
 
-Průchod se nezapočítává — kolem stolu se nikam nechodí.
+Gauč je do U: zadní díl podél zadní stěny a na obou koncích lehátko do místnosti.
+To bližší stojí hned vedle konce ramene B a táhne se podél stolu, takže vedle gauče
+není místo na křeslo ani na nic jiného. Délka lehátka se dá v půdorysu přenastavit
+(výchozí 200 cm je odhad).
+
+Monitor může stát v rohu L (sedí se na úhlopříčce, deska se kolem sedícího obtočí
+velkým rádiusem), nebo u levé či zadní stěny — přepíná se to v konfigurátoru a podle
+toho se posune židle, klávesnice, repro i případný výřez v hraně. Roh desky u zdi jde
+zaoblit, aby za monitorem zbyla mezera na kabely.
+
+Průchod se do zóny židle nezapočítává — kolem stolu se nikam nechodí.
+Nabídka je zúžená na to, co zadavatel chce: jen dřevo a dřevěné dekory, podnož
+hranatý profil nebo plné bočnice (ostatní typy jsou v konfigurátoru za přepínačem).
 
 ## Co v repozitáři je
 

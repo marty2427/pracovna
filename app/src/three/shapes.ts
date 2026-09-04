@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import type { DeskConfig, Hrana } from '@/model/types'
-import { poziceSezeni } from '@/model/constraints'
+import { obrysBody, type Pt as PtMm } from '@/model/obrys'
+import { pracoviste } from '@/model/constraints'
 
 export type Pt = [number, number]
 
@@ -88,49 +89,32 @@ export function hranaProfil(hrana: Hrana, tloustkaM: number) {
 /**
  * Půdorysný obrys desky v METRECH, v souřadnicích tvaru (x, -z),
  * aby po rotaci -90° kolem X ležel správně v rovině XZ.
+ * Samotný obrys (včetně výřezu a zaoblení rohu u zdi) je v model/obrys.ts.
  */
 export function obrysDesky(c: DeskConfig): { pts: Pt[]; radii: number[] } {
-  const { ramenoADelka, ramenoAHloubka, ramenoBDelka, ramenoBHloubka } = c.rozmery
-  const LA = m(ramenoADelka), DA = m(ramenoAHloubka)
-  const LB = m(ramenoBDelka), DB = m(ramenoBHloubka)
-  const rr = m(c.deska.radiusRohu)
-  const ri = m(c.deska.radiusVnitrni)
-  const P = (x: number, z: number): Pt => [x, -z]
-
-  // Ergonomický výřez v přední hraně v místě sezení: hrana ustoupí dozadu,
-  // takže se dá sedět blíž a předloktí leží na desce. U rohových stolů běžné.
-  const vyrez = m(c.deska.vyrez)
-  const sez = m(poziceSezeni(c))
-  const vyrezBody: Pt[] = []
-  const vyrezRadii: number[] = []
-  if (c.deska.vyrez > 0) {
-    // Tři body: hrana ustoupí do oblouku a zase se vrátí. Prostřední bod dostane
-    // velký rádius, takže dno výřezu je široký oblouk, ne špička.
-    const pulSirky = 0.30
-    vyrezBody.push(P(DA, sez - pulSirky), P(DA - vyrez, sez), P(DA, sez + pulSirky))
-    vyrezRadii.push(vyrez * 2.4, 0.42, vyrez * 2.4)
-  }
-
-  if (c.tvar !== 'L' || ramenoBDelka <= 0) {
-    return {
-      pts: [P(0, 0), P(DA, 0), ...vyrezBody, P(DA, LA), P(0, LA)],
-      radii: [0, rr * 0.6, ...vyrezRadii, rr, rr * 0.6],
-    }
-  }
+  const o = obrysBody(c)
   return {
-    pts: [P(0, 0), P(LB, 0), P(LB, DB), P(DA, DB), ...vyrezBody, P(DA, LA), P(0, LA)],
-    radii: [0, rr * 0.6, rr, ri, ...vyrezRadii, rr, rr * 0.6],
+    pts: o.pts.map(([x, z]: PtMm): Pt => [m(x), -m(z)]),
+    radii: o.radii.map(m),
   }
 }
 
-/** Poloha kabelové průchodky v půdorysu (m), u zadní hrany v místě sezení. */
+/**
+ * Poloha kabelové průchodky v půdorysu (m): za monitorem, u zdi.
+ * Sleduje umístění monitoru, takže kabel od něj jde rovnou dolů.
+ */
 export function poziceDira(c: DeskConfig): [number, number] {
+  const p = pracoviste(c)
   const DA = m(c.rozmery.ramenoAHloubka)
   const DB = m(c.rozmery.ramenoBHloubka)
-  const LA = m(c.rozmery.ramenoADelka)
-  const jeL = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0
-  const od = (jeL ? DB : 0) + 0.28
-  return [DA - 0.115, od + (LA - od) * 0.42]
+  if (p.umisteni === 'roh') {
+    // na úhlopříčce, kousek před podstavcem, ať nekoliduje se zaoblením rohu
+    const d = Math.max(m(c.deska.radiusUZdi) * 0.42 + 0.075, 0.10)
+    const t = (d + m(p.monitorOdZdi) - 0.02) / 2 + 0.02
+    return [t * Math.SQRT1_2, t * Math.SQRT1_2]
+  }
+  if (p.umisteni === 'ramenoB') return [m(p.monitor.x) + 0.30, Math.min(DB - 0.10, 0.10)]
+  return [Math.min(DA - 0.10, 0.10), m(p.monitor.z) + 0.30]
 }
 
 /** Geometrie desky: obrys + skutečný profil hrany, ležatá v rovině XZ. */
@@ -168,7 +152,7 @@ export function geometrieDesky(c: DeskConfig): THREE.ExtrudeGeometry {
     bevelSize: p.size,
     bevelOffset: 0,
     bevelSegments: p.segments,
-    curveSegments: 24,
+    curveSegments: 28,
   })
   geo.rotateX(-Math.PI / 2)
   geo.computeVertexNormals()

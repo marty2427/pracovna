@@ -23,11 +23,14 @@ export function vychoziKonfigurace(): DeskConfig {
       tloustka: 30,
       hrana: 'srazena',
       radiusRohu: 12,
-      radiusVnitrni: 90,
+      // Monitor stojí v rohu, takže se sedí na úhlopříčce a deska se kolem
+      // sedícího obtáčí velkým rádiusem vnitřního rohu.
+      radiusVnitrni: 320,
+      radiusUZdi: 160,
       vyrez: 0,
     },
     podnoz: {
-      typ: 'ram-U',
+      typ: 'ram-hranaty',
       profil: 40,
       odsazeni: 90,
       barva: '#1F2021',
@@ -35,14 +38,15 @@ export function vychoziKonfigurace(): DeskConfig {
       mezilehlaPodpora: 'auto',
       vyztuha: true,
     },
-    ulozne: [{ typ: 'kontejner-3', rameno: 'B', pozice: 0.85 }],
+    ulozne: [{ typ: 'kontejner-3', rameno: 'A', pozice: 0.9 }],
     doplnky: {
       kabelovaLavka: true,
-      pruchodka: 'kulata',
+      pruchodka: 'zadna',
       ledPodsviceni: false,
       nastavecMonitor: false,
       zadniPanel: false,
-      tiskarnaVRohu: false,
+      monitorUmisteni: 'roh',
+      monitorPosun: 0,
     },
   }
 }

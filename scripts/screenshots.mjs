@@ -4,6 +4,7 @@
  *   node scripts/screenshots.mjs                     # záložky + výchozí konfigurace
  *   node scripts/screenshots.mjs --presety           # projede všechny presety v galerii
  *   node scripts/screenshots.mjs --pohledy a,b,c
+ *   node scripts/screenshots.mjs --presety --jen 11,13,32   # jen vybrané presety
  */
 import { chromium } from 'playwright'
 import { mkdirSync } from 'node:fs'
@@ -37,6 +38,8 @@ const snap = async (jmeno) => {
 
 if (má('presety')) {
   const OD = Number(arg('od', '0'))
+  // --jen 11,13,32  -> jen vybrané karty (číslováno od 1, jako v názvech souborů)
+  const JEN = (arg('jen', '') || '').split(',').filter(Boolean).map((n) => Number(n) - 1)
   await page.getByRole('button', { name: 'Galerie presetů' }).click()
   await page.waitForTimeout(900)
   if (OD === 0) await snap('galerie')
@@ -44,6 +47,7 @@ if (má('presety')) {
   console.log(`presetů v galerii: ${karty}, začínám od ${OD}`)
   const selhalo = []
   for (let i = OD; i < karty; i++) {
+    if (JEN.length && !JEN.includes(i)) continue
     await page.getByRole('button', { name: 'Galerie presetů' }).click()
     await page.waitForTimeout(350)
     const karta = page.locator('.karta').nth(i)
@@ -63,7 +67,7 @@ if (má('presety')) {
   if (selhalo.length) console.log('\nNEVYKRESLENO:\n  ' + selhalo.join('\n  '))
 } else {
   for (const p of POHLEDY) {
-    const b = page.locator('.pohledy button', { hasText: new RegExp(`^${p}$`, 'i') })
+    const b = page.locator(`.pohledy button[data-pohled="${p}"]`)
     if (await b.count()) { await b.first().click(); await page.waitForTimeout(1400) }
     await snap(`ui-konfigurator-${p}`)
   }

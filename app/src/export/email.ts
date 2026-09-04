@@ -5,6 +5,7 @@ import { odhadNaMiru } from '@/pricing/odhad'
 import { formatRozpeti } from '@/pricing/ceny'
 import { SPACE } from '@/model/space'
 import { plochaDesky, obvodDesky } from '@/model/constraints'
+import { umisteniMonitoru } from '@/model/constraints'
 
 const HRANA_TEXT: Record<string, string> = {
   rovna: 'rovná, ABS 2 mm',
@@ -106,7 +107,9 @@ export function textEmailu(c: DeskConfig): string {
   if (d.kabelovaLavka) dop.push('kabelová lávka pod deskou')
   if (d.ledPodsviceni) dop.push('LED podsvícení v zápustném profilu, teplá bílá 2700 K')
   if (d.nastavecMonitor) dop.push('nástavec na monitor 620 × 300 mm')
-  if (d.tiskarnaVRohu) dop.push('v rohu L počítám s tiskárnou cca 450 × 400 mm — je potřeba, aby tam bylo místo')
+  const kde = umisteniMonitoru(c) === 'roh' ? 'v rohu L (sedí se na úhlopříčce)' : umisteniMonitoru(c) === 'ramenoB' ? 'na rameni B u zadní stěny' : 'na rameni A u levé stěny'
+  dop.push(`monitor 32" bude stát ${kde} — podle toho je navržený vnitřní roh a případný výřez`)
+  if (c.deska.radiusUZdi > 0) dop.push(`roh desky u zdi zaoblit R${c.deska.radiusUZdi} — vznikne mezera na kabely, deska nemusí sedět přesně do rohu`)
   if (dop.length) {
     radky.push('DOPLŇKY')
     for (const x of dop) radky.push(`- ${x}`)

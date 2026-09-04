@@ -29,16 +29,18 @@ const APLIKACE: Record<string, (c: DeskConfig) => Partial<DeskConfig>> = {
     deska: { ...c.deska, materialId: 'dub-svetly-masiv' },
     podnoz: { ...c.podnoz, material: 'drevo', materialId: 'dub-svetly-masiv' },
   }),
+  // Černá deska vypadla (uživatel chce jen dřevo) — kontrast dělá tmavý ořech s černým rámem.
   'kontrast-cerna': (c) => ({
-    deska: { ...c.deska, materialId: 'lamino-antracit' },
+    deska: { ...c.deska, materialId: 'orech-masiv' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
   }),
   'kov-drevo': (c) => ({
     deska: { ...c.deska, materialId: 'dub-podlaha-masiv' },
-    podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021', typ: c.podnoz.typ.startsWith('ram') ? c.podnoz.typ : 'ram-U' },
+    podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021', typ: c.podnoz.typ.startsWith('ram') ? c.podnoz.typ : 'ram-hranaty' },
   }),
+  // Neutrál: nejsvětlejší dřevo (jasan) s bílým rámem místo krémového lamina.
   neutral: (c) => ({
-    deska: { ...c.deska, materialId: 'lamino-krem' },
+    deska: { ...c.deska, materialId: 'jasan-masiv' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#E8E6E1' },
   }),
   'akcent-gauc-obraz': (c) => ({
@@ -46,7 +48,7 @@ const APLIKACE: Record<string, (c: DeskConfig) => Partial<DeskConfig>> = {
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
     ulozne: c.ulozne.length
       ? c.ulozne.map((u, i) => (i === 0 ? { ...u, barvaCel: '#0F5A78' } : u))
-      : [{ typ: 'kontejner-3' as const, rameno: 'B' as const, pozice: 0.88, barvaCel: '#0F5A78' }],
+      : [{ typ: 'kontejner-3' as const, rameno: 'A' as const, pozice: 0.9, barvaCel: '#0F5A78' }],
   }),
 }
 
