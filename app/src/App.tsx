@@ -22,6 +22,7 @@ const POHLEDY: Array<{ id: Pohled; label: string }> = [
   { id: 'celne', label: 'Zepředu' },
   { id: 'bok', label: 'Od gauče' },
   { id: 'pruchod', label: 'Z průchodu' },
+  { id: 'obraz', label: 'Skrz stěnu s obrazem' },
   { id: 'shora', label: 'Shora' },
 ]
 

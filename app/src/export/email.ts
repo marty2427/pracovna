@@ -85,8 +85,7 @@ export function textEmailu(c: DeskConfig): string {
     radky.push('ÚLOŽNÉ')
     for (const u of c.ulozne) {
       const kde = u.rameno === 'B' && jeL ? 'pod kratším ramenem u gauče' : 'pod hlavní plochou'
-      radky.push(`- pevný kontejner se třemi zásuvkami ${kde}, stojí na podlaze na rektifikačních patkách`
-        + (u.barvaCel ? `, čela v odstínu ${u.barvaCel} (namíchat na vzorek)` : ''))
+      radky.push(`- pevný kontejner se třemi zásuvkami ${kde}, stojí na podlaze na rektifikačních patkách; korpus i čela ve stejném materiálu jako deska`)
     }
     radky.push('')
   }

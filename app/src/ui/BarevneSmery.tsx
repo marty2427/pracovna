@@ -27,35 +27,29 @@ const APLIKACE: Record<string, (c: DeskConfig) => Partial<DeskConfig>> = {
   }),
   'o-ton-svetlejsi': (c) => ({
     deska: { ...c.deska, materialId: 'dub-svetly-masiv' },
-    podnoz: { ...c.podnoz, material: 'drevo', materialId: 'dub-svetly-masiv' },
+    podnoz: { ...c.podnoz, typ: 'bocnice', material: 'drevo', odsazeni: Math.min(c.podnoz.odsazeni, 100) },
   }),
-  // Černá deska vypadla (uživatel chce jen dřevo) — kontrast dělá tmavý ořech s černým rámem.
+  // Černá deska vypadla (uživatel chce jen dub) — kontrast dělá tmavě mořený dub s černým rámem.
   'kontrast-cerna': (c) => ({
-    deska: { ...c.deska, materialId: 'orech-masiv' },
+    deska: { ...c.deska, materialId: 'dub-tmavy-masiv' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
   }),
   'kov-drevo': (c) => ({
     deska: { ...c.deska, materialId: 'dub-podlaha-masiv' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021', typ: c.podnoz.typ.startsWith('ram') ? c.podnoz.typ : 'ram-hranaty' },
   }),
-  // Neutrál: nejsvětlejší dřevo (jasan) s bílým rámem místo krémového lamina.
+  // Neutrál: nejsvětlejší dub (přírodní) s bílým rámem.
   neutral: (c) => ({
-    deska: { ...c.deska, materialId: 'jasan-masiv' },
-    podnoz: { ...c.podnoz, material: 'kov', barva: '#E8E6E1' },
-  }),
-  'akcent-gauc-obraz': (c) => ({
     deska: { ...c.deska, materialId: 'dub-svetly-masiv' },
-    podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
-    ulozne: c.ulozne.length
-      ? c.ulozne.map((u, i) => (i === 0 ? { ...u, barvaCel: '#0F5A78' } : u))
-      : [{ typ: 'kontejner-pevny' as const, rameno: 'A' as const, pozice: 1.0, barvaCel: '#0F5A78' }],
+    podnoz: { ...c.podnoz, material: 'kov', barva: '#E8E6E1' },
   }),
 }
 
 export function BarevneSmery() {
   const nastav = useStore((s) => s.nastav)
   const [otevreny, setOtevreny] = useState<string | null>(null)
-  const smery = ((PALETA as any).directions ?? []) as Smer[]
+  // Směr s akcentem na čelech kontejneru vypadl — stůl je celý v jedné barvě.
+  const smery = (((PALETA as any).directions ?? []) as Smer[]).filter((x) => APLIKACE[x.id])
   const meta = (PALETA as any).meta ?? {}
 
   if (!smery.length) return null

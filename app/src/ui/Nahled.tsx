@@ -44,9 +44,7 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
     const mat = material(config.deska.materialId)
     const barvaDesky = mat.barva
     const barvaHrany = ztmav(barvaDesky, 0.78)
-    const barvaPodnoze = config.podnoz.material === 'kov'
-      ? config.podnoz.barva
-      : material(config.podnoz.materialId ?? config.deska.materialId).barva
+    const barvaPodnoze = config.podnoz.material === 'kov' ? config.podnoz.barva : mat.barva
 
     // rozsah pro scale
     const vse = [...top, ...bot, ...podp.map((p) => iso(p.x, 0, p.z))]
@@ -122,7 +120,7 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
           [x - w / 2, z - d / 2], [x + w / 2, z - d / 2], [x + w / 2, z + d / 2], [x - w / 2, z + d / 2],
         ]
         const hy = g.H - g.T
-        const barva = (u as any).barvaCel ?? material(u.materialId ?? g.config.deska.materialId).barva
+        const barva = g.barvaDesky
         return (
           <g key={`u${i}`}>
             <polygon points={rohy.map(([a, b]) => pt(g.T2(g.iso(a, hy - vys, b)))).join(' ')} fill={ztmav(barva, 0.7)} />

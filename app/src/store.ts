@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { DeskConfig } from './model/types'
 import { vychoziKonfigurace } from './model/defaults'
 import { orizniNaProstor, type Mistnost, VYCHOZI_MISTNOST } from './model/constraints'
+import { SPACE } from './model/space'
 
 export type Zalozka = 'konfigurator' | 'galerie' | 'koupit' | 'export'
 
@@ -38,10 +39,18 @@ export const useStore = create<Stav>((set, get) => ({
     }),
 
   nastavRozmer: (klic, hodnota) =>
-    set((s) => ({
-      historie: [...s.historie.slice(-24), s.config],
-      config: orizniNaProstor({ ...s.config, rozmery: { ...s.config.rozmery, [klic]: hodnota } }),
-    })),
+    set((s) => {
+      const r = { ...s.config.rozmery, [klic]: hodnota }
+      // Mezera ke gauči = 160 cm − délka ramene B. Oba posuvníky hýbou tou samou
+      // veličinou, jinak by mezera po posunu zpět „zamrzla" a posuvník lhal.
+      const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v))
+      if (klic === 'mezeraKeGauci') r.ramenoBDelka = SPACE.zadniStenaKeGauci - hodnota
+      if (klic === 'ramenoBDelka') r.mezeraKeGauci = clamp(SPACE.zadniStenaKeGauci - hodnota, SPACE.mezeraKeGauci.min, SPACE.mezeraKeGauci.max)
+      return {
+        historie: [...s.historie.slice(-24), s.config],
+        config: orizniNaProstor({ ...s.config, rozmery: r }),
+      }
+    }),
 
   nactiPreset: (p, kam = 'konfigurator') =>
     set((s) => ({

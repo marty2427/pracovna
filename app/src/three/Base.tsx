@@ -165,7 +165,7 @@ export function Podnoz({ config }: { config: DeskConfig }) {
   const o = m(podnoz.odsazeni)
 
   const kov = useKov(podnoz.barva, podnoz.barva === '#B9BCC0')
-  const drevo = usePovrch(podnoz.materialId ?? 'dub-svetly-masiv', { meritko: [0.5, 0.4] })
+  const drevo = usePovrch(config.deska.materialId, { meritko: [0.5, 0.4] })
   const mat = podnoz.material === 'kov' ? kov : drevo
   const guma = useMat('#141414', 0.9)
 

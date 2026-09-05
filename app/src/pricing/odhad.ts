@@ -70,7 +70,7 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
   } else {
     const drevoDilce = dilce.filter((d) => d.skupina === 'Podnož')
     const m2 = [...plochaPodleMaterialu(drevoDilce).values()].reduce((a, b) => a + b, 0)
-    const matP = material(c.podnoz.materialId ?? c.deska.materialId)
+    const matP = mat
     radky.push({
       nazev: 'Dřevěná podnož — materiál',
       detail: `${matP.nazev} · ${m2.toFixed(2)} m² dílců`,

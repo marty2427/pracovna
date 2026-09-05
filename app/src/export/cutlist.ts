@@ -76,7 +76,7 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
         dilce.push({
           skupina: 'Podnož', nazev: `Bočnice ${s === 'A' ? 'u konce ramene A' : s === 'B' ? 'u gauče' : 'mezilehlá'}`,
           ks: 1, delka: H, sirka: sirkaP, tloustka: KORPUS_TL + 6,
-          material: material(c.podnoz.materialId ?? c.deska.materialId).nazev,
+          material: material(c.deska.materialId).nazev,
           hrany: 'ABS 2 mm po obvodu, viditelné hrany',
         })
       }
@@ -87,7 +87,7 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
       skupina: 'Podnož',
       nazev: typ === 'hairpin' ? 'Hairpin noha (ocelový prut)' : `Noha ${typ === 'nohy-konicke' ? 'kónická' : typ === 'nohy-sikme' ? 'šikmá' : 'rovná'}`,
       ks: p.length, delka: H, sirka: Math.max(profil, 45), tloustka: Math.max(profil, 45),
-      material: c.podnoz.material === 'kov' ? `ocel, komaxit ${c.podnoz.barva}` : material(c.podnoz.materialId ?? c.deska.materialId).nazev,
+      material: c.podnoz.material === 'kov' ? `ocel, komaxit ${c.podnoz.barva}` : material(c.deska.materialId).nazev,
       hrany: typ === 'nohy-konicke' ? 'soustružené, kónické zúžení na 26 mm' : 'sražené hrany 2 mm',
     })
     kovani.push({ nazev: 'Kotevní deska nohy + vruty', ks: p.length })
@@ -96,11 +96,11 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
   } else if (typ === 'kozy') {
     dilce.push({
       skupina: 'Podnož', nazev: 'Koza — noha', ks: 8, delka: Math.round(H * 1.06), sirka: profil, tloustka: profil,
-      material: material(c.podnoz.materialId ?? c.deska.materialId).nazev, hrany: 'sražení 2 mm',
+      material: material(c.deska.materialId).nazev, hrany: 'sražení 2 mm',
     })
     dilce.push({
       skupina: 'Podnož', nazev: 'Koza — příčka', ks: 4, delka: 420, sirka: Math.round(profil * 0.7), tloustka: Math.round(profil * 0.7),
-      material: material(c.podnoz.materialId ?? c.deska.materialId).nazev, hrany: 'sražení 2 mm',
+      material: material(c.deska.materialId).nazev, hrany: 'sražení 2 mm',
     })
   } else {
     // kovové rámy
@@ -156,14 +156,14 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
 
   // --- ÚLOŽNÉ: pevný kontejner se třemi zásuvkami ---
   for (const u of c.ulozne) {
-    const matU = material(u.materialId ?? c.deska.materialId).nazev
+    const matU = mat.nazev
     const hlU = (u.rameno === 'B' && jeL ? r.ramenoBHloubka : r.ramenoAHloubka) - 60
     const vys = H - 2
     dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — bok', ks: 2, delka: vys, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
     dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — dno a víko', ks: 2, delka: 420 - 2 * KORPUS_TL, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
     dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — záda', ks: 1, delka: vys - 20, sirka: 420 - 20, tloustka: 4, material: 'HDF', hrany: 'bez úpravy' })
     const hCelo = Math.round((vys - 2 * KORPUS_TL - 2 * 5) / 3)
-    dilce.push({ skupina: 'Úložné', nazev: 'Čelo zásuvky', ks: 3, delka: 420 - 6, sirka: hCelo, tloustka: 19, material: u.barvaCel ? `lakovaná MDF ${u.barvaCel}` : matU, hrany: 'ABS 1 mm po obvodu' })
+    dilce.push({ skupina: 'Úložné', nazev: 'Čelo zásuvky', ks: 3, delka: 420 - 6, sirka: hCelo, tloustka: 19, material: matU, hrany: 'ABS 1 mm po obvodu' })
     dilce.push({ skupina: 'Úložné', nazev: 'Dno zásuvky', ks: 3, delka: 420 - 2 * KORPUS_TL - 26, sirka: hlU - 40, tloustka: 16, material: matU, hrany: 'ABS 0,8 mm' })
     kovani.push({ nazev: 'Plnovýsuv s tlumením, délka 450 mm, nosnost 30 kg', ks: 3, poznamka: 'Blum TANDEMBOX antaro nebo Hettich InnoTech' })
     kovani.push({ nazev: 'Úchytka madlo 128 mm', ks: 3 })

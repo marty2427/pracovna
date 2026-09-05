@@ -15,7 +15,7 @@ import { m } from './shapes'
 // Plošné světlo (okno) potřebuje jednorázově nahrát LUT tabulky.
 RectAreaLightUniformsLib.init()
 
-export type Pohled = 'perspektiva' | 'celne' | 'bok' | 'pruchod' | 'shora'
+export type Pohled = 'perspektiva' | 'celne' | 'bok' | 'pruchod' | 'obraz' | 'shora'
 
 /**
  * Kamery. Objektiv je delší (34°), takže stojí o kus dál než dřív — kratší
@@ -29,6 +29,8 @@ const POHLEDY: Record<Pohled, [number, number, number]> = {
   celne: [2.3, 1.45, 4.6],
   bok: [2.8, 2.0, 3.0],
   pruchod: [1.0, 1.8, 4.35],
+  /** Z vedlejší místnosti skrz levou stěnu s obrazem — stěna se schová, stůl je vidět ze strany u zdi. */
+  obraz: [-2.6, 1.9, 1.6],
   shora: [0.77, 5.3, 1.25],
 }
 const FOV = 34

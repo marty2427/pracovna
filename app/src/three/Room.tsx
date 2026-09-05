@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { SPACE } from '@/model/space'
 import { PALETA } from '@/model/materials'
@@ -54,6 +55,16 @@ export function Room({ config, lehatko = SPACE.gauc.lehatko.delka, ukazNabytek =
   const koberecMat = useMat(koberecR?.base ?? '#4A4744', 1)
   const kov = useKov('#9EA3A8', true)
 
+  // Stěny jsou vidět zevnitř místnosti. Když kamera vyjede ven (za levou stěnu
+  // s obrazem, nebo za zadní stěnu ke gauči), stěna zmizí a stůl zůstane vidět —
+  // stejně jako to už dělá tenká zadní stěna díky jednostrannému materiálu.
+  const levaRef = useRef<THREE.Group>(null)
+  const zadniRef = useRef<THREE.Group>(null)
+  useFrame(({ camera }) => {
+    if (levaRef.current) levaRef.current.visible = camera.position.x > -0.05
+    if (zadniRef.current) zadniRef.current.visible = camera.position.z > -0.05
+  })
+
   // Rozsah podlahy: od průchodu (x < 0) až za gauč, od zadní stěny do místnosti.
   const X0 = -m(SPACE.pruchod.tloustkaZdi) - 1.4, X1 = 5.6
   const Z0 = -0.6, Z1 = 4.6
@@ -79,25 +90,29 @@ export function Room({ config, lehatko = SPACE.gauc.lehatko.delka, ukazNabytek =
         <planeGeometry args={[X1 - X0, Z1 - Z0]} />
       </mesh>
 
-      {/* LEVÁ STĚNA — stará tlustá zeď. Končí hranou v 236 cm, kde začíná průchod. */}
-      <Box pos={[-T / 2, VYS / 2, (Z0 + pz0) / 2]} size={[T, VYS, pz0 - Z0]} material={stenaMat} radius={0.002} />
-      {/* překlad nad průchodem */}
-      <Box pos={[-T / 2, (pv + VYS) / 2, (pz0 + pz1) / 2]} size={[T, VYS - pv, pz1 - pz0]} material={osteniMat} radius={0.002} />
-      {/* zeď za průchodem */}
-      <Box pos={[-T / 2, VYS / 2, (pz1 + Z1) / 2]} size={[T, VYS, Z1 - pz1]} material={stenaMat} radius={0.002} />
-      {/* vedlejší místnost za průchodem — tmavší stěna, ať je vidět, že se tam dá projít */}
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[X0 + 0.02, VYS / 2, (Z0 + Z1) / 2]} material={osteniMat}>
-        <planeGeometry args={[Z1 - Z0, VYS]} />
-      </mesh>
+      {/* LEVÁ STĚNA — stará tlustá zeď. Končí hranou v 236 cm, kde začíná průchod.
+          Celá skupina zmizí, když se kamera dostane za ni (x < 0). */}
+      <group ref={levaRef}>
+        <Box pos={[-T / 2, VYS / 2, (Z0 + pz0) / 2]} size={[T, VYS, pz0 - Z0]} material={stenaMat} radius={0.002} />
+        {/* překlad nad průchodem */}
+        <Box pos={[-T / 2, (pv + VYS) / 2, (pz0 + pz1) / 2]} size={[T, VYS - pv, pz1 - pz0]} material={osteniMat} radius={0.002} />
+        {/* zeď za průchodem */}
+        <Box pos={[-T / 2, VYS / 2, (pz1 + Z1) / 2]} size={[T, VYS, Z1 - pz1]} material={stenaMat} radius={0.002} />
+        {/* vedlejší místnost za průchodem — tmavší stěna, ať je vidět, že se tam dá projít */}
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[X0 + 0.02, VYS / 2, (Z0 + Z1) / 2]} material={osteniMat}>
+          <planeGeometry args={[Z1 - Z0, VYS]} />
+        </mesh>
+        <Box pos={[0.008, 0.035, (Z0 + pz0) / 2]} size={[0.016, 0.07, pz0 - Z0]} material={stenaMat} radius={0.002} />
+        <Box pos={[0.008, 0.035, (pz1 + Z1) / 2]} size={[0.016, 0.07, Z1 - pz1]} material={stenaMat} radius={0.002} />
+      </group>
 
-      {/* ZADNÍ STĚNA (z = 0) */}
-      <mesh position={[(X1 - T) / 2, VYS / 2, -0.01]} receiveShadow material={stenaMat}>
-        <planeGeometry args={[X1 + T, VYS]} />
-      </mesh>
-      {/* soklová lišta */}
-      <Box pos={[0.008, 0.035, (Z0 + pz0) / 2]} size={[0.016, 0.07, pz0 - Z0]} material={stenaMat} radius={0.002} />
-      <Box pos={[0.008, 0.035, (pz1 + Z1) / 2]} size={[0.016, 0.07, Z1 - pz1]} material={stenaMat} radius={0.002} />
-      <Box pos={[X1 / 2, 0.035, 0.008]} size={[X1, 0.07, 0.016]} material={stenaMat} radius={0.002} />
+      {/* ZADNÍ STĚNA (z = 0) — zmizí, když je kamera za ní (z < 0) */}
+      <group ref={zadniRef}>
+        <mesh position={[(X1 - T) / 2, VYS / 2, -0.01]} receiveShadow material={stenaMat}>
+          <planeGeometry args={[X1 + T, VYS]} />
+        </mesh>
+        <Box pos={[X1 / 2, 0.035, 0.008]} size={[X1, 0.07, 0.016]} material={stenaMat} radius={0.002} />
+      </group>
 
       {ukazNabytek && (
         <group>

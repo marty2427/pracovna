@@ -65,9 +65,8 @@ export interface Podnoz {
   /** Odsazení podnože od hrany desky, mm. */
   odsazeni: number
   barva: string
-  /** 'kov' mění materiálový vzhled na komaxit, 'drevo' na dřevo. */
+  /** 'kov' mění materiálový vzhled na komaxit, 'drevo' na dřevo — dřevo je vždy stejné jako deska. */
   material: 'kov' | 'drevo'
-  materialId?: string
   /**
    * Mezilehlá podpora uprostřed dlouhého ramene A.
    * 'auto' ji přidá, jen když by rozpon překročil limit materiálu.
@@ -80,11 +79,8 @@ export interface Podnoz {
 export interface Ulozne {
   typ: UlozneTyp
   rameno: Rameno
-  /** Zarovnání podél ramene: 0 = u rohu, 1 = na konci. */
+  /** Zarovnání podél ramene: 0 = u rohu, 1 = na konci. Materiál je vždy stejný jako deska. */
   pozice: number
-  materialId?: string
-  /** Barva čel — když se liší od korpusu (akcent). */
-  barvaCel?: string
 }
 
 export interface Doplnky {

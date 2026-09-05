@@ -364,7 +364,7 @@ export function hmotnost(c: DeskConfig): number {
   let podnoz: number
   if (c.podnoz.typ === 'bocnice') {
     const tl = Math.max(25, c.deska.tloustka) / 1000
-    const matP = material(c.podnoz.materialId ?? c.deska.materialId)
+    const matP = material(c.deska.materialId)
     podnoz = podpory(c).length * 0.5 * (c.rozmery.ramenoAHloubka / 1000) * H * tl * (HUSTOTA[matP.kategorie] ?? 700)
   } else {
     // ocelový jekl: hmotnost na metr ≈ obvod × stěna 2 mm × 7850 kg/m³

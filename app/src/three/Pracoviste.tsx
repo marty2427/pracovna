@@ -228,7 +228,7 @@ export function Pracoviste({ config, ukazMereni = true }: { config: DeskConfig; 
   const podlozka = useMat('#26282B', 0.95)
   const latka = useMat('#1B1C1F', 0.9)
   const kov = useKov('#9EA3A8', true)
-  const repro = usePovrch('orech-masiv', { meritko: [0.4, 0.3] })
+  const repro = usePovrch('dub-tmavy-masiv', { meritko: [0.4, 0.3] })
   const kuzel = useMat('#141516', 0.8)
   const drevo = usePovrch(config.deska.materialId, { meritko: [0.8, 0.4] })
   const mereni = useMemo(() => new THREE.MeshBasicMaterial({ color: '#C4661F', transparent: true, opacity: 0.75 }), [])

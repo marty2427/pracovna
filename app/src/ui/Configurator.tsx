@@ -144,7 +144,7 @@ export function Configurator() {
       <BarevneSmery />
 
       <Skupina titulek="Deska">
-        <Prepinac label="Materiál / dekor" sloupce={2} hodnota={config.deska.materialId}
+        <Prepinac label="Dub — deska, bočnice i kontejner v jednom" sloupce={2} hodnota={config.deska.materialId}
           volby={materialyVolby}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, materialId: v } }))} />
         <Prepinac label="Tloušťka" sloupce={5}
@@ -190,9 +190,7 @@ export function Configurator() {
             onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, barva: v } }))} />
         )}
         {config.podnoz.material === 'drevo' && (
-          <Prepinac label="Dřevo podnože" sloupce={2} hodnota={config.podnoz.materialId ?? config.deska.materialId}
-            volby={materialyVolby}
-            onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, materialId: v } }))} />
+          <p className="popis">Bočnice jsou ze stejného dřeva jako deska — celý stůl v jedné barvě.</p>
         )}
         {config.podnoz.typ !== 'bocnice' && (
           <Posuvnik label="Profil" hodnota={config.podnoz.profil} min={20} max={80} krok={5} jednotka="mm" delitel={1}

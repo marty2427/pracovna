@@ -82,12 +82,11 @@ function umisti(c: DeskConfig, u: UlozneT): Umisteni {
 /** Pevný kontejner se třemi zásuvkami — stojí na podlaze, čela v materiálu desky nebo v akcentní barvě. */
 function KorpusSeZasuvkami({ c, u, pocet }: { c: DeskConfig; u: UlozneT; pocet: number }) {
   const pojezdovy = false
-  const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.7, 0.45] })
-  const matCela = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.55, 0.4] })
+  // Všechno v jednom dřevě jako deska — žádný jiný odstín na korpusu ani na čelech.
+  const mat = usePovrch(c.deska.materialId, { meritko: [0.7, 0.45] })
+  const celoMat = usePovrch(c.deska.materialId, { meritko: [0.55, 0.4] })
   const kov = useKov('#1F2021')
-  const akcent = useMat(u.barvaCel ?? '#000000', 0.55)
   const stin = useMat('#241C15', 0.95)
-  const celoMat = u.barvaCel ? akcent : matCela
 
   const { x, z, sirka, hloubka, celaSmer } = umisti(c, u)
   const H = m(c.rozmery.vyska) - m(c.deska.tloustka)

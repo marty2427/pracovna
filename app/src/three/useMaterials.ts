@@ -15,8 +15,9 @@ function woodFor(mat: Material) {
       base: mat.barva,
       tmava: mat.kresbaTmava ?? mat.barva,
       svetla: mat.kresbaSvetla ?? mat.barva,
-      hustota: 7,
-      vlneni: 1.05,
+      hustota: mat.hustota ?? 7,
+      vlneni: mat.vlneni ?? 1.05,
+      pory: mat.pory ?? 1,
       seed: (key.length * 13) % 97,
     })
     cacheWood.set(key, t)
