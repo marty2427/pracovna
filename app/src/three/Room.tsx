@@ -19,17 +19,24 @@ export function Room({ config, lehatko = SPACE.gauc.lehatko.delka, ukazNabytek =
   const koberecR = R('koberec_celek')
   const parkety = useMemo(() => {
     const t = parketyTexture(podlahaR.dark, podlahaR.base, podlahaR.light)
-    // 3.8 opakování na 5.2 m podlahy -> šířka vlysu cca 6.5 cm jako na fotce
-    t.repeat.set(3.8 * (6.4 / 5.2), 3.8)
-    // Otočení o 90°. Dlaždice je čtvercová a bezešvá v obou osách, takže
-    // otočení o pravý úhel švy nerozbije.
-    t.center.set(0.5, 0.5)
-    t.rotation = Math.PI / 2
+    for (const tx of [t.map, t.rough, t.normal]) {
+      // 3.8 opakování na 5.2 m podlahy -> šířka vlysu cca 6.5 cm jako na fotce
+      tx.repeat.set(3.8 * (6.4 / 5.2), 3.8)
+      // Otočení o 90°. Dlaždice je čtvercová a bezešvá v obou osách, takže
+      // otočení o pravý úhel švy nerozbije.
+      tx.center.set(0.5, 0.5)
+      tx.rotation = Math.PI / 2
+    }
     return t
   }, [podlahaR.dark, podlahaR.base, podlahaR.light])
 
   const podlahaMat = useMemo(
-    () => new THREE.MeshPhysicalMaterial({ map: parkety, roughness: 0.42, clearcoat: 0.35, clearcoatRoughness: 0.5, envMapIntensity: 0.7 }),
+    () => new THREE.MeshPhysicalMaterial({
+      map: parkety.map, roughnessMap: parkety.rough, normalMap: parkety.normal,
+      normalScale: new THREE.Vector2(0.7, 0.7),
+      roughness: 1, clearcoat: 0.45, clearcoatRoughness: 0.4, clearcoatRoughnessMap: parkety.rough,
+      envMapIntensity: 0.8,
+    }),
     [parkety],
   )
   // Stěna: neutrální světlý tón mezi naměřeným osvětleným a zastíněným místem.
@@ -38,7 +45,10 @@ export function Room({ config, lehatko = SPACE.gauc.lehatko.delka, ukazNabytek =
   // Gauč: mezi naměřeným základem (#043A53) a osvětlenou částí (#3E6A84).
   const gaucTex = useMemo(() => latkaTexture('#0F5A78'), [])
   const gaucMat = useMemo(
-    () => new THREE.MeshPhysicalMaterial({ map: gaucTex.map, roughnessMap: gaucTex.rough, roughness: 0.92, sheen: 0.6, sheenColor: new THREE.Color('#4FA8C8'), envMapIntensity: 0.5 }),
+    () => new THREE.MeshPhysicalMaterial({
+      map: gaucTex.map, roughnessMap: gaucTex.rough, normalMap: gaucTex.normal, normalScale: new THREE.Vector2(0.6, 0.6),
+      roughness: 0.95, sheen: 0.7, sheenRoughness: 0.6, sheenColor: new THREE.Color('#4FA8C8'), envMapIntensity: 0.5,
+    }),
     [gaucTex],
   )
   const koberecMat = useMat(koberecR?.base ?? '#4A4744', 1)

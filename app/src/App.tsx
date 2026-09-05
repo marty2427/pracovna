@@ -90,7 +90,7 @@ export function App() {
           <aside className="vpravo">
             <h3>Náhled</h3>
             <div className="mini3d">
-              <Scene config={config} pohled="perspektiva" ukazMistnost={false} />
+              <Scene config={config} pohled="perspektiva" ukazMistnost={false} efekty={false} />
             </div>
             <h3 style={{ marginTop: 14 }}>Půdorys a rezervy</h3>
             <FloorPlan config={config} sirka={396} mistnost={mistnost} />

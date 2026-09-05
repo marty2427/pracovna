@@ -13,6 +13,39 @@ function mix(a: [number, number, number], b: [number, number, number], t: number
   return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]
 }
 
+
+/**
+ * Normálová mapa z výškového pole (tangentní prostor, konvence OpenGL jako
+ * ve three.js). Výška je bezrozměrná 0–1, `sila` říká, kolik pixelů „vysoký"
+ * je rozdíl 1.0 — tím se řídí, jak moc reliéf láme světlo.
+ * Okraje se berou dokola, aby mapa tilovala stejně jako barva.
+ */
+export function normalZVysky(h: Float32Array, W: number, H: number, sila: number): THREE.CanvasTexture {
+  const c = document.createElement('canvas')
+  c.width = W; c.height = H
+  const g = c.getContext('2d')!
+  const img = g.createImageData(W, H)
+  for (let y = 0; y < H; y++) {
+    const y0 = (y - 1 + H) % H, y1 = (y + 1) % H
+    for (let x = 0; x < W; x++) {
+      const x0 = (x - 1 + W) % W, x1 = (x + 1) % W
+      const dx = (h[y * W + x1] - h[y * W + x0]) * sila
+      const dy = (h[y1 * W + x] - h[y0 * W + x]) * sila
+      const len = Math.sqrt(dx * dx + dy * dy + 1)
+      const i = (y * W + x) * 4
+      img.data[i] = Math.round((-dx / len * 0.5 + 0.5) * 255)
+      img.data[i + 1] = Math.round((dy / len * 0.5 + 0.5) * 255)
+      img.data[i + 2] = Math.round((1 / len * 0.5 + 0.5) * 255)
+      img.data[i + 3] = 255
+    }
+  }
+  g.putImageData(img, 0, 0)
+  const t = new THREE.CanvasTexture(c)
+  t.wrapS = t.wrapT = THREE.RepeatWrapping
+  t.anisotropy = 8
+  return t
+}
+
 export interface WoodOpts {
   base: string
   tmava: string
@@ -33,7 +66,7 @@ export interface WoodOpts {
  * Kresba dřeva: letokruhy napříč (osa V), vlákno podél (osa U).
  * Vrací { map, roughnessMap } — drsnost sleduje póry, aby se povrch neleskl jako plast.
  */
-export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: THREE.CanvasTexture } {
+export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: THREE.CanvasTexture; normal: THREE.CanvasTexture } {
   const W = o.w ?? 768
   const H = o.h ?? 384
   const hustota = o.hustota ?? 5.5
@@ -53,6 +86,8 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
   const rgh = cRgh.getContext('2d')!
   const imgA = alb.createImageData(W, H)
   const imgR = rgh.createImageData(W, H)
+  // Reliéf: póry jsou prohlubně, pozdní dřevo letokruhu je o fous výš než rané.
+  const vyska = new Float32Array(W * H)
 
   // Střed „katedrály" mimo desku — dává obloučky typické pro plotnu z fládru,
   // ne pravidelné pruhy jako u překližky.
@@ -101,6 +136,8 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
       const rgv = clamp01(0.52 + poreDark * 1.5 + (1 - t) * 0.14)
       const rv = Math.round(rgv * 255)
       imgR.data[i] = rv; imgR.data[i + 1] = rv; imgR.data[i + 2] = rv; imgR.data[i + 3] = 255
+
+      vyska[y * W + x] = 0.5 + (t - 0.5) * 0.22 + (vlakno - 0.5) * 0.10 - poreDark * 1.4
     }
   }
   alb.putImageData(imgA, 0, 0)
@@ -113,7 +150,8 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
     t.anisotropy = 8
   }
   map.colorSpace = THREE.SRGBColorSpace
-  return { map, rough }
+  const normal = normalZVysky(vyska, W, H, 2.4)
+  return { map, rough, normal }
 }
 
 /** Jemná struktura komaxitu — aby kov nebyl mrtvě hladký. */
@@ -160,7 +198,7 @@ export function komaxitTexture(barva: string, seed = 11): { map: THREE.CanvasTex
 export function parketyTexture(
   tmava: string, base: string, svetla: string, seed = 7,
   opts: { k?: number; opakovani?: number; velikost?: number } = {},
-): THREE.CanvasTexture {
+): { map: THREE.CanvasTexture; rough: THREE.CanvasTexture; normal: THREE.CanvasTexture } {
   const S = opts.velikost ?? 1024
   const k = opts.k ?? 5          // délka lamely = k × šířka
   const n = opts.opakovani ?? 3  // kolik period vzoru se vejde do textury
@@ -180,6 +218,13 @@ export function parketyTexture(
   c.width = c.height = S
   const g = c.getContext('2d')!
   const img = g.createImageData(S, S)
+  const cR = document.createElement('canvas')
+  cR.width = cR.height = S
+  const gR = cR.getContext('2d')!
+  const imgR = gR.createImageData(S, S)
+  // Reliéf: spáry jsou prohlubně, každá lamela je o chlup jinak vysoko (staré vlysy
+  // nikdy nejsou v jedné rovině) a letokruhy dávají jemné vlnění.
+  const vyska = new Float32Array(S * S)
 
   const pmod = (a: number, mm: number) => ((a % mm) + mm) % mm
   const hashId = (a: number, bb: number) => {
@@ -237,20 +282,32 @@ export function parketyTexture(
 
       const i = (y * S + x) * 4
       img.data[i] = col[0]; img.data[i + 1] = col[1]; img.data[i + 2] = col[2]; img.data[i + 3] = 255
+
+      // drsnost: lak je na každé lamele trochu jinak ošlapaný, spáry jsou matné
+      const rv = Math.round(clamp01(0.36 + (r1 - 0.5) * 0.16 + (1 - t) * 0.06 + sila * 0.4) * 255)
+      imgR.data[i] = imgR.data[i + 1] = imgR.data[i + 2] = rv; imgR.data[i + 3] = 255
+
+      vyska[y * S + x] = 0.5 + (r2 - 0.5) * 0.08 + (t - 0.5) * 0.04 - sila * 0.6
     }
   }
   g.putImageData(img, 0, 0)
+  gR.putImageData(imgR, 0, 0)
 
-  const tex = new THREE.CanvasTexture(c)
-  tex.wrapS = tex.wrapT = THREE.RepeatWrapping
-  tex.colorSpace = THREE.SRGBColorSpace
-  tex.anisotropy = 8
-  return tex
+  const map = new THREE.CanvasTexture(c)
+  const rough = new THREE.CanvasTexture(cR)
+  for (const t of [map, rough]) {
+    t.wrapS = t.wrapT = THREE.RepeatWrapping
+    t.anisotropy = 8
+  }
+  map.colorSpace = THREE.SRGBColorSpace
+  const normal = normalZVysky(vyska, S, S, 3.0)
+  return { map, rough, normal }
 }
 
 /** Jednoduchý látkový povrch (gauč, židle). */
-export function latkaTexture(barva: string, seed = 5): { map: THREE.CanvasTexture; rough: THREE.CanvasTexture } {
+export function latkaTexture(barva: string, seed = 5): { map: THREE.CanvasTexture; rough: THREE.CanvasTexture; normal: THREE.CanvasTexture } {
   const S = 256
+  const vyska = new Float32Array(S * S)
   const base = hexToRgb(barva)
   const cA = document.createElement('canvas'); cA.width = cA.height = S
   const cR = document.createElement('canvas'); cR.width = cR.height = S
@@ -269,11 +326,13 @@ export function latkaTexture(barva: string, seed = 5): { map: THREE.CanvasTextur
       const rv = Math.round((0.86 + n * 0.1) * 255)
       ir.data[i] = ir.data[i + 1] = ir.data[i + 2] = rv
       ir.data[i + 3] = 255
+      vyska[y * S + x] = weave * 0.7 + n * 0.3
     }
   }
   a.putImageData(ia, 0, 0); r.putImageData(ir, 0, 0)
   const map = new THREE.CanvasTexture(cA), rough = new THREE.CanvasTexture(cR)
-  for (const t of [map, rough]) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(6, 6) }
+  const normal = normalZVysky(vyska, S, S, 1.6)
+  for (const t of [map, rough, normal]) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(6, 6) }
   map.colorSpace = THREE.SRGBColorSpace
-  return { map, rough }
+  return { map, rough, normal }
 }

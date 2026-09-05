@@ -217,7 +217,7 @@ export function Pracoviste({ config, ukazMereni = true }: { config: DeskConfig; 
   const panelMat = useMat('#1A1B1D', 0.62)
   const obrazovkaTex = useMemo(() => obrazovkaTexture(), [])
   const obrazovka = useMemo(
-    () => new THREE.MeshPhysicalMaterial({ map: obrazovkaTex, emissive: new THREE.Color('#5E86A8'), emissiveMap: obrazovkaTex, emissiveIntensity: 0.7, roughness: 0.18, metalness: 0.05, side: THREE.DoubleSide, envMapIntensity: 1.2 }),
+    () => new THREE.MeshPhysicalMaterial({ map: obrazovkaTex, emissive: new THREE.Color('#5E86A8'), emissiveMap: obrazovkaTex, emissiveIntensity: 0.9, roughness: 0.18, metalness: 0.05, side: THREE.DoubleSide, envMapIntensity: 1.2, toneMapped: false }),
     [obrazovkaTex],
   )
   const klavesTex = useMemo(() => klavesniceTexture(), [])

@@ -4,7 +4,7 @@ import { woodTextures, komaxitTexture } from './textures'
 import { material as findMaterial, type Material } from '@/model/materials'
 
 /** Cache textur — generování je drahé, konfigurace se mění často. */
-const cacheWood = new Map<string, { map: THREE.CanvasTexture; rough: THREE.CanvasTexture }>()
+const cacheWood = new Map<string, { map: THREE.CanvasTexture; rough: THREE.CanvasTexture; normal: THREE.CanvasTexture }>()
 const cacheKomaxit = new Map<string, { map: THREE.CanvasTexture; rough: THREE.CanvasTexture }>()
 
 function woodFor(mat: Material) {
@@ -53,10 +53,11 @@ export function usePovrch(materialId: string, opts: PovrchOpts = {}): THREE.Mesh
       envMapIntensity: 0.85,
     })
     if (mat.drevo) {
-      const { map, rough } = woodFor(mat)
+      const { map, rough, normal } = woodFor(mat)
       const mapC = map.clone(); mapC.needsUpdate = true
       const roughC = rough.clone(); roughC.needsUpdate = true
-      for (const t of [mapC, roughC]) {
+      const normC = normal.clone(); normC.needsUpdate = true
+      for (const t of [mapC, roughC, normC]) {
         t.wrapS = t.wrapT = THREE.RepeatWrapping
         t.center.set(0.5, 0.5)
         t.rotation = otocit ? Math.PI / 2 : 0
@@ -66,6 +67,13 @@ export function usePovrch(materialId: string, opts: PovrchOpts = {}): THREE.Mesh
       mapC.colorSpace = THREE.SRGBColorSpace
       m.map = mapC
       m.roughnessMap = roughC
+      // Reliéf pórů a letokruhů + odlesk protažený podél vlákna: bez toho
+      // je dřevo jen potištěná fólie.
+      m.normalMap = normC
+      m.normalScale = new THREE.Vector2(0.55, 0.55)
+      m.clearcoatRoughnessMap = roughC
+      m.anisotropy = 0.45
+      m.anisotropyRotation = otocit ? Math.PI / 2 : 0
       m.color = new THREE.Color('#ffffff')
     }
     return m
