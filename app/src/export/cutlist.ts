@@ -154,60 +154,25 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
     })
   }
 
-  // --- ÚLOŽNÉ ---
+  // --- ÚLOŽNÉ: pevný kontejner se třemi zásuvkami ---
   for (const u of c.ulozne) {
     const matU = material(u.materialId ?? c.deska.materialId).nazev
     const hlU = (u.rameno === 'B' && jeL ? r.ramenoBHloubka : r.ramenoAHloubka) - 60
-    if (u.typ === 'kontejner-3' || u.typ === 'kontejner-pevny') {
-      const vys = u.typ === 'kontejner-3' ? H - 55 : H - 2
-      dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — bok', ks: 2, delka: vys, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — dno a víko', ks: 2, delka: 420 - 2 * KORPUS_TL, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — záda', ks: 1, delka: vys - 20, sirka: 420 - 20, tloustka: 4, material: 'HDF', hrany: 'bez úpravy' })
-      const hCelo = Math.round((vys - 2 * KORPUS_TL - 2 * 5) / 3)
-      dilce.push({ skupina: 'Úložné', nazev: 'Čelo zásuvky', ks: 3, delka: 420 - 6, sirka: hCelo, tloustka: 19, material: u.barvaCel ? `lakovaná MDF ${u.barvaCel}` : matU, hrany: 'ABS 1 mm po obvodu' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Dno zásuvky', ks: 3, delka: 420 - 2 * KORPUS_TL - 26, sirka: hlU - 40, tloustka: 16, material: matU, hrany: 'ABS 0,8 mm' })
-      kovani.push({ nazev: 'Plnovýsuv s tlumením, délka 450 mm, nosnost 30 kg', ks: 3, poznamka: 'Blum TANDEMBOX antaro nebo Hettich InnoTech' })
-      kovani.push({ nazev: 'Úchytka madlo 128 mm', ks: 3 })
-      if (u.typ === 'kontejner-3') kovani.push({ nazev: 'Kolečko s brzdou ⌀50', ks: 4 })
-    } else if (u.typ === 'zasuvka-plocha' || u.typ === 'zasuvky-2') {
-      const n = u.typ === 'zasuvky-2' ? 2 : 1
-      dilce.push({ skupina: 'Úložné', nazev: 'Plochá zásuvka — bok', ks: 2 * n, delka: hlU - 20, sirka: 60, tloustka: 16, material: matU, hrany: 'ABS 0,8 mm' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Plochá zásuvka — čelo', ks: n, delka: Math.round(560 / n) - 6, sirka: 62, tloustka: 19, material: u.barvaCel ? `lakovaná MDF ${u.barvaCel}` : matU, hrany: 'ABS 1 mm po obvodu' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Plochá zásuvka — dno', ks: n, delka: Math.round(560 / n) - 40, sirka: hlU - 40, tloustka: 10, material: 'překližka', hrany: 'bez úpravy' })
-      kovani.push({ nazev: 'Podstavný výsuv 450 mm pod desku', ks: n })
-      kovani.push({ nazev: 'Úchytka madlo 96 mm', ks: n })
-    } else if (u.typ === 'skrinka') {
-      dilce.push({ skupina: 'Úložné', nazev: 'Skříňka — bok', ks: 2, delka: H - 2, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Skříňka — dno, police, víko', ks: 3, delka: 420 - 2 * KORPUS_TL, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Dvířka', ks: 1, delka: 420 - 6, sirka: H - 20, tloustka: 19, material: matU, hrany: 'ABS 1 mm po obvodu' })
-      kovani.push({ nazev: 'Pant s tlumením 110°', ks: 2 })
-      kovani.push({ nazev: 'Úchytka', ks: 1 })
-    } else if (u.typ === 'police') {
-      dilce.push({ skupina: 'Úložné', nazev: 'Police — bok', ks: 2, delka: H - 2, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Police — polička', ks: 2, delka: 420 - 2 * KORPUS_TL, sirka: hlU - 20, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
-      dilce.push({ skupina: 'Úložné', nazev: 'Police — záda', ks: 1, delka: H - 10, sirka: 420 - 2 * KORPUS_TL, tloustka: 10, material: matU, hrany: 'bez úpravy' })
-    } else if (u.typ === 'zadni-panel') {
-      dilce.push({
-        skupina: 'Úložné', nazev: 'Zadní panel — rameno A', ks: 1,
-        delka: r.ramenoADelka - 60, sirka: 300, tloustka: KORPUS_TL,
-        material: material(u.materialId ?? c.deska.materialId).nazev, hrany: 'ABS 1 mm po obvodu',
-      })
-      if (jeL) {
-        dilce.push({
-          skupina: 'Úložné', nazev: 'Zadní panel — rameno B', ks: 1,
-          delka: r.ramenoBDelka - r.ramenoBHloubka - 40, sirka: 300, tloustka: KORPUS_TL,
-          material: material(u.materialId ?? c.deska.materialId).nazev, hrany: 'ABS 1 mm po obvodu',
-        })
-      }
-      kovani.push({ nazev: 'Úhelník pro kotvení panelu k desce', ks: jeL ? 8 : 5 })
-    }
+    const vys = H - 2
+    dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — bok', ks: 2, delka: vys, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
+    dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — dno a víko', ks: 2, delka: 420 - 2 * KORPUS_TL, sirka: hlU, tloustka: KORPUS_TL, material: matU, hrany: 'ABS 1 mm přední hrana' })
+    dilce.push({ skupina: 'Úložné', nazev: 'Kontejner — záda', ks: 1, delka: vys - 20, sirka: 420 - 20, tloustka: 4, material: 'HDF', hrany: 'bez úpravy' })
+    const hCelo = Math.round((vys - 2 * KORPUS_TL - 2 * 5) / 3)
+    dilce.push({ skupina: 'Úložné', nazev: 'Čelo zásuvky', ks: 3, delka: 420 - 6, sirka: hCelo, tloustka: 19, material: u.barvaCel ? `lakovaná MDF ${u.barvaCel}` : matU, hrany: 'ABS 1 mm po obvodu' })
+    dilce.push({ skupina: 'Úložné', nazev: 'Dno zásuvky', ks: 3, delka: 420 - 2 * KORPUS_TL - 26, sirka: hlU - 40, tloustka: 16, material: matU, hrany: 'ABS 0,8 mm' })
+    kovani.push({ nazev: 'Plnovýsuv s tlumením, délka 450 mm, nosnost 30 kg', ks: 3, poznamka: 'Blum TANDEMBOX antaro nebo Hettich InnoTech' })
+    kovani.push({ nazev: 'Úchytka madlo 128 mm', ks: 3 })
+    kovani.push({ nazev: 'Rektifikační patka M8', ks: 4, poznamka: 'kontejner stojí na podlaze, vlysy nejsou v rovině' })
   }
 
   // --- DOPLŇKY ---
   const d = c.doplnky
   if (d.kabelovaLavka) kovani.push({ nazev: 'Kabelová lávka pod desku 600 mm', ks: jeL ? 2 : 1 })
-  if (d.pruchodka === 'kulata') kovani.push({ nazev: 'Kabelová průchodka kulatá ⌀80 mm', ks: 1, poznamka: 'otvor ⌀80, vyfrézuje truhlář' })
-  if (d.pruchodka === 'obdelnikova') kovani.push({ nazev: 'Kabelová průchodka obdélníková 145×55 mm', ks: 1, poznamka: 'výřez 145×55' })
   if (d.ledPodsviceni) {
     kovani.push({ nazev: 'LED profil zápustný + difuzor', ks: jeL ? 2 : 1, poznamka: `celkem cca ${Math.round((r.ramenoADelka + (jeL ? r.ramenoBDelka : 0)) / 1000 * 10) / 10} bm` })
     kovani.push({ nazev: 'LED pásek 2700 K, 24 V, 9,6 W/m + zdroj', ks: 1 })

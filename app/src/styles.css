@@ -229,3 +229,19 @@ table.rozpiska tr.soucet td { font-weight: 700; border-top: 2px solid var(--link
 .tlacitko[disabled] { opacity: .45; cursor: not-allowed; }
 /* Náhled běží v iframu, kde height:100% nemusí mít od čeho počítat. */
 html, body, #root { min-height: 100dvh; }
+
+/* --- vysvětlivka hran --- */
+.hrany { margin: 12px 0; }
+.hrany-velky { background: var(--papir); border: 1px solid var(--linka); border-radius: 9px; padding: 4px; }
+.hrany-velky svg { display: block; width: 100%; height: auto; }
+.hrany-vyber { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin-top: 6px; }
+.hrany-vyber button {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 5px 2px 4px; border-radius: 7px; border: 1px solid var(--linka);
+  background: var(--krem); color: var(--text-2); font-size: 10px; line-height: 1.15;
+}
+.hrany-vyber button svg { width: 100%; height: auto; }
+.hrany-vyber button:hover { border-color: var(--oranz-2); }
+.hrany-vyber button.on { background: var(--oranz-slaba); border-color: var(--oranz); color: var(--text); font-weight: 600; }
+.hrany-text p { margin: 6px 0 0; font-size: 11px; line-height: 1.45; color: var(--text-2); }
+.hrany-text p.odvozeno { color: var(--text-3); font-size: 10px; }

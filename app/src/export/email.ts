@@ -85,16 +85,7 @@ export function textEmailu(c: DeskConfig): string {
     radky.push('ÚLOŽNÉ')
     for (const u of c.ulozne) {
       const kde = u.rameno === 'B' && jeL ? 'pod kratším ramenem u gauče' : 'pod hlavní plochou'
-      const nazvy: Record<string, string> = {
-        'zasuvka-plocha': 'jedna plochá zásuvka pod deskou',
-        'zasuvky-2': 'dvě ploché zásuvky pod deskou',
-        'kontejner-3': 'pojezdový kontejner se třemi zásuvkami',
-        'kontejner-pevny': 'pevný kontejner se třemi zásuvkami',
-        skrinka: 'skříňka s dvířky',
-        police: 'otevřená police',
-        'zadni-panel': 'zadní panel výšky 300 mm',
-      }
-      radky.push(`- ${nazvy[u.typ] ?? u.typ} ${u.typ === 'zadni-panel' ? '' : kde}`
+      radky.push(`- pevný kontejner se třemi zásuvkami ${kde}, stojí na podlaze na rektifikačních patkách`
         + (u.barvaCel ? `, čela v odstínu ${u.barvaCel} (namíchat na vzorek)` : ''))
     }
     radky.push('')
@@ -102,8 +93,6 @@ export function textEmailu(c: DeskConfig): string {
 
   const d = c.doplnky
   const dop: string[] = []
-  if (d.pruchodka === 'kulata') dop.push('kabelová průchodka kulatá ⌀80 mm')
-  if (d.pruchodka === 'obdelnikova') dop.push('kabelová průchodka obdélníková 145×55 mm')
   if (d.kabelovaLavka) dop.push('kabelová lávka pod deskou')
   if (d.ledPodsviceni) dop.push('LED podsvícení v zápustném profilu, teplá bílá 2700 K')
   if (d.nastavecMonitor) dop.push('nástavec na monitor 620 × 300 mm')

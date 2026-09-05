@@ -4,7 +4,6 @@ import { material } from '@/model/materials'
 import { SPACE, MONITOR } from '@/model/space'
 import { obrysDeskyBody } from '@/model/obrys'
 import { pracoviste } from '@/model/constraints'
-import { poziceDira } from '@/three/shapes'
 
 /**
  * Technický nákres pro truhláře: půdorys, nárys, bokorys s kótami.
@@ -60,7 +59,6 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
   // --- půdorys vlevo dole ---
   const px = 92, py = 96
   const poly = obrys.map(([x, z]) => `${px + M(x)},${py + M(z)}`).join(' ')
-  const [dx, dz] = poziceDira(config)
 
   // --- nárys (pohled na rameno A z místnosti) vpravo nahoře ---
   const nx = 560, ny = 96
@@ -118,10 +116,6 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
         <rect key={i} x={px + M(q.x) - 3} y={py + M(q.z) - 3} width={6} height={6}
               fill="none" stroke={CARA} strokeWidth={0.8} />
       ))}
-      {/* průchodka */}
-      {config.doplnky.pruchodka !== 'zadna' && (
-        <circle cx={px + M(dx * 1000)} cy={py + M(dz * 1000)} r={M(40)} fill="#fff" stroke={CARA} strokeWidth={0.8} />
-      )}
       {/* monitor — čárkovaně, ať truhlář ví, kde bude stát */}
       <g transform={`translate(${px + M(pr.monitor.x)} ${py + M(pr.monitor.z)}) rotate(${-(pr.monitor.rot * 180) / Math.PI})`}>
         <rect x={-M(MONITOR.stojan.sirka / 2)} y={-M(MONITOR.obrazovkaOdZadu)} width={M(MONITOR.stojan.sirka)} height={M(MONITOR.stojan.hloubka)}

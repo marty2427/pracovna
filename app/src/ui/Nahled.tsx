@@ -110,14 +110,14 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
       })}
 
       {/* úložné jako blok */}
-      {g.config.ulozne.filter((u) => u.typ !== 'nic' && u.typ !== 'zadni-panel').map((u, i) => {
+      {g.config.ulozne.map((u, i) => {
         const jeB = u.rameno === 'B' && g.jeL
         const sirkaK = 420
         const x = jeB ? g.DA + sirkaK / 2 + 40 + (g.LB - g.DA - sirkaK - 80) * u.pozice : g.DA / 2
         const z = jeB ? g.DB / 2 : (g.jeL ? g.DB : 0) + sirkaK / 2 + 60 + (g.LA - (g.jeL ? g.DB : 0) - sirkaK - 120) * u.pozice
         const w = jeB ? sirkaK : g.DA - 80
         const d = jeB ? g.DB - 80 : sirkaK
-        const vys = u.typ.startsWith('zasuvk') ? 90 : g.H - g.T - 40
+        const vys = g.H - g.T - 40
         const rohy: Array<[number, number]> = [
           [x - w / 2, z - d / 2], [x + w / 2, z - d / 2], [x + w / 2, z + d / 2], [x - w / 2, z + d / 2],
         ]

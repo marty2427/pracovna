@@ -336,7 +336,7 @@ export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): 
   })
 
   // 8) Prostor pro nohy pod deskou
-  const svetlaVyska = r.vyska - c.deska.tloustka - (c.ulozne.some((u) => u.typ === 'zasuvka-plocha') ? 80 : 0)
+  const svetlaVyska = r.vyska - c.deska.tloustka
   out.push({
     id: 'legroom',
     nazev: 'Světlá výška pod deskou',

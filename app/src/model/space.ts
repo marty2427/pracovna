@@ -82,8 +82,8 @@ export function maxRamenoB(mezera: number): number {
 
 /** Rozsahy posuvníků — tvrdě ořezané tímto rohem. */
 export const LIMITY = {
-  ramenoADelka: { min: 1200, max: MAX_RAMENO_A, krok: 10, vychozi: 2000 },
-  ramenoBDelka: { min: 0, max: maxRamenoB(SPACE.mezeraKeGauci.idealniOd), krok: 10, vychozi: 1480 },
+  ramenoADelka: { min: 1200, max: MAX_RAMENO_A, krok: 10, vychozi: MAX_RAMENO_A },
+  ramenoBDelka: { min: 900, max: maxRamenoB(SPACE.mezeraKeGauci.idealniOd), krok: 10, vychozi: 1480 },
   ramenoAHloubka: { min: 550, max: 800, krok: 10, vychozi: 700 },
   ramenoBHloubka: { min: 450, max: 800, krok: 10, vychozi: 600 },
   vyska: { min: 700, max: 780, krok: 5, vychozi: 750 },

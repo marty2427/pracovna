@@ -7,13 +7,10 @@ export function vychoziKonfigurace(): DeskConfig {
     nazev: 'Vlastní návrh',
     tvar: 'L',
     rozmery: {
-      // Záměrně ne na maximu — 200 cm místo 211. Od hrany zbyde 36 cm místo 25
-      // a v pracovní ploše je to rozdíl, který nepoznáš.
-      ramenoADelka: 2000,
+      // Na maximum prostoru — uživatel chce roh využít celý.
+      ramenoADelka: LIMITY.ramenoADelka.vychozi,
       ramenoAHloubka: LIMITY.ramenoAHloubka.vychozi,
-      // Rameno B zůstává na maximu — mezera ke gauči má být 10-15 cm,
-      // zkracovat se má rameno A, které jde do volné místnosti.
-      ramenoBDelka: 1480,
+      ramenoBDelka: LIMITY.ramenoBDelka.vychozi,
       ramenoBHloubka: LIMITY.ramenoBHloubka.vychozi,
       vyska: LIMITY.vyska.vychozi,
       mezeraKeGauci: LIMITY.mezeraKeGauci.vychozi,
@@ -38,10 +35,9 @@ export function vychoziKonfigurace(): DeskConfig {
       mezilehlaPodpora: 'auto',
       vyztuha: true,
     },
-    ulozne: [{ typ: 'kontejner-3', rameno: 'A', pozice: 0.9 }],
+    ulozne: [{ typ: 'kontejner-pevny', rameno: 'A', pozice: 1.0 }],
     doplnky: {
       kabelovaLavka: true,
-      pruchodka: 'zadna',
       ledPodsviceni: false,
       nastavecMonitor: false,
       zadniPanel: false,

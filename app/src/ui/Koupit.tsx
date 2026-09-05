@@ -2,26 +2,56 @@ import { useMemo } from 'react'
 import { useStore } from '@/store'
 import { odhadNaMiru } from '@/pricing/odhad'
 import { formatRozpeti, formatKc, ZDROJ } from '@/pricing/ceny'
-import { KATALOG, jePrazdny, deskyProRozmer, podnozeProTyp, stolyDoProstoru } from '@/pricing/katalog'
+import { KATALOG, jePrazdny, deskyProRameno, rohoveDeskyVcelku, podnozeProTyp, rohoveStolyDoProstoru, type KatalogPolozka, type DeskaNalez } from '@/pricing/katalog'
 import { MAX_RAMENO_A, SPACE } from '@/model/space'
+
+function Radek({ p, chybi }: { p: KatalogPolozka; chybi?: number }) {
+  return (
+    <tr style={chybi ? { opacity: 0.75 } : undefined}>
+      <td>
+        {p.url ? <a href={p.url} target="_blank" rel="noreferrer">{p.nazev}</a> : p.nazev}
+        <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>
+          {p.delka > 0 && `${p.delka}×${p.sirka}${p.tloustka ? `×${p.tloustka}` : ''} mm · `}{p.popis}
+          {!p.overeno && ' · neověřeno'}
+        </span>
+        {p.varovani && <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {p.varovani}</span></>}
+        {!!chybi && (
+          <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>
+            o {Math.round(chybi / 10)} cm mělčí, než chceš — buď zúžit desku, nebo srazit dvě vedle sebe
+          </span></>
+        )}
+      </td>
+      <td>{p.prodejce}</td>
+      <td className="cislo">{formatKc(p.cena)}</td>
+    </tr>
+  )
+}
 
 export function Koupit() {
   const config = useStore((s) => s.config)
   const odhad = useMemo(() => odhadNaMiru(config), [config])
   const r = config.rozmery
-  const jeL = config.tvar === 'L' && r.ramenoBDelka > 0
 
-  const desky = useMemo(
-    () => deskyProRozmer(r.ramenoADelka, r.ramenoAHloubka, config.deska.tloustka).slice(0, 5),
+  // Dvoudílné L: deska pro rameno A v plné délce, deska pro rameno B jen na
+  // část za ramenem A (v rohu se překrývají).
+  const delkaB = r.ramenoBDelka - r.ramenoAHloubka
+  const deskyA = useMemo<DeskaNalez[]>(
+    () => deskyProRameno(r.ramenoADelka, r.ramenoAHloubka, config.deska.tloustka).slice(0, 4),
     [r.ramenoADelka, r.ramenoAHloubka, config.deska.tloustka],
   )
-  const podnoze = useMemo(() => podnozeProTyp(config.podnoz.typ).slice(0, 5), [config.podnoz.typ])
-  const stoly = useMemo(
-    () => stolyDoProstoru(MAX_RAMENO_A, r.ramenoAHloubka).slice(0, 6),
-    [r.ramenoAHloubka],
+  const deskyB = useMemo<DeskaNalez[]>(
+    () => deskyProRameno(delkaB, r.ramenoBHloubka, config.deska.tloustka).slice(0, 3),
+    [delkaB, r.ramenoBHloubka, config.deska.tloustka],
   )
+  const vcelku = useMemo(() => rohoveDeskyVcelku(r.ramenoADelka, r.ramenoBDelka).slice(0, 4), [r.ramenoADelka, r.ramenoBDelka])
+  const podnoze = useMemo(() => podnozeProTyp(config.podnoz.typ).slice(0, 4), [config.podnoz.typ])
+  const stoly = useMemo(() => rohoveStolyDoProstoru(MAX_RAMENO_A, SPACE.zadniStenaKeGauci), [])
 
-  const stavebniceOd = (desky[0]?.cena ?? 0) + (podnoze[0]?.cena ?? 0) * (jeL ? 3 : 2)
+  const bocnice = config.podnoz.typ === 'bocnice'
+  const cenaPodnozi = bocnice ? 0 : (podnoze[0]?.cena ?? 0) * 3
+  const dvoudilne = (deskyA[0]?.cena ?? 0) + (deskyB[0]?.cena ?? 0)
+  const jednodilne = vcelku[0]?.cena ?? 0
+  const nejlevnejsiDeska = [dvoudilne, jednodilne].filter((x) => x > 0).sort((a, b) => a - b)[0] ?? 0
 
   return (
     <div className="panel">
@@ -51,7 +81,7 @@ export function Koupit() {
       </section>
 
       <section className="sekce">
-        <h4>Koupit — stavebnice</h4>
+        <h4>Koupit — stavebnice L stolu</h4>
         {jePrazdny() ? (
           <p className="poznamka">
             Katalog dílů se zatím nenaplnil z rešerše. Rozpad ceny na míru výše funguje nezávisle.
@@ -59,53 +89,31 @@ export function Koupit() {
         ) : (
           <>
             <p className="poznamka">
-              Deska z katalogu + podnož. Pro rameno A {Math.round(r.ramenoADelka / 10)} × {Math.round(r.ramenoAHloubka / 10)} cm
-              {jeL && ` a rameno B ${Math.round(r.ramenoBDelka / 10)} × ${Math.round(r.ramenoBHloubka / 10)} cm`}.
-              {desky.length > 0 && desky[0].chybiHloubka > 0 && (
-                <> Nejhlubší deska v katalogu má {Math.round(Math.min(desky[0].delka, desky[0].sirka) / 10)} cm —
-                pro hlubší stůl je potřeba deska na míru, nebo hloubku snížit.</>
-              )}
+              Jen díly na L: rohová deska vcelku, nebo dvě desky sražené v rohu, a k tomu podnož.
+              Rameno A {Math.round(r.ramenoADelka / 10)} × {Math.round(r.ramenoAHloubka / 10)} cm,
+              rameno B {Math.round(r.ramenoBDelka / 10)} × {Math.round(r.ramenoBHloubka / 10)} cm
+              (za ramenem A zbývá {Math.round(delkaB / 10)} cm).
             </p>
             <table className="rozpiska">
               <thead><tr><th>Díl</th><th>Kde</th><th className="cislo">Kč</th></tr></thead>
               <tbody>
-                {desky.map((d) => (
-                  <tr key={d.id} style={d.chybiHloubka > 0 ? { opacity: 0.75 } : undefined}>
-                    <td>
-                      {d.url ? <a href={d.url} target="_blank" rel="noreferrer">{d.nazev}</a> : d.nazev}
-                      <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>
-                        {d.delka > 0 && `${d.delka}×${d.sirka}${d.tloustka ? `×${d.tloustka}` : ''} mm · `}{d.popis}
-                        {!d.overeno && ' · neověřeno'}
-                      </span>
-                      {d.varovani && (
-                        <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {d.varovani}</span></>
-                      )}
-                      {d.chybiHloubka > 0 && (
-                        <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>
-                          o {Math.round(d.chybiHloubka / 10)} cm mělčí, než chceš — buď zúžit desku, nebo srazit dvě vedle sebe
-                        </span></>
-                      )}
-                    </td>
-                    <td>{d.prodejce}</td>
-                    <td className="cislo">{formatKc(d.cena)}</td>
-                  </tr>
-                ))}
-                {podnoze.map((p) => (
-                  <tr key={p.id}>
-                    <td>
-                      {p.url ? <a href={p.url} target="_blank" rel="noreferrer">{p.nazev}</a> : p.nazev}
-                      <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>{p.popis}{!p.overeno && ' · neověřeno'}</span>
-                      {p.varovani && <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {p.varovani}</span></>}
-                    </td>
-                    <td>{p.prodejce}</td>
-                    <td className="cislo">{formatKc(p.cena)}</td>
-                  </tr>
-                ))}
-                {stavebniceOd > 0 && (
+                <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>Rohová deska vcelku</td></tr>
+                {vcelku.length ? vcelku.map((d) => <Radek key={d.id} p={d} />) : (
+                  <tr><td colSpan={3} className="poznamka">V katalogu není rohová deska, která by pokryla {Math.round(r.ramenoADelka / 10)} × {Math.round(r.ramenoBDelka / 10)} cm.</td></tr>
+                )}
+                <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>Nebo dvě desky: rameno A</td></tr>
+                {deskyA.map((d) => <Radek key={d.id} p={d} chybi={d.chybiHloubka} />)}
+                <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>… a rameno B ({Math.round(delkaB / 10)} × {Math.round(r.ramenoBHloubka / 10)} cm)</td></tr>
+                {deskyB.map((d) => <Radek key={d.id} p={d} chybi={d.chybiHloubka} />)}
+                <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>Podnož (na L potřebuješ 2 rámy + rohovou nohu, tedy 3 ks)</td></tr>
+                {bocnice ? (
+                  <tr><td colSpan={3} className="poznamka">Plné bočnice se nekupují hotové — dělá je truhlář ze stejného materiálu jako desku. Cena je v rozpadu nahoře.</td></tr>
+                ) : podnoze.map((p) => <Radek key={p.id} p={p} />)}
+                {nejlevnejsiDeska > 0 && (
                   <tr className="soucet">
                     <td>Nejlevnější kombinace deska + podnož</td>
                     <td />
-                    <td className="cislo">od {formatKc(stavebniceOd)}</td>
+                    <td className="cislo">od {formatKc(nejlevnejsiDeska + cenaPodnozi)}</td>
                   </tr>
                 )}
               </tbody>
@@ -114,31 +122,19 @@ export function Koupit() {
         )}
       </section>
 
-      {!jePrazdny() && stoly.length > 0 && (
+      {!jePrazdny() && (
         <section className="sekce">
-          <h4>Koupit — hotový sériový stůl</h4>
+          <h4>Koupit — hotový rohový stůl</h4>
           <p className="poznamka">
-            Do rohu {SPACE.zadniStenaKeGauci / 10} × {SPACE.levaStenaRun / 10} cm se žádný sériový L stůl
-            v tomhle poměru ramen netrefí přesně. Tohle jsou nejbližší kusy, které se do prostoru vejdou.
+            Rovné stoly tu nejsou, chceš jen L. Sériový rohový stůl na {MAX_RAMENO_A / 10} × {Math.round((SPACE.zadniStenaKeGauci - SPACE.mezeraKeGauci.doporuceno) / 10)} cm
+            nikdo nevyrábí — tohle jsou všechny rohové kusy z rešerše, a všechny jsou o dost menší než tvůj roh.
           </p>
-          <table className="rozpiska">
-            <thead><tr><th>Model</th><th>Kde</th><th className="cislo">Kč</th></tr></thead>
-            <tbody>
-              {stoly.map((s) => (
-                <tr key={s.id}>
-                  <td>
-                    {s.url ? <a href={s.url} target="_blank" rel="noreferrer">{s.nazev}</a> : s.nazev}
-                    <br /><span style={{ color: 'var(--text-3)', fontSize: 10.5 }}>
-                      {s.delka > 0 && `${s.delka}×${s.sirka} mm · `}{s.popis}{!s.overeno && ' · neověřeno'}
-                    </span>
-                    {s.varovani && <><br /><span style={{ color: 'var(--pozor)', fontSize: 10.5 }}>⚠ {s.varovani}</span></>}
-                  </td>
-                  <td>{s.prodejce}</td>
-                  <td className="cislo">{formatKc(s.cena)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {stoly.length ? (
+            <table className="rozpiska">
+              <thead><tr><th>Model</th><th>Kde</th><th className="cislo">Kč</th></tr></thead>
+              <tbody>{stoly.map((s) => <Radek key={s.id} p={s} />)}</tbody>
+            </table>
+          ) : <p className="poznamka">V katalogu není žádný rohový stůl.</p>}
         </section>
       )}
 

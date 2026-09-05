@@ -114,13 +114,6 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
 
   // --- doplňky ---
   const d = c.doplnky
-  if (d.pruchodka !== 'zadna') {
-    radky.push({
-      nazev: 'Kabelová průchodka',
-      detail: d.pruchodka === 'kulata' ? 'kulatá ⌀80 mm včetně výřezu' : 'obdélníková 145×55 mm včetně výřezu',
-      cena: plus(UKONY.vyrezProchodka, UKONY.materialProchodka),
-    })
-  }
   if (d.kabelovaLavka) {
     radky.push({ nazev: 'Kabelová lávka', detail: 'plechový žlab pod deskou', cena: UKONY.kabelovaLavka })
   }
@@ -137,9 +130,9 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
   const hodiny = hodinyPrace({
     jeL: c.tvar === 'L' && c.rozmery.ramenoBDelka > 0,
     pocetZasuvek: pocetVysuvu,
-    maSkrinku: c.ulozne.some((u) => u.typ === 'skrinka'),
-    maPolici: c.ulozne.some((u) => u.typ === 'police'),
-    maPanel: c.ulozne.some((u) => u.typ === 'zadni-panel'),
+    maSkrinku: false,
+    maPolici: false,
+    maPanel: false,
     maNastavec: d.nastavecMonitor,
     hranaNarocna: c.deska.hrana === 'naklizek' || c.deska.hrana === 'radius',
     masiv: mat.kategorie === 'masiv',

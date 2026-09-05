@@ -55,14 +55,33 @@ export function deskyProRozmer(delka: number, hloubka: number, tloustka?: number
     .sort((a, b) => a.chybiHloubka - b.chybiHloubka || a.cena - b.cena)
 }
 
-/** Sériové stoly, které se vejdou do prostoru. */
-export function stolyDoProstoru(maxDelka: number, maxHloubka: number): KatalogPolozka[] {
+const JE_ROHOVY = /rohov|\bL\b|corner|L-?stůl|L stůl/i
+
+/**
+ * Sériové ROHOVÉ stoly, které se vejdou do prostoru. Rovné stoly (íčka) se
+ * nenabízejí vůbec — uživatel je vyloučil.
+ */
+export function rohoveStolyDoProstoru(maxA: number, maxB: number): KatalogPolozka[] {
   return KATALOG.stoly
+    .filter((s) => JE_ROHOVY.test(s.nazev + ' ' + s.popis))
     .filter((s) => {
       const dl = Math.max(s.delka, s.sirka), sir = Math.min(s.delka, s.sirka)
-      return dl > 0 && s.cena > 0 && dl <= maxDelka && (sir === 0 || sir <= maxHloubka)
+      return dl > 0 && s.cena > 0 && dl <= maxA && sir <= maxB
     })
-    .sort((a, b) => b.delka - a.delka)
+    .sort((a, b) => b.delka * b.sirka - a.delka * a.sirka)
+}
+
+/** Rohové desky vcelku (L z jednoho kusu), které pokryjí obě ramena. */
+export function rohoveDeskyVcelku(delkaA: number, delkaB: number): KatalogPolozka[] {
+  return KATALOG.desky
+    .filter((d) => JE_ROHOVY.test(d.nazev + ' ' + d.popis) && d.cena > 0)
+    .filter((d) => Math.max(d.delka, d.sirka) >= delkaA - 40 && Math.min(d.delka, d.sirka) >= delkaB - 40)
+    .sort((a, b) => a.cena - b.cena)
+}
+
+/** Desky pro dvoudílné L — vynechá rohové desky vcelku, ty jdou zvlášť. */
+export function deskyProRameno(delka: number, hloubka: number, tloustka?: number): DeskaNalez[] {
+  return deskyProRozmer(delka, hloubka, tloustka).filter((d) => !JE_ROHOVY.test(d.nazev + ' ' + d.popis))
 }
 
 /** Podnože vhodné k danému typu. */

@@ -5,15 +5,8 @@ import { MATERIALY, KOV_BARVY } from '@/model/materials'
 import { pracoviste } from '@/model/constraints'
 import { Skupina, Posuvnik, Prepinac, Zaskrt, type Volba } from './Ovladace'
 import { BarevneSmery } from './BarevneSmery'
-import type { Hrana, PodnozTyp, Tloustka, UlozneTyp, Rameno, MonitorUmisteni } from '@/model/types'
-
-const HRANY: Volba<Hrana>[] = [
-  { hodnota: 'rovna', label: 'Rovná', popis: 'ABS 1–2 mm, ostrá hrana' },
-  { hodnota: 'srazena', label: 'Sražená', popis: 'Fazetka 2–3 mm, nejběžnější' },
-  { hodnota: 'zkosena', label: 'Zkosená', popis: 'Velké zkosení, deska působí tenčeji' },
-  { hodnota: 'radius', label: 'Zaoblená', popis: 'R3–R8, příjemná pod předloktím' },
-  { hodnota: 'naklizek', label: 'Masivní nákližek', popis: 'Nalepený masiv 20–40 mm, jen u dýhy a lamina' },
-]
+import { VyberHrany } from './Hrany'
+import type { PodnozTyp, Tloustka, Rameno, MonitorUmisteni } from '@/model/types'
 
 /** Podnože, které sedí do stylu místnosti — zbytek je schovaný za přepínačem. */
 const PODNOZE_HLAVNI: Volba<PodnozTyp>[] = [
@@ -30,19 +23,7 @@ const PODNOZE_OSTATNI: Volba<PodnozTyp>[] = [
   { hodnota: 'nohy-konicke', label: 'Nohy kónické' },
   { hodnota: 'nohy-sikme', label: 'Nohy šikmé' },
   { hodnota: 'kozy', label: 'Kozy' },
-  { hodnota: 'kontejner-nosny', label: 'Nese kontejner' },
   { hodnota: 'stavitelny-ram', label: 'Stavitelný rám' },
-]
-
-const ULOZNE: Volba<UlozneTyp>[] = [
-  { hodnota: 'nic', label: 'Nic' },
-  { hodnota: 'zasuvka-plocha', label: '1 plochá zásuvka' },
-  { hodnota: 'zasuvky-2', label: '2 zásuvky' },
-  { hodnota: 'kontejner-3', label: 'Pojezdový kontejner' },
-  { hodnota: 'kontejner-pevny', label: 'Pevný kontejner' },
-  { hodnota: 'skrinka', label: 'Skříňka s dvířky' },
-  { hodnota: 'police', label: 'Otevřená police' },
-  { hodnota: 'zadni-panel', label: 'Zadní panel' },
 ]
 
 const MONITOR_VOLBY: Volba<MonitorUmisteni>[] = [
@@ -57,15 +38,16 @@ export function Configurator() {
   const nastavRozmer = useStore((s) => s.nastavRozmer)
   const [ostatniPodnoze, setOstatniPodnoze] = useState(false)
   const r = config.rozmery
-  const jeL = config.tvar === 'L'
   const pr = pracoviste(config)
 
-  const ulozne0 = config.ulozne[0] ?? { typ: 'nic' as UlozneTyp, rameno: 'A' as Rameno, pozice: 0.9 }
-  const setUlozne = (patch: Partial<typeof ulozne0>) =>
-    nastav((c) => ({
-      ulozne: patch.typ === 'nic' ? [] : [{ ...ulozne0, ...patch } as any],
-      podnoz: { ...c.podnoz },
-    }))
+  // Jediné úložné je pevný kontejner: buď je, nebo není.
+  const kontejner = config.ulozne[0]
+  const setKontejner = (patch: { zapnuto?: boolean; rameno?: Rameno; pozice?: number }) =>
+    nastav((c) => {
+      const k = c.ulozne[0] ?? { typ: 'kontejner-pevny' as const, rameno: 'A' as Rameno, pozice: 1.0 }
+      if (patch.zapnuto === false) return { ulozne: [] }
+      return { ulozne: [{ ...k, ...(patch.rameno ? { rameno: patch.rameno } : {}), ...(patch.pozice !== undefined ? { pozice: patch.pozice } : {}) }] }
+    })
 
   // Jen dřevo a dřevěné dekory — barevné laky, lino a HPL vypadly na přání uživatele.
   const materialyVolby: Volba<string>[] = MATERIALY.filter((m) => m.drevo).map((m) => ({
@@ -77,17 +59,11 @@ export function Configurator() {
 
   return (
     <div className="panel">
-      <Skupina titulek="Rozměry" popis={`Roh ${SPACE.zadniStenaKeGauci / 10} × ${SPACE.levaStenaRun / 10} cm. Posuvníky nepustí přes limit prostoru.`}>
-        <Prepinac
-          label="Tvar"
-          hodnota={config.tvar}
-          volby={[{ hodnota: 'L' as const, label: 'L do rohu' }, { hodnota: 'rovna' as const, label: 'Rovná deska' }]}
-          onChange={(v) => nastav({ tvar: v })}
-        />
+      <Skupina titulek="Rozměry" popis={`L stůl přes celý roh ${SPACE.zadniStenaKeGauci / 10} × ${SPACE.levaStenaRun / 10} cm. Posuvníky nepustí přes limit prostoru; výchozí je maximum.`}>
         <Posuvnik
           label="Rameno A — délka" hodnota={r.ramenoADelka}
           min={LIMITY.ramenoADelka.min} max={MAX_RAMENO_A}
-          napoveda={`max ${MAX_RAMENO_A / 10} cm, nemusíš ho vyčerpat`}
+          napoveda={`max ${MAX_RAMENO_A / 10} cm = 25 cm od hrany průchodu`}
           onChange={(v) => nastavRozmer('ramenoADelka', v)}
         />
         <Posuvnik
@@ -96,28 +72,24 @@ export function Configurator() {
           napoveda="kolik vyčnívá do místnosti"
           onChange={(v) => nastavRozmer('ramenoAHloubka', v)}
         />
-        {jeL && (
-          <>
-            <Posuvnik
-              label="Rameno B — délka" hodnota={r.ramenoBDelka}
-              min={0} max={maxRamenoB(r.mezeraKeGauci)}
-              napoveda={`max ${Math.round(maxRamenoB(r.mezeraKeGauci) / 10)} cm`}
-              onChange={(v) => nastavRozmer('ramenoBDelka', v)}
-            />
-            <Posuvnik
-              label="Rameno B — hloubka" hodnota={r.ramenoBHloubka}
-              min={LIMITY.ramenoBHloubka.min} max={LIMITY.ramenoBHloubka.max}
-              napoveda="s monitorem v rohu pomáhá 60+"
-              onChange={(v) => nastavRozmer('ramenoBHloubka', v)}
-            />
-            <Posuvnik
-              label="Mezera ke gauči" hodnota={r.mezeraKeGauci}
-              min={LIMITY.mezeraKeGauci.min} max={LIMITY.mezeraKeGauci.max} krok={5}
-              napoveda="chtěl jsi 10–15 cm"
-              onChange={(v) => nastavRozmer('mezeraKeGauci', v)}
-            />
-          </>
-        )}
+        <Posuvnik
+          label="Rameno B — délka" hodnota={r.ramenoBDelka}
+          min={LIMITY.ramenoBDelka.min} max={maxRamenoB(r.mezeraKeGauci)}
+          napoveda={`max ${Math.round(maxRamenoB(r.mezeraKeGauci) / 10)} cm podle mezery ke gauči`}
+          onChange={(v) => nastavRozmer('ramenoBDelka', v)}
+        />
+        <Posuvnik
+          label="Rameno B — hloubka" hodnota={r.ramenoBHloubka}
+          min={LIMITY.ramenoBHloubka.min} max={LIMITY.ramenoBHloubka.max}
+          napoveda="s monitorem v rohu pomáhá 60+"
+          onChange={(v) => nastavRozmer('ramenoBHloubka', v)}
+        />
+        <Posuvnik
+          label="Mezera ke gauči" hodnota={r.mezeraKeGauci}
+          min={LIMITY.mezeraKeGauci.min} max={LIMITY.mezeraKeGauci.max} krok={5}
+          napoveda="chtěl jsi 10–15 cm"
+          onChange={(v) => nastavRozmer('mezeraKeGauci', v)}
+        />
         <Posuvnik
           label="Výška desky" hodnota={r.vyska}
           min={LIMITY.vyska.min} max={LIMITY.vyska.max} krok={5}
@@ -128,7 +100,7 @@ export function Configurator() {
 
       <Skupina titulek="Pracoviště" popis={`${MONITOR.nazev}, zakřivený 1500R. Oči mají být ${MONITOR.vzdalenost.min / 10}–${MONITOR.vzdalenost.max / 10} cm od obrazovky — teď ${Math.round(pr.vzdalenost / 10)} cm.`}>
         <Prepinac label="Kde stojí monitor" sloupce={1} hodnota={config.doplnky.monitorUmisteni}
-          volby={jeL ? MONITOR_VOLBY : MONITOR_VOLBY.filter((v) => v.hodnota === 'ramenoA')}
+          volby={MONITOR_VOLBY}
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, monitorUmisteni: v } }))} />
         <Posuvnik label="Posun monitoru od zdi" hodnota={config.doplnky.monitorPosun}
           min={LIMITY.monitorPosun.min} max={LIMITY.monitorPosun.max} krok={LIMITY.monitorPosun.krok} jednotka="mm" delitel={1}
@@ -149,17 +121,16 @@ export function Configurator() {
           hodnota={config.deska.tloustka}
           volby={[18, 25, 30, 38, 40].map((t) => ({ hodnota: t as Tloustka, label: `${t} mm` }))}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, tloustka: v } }))} />
-        <Prepinac label="Hrana" sloupce={2} hodnota={config.deska.hrana} volby={HRANY}
+        <VyberHrany hodnota={config.deska.hrana} tloustka={config.deska.tloustka}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, hrana: v } }))} />
         <Posuvnik label="Zaoblení vnějších rohů" hodnota={config.deska.radiusRohu}
           min={0} max={80} krok={2} jednotka="mm" delitel={1}
+          napoveda="rohy desky při pohledu shora"
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusRohu: v } }))} />
-        {jeL && (
-          <Posuvnik label="Zaoblení vnitřního rohu" hodnota={config.deska.radiusVnitrni}
-            min={0} max={400} krok={10} jednotka="mm" delitel={1}
-            napoveda={pr.umisteni === 'roh' ? 'v rohu je tohle „výřez": deska se kolem tebe obtočí' : 'pod loktem to poznáš'}
-            onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusVnitrni: v } }))} />
-        )}
+        <Posuvnik label="Zaoblení vnitřního rohu" hodnota={config.deska.radiusVnitrni}
+          min={0} max={400} krok={10} jednotka="mm" delitel={1}
+          napoveda={pr.umisteni === 'roh' ? 'v rohu je tohle „výřez": deska se kolem tebe obtočí' : 'pod loktem to poznáš'}
+          onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusVnitrni: v } }))} />
         <Posuvnik label="Zaoblení rohu u zdi" hodnota={config.deska.radiusUZdi}
           min={LIMITY.radiusUZdi.min} max={LIMITY.radiusUZdi.max} krok={LIMITY.radiusUZdi.krok} jednotka="mm" delitel={1}
           napoveda="0 = deska vyplní roh celý; víc = mezera na kabely za monitorem"
@@ -172,7 +143,7 @@ export function Configurator() {
         )}
       </Skupina>
 
-      <Skupina titulek="Podnož" popis="Do stylu místnosti sedí hranatý profil a plné bočnice. Ostatní typy jsou pro srovnání.">
+      <Skupina titulek="Podnož" popis="Do stylu místnosti sedí hranatý profil a plné bočnice. Ostatní typy jsou jen pro srovnání.">
         <Prepinac sloupce={2} hodnota={config.podnoz.typ}
           volby={podnozMimo ? [...podnozVolby, { hodnota: config.podnoz.typ, label: config.podnoz.typ }] : podnozVolby}
           onChange={(v) => nastav((c) => ({
@@ -212,37 +183,30 @@ export function Configurator() {
           onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, mezilehlaPodpora: v } }))} />
       </Skupina>
 
-      <Skupina titulek="Úložné">
-        <Prepinac sloupce={2} hodnota={ulozne0.typ} volby={ULOZNE}
-          onChange={(v) => setUlozne({ typ: v })} />
-        {ulozne0.typ !== 'nic' && ulozne0.typ !== 'zadni-panel' && (
+      <Skupina titulek="Kontejner" popis="Pevný kontejner se třemi zásuvkami, stojí na podlaze pod deskou. Jiné úložné nechceš, tak tu jiné není.">
+        <Zaskrt label="Pevný kontejner se třemi zásuvkami" hodnota={!!kontejner}
+          onChange={(v) => setKontejner({ zapnuto: v })} />
+        {kontejner && (
           <>
-            <Prepinac label="Pod kterým ramenem" sloupce={2} hodnota={ulozne0.rameno}
+            <Prepinac label="Pod kterým ramenem" sloupce={2} hodnota={kontejner.rameno}
               volby={[
                 { hodnota: 'A' as Rameno, label: 'Rameno A (hlavní)' },
                 { hodnota: 'B' as Rameno, label: 'Rameno B (u gauče)' },
               ]}
-              onChange={(v) => setUlozne({ rameno: v })} />
-            <Posuvnik label="Posun podél ramene" hodnota={Math.round(ulozne0.pozice * 100)}
+              onChange={(v) => setKontejner({ rameno: v })} />
+            <Posuvnik label="Posun podél ramene" hodnota={Math.round(kontejner.pozice * 100)}
               min={0} max={100} krok={5} jednotka="%" delitel={1}
-              napoveda="0 = u rohu, 100 = na konci"
-              onChange={(v) => setUlozne({ pozice: v / 100 })} />
+              napoveda="0 = u rohu, 100 = na konci ramene"
+              onChange={(v) => setKontejner({ pozice: v / 100 })} />
           </>
         )}
       </Skupina>
 
       <Skupina titulek="Doplňky">
         <Zaskrt label="Kabelová lávka pod deskou" hodnota={config.doplnky.kabelovaLavka}
+          popis="Plechový žlab pod zadní hranou, do kterého se schová prodlužovačka a kabely."
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, kabelovaLavka: v } }))} />
-        <Prepinac label="Kabelová průchodka v desce" sloupce={3} hodnota={config.doplnky.pruchodka}
-          volby={[
-            { hodnota: 'zadna' as const, label: 'Žádná' },
-            { hodnota: 'kulata' as const, label: 'Kulatá 80' },
-            { hodnota: 'obdelnikova' as const, label: 'Obdélníková' },
-          ]}
-          onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, pruchodka: v } }))} />
-        <p className="popis">Průchodka je díra v desce s plastovým kroužkem, kterou jdou kabely od monitoru dolů. Když necháš roh u zdi zaoblený, není potřeba.</p>
-        <Zaskrt label="LED podsvícení" hodnota={config.doplnky.ledPodsviceni}
+        <Zaskrt label="LED podsvícení pod přední hranou" hodnota={config.doplnky.ledPodsviceni}
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, ledPodsviceni: v } }))} />
       </Skupina>
     </div>

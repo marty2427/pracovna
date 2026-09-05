@@ -48,7 +48,7 @@ const APLIKACE: Record<string, (c: DeskConfig) => Partial<DeskConfig>> = {
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
     ulozne: c.ulozne.length
       ? c.ulozne.map((u, i) => (i === 0 ? { ...u, barvaCel: '#0F5A78' } : u))
-      : [{ typ: 'kontejner-3' as const, rameno: 'A' as const, pozice: 0.9, barvaCel: '#0F5A78' }],
+      : [{ typ: 'kontejner-pevny' as const, rameno: 'A' as const, pozice: 1.0, barvaCel: '#0F5A78' }],
   }),
 }
 

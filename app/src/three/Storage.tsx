@@ -79,9 +79,9 @@ function umisti(c: DeskConfig, u: UlozneT): Umisteni {
   return { x: hloubka / 2 + 0.02, z, sirka, hloubka, celaSmer: 'x' }
 }
 
-function KorpusSeZasuvkami({ c, u, pocet, pojezdovy }: {
-  c: DeskConfig; u: UlozneT; pocet: number; pojezdovy: boolean
-}) {
+/** Pevný kontejner se třemi zásuvkami — stojí na podlaze, čela v materiálu desky nebo v akcentní barvě. */
+function KorpusSeZasuvkami({ c, u, pocet }: { c: DeskConfig; u: UlozneT; pocet: number }) {
+  const pojezdovy = false
   const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.7, 0.45] })
   const matCela = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.55, 0.4] })
   const kov = useKov('#1F2021')
@@ -131,115 +131,12 @@ function KorpusSeZasuvkami({ c, u, pocet, pojezdovy }: {
   )
 }
 
-function PlochaZasuvka({ c, u, pocet }: { c: DeskConfig; u: UlozneT; pocet: number }) {
-  const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.7, 0.4] })
-  const kov = useKov('#1F2021')
-  const H = m(c.rozmery.vyska) - m(c.deska.tloustka)
-  const { x, z, sirka, hloubka, celaSmer } = umisti(c, u)
-  const hCelo = 0.062
-  const sirkaZ = pocet === 2 ? sirka * 1.5 : sirka * 1.35
-  const W = celaSmer === 'z' ? sirkaZ : hloubka * 0.9
-  const D = celaSmer === 'z' ? hloubka * 0.9 : sirkaZ
-  const y = H - hCelo / 2 - 0.004
-
-  return (
-    <group>
-      <Box pos={[x, y, z]} size={[W, hCelo, D]} material={mat} radius={0.002} />
-      {celaSmer === 'z' ? (
-        <Box pos={[x, y + hCelo * 0.18, z + D / 2 + 0.006]} size={[W * 0.45, 0.010, 0.010]} material={kov} radius={0.004} />
-      ) : (
-        <Box pos={[x + W / 2 + 0.006, y + hCelo * 0.18, z]} size={[0.010, 0.010, D * 0.45]} material={kov} radius={0.004} />
-      )}
-      {pocet === 2 && (
-        <Box
-          pos={celaSmer === 'z' ? [x, y, z + D / 2 - 0.0005] : [x + W / 2 - 0.0005, y, z]}
-          size={celaSmer === 'z' ? [0.003, hCelo, 0.004] : [0.004, hCelo, 0.003]}
-          material={kov}
-          radius={0.0005}
-        />
-      )}
-    </group>
-  )
-}
-
-function Skrinka({ c, u }: { c: DeskConfig; u: UlozneT }) {
-  const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.7, 0.45] })
-  const kov = useKov('#1F2021')
-  const { x, z, sirka, hloubka, celaSmer } = umisti(c, u)
-  const H = m(c.rozmery.vyska) - m(c.deska.tloustka)
-  const W = celaSmer === 'z' ? sirka : hloubka
-  const D = celaSmer === 'z' ? hloubka : sirka
-  return (
-    <group>
-      <Box pos={[x, H / 2, z]} size={[W, H, D]} material={mat} radius={0.002} />
-      {celaSmer === 'z' ? (
-        <Celo x={x} y={H / 2} z={z + D / 2 - 0.008} sirka={W - 0.006} vyska={H - 0.02}
-              smer="z" material={mat} kovMat={kov} uchyt="frezovany" />
-      ) : (
-        <Celo x={x + W / 2 - 0.008} y={H / 2} z={z} sirka={D - 0.006} vyska={H - 0.02}
-              smer="x" material={mat} kovMat={kov} uchyt="frezovany" />
-      )}
-    </group>
-  )
-}
-
-function Police({ c, u }: { c: DeskConfig; u: UlozneT }) {
-  const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [0.7, 0.45] })
-  const { x, z, sirka, hloubka, celaSmer } = umisti(c, u)
-  const H = m(c.rozmery.vyska) - m(c.deska.tloustka)
-  const W = celaSmer === 'z' ? sirka : hloubka
-  const D = celaSmer === 'z' ? hloubka : sirka
-  const tl = m(18)
-  return (
-    <group>
-      <Box pos={[x - W / 2 + tl / 2, H / 2, z]} size={[tl, H, D]} material={mat} radius={0.002} />
-      <Box pos={[x + W / 2 - tl / 2, H / 2, z]} size={[tl, H, D]} material={mat} radius={0.002} />
-      <Box pos={[x, H * 0.34, z]} size={[W - 2 * tl, tl, D - 0.02]} material={mat} radius={0.002} />
-      <Box pos={[x, H * 0.67, z]} size={[W - 2 * tl, tl, D - 0.02]} material={mat} radius={0.002} />
-      <Box pos={[x, H / 2, z - D / 2 + tl / 2]} size={[W - 2 * tl, H - 0.01, m(10)]} material={mat} radius={0.001} />
-    </group>
-  )
-}
-
-function ZadniPanel({ c, u }: { c: DeskConfig; u: UlozneT }) {
-  const mat = usePovrch(u.materialId ?? c.deska.materialId, { meritko: [1.2, 0.5] })
-  const LA = m(c.rozmery.ramenoADelka)
-  const LB = m(c.rozmery.ramenoBDelka)
-  const jeL = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0
-  const H = m(c.rozmery.vyska)
-  const vys = 0.30
-  const tl = m(18)
-  return (
-    <group>
-      {/* panel podél levé stěny */}
-      <Box pos={[tl / 2 + 0.006, H + vys / 2, LA / 2]} size={[tl, vys, LA - 0.06]} material={mat} radius={0.002} />
-      {/* panel podél zadní stěny — navazuje na ten první hned za rohem, ne až u ramene B */}
-      {jeL && (
-        <Box
-          pos={[(tl + 0.006 + LB - 0.02) / 2, H + vys / 2, tl / 2 + 0.006]}
-          size={[LB - 0.02 - tl - 0.006, vys, tl]}
-          material={mat} radius={0.002}
-        />
-      )}
-    </group>
-  )
-}
-
 export function Ulozne({ config }: { config: DeskConfig }) {
   return (
     <group>
-      {config.ulozne.map((u, i) => {
-        switch (u.typ) {
-          case 'zasuvka-plocha': return <PlochaZasuvka key={i} c={config} u={u} pocet={1} />
-          case 'zasuvky-2': return <PlochaZasuvka key={i} c={config} u={u} pocet={2} />
-          case 'kontejner-3': return <KorpusSeZasuvkami key={i} c={config} u={u} pocet={3} pojezdovy />
-          case 'kontejner-pevny': return <KorpusSeZasuvkami key={i} c={config} u={u} pocet={3} pojezdovy={false} />
-          case 'skrinka': return <Skrinka key={i} c={config} u={u} />
-          case 'police': return <Police key={i} c={config} u={u} />
-          case 'zadni-panel': return <ZadniPanel key={i} c={config} u={u} />
-          default: return null
-        }
-      })}
+      {config.ulozne.map((u, i) => (
+        <KorpusSeZasuvkami key={i} c={config} u={u} pocet={3} />
+      ))}
     </group>
   )
 }

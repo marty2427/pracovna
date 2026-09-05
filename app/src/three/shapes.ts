@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import type { DeskConfig, Hrana } from '@/model/types'
 import { obrysBody, type Pt as PtMm } from '@/model/obrys'
-import { pracoviste } from '@/model/constraints'
 
 export type Pt = [number, number]
 
@@ -99,47 +98,10 @@ export function obrysDesky(c: DeskConfig): { pts: Pt[]; radii: number[] } {
   }
 }
 
-/**
- * Poloha kabelové průchodky v půdorysu (m): za monitorem, u zdi.
- * Sleduje umístění monitoru, takže kabel od něj jde rovnou dolů.
- */
-export function poziceDira(c: DeskConfig): [number, number] {
-  const p = pracoviste(c)
-  const DA = m(c.rozmery.ramenoAHloubka)
-  const DB = m(c.rozmery.ramenoBHloubka)
-  if (p.umisteni === 'roh') {
-    // na úhlopříčce, kousek před podstavcem, ať nekoliduje se zaoblením rohu
-    const d = Math.max(m(c.deska.radiusUZdi) * 0.42 + 0.075, 0.10)
-    const t = (d + m(p.monitorOdZdi) - 0.02) / 2 + 0.02
-    return [t * Math.SQRT1_2, t * Math.SQRT1_2]
-  }
-  if (p.umisteni === 'ramenoB') return [m(p.monitor.x) + 0.30, Math.min(DB - 0.10, 0.10)]
-  return [Math.min(DA - 0.10, 0.10), m(p.monitor.z) + 0.30]
-}
-
 /** Geometrie desky: obrys + skutečný profil hrany, ležatá v rovině XZ. */
 export function geometrieDesky(c: DeskConfig): THREE.ExtrudeGeometry {
   const { pts, radii } = obrysDesky(c)
   const shape = roundedShape(pts, radii)
-
-  // Skutečná díra pro kabelovou průchodku — ne nalepený kroužek.
-  if (c.doplnky.pruchodka !== 'zadna') {
-    const [hx, hz] = poziceDira(c)
-    const hole = new THREE.Path()
-    if (c.doplnky.pruchodka === 'kulata') {
-      hole.absarc(hx, -hz, 0.0405, 0, Math.PI * 2, true)
-    } else {
-      const w = 0.135, h = 0.048, r = 0.018
-      const pts: Pt[] = [
-        [hx - w / 2, -hz - h / 2], [hx + w / 2, -hz - h / 2],
-        [hx + w / 2, -hz + h / 2], [hx - w / 2, -hz + h / 2],
-      ]
-      const hs = roundedShape(pts, [r, r, r, r])
-      hole.curves = hs.curves.slice().reverse().map((cv) => { const c2 = cv.clone(); (c2 as any).reverse?.(); return c2 })
-      hole.autoClose = true
-    }
-    shape.holes.push(hole)
-  }
 
   const th = m(c.deska.tloustka)
   const p = hranaProfil(c.deska.hrana, th)

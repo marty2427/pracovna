@@ -11,7 +11,8 @@ export type Hrana =
   | 'radius'     // zaoblení R3–R8
   | 'naklizek'   // masivní nákližek 20–40 mm, zaoblený
 
-export type Tvar = 'L' | 'rovna'
+/** Jen L do rohu — rovná deska nepřipadá v úvahu (rozhodnutí uživatele). */
+export type Tvar = 'L'
 
 export type PodnozTyp =
   | 'ram-A' | 'ram-U' | 'ram-H' | 'ram-trapez' | 'ram-hranaty'
@@ -21,9 +22,8 @@ export type PodnozTyp =
   | 'kontejner-nosny'
   | 'stavitelny-ram'
 
-export type UlozneTyp =
-  | 'nic' | 'zasuvka-plocha' | 'zasuvky-2' | 'kontejner-3'
-  | 'kontejner-pevny' | 'skrinka' | 'police' | 'zadni-panel'
+/** Jediné úložné, které uživatel chce: pevný kontejner se třemi zásuvkami. Bez něj je pole `ulozne` prázdné. */
+export type UlozneTyp = 'kontejner-pevny'
 
 export type Rameno = 'A' | 'B'
 
@@ -89,7 +89,6 @@ export interface Ulozne {
 
 export interface Doplnky {
   kabelovaLavka: boolean
-  pruchodka: 'zadna' | 'kulata' | 'obdelnikova'
   ledPodsviceni: boolean
   nastavecMonitor: boolean
   zadniPanel: boolean
