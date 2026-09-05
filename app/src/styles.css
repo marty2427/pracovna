@@ -245,3 +245,77 @@ html, body, #root { min-height: 100dvh; }
 .hrany-vyber button.on { background: var(--oranz-slaba); border-color: var(--oranz); color: var(--text); font-weight: 600; }
 .hrany-text p { margin: 6px 0 0; font-size: 11px; line-height: 1.45; color: var(--text-2); }
 .hrany-text p.odvozeno { color: var(--text-3); font-size: 10px; }
+
+/* --- designový průchod (podle návrhu z Claude Design, bez půdorysu) --- */
+:root { --papir: #FFFEFB; --oranz-slaba: #FBEADB; --track: #EADFCF; --delitko: #F1E8DA; }
+button, input, .karta { transition: background-color .12s ease, border-color .12s ease, color .12s ease; }
+:focus-visible { outline: 2px solid var(--oranz); outline-offset: 1px; }
+.prepinac-mriz button:hover:not(.on), .filtry button:hover:not(.on), .hrany-vyber button:hover:not(.on), .karta-akce button:hover { background: var(--krem-2); }
+
+/* posuvník s vyplněnou dráhou */
+.posuvnik input[type=range] {
+  -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; margin: 9px 0;
+  background: linear-gradient(to right, var(--oranz) var(--pct, 0%), var(--track) var(--pct, 0%));
+}
+.posuvnik input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--oranz); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--oranz); cursor: pointer;
+}
+.posuvnik input[type=range]::-moz-range-thumb {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--oranz); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--oranz); cursor: pointer;
+}
+.posuvnik input[type=range]::-moz-range-track { height: 4px; background: transparent; }
+
+/* volby s metadaty a velké karty s ikonou */
+.prepinac-mriz button .nazev { min-width: 0; }
+.prepinac-mriz button .meta { margin-left: auto; font-style: normal; font-size: 11px; color: var(--text-3); font-weight: 400; white-space: nowrap; }
+.prepinac-mriz button.on .meta { color: var(--text-2); }
+.prepinac-mriz.velke button { flex-direction: column; align-items: flex-start; gap: 5px; padding: 10px; border-radius: 10px; }
+.prepinac-mriz.velke .ikona { display: block; width: 100%; height: 52px; }
+.prepinac-mriz.velke .ikona svg { width: 100%; height: 100%; display: block; }
+.prepinac-mriz.velke .nazev { font-size: 13px; }
+.prepinac-mriz.velke .meta { margin-left: 0; white-space: normal; }
+.zaskrt .cena { margin-left: auto; font-size: 11px; color: var(--text-3); white-space: nowrap; }
+
+/* kontroly: stav vpravo, chyba podbarvená, opravné tlačítko */
+.kontroly li { align-items: flex-start; }
+.kontroly li .telo { flex: 1; }
+.kontroly li .stav { flex: 0 0 auto; font-size: 11px; font-weight: 600; white-space: nowrap; margin-top: 2px; }
+.kontroly li.ok .stav { color: var(--ok); }
+.kontroly li.pozor .stav { color: var(--pozor); }
+.kontroly li.chyba .stav { color: var(--chyba); }
+.kontroly li.chyba { background: #FBEDEA; border-radius: 8px; padding-left: 8px; padding-right: 8px; margin: 2px -8px; border-top: none; }
+.kontroly .oprava {
+  margin-top: 6px; padding: 5px 10px; border-radius: 8px; align-self: flex-start;
+  border: 1px solid var(--chyba); background: #fff; color: var(--chyba); font-size: 11.5px; font-weight: 600;
+}
+.kontroly li.pozor .oprava { border-color: var(--pozor); color: var(--pozor); }
+.kontroly .oprava:hover { background: var(--krem); }
+
+/* odhad ceny: velké číslo, pásma rozpočtu na ose */
+.rozpocet .radek b { font-size: 22px; }
+.rozpocet .radek .rozpeti { font-size: 11px; color: var(--text-3); margin-left: 6px; }
+.rozpocet .pruh {
+  background: linear-gradient(to right, var(--krem-3) 0 8.3%, #DCEBD3 8.3% 33.3%, #F6E3C2 33.3% 41.7%, #F3D2CC 41.7% 100%);
+}
+.rozpocet .osa { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-3); margin: -3px 0 7px; }
+
+/* infobox v 3D scéně */
+.viewport-info {
+  position: absolute; right: 12px; bottom: 12px; display: flex; gap: 12px;
+  padding: 7px 11px; border-radius: 8px; background: rgba(255,254,251,.92); border: 1px solid var(--linka);
+  font-size: 11px; color: var(--text-2);
+}
+.viewport-info b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* galerie: počty v chipech, odznaky rozpočtu */
+.filtry button .pocet { opacity: .6; margin-left: 4px; }
+.karta.na-hrane { border-color: #E7C39F; }
+.karta.nad { border-color: #E3B2AA; }
+.karta .nahled { position: relative; }
+.karta .odznak {
+  position: absolute; top: 8px; left: 8px; padding: 2px 8px; border-radius: 999px;
+  font-size: 10.5px; font-weight: 700; background: var(--oranz-slaba); color: var(--oranz); border: 1px solid var(--oranz);
+}
+.karta .odznak.nad { background: #F8E1DD; color: #9E2E1F; border-color: #E3B2AA; }
+.karta-akce button:first-child { color: var(--oranz); font-weight: 600; }

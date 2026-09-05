@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, CSSProperties } from 'react'
 
 export function Skupina({ titulek, popis, children }: { titulek: string; popis?: string; children: ReactNode }) {
   return (
@@ -17,6 +17,8 @@ export function Posuvnik({
   jednotka?: string; delitel?: number; napoveda?: string
   onChange: (v: number) => void
 }) {
+  // Dráha posuvníku je vyplněná po aktuální hodnotu — na první pohled je vidět, kde v rozsahu jsi.
+  const pct = max > min ? Math.max(0, Math.min(100, ((hodnota - min) / (max - min)) * 100)) : 0
   return (
     <label className="posuvnik">
       <span className="radek">
@@ -25,6 +27,7 @@ export function Posuvnik({
       </span>
       <input
         type="range" min={min} max={max} step={krok} value={hodnota}
+        style={{ '--pct': `${pct}%` } as CSSProperties}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <span className="meze">
@@ -41,18 +44,24 @@ export interface Volba<T extends string | number> {
   label: string
   popis?: string
   barva?: string
+  /** Krátká hodnota vpravo (např. „oči 78 cm"). */
+  meta?: string
+  /** Ikona nad názvem u velkých voleb. */
+  ikona?: ReactNode
 }
 
 export function Prepinac<T extends string | number>({
-  label, hodnota, volby, onChange, sloupce = 2,
+  label, hodnota, volby, onChange, sloupce = 2, velke = false,
 }: {
   label?: string; hodnota: T; volby: Volba<T>[]; sloupce?: number
+  /** Velké karty s ikonou (podnož). */
+  velke?: boolean
   onChange: (v: T) => void
 }) {
   return (
     <div className="prepinac">
       {label && <span className="prepinac-label">{label}</span>}
-      <div className="prepinac-mriz" style={{ gridTemplateColumns: `repeat(${sloupce}, minmax(0, 1fr))` }}>
+      <div className={`prepinac-mriz${velke ? ' velke' : ''}`} style={{ gridTemplateColumns: `repeat(${sloupce}, minmax(0, 1fr))` }}>
         {volby.map((v) => (
           <button
             key={String(v.hodnota)}
@@ -61,8 +70,10 @@ export function Prepinac<T extends string | number>({
             title={v.popis}
             type="button"
           >
+            {v.ikona && <span className="ikona">{v.ikona}</span>}
             {v.barva && <i className="tecka" style={{ background: v.barva }} />}
-            {v.label}
+            <span className="nazev">{v.label}</span>
+            {v.meta && <em className="meta">{v.meta}</em>}
           </button>
         ))}
       </div>
@@ -70,13 +81,14 @@ export function Prepinac<T extends string | number>({
   )
 }
 
-export function Zaskrt({ label, hodnota, onChange, popis }: {
-  label: string; hodnota: boolean; popis?: string; onChange: (v: boolean) => void
+export function Zaskrt({ label, hodnota, onChange, popis, cena }: {
+  label: string; hodnota: boolean; popis?: string; cena?: string; onChange: (v: boolean) => void
 }) {
   return (
     <label className="zaskrt" title={popis}>
       <input type="checkbox" checked={hodnota} onChange={(e) => onChange(e.target.checked)} />
       <span>{label}</span>
+      {cena && <span className="cena">{cena}</span>}
     </label>
   )
 }

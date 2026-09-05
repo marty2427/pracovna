@@ -353,6 +353,28 @@ export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): 
   return out
 }
 
+/** Objemová hmotnost podle kategorie materiálu, kg/m³ (dub ~700, MDF s dýhou ~740, DTD lamino ~650). */
+const HUSTOTA: Record<string, number> = { masiv: 700, dyha: 740, lamino: 650, hpl: 1400, linoleum: 750, lak: 740 }
+
+/** Orientační hmotnost sestavy v kg: deska + podnož + kontejner. Truhlář to potřebuje kvůli dopravě a montáži. */
+export function hmotnost(c: DeskConfig): number {
+  const mat = material(c.deska.materialId)
+  const deska = plochaDesky(c) * (c.deska.tloustka / 1000) * (HUSTOTA[mat.kategorie] ?? 700)
+  const H = (c.rozmery.vyska - c.deska.tloustka) / 1000
+  let podnoz: number
+  if (c.podnoz.typ === 'bocnice') {
+    const tl = Math.max(25, c.deska.tloustka) / 1000
+    const matP = material(c.podnoz.materialId ?? c.deska.materialId)
+    podnoz = podpory(c).length * 0.5 * (c.rozmery.ramenoAHloubka / 1000) * H * tl * (HUSTOTA[matP.kategorie] ?? 700)
+  } else {
+    // ocelový jekl: hmotnost na metr ≈ obvod × stěna 2 mm × 7850 kg/m³
+    const metry = podpory(c).length * H + (c.rozmery.ramenoAHloubka / 1000) * 2 + (c.rozmery.ramenoBHloubka / 1000) * 2 + (c.podnoz.vyztuha ? (c.rozmery.ramenoADelka + c.rozmery.ramenoBDelka) / 1000 : 0)
+    podnoz = metry * 4 * (c.podnoz.profil / 1000) * 0.002 * 7850
+  }
+  const kontejner = c.ulozne.length * 24
+  return Math.round(deska + podnoz + kontejner)
+}
+
 export function nejhorsiStav(k: Kontrola[]): Zavaznost {
   if (k.some((x) => x.stav === 'chyba')) return 'chyba'
   if (k.some((x) => x.stav === 'pozor')) return 'pozor'

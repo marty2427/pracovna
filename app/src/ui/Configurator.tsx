@@ -3,15 +3,37 @@ import { useStore } from '@/store'
 import { LIMITY, SPACE, MAX_RAMENO_A, maxRamenoB, MONITOR } from '@/model/space'
 import { MATERIALY, KOV_BARVY } from '@/model/materials'
 import { pracoviste } from '@/model/constraints'
+import { UKONY, formatRozpeti, scal } from '@/pricing/ceny'
 import { Skupina, Posuvnik, Prepinac, Zaskrt, type Volba } from './Ovladace'
 import { BarevneSmery } from './BarevneSmery'
 import { VyberHrany } from './Hrany'
 import type { PodnozTyp, Tloustka, Rameno, MonitorUmisteni } from '@/model/types'
 
+/** Ikony podnoží — čárová kresba boku stolu. */
+const IkonaHranaty = (
+  <svg viewBox="0 0 120 52" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
+    <rect x="4" y="6" width="112" height="7" fill="currentColor" opacity=".18" />
+    <path d="M4 6h112v7H4z" />
+    <path d="M18 13v33M46 13v33M18 46h28M18 17h28M74 13v33M102 13v33M74 46h28M74 17h28" />
+    <path d="M16 49h4M44 49h4M72 49h4M100 49h4" strokeWidth="3" />
+  </svg>
+)
+const IkonaBocnice = (
+  <svg viewBox="0 0 120 52" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
+    <rect x="4" y="6" width="112" height="7" fill="currentColor" opacity=".18" />
+    <path d="M4 6h112v7H4z" />
+    <rect x="12" y="13" width="7" height="32" fill="currentColor" opacity=".18" />
+    <rect x="101" y="13" width="7" height="32" fill="currentColor" opacity=".18" />
+    <path d="M12 13v32h7V13M101 13v32h7V13" />
+    <path d="M19 19h82" strokeDasharray="3 3" />
+    <path d="M13 48h5M102 48h5" strokeWidth="3" />
+  </svg>
+)
+
 /** Podnože, které sedí do stylu místnosti — zbytek je schovaný za přepínačem. */
 const PODNOZE_HLAVNI: Volba<PodnozTyp>[] = [
-  { hodnota: 'ram-hranaty', label: 'Hranatý profil', popis: 'Uzavřený rám ze čtyřhranného jeklu — tvůj favorit' },
-  { hodnota: 'bocnice', label: 'Plné bočnice', popis: 'Silné panely v tloušťce desky, na stínové spáře' },
+  { hodnota: 'ram-hranaty', label: 'Hranatý profil', meta: 'jekl 40 × 40, práškovaný komaxit — tvůj favorit', ikona: IkonaHranaty },
+  { hodnota: 'bocnice', label: 'Plné bočnice', meta: 'panely stejné síly jako deska, na stínové spáře', ikona: IkonaBocnice },
 ]
 const PODNOZE_OSTATNI: Volba<PodnozTyp>[] = [
   { hodnota: 'ram-U', label: 'Rám U' },
@@ -26,7 +48,7 @@ const PODNOZE_OSTATNI: Volba<PodnozTyp>[] = [
   { hodnota: 'stavitelny-ram', label: 'Stavitelný rám' },
 ]
 
-const MONITOR_VOLBY: Volba<MonitorUmisteni>[] = [
+const MONITOR_VOLBY: Array<Omit<Volba<MonitorUmisteni>, 'meta'>> = [
   { hodnota: 'roh', label: 'V rohu', popis: 'Sedí se na úhlopříčce, deska se kolem tebe obtočí. Využije roh, který je jinak mrtvý.' },
   { hodnota: 'ramenoA', label: 'Rameno A (dlouhé)', popis: 'U levé stěny, čelem ke zdi s obrazem' },
   { hodnota: 'ramenoB', label: 'Rameno B (u gauče)', popis: 'U zadní stěny, gauč po pravé ruce' },
@@ -39,6 +61,14 @@ export function Configurator() {
   const [ostatniPodnoze, setOstatniPodnoze] = useState(false)
   const r = config.rozmery
   const pr = pracoviste(config)
+
+  // U každého umístění monitoru rovnou vzdálenost očí — ať je vidět, proč roh vyhrává.
+  const monitorVolby: Volba<MonitorUmisteni>[] = MONITOR_VOLBY.map((v) => {
+    const d = pracoviste({ ...config, doplnky: { ...config.doplnky, monitorUmisteni: v.hodnota } }).vzdalenost
+    const ok = d >= MONITOR.vzdalenost.min && d <= MONITOR.vzdalenost.max
+    return { ...v, meta: `oči ${Math.round(d / 10)} cm${ok ? '' : ' ✕'}` }
+  })
+  const bmLed = (r.ramenoADelka + r.ramenoBDelka) / 1000
 
   // Jediné úložné je pevný kontejner: buď je, nebo není.
   const kontejner = config.ulozne[0]
@@ -100,7 +130,7 @@ export function Configurator() {
 
       <Skupina titulek="Pracoviště" popis={`${MONITOR.nazev}, zakřivený 1500R. Oči mají být ${MONITOR.vzdalenost.min / 10}–${MONITOR.vzdalenost.max / 10} cm od obrazovky — teď ${Math.round(pr.vzdalenost / 10)} cm.`}>
         <Prepinac label="Kde stojí monitor" sloupce={1} hodnota={config.doplnky.monitorUmisteni}
-          volby={MONITOR_VOLBY}
+          volby={monitorVolby}
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, monitorUmisteni: v } }))} />
         <Posuvnik label="Posun monitoru od zdi" hodnota={config.doplnky.monitorPosun}
           min={LIMITY.monitorPosun.min} max={LIMITY.monitorPosun.max} krok={LIMITY.monitorPosun.krok} jednotka="mm" delitel={1}
@@ -133,7 +163,7 @@ export function Configurator() {
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusVnitrni: v } }))} />
         <Posuvnik label="Zaoblení rohu u zdi" hodnota={config.deska.radiusUZdi}
           min={LIMITY.radiusUZdi.min} max={LIMITY.radiusUZdi.max} krok={LIMITY.radiusUZdi.krok} jednotka="mm" delitel={1}
-          napoveda="0 = deska vyplní roh celý; víc = mezera na kabely za monitorem"
+          napoveda="víc = mezera na kabely za monitorem"
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, radiusUZdi: v } }))} />
         {pr.umisteni !== 'roh' && (
           <Posuvnik label="Výřez v přední hraně" hodnota={config.deska.vyrez}
@@ -144,7 +174,7 @@ export function Configurator() {
       </Skupina>
 
       <Skupina titulek="Podnož" popis="Do stylu místnosti sedí hranatý profil a plné bočnice. Ostatní typy jsou jen pro srovnání.">
-        <Prepinac sloupce={2} hodnota={config.podnoz.typ}
+        <Prepinac sloupce={2} velke={!ostatniPodnoze} hodnota={config.podnoz.typ}
           volby={podnozMimo ? [...podnozVolby, { hodnota: config.podnoz.typ, label: config.podnoz.typ }] : podnozVolby}
           onChange={(v) => nastav((c) => ({
             podnoz: {
@@ -205,8 +235,10 @@ export function Configurator() {
       <Skupina titulek="Doplňky">
         <Zaskrt label="Kabelová lávka pod deskou" hodnota={config.doplnky.kabelovaLavka}
           popis="Plechový žlab pod zadní hranou, do kterého se schová prodlužovačka a kabely."
+          cena={`+ ${formatRozpeti(UKONY.kabelovaLavka)}`}
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, kabelovaLavka: v } }))} />
         <Zaskrt label="LED podsvícení pod přední hranou" hodnota={config.doplnky.ledPodsviceni}
+          cena={`+ ${formatRozpeti(scal(UKONY.ledMetr, bmLed))}`}
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, ledPodsviceni: v } }))} />
       </Skupina>
     </div>

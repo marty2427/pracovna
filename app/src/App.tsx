@@ -8,6 +8,7 @@ import { Koupit } from './ui/Koupit'
 import { Export } from './ui/Export'
 import { useState } from 'react'
 import { SPACE } from './model/space'
+import { plochaDesky, obvodDesky, hmotnost } from './model/constraints'
 
 const ZALOZKY: Array<{ id: Zalozka; label: string }> = [
   { id: 'konfigurator', label: 'Konfigurátor' },
@@ -66,6 +67,11 @@ export function App() {
                 <button key={p.id} data-pohled={p.id} className={p.id === pohled ? 'on' : ''} onClick={() => setPohled(p.id)}>{p.label}</button>
               ))}
               <button className={ukazMistnost ? 'on' : ''} onClick={() => setUkazMistnost(!ukazMistnost)}>místnost</button>
+            </div>
+            <div className="viewport-info">
+              <span>plocha desky <b>{plochaDesky(config).toFixed(2)} m²</b></span>
+              <span>hrana <b>{obvodDesky(config).toFixed(2)} bm</b></span>
+              <span>hmotnost <b>~{hmotnost(config)} kg</b></span>
             </div>
           </main>
           <aside className="vpravo">

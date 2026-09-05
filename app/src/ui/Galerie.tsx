@@ -3,7 +3,7 @@ import { useStore } from '@/store'
 import { PRESETY, RODINY } from '@/presets'
 import { Nahled } from './Nahled'
 import { odhadNaMiru } from '@/pricing/odhad'
-import { formatRozpeti } from '@/pricing/ceny'
+import { formatRozpeti, formatKc } from '@/pricing/ceny'
 import { kontroly, nejhorsiStav } from '@/model/constraints'
 import { material } from '@/model/materials'
 
@@ -14,13 +14,15 @@ const PODNOZ_LABEL: Record<string, string> = {
   kozy: 'kozy', 'kontejner-nosny': 'nese kontejner', 'stavitelny-ram': 'stavitelný rám',
 }
 
+/** Cenová pásma podle spodní hranice odhadu — tak se porovnává i s rozpočtem 5–20 tis. */
 const PASMA = [
   { id: 'vse', label: 'Všechny ceny', test: () => true },
-  { id: 'do10', label: 'do 10 tis.', test: (s: number) => s < 10000 },
-  { id: '10-20', label: '10–20 tis.', test: (s: number) => s >= 10000 && s < 20000 },
-  { id: '20-35', label: '20–35 tis.', test: (s: number) => s >= 20000 && s < 35000 },
-  { id: 'nad35', label: 'nad 35 tis.', test: (s: number) => s >= 35000 },
+  { id: 'do15', label: 'do 15 tis.', test: (s: number) => s < 15000 },
+  { id: '15-20', label: '15–20 tis.', test: (s: number) => s >= 15000 && s <= 20000 },
+  { id: '20-30', label: '20–30 tis.', test: (s: number) => s > 20000 && s <= 30000 },
+  { id: 'nad30', label: 'nad 30 tis.', test: (s: number) => s > 30000 },
 ]
+const ROZPOCET_DO = 20000
 
 export function Galerie() {
   const nactiPreset = useStore((s) => s.nactiPreset)
@@ -31,7 +33,9 @@ export function Galerie() {
     () => PRESETY.map((p) => {
       const o = odhadNaMiru(p)
       const k = kontroly(p)
-      return { p, odhad: o, stred: (o.celkem.od + o.celkem.do) / 2, stav: nejhorsiStav(k) }
+      const od = o.celkem.od
+      const rozpocet: 'ok' | 'na-hrane' | 'nad' = od > ROZPOCET_DO ? 'nad' : od > ROZPOCET_DO - 3000 ? 'na-hrane' : 'ok'
+      return { p, odhad: o, stred: od, stav: nejhorsiStav(k), rozpocet }
     }),
     [],
   )
@@ -47,10 +51,10 @@ export function Galerie() {
       </div>
 
       <div className="filtry">
-        <button className={rodina === 'vse' ? 'on' : ''} onClick={() => setRodina('vse')}>Všechny rodiny</button>
+        <button className={rodina === 'vse' ? 'on' : ''} onClick={() => setRodina('vse')}>Všechny rodiny<span className="pocet">{PRESETY.length}</span></button>
         {RODINY.map((r) => (
           <button key={r.id} className={rodina === r.id ? 'on' : ''} onClick={() => setRodina(r.id)} title={r.popis}>
-            {r.nazev}
+            {r.nazev}<span className="pocet">{PRESETY.filter((p) => p.rodina === r.id).length}</span>
           </button>
         ))}
       </div>
@@ -67,21 +71,23 @@ export function Galerie() {
       )}
 
       <div className="mriz">
-        {videt.map(({ p, odhad, stav }) => {
+        {videt.map(({ p, odhad, stav, rozpocet }) => {
           const r = p.rozmery
           const jeL = p.tvar === 'L' && r.ramenoBDelka > 0
           return (
-            <div key={p.id} className="karta">
+            <div key={p.id} className={`karta ${rozpocet === 'nad' ? 'nad' : rozpocet === 'na-hrane' ? 'na-hrane' : ''}`}>
               <button className="karta-hlavni" onClick={() => nactiPreset(p)}>
               <div className="nahled">
                 <Nahled config={p} sirka={260} vyska={168} />
+                {rozpocet === 'nad' && <span className="odznak nad">nad rozpočet</span>}
+                {rozpocet === 'na-hrane' && <span className="odznak">na hraně rozpočtu</span>}
               </div>
               <div className="info">
                 <div className="rodina">{RODINY.find((x) => x.id === p.rodina)?.nazev}</div>
                 <h4>{p.nazev}</h4>
                 <p>{p.popis}</p>
                 <div className="cena">
-                  na míru {formatRozpeti(odhad.celkem)}
+                  na míru od {formatKc(odhad.celkem.od)}<span style={{ color: 'var(--text-3)', fontWeight: 400 }}> · rozpětí {formatRozpeti(odhad.celkem)}</span>
                   {stav === 'chyba' && <span style={{ color: 'var(--chyba)' }}> · nevejde se</span>}
                   {stav === 'pozor' && <span style={{ color: 'var(--pozor)' }}> · na hraně</span>}
                 </div>
