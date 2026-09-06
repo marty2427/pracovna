@@ -18,29 +18,29 @@ interface Smer {
 /** Jak se barevný směr promítne do konfigurace. */
 const APLIKACE: Record<string, (c: DeskConfig) => Partial<DeskConfig>> = {
   'shoda-podlaha': (c) => ({
-    deska: { ...c.deska, materialId: 'dub-podlaha-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h3398' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
   }),
   'o-ton-tmavsi': (c) => ({
-    deska: { ...c.deska, materialId: 'dub-kourovy-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h1303' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
   }),
   'o-ton-svetlejsi': (c) => ({
-    deska: { ...c.deska, materialId: 'dub-svetly-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h3170' },
     podnoz: { ...c.podnoz, typ: 'bocnice', material: 'drevo', odsazeni: Math.min(c.podnoz.odsazeni, 100) },
   }),
   // Černá deska vypadla (uživatel chce jen dub) — kontrast dělá tmavě mořený dub s černým rámem.
   'kontrast-cerna': (c) => ({
-    deska: { ...c.deska, materialId: 'dub-tmavy-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h1199' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021' },
   }),
   'kov-drevo': (c) => ({
-    deska: { ...c.deska, materialId: 'dub-podlaha-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h3395' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#1F2021', typ: c.podnoz.typ.startsWith('ram') ? c.podnoz.typ : 'ram-hranaty' },
   }),
   // Neutrál: nejsvětlejší dub (přírodní) s bílým rámem.
   neutral: (c) => ({
-    deska: { ...c.deska, materialId: 'dub-svetly-masiv' },
+    deska: { ...c.deska, materialId: 'egger-h3165' },
     podnoz: { ...c.podnoz, material: 'kov', barva: '#E8E6E1' },
   }),
 }

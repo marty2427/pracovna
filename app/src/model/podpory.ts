@@ -38,9 +38,9 @@ export interface Podpora {
   /**
    * Rám, jehož je součástí: 'A' = konec ramene A, 'B' = konec ramene B,
    * 'roh' = podpora rohu L (u vnitřního rohu, nebo v rohu místnosti při sezení v rohu),
-   * 'mezi' = mezilehlá.
+   * 'mezi' = mezilehlá na rameni A, 'meziB' = mezilehlá na rameni B.
    */
-  skupina: 'A' | 'B' | 'roh' | 'mezi'
+  skupina: 'A' | 'B' | 'roh' | 'mezi' | 'meziB'
 }
 
 export function maxRozponMat(materialId: string, tloustka: number): number {
@@ -115,6 +115,13 @@ export function podpory(c: DeskConfig): Podpora[] {
   if (potrebaMezilehle(c, rozponA)) {
     const zStred = (odZ + LA - o) / 2
     p.push({ x: o, z: zStred, skupina: 'mezi' }, { x: DA - o, z: zStred, skupina: 'mezi' })
+  }
+  // Totéž podél ramene B — u tenké desky (18 mm) je i 130 cm ramene B moc
+  const odX = vRohu ? rohX : DA - o
+  const rozponB = nosnyKontejner ? 0 : (LB - o) - odX
+  if (rozponB > 0 && potrebaMezilehle(c, rozponB)) {
+    const xStred = (odX + LB - o) / 2
+    p.push({ x: xStred, z: o, skupina: 'meziB' }, { x: xStred, z: DB - o, skupina: 'meziB' })
   }
   return p
 }

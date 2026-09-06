@@ -32,9 +32,8 @@ export const MATERIAL_M2: Record<string, (t: number) => Rozpeti> = {
 
 /** Příplatek za dřevinu proti dubu. */
 export const DREVINA_KOEF: Record<string, number> = {
-  'dub-svetly-masiv': 1, 'dub-podlaha-masiv': 1.05, 'dub-medovy-masiv': 1.05,
-  'dub-rustikal-masiv': 0.85, 'dub-kourovy-masiv': 1.1, 'dub-tmavy-masiv': 1.1,
-  'lamino-dub-sherman': 1.35, // Feelwood ST32 je nejdražší z ověřených dekorů
+  // Egger ST12 dekory mají jednotnou cenu tabule; špalíček je speciální dekor s přirážkou.
+  'egger-h193': 1.15,
 }
 
 /** Olepení / opracování hrany za bm, vč. DPH. */

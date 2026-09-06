@@ -316,7 +316,7 @@ export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): 
   const rozpon = skutecnyRozpon(c)
   const maxR = dovolenyRozpon(c)
   const pods = podpory(c)
-  const maMezilehlou = pods.some((q) => q.skupina === 'mezi')
+  const mezilehlych = (pods.some((q) => q.skupina === 'mezi') ? 1 : 0) + (pods.some((q) => q.skupina === 'meziB') ? 1 : 0)
   const rohVzadu = jeL && pr.umisteni === 'roh'
   out.push({
     id: 'rozpon',
@@ -331,7 +331,7 @@ export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): 
         : `${Math.round(rozpon / 10)} cm mezi podporami, limit pro tuhle desku je ${Math.round(maxR / 10)} cm`
           + (c.podnoz.vyztuha ? ' (včetně podélné výztuhy)' : '')
           + `. Podpor celkem ${pods.length}`
-          + (maMezilehlou ? ', z toho jedna mezilehlá' : '')
+          + (mezilehlych === 1 ? ', z toho jedna mezilehlá' : mezilehlych === 2 ? ', z toho dvě mezilehlé (rameno A i B)' : '')
           + (rohVzadu ? '; rohová podpora je vzadu v rohu místnosti, aby nestála mezi koleny.' : '.'),
   })
 

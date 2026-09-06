@@ -74,7 +74,7 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
 
       {/* plné bočnice jako plocha, ne jako čára */}
       {(g.config.podnoz.typ === 'bocnice') && (() => {
-        const sk = ['A', 'B', 'mezi'] as const
+        const sk = ['A', 'B', 'mezi', 'meziB'] as const
         return sk.map((s2) => {
           const gg = g.podp.filter((q) => q.skupina === s2)
           if (gg.length < 2) return null

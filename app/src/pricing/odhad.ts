@@ -40,10 +40,12 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
 
   // --- hrana ---
   const bm = obvodDesky(c)
-  const cenaHrany = scal(HRANA_BM[c.deska.hrana], bm)
+  // U lamina jde zkosení i velký rádius jen přes nalepenou masivní lištu — cena jako nákližek.
+  const presListu = mat.kategorie === 'lamino' && (c.deska.hrana === 'zkosena' || c.deska.hrana === 'radius')
+  const cenaHrany = scal(HRANA_BM[presListu ? 'naklizek' : c.deska.hrana], bm)
   radky.push({
     nazev: 'Hrana',
-    detail: `${{ rovna: 'ABS 0,8 mm', srazena: 'ABS 2 mm se sražením', zkosena: 'frézované zkosení', radius: 'frézovaný rádius', naklizek: 'masivní nákližek' }[c.deska.hrana]} · ${bm.toFixed(2)} bm`,
+    detail: `${{ rovna: 'ABS 1 mm', srazena: 'ABS 2 mm ve stejném dekoru, R2, PUR lepidlo', zkosena: presListu ? 'masivní lišta + zkosení 45°' : 'frézované zkosení', radius: presListu ? 'masivní lišta + rádius R10' : 'frézovaný rádius', naklizek: 'masivní nákližek' }[c.deska.hrana]} · ${bm.toFixed(2)} bm`,
     cena: cenaHrany,
   })
 

@@ -16,8 +16,9 @@ export function vychoziKonfigurace(): DeskConfig {
       mezeraKeGauci: LIMITY.mezeraKeGauci.vychozi,
     },
     deska: {
-      materialId: 'dub-svetly-masiv',
-      tloustka: 30,
+      // Hlavní doporučení rešerše povrchu: Egger H3157 ST12, 25 mm, ABS 2 mm.
+      materialId: 'egger-h3157',
+      tloustka: 25,
       hrana: 'srazena',
       radiusRohu: 12,
       // Monitor stojí v rohu, takže se sedí na úhlopříčce a deska se kolem

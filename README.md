@@ -41,8 +41,9 @@ toho se posune židle, klávesnice, repro i případný výřez v hraně. Roh de
 zaoblit, aby za monitorem zbyla mezera na kabely.
 
 Průchod se do zóny židle nezapočítává — kolem stolu se nikam nechodí.
-Nabídka je zúžená na to, co zadavatel chce: jen dřevo a dřevěné dekory, podnož
-hranatý profil nebo plné bočnice (ostatní typy jsou v konfigurátoru za přepínačem).
+Nabídka je zúžená na to, co zadavatel chce: jen L přes celý roh, jen lamino Egger
+v dubových dekorech ST12 (patnáct dekorů ze vzorníku, viz `research/povrch-desky-2026-09-06.md`),
+celý stůl v jedné barvě, podnož hranatý profil nebo plné bočnice, úložné jen pevný kontejner.
 
 ## Co v repozitáři je
 
@@ -57,6 +58,7 @@ research/
   doovereni-*.md          doověření cen proti živým stránkám prodejců
   vyrobci-overeni-*.md     doověření kontaktů truhlářů proti jejich webům
   dekory-*.md              dekory Egger a Kronospan k tónu podlahy
+  povrch-desky-*.md/.pdf   rešerše povrchu desky (dotek, myš, prach, údržba) → Egger ST12
   zmeny-ceniku-*.md        seznam změn v ceníku s odůvodněním
   _raw*.json               rešerše strojově čitelně, po tématech
   _kontrola_*.json         výhrady kontrolní vrstvy k položkám ceníku

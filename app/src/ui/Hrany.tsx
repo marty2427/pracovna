@@ -15,68 +15,74 @@ export interface HranaInfo {
   kdeSeHodi: string
 }
 
+/**
+ * Texty pro LAMINO — všechny dekory v nabídce jsou Egger ST12. U lamina se hrana
+ * dělá páskou ABS; zkosení a velký rádius jdou jen přes nalepenou masivní lištu,
+ * jinak by se odkryla dřevotříska.
+ */
 export const HRANY_INFO: HranaInfo[] = [
   {
-    id: 'rovna', nazev: 'Rovná', kratce: 'ostrá, s páskou ABS',
-    jakVypada: 'Hrana zůstane pravoúhlá, jen se na ni nalepí plastová páska 1–2 mm v barvě desky. Zblízka je vidět tenká linka spoje. Vypadá jako skříň z obchodu s laminem.',
-    kdeSeHodi: 'Lamino a kancelářský nábytek. Nejlevnější, ale tvrdá pod předloktím a v obýváku působí nejlaciněji.',
+    id: 'rovna', nazev: 'ABS 1 mm', kratce: 'tenká páska, ostrá hrana',
+    jakVypada: 'Na čelo se nalepí tenká plastová páska 1 mm v barvě dekoru. Hrana zůstane skoro pravoúhlá, spára je zblízka vidět. Vypadá jako skříň z obchodu.',
+    kdeSeHodi: 'Nejlevnější, ale pod předloktím tlačí a spára chytá špínu. Do obýváku bych ji nedával.',
   },
   {
-    id: 'srazena', nazev: 'Sražená', kratce: 'fazetka 2–3 mm',
-    jakVypada: 'Oba rohy hrany se zbrousí o 2–3 mm do malé šikmé plošky. Hrana nekouše a neodírá se. Zblízka vidíš úzkou světlou linku, z metru už nic.',
-    kdeSeHodi: 'Standard u kuchyňských desek i truhlářských stolů. Sedí ke každému dřevu, neutrální, nezdraží.',
+    id: 'srazena', nazev: 'ABS 2 mm, R2', kratce: 'doporučení rešerše',
+    jakVypada: 'Páska ABS 2 mm ve stejném dekoru (Egger ji k H3157 vyrábí), rohy strojově zaoblené na R2, lepená PUR lepidlem — spára není vidět. Zblízka jemně zakulacená linka, z metru jedna plocha.',
+    kdeSeHodi: 'Standard kvalitního lamina a hlavní doporučení rešerše. Odolná vlhkosti, nezdraží, sedí ke každému dekoru.',
   },
   {
-    id: 'zkosena', nazev: 'Zkosená', kratce: 'velké zkosení 45°',
-    jakVypada: 'Shora i zespodu se odfrézuje velký klín pod 45°, přes třetinu tloušťky. Čelní ploška se zúží na pár milimetrů, takže deska 30 mm vypadá jako tenká a lehká.',
-    kdeSeHodi: 'Designový prvek k hranatému kovovému rámu. Zvýrazní geometrii stolu; u masivu se ve zkosení ukáže kresba dřeva.',
+    id: 'zkosena', nazev: 'Zkosená (nákližek)', kratce: 'masivní lišta + zkosení 45°',
+    jakVypada: 'U lamina jde zkosení jen přes nalepenou masivní dubovou lištu, do které se vyfrézuje klín shora i zespodu. Čelo se zúží na pár milimetrů, deska vypadá tenká.',
+    kdeSeHodi: 'Designový prvek k hranatému rámu. Lišta z masivu ale bude mít jinou kresbu než dekor — ladí barvou, ne přesně.',
   },
   {
-    id: 'radius', nazev: 'Zaoblená', kratce: 'rádius asi 10 mm',
-    jakVypada: 'Horní i dolní roh hrany je zakulacený rádiusem kolem 10 mm. Hrana je měkká na pohled i na dotek, žádná ostrá linka.',
-    kdeSeHodi: 'Nejpříjemnější pod předloktím a nejobytnější. K bočnicím a ke světlému dřevu; k industriálnímu rámu míň.',
+    id: 'radius', nazev: 'Zaoblená (nákližek)', kratce: 'masivní lišta + R10',
+    jakVypada: 'Stejný princip: na čelo přijde masivní dubová lišta a ta se zaoblí rádiusem kolem 10 mm nahoře i dole. Měkká hrana bez ostré linky.',
+    kdeSeHodi: 'Nejpříjemnější pod předloktím. K bočnicím a světlým dekorům; lišta z masivu ladí barvou, ne přesně kresbou.',
   },
   {
-    id: 'naklizek', nazev: 'Masivní nákližek', kratce: 'pruh masivu 30 mm',
-    jakVypada: 'Na čelo desky se nalepí pruh masivního dřeva 20–40 mm široký a teprve ten se zaoblí. Na hraně pak vidíš pravé dřevo i u dýhované nebo laminové desky.',
-    kdeSeHodi: 'Dýha a lamino, když má hrana vypadat jako masiv a snést rány. U masivní desky je zbytečný, tam je masiv všude.',
+    id: 'naklizek', nazev: 'Masivní nákližek', kratce: 'lišta 20–40 mm, R3',
+    jakVypada: 'Masivní dubová lišta 20–40 mm nalepená na čelo, jen lehce zaoblená. Na hraně vidíš pravé dřevo, plocha zůstává lamino ST12.',
+    kdeSeHodi: 'Když má hrana snést rány a vypadat jako masiv. Cena nejvyšší, truhlář ji musí brousit a olejovat.',
   },
 ]
 
 const DESKA = '#D9AE7E', DESKA_TMAVA = '#B98A55', OBRYS = '#6B4A2A', JADRO = '#E8D9C2', ABS = '#8C6A48'
 
 /** Body profilu v mm: šířka řezu W, tloušťka t, hrana vpravo (x = W). Vrací SVG path a poznámky. */
-function profil(hrana: Hrana, t: number, W: number): { d: string; poznamky: Array<{ x: number; y: number; text: string }>; naklizekOd?: number } {
-  const c = Math.min(3, t * 0.1)               // fazetka
+function profil(hrana: Hrana, t: number, W: number): { d: string; poznamky: Array<{ x: number; y: number; text: string }>; naklizekOd?: number; abs?: number } {
   const z = Math.min(14, t * 0.38)             // velké zkosení
   const r = Math.min(9, t * 0.34)              // rádius
+  const n = 30                                 // šířka masivní lišty
   const A = (x: number, y: number, rr: number, sweep = 1) => `A ${rr} ${rr} 0 0 ${sweep} ${x} ${y}`
   switch (hrana) {
     case 'rovna':
-      return { d: `M 0 0 H ${W} V ${t} H 0 Z`, poznamky: [{ x: W, y: t / 2, text: 'ABS 2 mm' }] }
+      return { d: `M 0 0 H ${W} V ${t} H 0 Z`, poznamky: [{ x: W, y: t / 2, text: 'ABS 1 mm' }], abs: 1 }
     case 'srazena':
       return {
-        d: `M 0 0 H ${W - c} L ${W} ${c} V ${t - c} L ${W - c} ${t} H 0 Z`,
-        poznamky: [{ x: W, y: c, text: `sražení ${c.toFixed(0)} mm` }],
+        d: `M 0 0 H ${W - 2} ${A(W, 2, 2)} V ${t - 2} ${A(W - 2, t, 2)} H 0 Z`,
+        poznamky: [{ x: W, y: 2, text: 'ABS 2 mm, R2' }],
+        abs: 2,
       }
     case 'zkosena':
       return {
         d: `M 0 0 H ${W - z} L ${W} ${z} V ${t - z} L ${W - z} ${t} H 0 Z`,
-        poznamky: [{ x: W - z / 2, y: z / 2, text: `zkosení ${z.toFixed(0)} mm` }, { x: W, y: t / 2, text: `čelo jen ${(t - 2 * z).toFixed(0)} mm` }],
+        poznamky: [{ x: W - z / 2, y: z / 2, text: `zkosení ${z.toFixed(0)} mm` }, { x: W - n, y: 0, text: 'masivní lišta' }],
+        naklizekOd: W - n,
       }
     case 'radius':
       return {
         d: `M 0 0 H ${W - r} ${A(W, r, r)} V ${t - r} ${A(W - r, t, r)} H 0 Z`,
-        poznamky: [{ x: W, y: r, text: `R${r.toFixed(0)}` }],
+        poznamky: [{ x: W, y: r, text: `R${r.toFixed(0)}` }, { x: W - n, y: 0, text: 'masivní lišta' }],
+        naklizekOd: W - n,
       }
-    case 'naklizek': {
-      const n = 30
+    case 'naklizek':
       return {
-        d: `M 0 0 H ${W - r} ${A(W, r, r)} V ${t - r} ${A(W - r, t, r)} H 0 Z`,
+        d: `M 0 0 H ${W - 3} ${A(W, 3, 3)} V ${t - 3} ${A(W - 3, t, 3)} H 0 Z`,
         poznamky: [{ x: W - n, y: 0, text: 'lepený spoj' }, { x: W - n / 2, y: t / 2, text: `masiv ${n} mm` }],
         naklizekOd: W - n,
       }
-    }
   }
 }
 
@@ -89,7 +95,7 @@ export function ProfilHrany({ hrana, tloustka, sirka = 300, vyska = 150, velky =
   const okrajL = velky ? 74 : 8, okrajR = velky ? 64 : 8, okrajV = velky ? 46 : 10
   const s = Math.min((sirka - okrajL - okrajR) / W, (vyska - 2 * okrajV) / t)
   const ox = okrajL, oy = (vyska - t * s) / 2
-  const { d, poznamky, naklizekOd } = profil(hrana, t, W)
+  const { d, poznamky, naklizekOd, abs } = profil(hrana, t, W)
   // path v mm -> px
   const dPx = d.replace(/([MLHVAZ])\s*([^MLHVAZ]*)/g, (_m, cmd: string, args: string) => {
     const nums = args.trim().split(/[\s,]+/).filter(Boolean).map(Number)
@@ -112,18 +118,19 @@ export function ProfilHrany({ hrana, tloustka, sirka = 300, vyska = 150, velky =
       {/* deska: kresba dřeva podélně, u nákližku je vlevo dýhované jádro */}
       <path d={dPx} fill={DESKA} stroke={OBRYS} strokeWidth={velky ? 1.6 : 1} strokeLinejoin="round" />
       <g clipPath={`url(#${clipId})`}>
-        {[0.22, 0.48, 0.71, 0.9].map((k) => (
-          <line key={k} x1={ox - 5} y1={oy + t * s * k} x2={ox + W * s + 5} y2={oy + t * s * k} stroke={DESKA_TMAVA} strokeWidth={0.8} opacity={0.55} />
-        ))}
-        {hrana === 'naklizek' && naklizekOd !== undefined && (
+        {/* lamino: dřevotřískové jádro s tenkým dekorem nahoře a dole; masivní lišta má kresbu */}
+        <rect x={ox - 5} y={oy + 1.2} width={(naklizekOd ?? W) * s + 5} height={t * s - 2.4} fill={JADRO} />
+        <rect x={ox - 5} y={oy + 1.2} width={(naklizekOd ?? W) * s + 5} height={t * s - 2.4} fill={`url(#${clipId}-jadro)`} />
+        {naklizekOd !== undefined && (
           <>
-            <rect x={ox - 5} y={oy + 1.5} width={naklizekOd * s + 5} height={t * s - 3} fill={JADRO} />
-            <rect x={ox - 5} y={oy + 1.5} width={naklizekOd * s + 5} height={t * s - 3} fill={`url(#${clipId}-jadro)`} />
+            {[0.22, 0.48, 0.71, 0.9].map((k) => (
+              <line key={k} x1={ox + naklizekOd * s} y1={oy + t * s * k} x2={ox + W * s + 5} y2={oy + t * s * k} stroke={DESKA_TMAVA} strokeWidth={0.8} opacity={0.55} />
+            ))}
             <line x1={ox + naklizekOd * s} y1={oy} x2={ox + naklizekOd * s} y2={oy + t * s} stroke={OBRYS} strokeWidth={1} strokeDasharray="3 2" />
           </>
         )}
-        {hrana === 'rovna' && (
-          <rect x={ox + W * s - Math.max(2, 1.5 * s)} y={oy} width={Math.max(2, 1.5 * s)} height={t * s} fill={ABS} />
+        {abs !== undefined && (
+          <rect x={ox + W * s - Math.max(1.5, abs * s)} y={oy} width={Math.max(1.5, abs * s)} height={t * s} fill={ABS} />
         )}
       </g>
       {/* naznačení, že deska pokračuje doleva */}
@@ -161,7 +168,7 @@ export function VyberHrany({ hodnota, tloustka, onChange }: {
   const info = HRANY_INFO.find((h) => h.id === hodnota) ?? HRANY_INFO[1]
   return (
     <div className="hrany">
-      <span className="prepinac-label">Hrana desky — řez z boku, v měřítku</span>
+      <span className="prepinac-label">Hrana desky — řez z boku, v měřítku (lamino: tečkované jádro, ABS páska nebo masivní lišta)</span>
       <div className="hrany-velky">
         <ProfilHrany hrana={hodnota} tloustka={tloustka} sirka={300} vyska={150} velky />
       </div>

@@ -4,6 +4,10 @@ export type MaterialKategorie = 'masiv' | 'dyha' | 'lamino' | 'hpl' | 'linoleum'
 
 export interface Material {
   id: string
+  /** Kód dekoru výrobce (Egger H3157). */
+  kod?: string
+  /** Struktura povrchu (ST12 Omnipore Matt). */
+  struktura?: string
   nazev: string
   /** Krátký popisek do přepínače, ať se varianty nesloučí. */
   kratky: string
@@ -30,74 +34,130 @@ export interface Material {
   poznamka?: string
 }
 
-const K = (palette as any).key_colors as Record<string, string>
 
 /**
  * Barvy dřevin vychází z naměřených hodnot z fotky (palette.json),
  * aby dekory seděly do téhle konkrétní místnosti.
  */
+/**
+ * Jen dekory Egger Eurodekor ve struktuře ST12 Omnipore Matt — mělká matná
+ * struktura, kterou rešerše povrchu (research/povrch-desky-2026-09-06.md)
+ * doporučila kvůli myši, prachu a údržbě. Patnáct dubů z Egger kolekce, nic jiného.
+ * Barvy jsou odhad ze vzorníku; skutečný odstín ověř na fyzickém vzorku (Kili, Démos, JAF).
+ */
 export const MATERIALY: Material[] = [
-  // ---- masiv (6) ----
   {
-    id: 'dub-svetly-masiv', nazev: 'Dub masiv přírodní, olej', kratky: 'Dub přírodní', kategorie: 'masiv',
-    barva: K.dub_stavajici, kresbaTmava: '#9A6B42', kresbaSvetla: '#DCB489',
-    drevo: true, drsnost: 0.62, lesk: 0.12, tloustky: [18, 25, 30, 40],
-    poznamka: 'Tón stávajícího nábytku v místnosti (konferenčák, kontejner).',
+    id: 'egger-h193', kod: 'H193', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H193 ST12 Dub špalíček', kratky: 'špalíček H193', kategorie: 'lamino',
+    barva: '#C8BEA5', kresbaTmava: '#A69A7F', kresbaSvetla: '#DDD5C0',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    hustota: 14,
+    vlneni: 2.2,
+    pory: 0.3,
+    poznamka: 'Čelní dřevo skládané ze špalíčků — světlý, béžově šedý, zcela jiná kresba než ostatní.',
   },
   {
-    id: 'dub-podlaha-masiv', nazev: 'Dub masiv mořený do tónu podlahy', kratky: 'Dub jako podlaha', kategorie: 'masiv',
-    barva: '#8A4A16', kresbaTmava: '#5E2F08', kresbaSvetla: '#B0692A',
-    drevo: true, drsnost: 0.60, lesk: 0.14, tloustky: [18, 25, 30, 40],
-    poznamka: 'Namícháno na tón vlysové podlahy (#83420F z fotky).',
+    id: 'egger-h305', kod: 'H305', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H305 ST12 Dub Tonsberg přírodní', kratky: 'Tonsberg přírodní H305', kategorie: 'lamino',
+    barva: '#B7A78F', kresbaTmava: '#93826A', kresbaSvetla: '#CFC2AE',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Šedavě béžový dub s jemnou kresbou.',
   },
   {
-    id: 'dub-medovy-masiv', nazev: 'Dub masiv medový (teplý olej)', kratky: 'Dub medový', kategorie: 'masiv',
-    barva: '#B8823F', kresbaTmava: '#8C5A24', kresbaSvetla: '#DCAE6E',
-    drevo: true, drsnost: 0.60, lesk: 0.14, tloustky: [18, 25, 30, 40],
-    poznamka: 'Mezi přírodním dubem a podlahou — teplý zlatý tón.',
+    id: 'egger-h309', kod: 'H309', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H309 ST12 Dub Tonsberg hnědý', kratky: 'Tonsberg hnědý H309', kategorie: 'lamino',
+    barva: '#7C6249', kresbaTmava: '#59432F', kresbaSvetla: '#98806A',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Střední šedohnědý dub.',
   },
   {
-    id: 'dub-rustikal-masiv', nazev: 'Dub masiv rustikální, sukatý (tón podlahy)', kratky: 'Dub rustikální', kategorie: 'masiv',
-    barva: '#96541C', kresbaTmava: '#552A08', kresbaSvetla: '#C48A48',
-    drevo: true, drsnost: 0.66, lesk: 0.10, tloustky: [25, 30, 40],
-    hustota: 9, vlneni: 1.5, pory: 1.7,
-    poznamka: 'Výraznější kresba a suky, jakost B/C. Levnější než průběžná lamela.',
+    id: 'egger-h1199', kod: 'H1199', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H1199 ST12 Dub Thermo černohnědý', kratky: 'Thermo černohnědý H1199', kategorie: 'lamino',
+    barva: '#2F2521', kresbaTmava: '#1B1411', kresbaSvetla: '#473A33',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Nejtmavší z výběru, skoro černý. Kontrast ke světlým stěnám, ladí s černým rámem.',
   },
   {
-    id: 'dub-kourovy-masiv', nazev: 'Dub masiv kouřový', kratky: 'Dub kouřový', kategorie: 'masiv',
-    barva: '#54301A', kresbaTmava: '#33190A', kresbaSvetla: '#7A4C2C',
-    drevo: true, drsnost: 0.64, lesk: 0.10, tloustky: [18, 25, 30, 40],
+    id: 'egger-h1303', kod: 'H1303', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H1303 ST12 Dub Belmont hnědý', kratky: 'Belmont hnědý H1303', kategorie: 'lamino',
+    barva: '#7F6248', kresbaTmava: '#5D4531', kresbaSvetla: '#9B7F68',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Teplý střední hnědý dub, o tón tmavší než podlaha.',
   },
   {
-    id: 'dub-tmavy-masiv', nazev: 'Dub masiv mořený tmavý (kávový)', kratky: 'Dub tmavý', kategorie: 'masiv',
-    barva: '#4A2D18', kresbaTmava: '#2C180A', kresbaSvetla: '#6E4529',
-    drevo: true, drsnost: 0.62, lesk: 0.16, tloustky: [18, 25, 30, 40],
-    poznamka: 'Nejtmavší dub — kontrast ke světlým stěnám, ladí s černým rámem.',
-  },
-  // ---- dýha (2) ----
-  {
-    id: 'dyha-dub-svetla', nazev: 'Dýhovaná MDF, dub přírodní', kratky: 'Dýha dub', kategorie: 'dyha',
-    barva: '#C9975F', kresbaTmava: '#9E7040', kresbaSvetla: '#E2BA88',
-    drevo: true, drsnost: 0.55, lesk: 0.22, tloustky: [18, 25, 30, 38],
+    id: 'egger-h1362', kod: 'H1362', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H1362 ST12 Dub Baronia světlý', kratky: 'Baronia světlý H1362', kategorie: 'lamino',
+    barva: '#C7B69C', kresbaTmava: '#A6957A', kresbaSvetla: '#DED2BE',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Světlý, klidný, lehce šedavý.',
   },
   {
-    id: 'dyha-dub-kourova', nazev: 'Dýhovaná MDF, dub kouřový', kratky: 'Dýha dub kouřový', kategorie: 'dyha',
-    barva: '#6B4426', kresbaTmava: '#46280F', kresbaSvetla: '#8E6440',
-    drevo: true, drsnost: 0.54, lesk: 0.24, tloustky: [18, 25, 38],
-  },
-  // ---- lamino (2) — dekory z rešerše dekorů (research/dekory-2026-09-03.md) ----
-  {
-    id: 'lamino-dub-hamilton', nazev: 'Lamino Egger H3303 ST10, dub Hamilton přírodní', kratky: 'Lamino Hamilton', kategorie: 'lamino',
-    barva: '#C4A078', kresbaTmava: '#A07E55', kresbaSvetla: '#DBBF9A',
-    drevo: true, drsnost: 0.52, lesk: 0.26, tloustky: [18, 25],
-    poznamka: 'Nejuniverzálnější světlý dub v Eggeru, struktura ST10 Deepskin Rough.',
+    id: 'egger-h3131', kod: 'H3131', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3131 ST12 Dub Davos přírodní', kratky: 'Davos přírodní H3131', kategorie: 'lamino',
+    barva: '#C2AE93', kresbaTmava: '#9F8A6C', kresbaSvetla: '#D9CAB2',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    vlneni: 1.3,
+    poznamka: 'Přírodní dub s výraznějšími letokruhy.',
   },
   {
-    id: 'lamino-dub-sherman', nazev: 'Lamino Egger H1344 ST32, dub Sherman koňakový', kratky: 'Lamino Sherman', kategorie: 'lamino',
-    barva: '#8E5A2A', kresbaTmava: '#6A3E14', kresbaSvetla: '#B07C47',
-    drevo: true, drsnost: 0.58, lesk: 0.18, tloustky: [18, 25],
-    hustota: 8, vlneni: 1.3, pory: 1.4,
-    poznamka: 'Nejblíž sytosti podlahy; Feelwood ST32 má synchronní strukturu, hmatově blízko vlysu.',
+    id: 'egger-h3133', kod: 'H3133', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3133 ST12 Dub Davos lanýžově hnědý', kratky: 'Davos lanýžově hnědý H3133', kategorie: 'lamino',
+    barva: '#8C7058', kresbaTmava: '#6A523F', kresbaSvetla: '#A88E75',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    vlneni: 1.3,
+    poznamka: 'Lanýžově hnědý, tlumený.',
+  },
+  {
+    id: 'egger-h3156', kod: 'H3156', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3156 ST12 Dub Corbridge šedý', kratky: 'Corbridge šedý H3156', kategorie: 'lamino',
+    barva: '#A5907A', kresbaTmava: '#847158', kresbaSvetla: '#BFAD98',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Šedý dub — chladnější, k černému kovu.',
+  },
+  {
+    id: 'egger-h3157', kod: 'H3157', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3157 ST12 Dub Vicenza', kratky: 'Vicenza H3157', kategorie: 'lamino',
+    barva: '#C8AF89', kresbaTmava: '#A88E67', kresbaSvetla: '#DFCCAC',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Hlavní doporučení rešerše: jemně šedý, výrazná ale ne hluboká kresba. Tabule 18 mm skladem u Dřevo Trust.',
+  },
+  {
+    id: 'egger-h3165', kod: 'H3165', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3165 ST12 Dub Vicenza světlý', kratky: 'Vicenza světlý H3165', kategorie: 'lamino',
+    barva: '#D8C7A9', kresbaTmava: '#B8A587', kresbaSvetla: '#E9DFCA',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Nejsvětlejší z výběru, skandinávský tón.',
+  },
+  {
+    id: 'egger-h3170', kod: 'H3170', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3170 ST12 Dub Kendal přírodní', kratky: 'Kendal přírodní H3170', kategorie: 'lamino',
+    barva: '#CCB38E', kresbaTmava: '#AB9068', kresbaSvetla: '#E1CFB2',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    pory: 0.8,
+    poznamka: 'Přírodní dub s jemnými suky, druhá volba rešerše.',
+  },
+  {
+    id: 'egger-h3171', kod: 'H3171', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3171 ST12 Dub Kendal olejovaný', kratky: 'Kendal olejovaný H3171', kategorie: 'lamino',
+    barva: '#C8A36E', kresbaTmava: '#A5814C', kresbaSvetla: '#DCC199',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    pory: 0.8,
+    poznamka: 'Teplejší „olejovaný" tón — nejblíž stávajícímu nábytku v místnosti.',
+  },
+  {
+    id: 'egger-h3395', kod: 'H3395', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3395 ST12 Dub Corbridge přírodní', kratky: 'Corbridge přírodní H3395', kategorie: 'lamino',
+    barva: '#C69E69', kresbaTmava: '#A37B46', kresbaSvetla: '#DCBD92',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    poznamka: 'Zlatavý přírodní dub.',
+  },
+  {
+    id: 'egger-h3398', kod: 'H3398', struktura: 'ST12 Omnipore Matt',
+    nazev: 'Egger H3398 ST12 Dub Kendal koňakový', kratky: 'Kendal koňakový H3398', kategorie: 'lamino',
+    barva: '#B47F49', kresbaTmava: '#8E5D2D', kresbaSvetla: '#CD9C6A',
+    drevo: true, drsnost: 0.58, lesk: 0.06, tloustky: [18, 25, 38],
+    pory: 0.8,
+    poznamka: 'Koňakový, nejblíž tónu vlysové podlahy.',
   },
 ]
 

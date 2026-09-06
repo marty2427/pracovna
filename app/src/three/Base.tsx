@@ -174,7 +174,7 @@ export function Podnoz({ config }: { config: DeskConfig }) {
   const typ = podnoz.typ
 
   // Body seskupené do rámů: dvojice sdílející osu tvoří jeden rám.
-  const skupiny = ['A', 'B', 'roh', 'mezi'] as const
+  const skupiny = ['A', 'B', 'roh', 'mezi', 'meziB'] as const
   const ramy: Array<{ smer: 'x' | 'z'; pozice: number; rozpeti: number; stred: number }> = []
   const samostatne: Array<{ x: number; z: number }> = []
 

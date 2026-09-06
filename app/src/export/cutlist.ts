@@ -32,9 +32,13 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
   const dilce: Dilec[] = []
   const kovani: Kovani[] = []
 
+  const lamino = mat.kategorie === 'lamino'
   const hranaPopis = {
-    rovna: 'ABS 2 mm', srazena: 'ABS 2 mm + sražení 2 mm', zkosena: 'zkosení 45°',
-    radius: `zaoblení R${Math.max(3, Math.round(t * 0.3))}`, naklizek: 'masivní nákližek 30 mm',
+    rovna: 'ABS 1 mm ve stejném dekoru',
+    srazena: 'ABS 2 mm ve stejném dekoru, rohy R2, PUR lepidlo',
+    zkosena: lamino ? 'masivní dubová lišta 30 mm, zkosení 45° shora i zespodu' : 'zkosení 45°',
+    radius: lamino ? `masivní dubová lišta 30 mm, zaoblení R${Math.max(3, Math.round(t * 0.3))}` : `zaoblení R${Math.max(3, Math.round(t * 0.3))}`,
+    naklizek: 'masivní nákližek 30 mm, zaoblení R3',
   }[c.deska.hrana]
 
   // --- DESKA ---

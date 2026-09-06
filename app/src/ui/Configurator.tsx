@@ -143,14 +143,19 @@ export function Configurator() {
 
       <BarevneSmery />
 
-      <Skupina titulek="Deska">
-        <Prepinac label="Dub — deska, bočnice i kontejner v jednom" sloupce={2} hodnota={config.deska.materialId}
+      <Skupina titulek="Deska" popis="Lamino Egger Eurodekor v dubovém dekoru se strukturou ST12: mělká matná struktura, hladký skluz myši, prach se v ní nedrží. Podle rešerše povrchu (research/povrch-desky-2026-09-06.md).">
+        <Prepinac label="Dekor Egger ST12 Omnipore Matt — deska, bočnice i kontejner v jednom" sloupce={2} hodnota={config.deska.materialId}
           volby={materialyVolby}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, materialId: v } }))} />
-        <Prepinac label="Tloušťka" sloupce={5}
+        <Prepinac label="Tloušťka" sloupce={3}
           hodnota={config.deska.tloustka}
-          volby={[18, 25, 30, 38, 40].map((t) => ({ hodnota: t as Tloustka, label: `${t} mm` }))}
+          volby={[
+            { hodnota: 18 as Tloustka, label: '18 mm' },
+            { hodnota: 25 as Tloustka, label: '25 mm' },
+            { hodnota: 38 as Tloustka, label: '38 mm' },
+          ]}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, tloustka: v } }))} />
+        <p className="popis">18 mm je tabule skladem, 25 mm doporučení rešerše (na zakázku), 38 mm formát pracovní desky. Tenčí deska si vyžádá mezilehlé podpory, přidají se samy.</p>
         <VyberHrany hodnota={config.deska.hrana} tloustka={config.deska.tloustka}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, hrana: v } }))} />
         <Posuvnik label="Zaoblení vnějších rohů" hodnota={config.deska.radiusRohu}
