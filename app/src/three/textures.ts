@@ -60,6 +60,10 @@ export interface WoodOpts {
   /** Poměr stran textury — dlouhá deska chce protaženou kresbu. */
   w?: number
   h?: number
+  /** 0 = katedrální oblouky (fládr), 1 = rovné vlákno (lamino dekory, rift). */
+  rovnost?: number
+  /** Kontrast kresby 0–1 (lamino dekory jsou tlumenější než masiv). */
+  kontrast?: number
 }
 
 /**
@@ -73,6 +77,8 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
   const vlneni = o.vlneni ?? 1
   const poryAmt = o.pory ?? 1
   const seed = o.seed ?? 3
+  const rovnost = o.rovnost ?? 0
+  const kontrast = o.kontrast ?? 1
 
   const base = hexToRgb(o.base)
   const tmava = hexToRgb(o.tmava)
@@ -105,7 +111,8 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
       // Letokruhy jako soustředné oblouky kolem bodu mimo plochu.
       const dx = (u - cx) * 0.42
       const dy = (v - cy) * 2.6
-      const r = Math.sqrt(dx * dx + dy * dy)
+      // Rovné vlákno: místo vzdálenosti od středu katedrály jen příčná souřadnice.
+      const r = lerp(Math.sqrt(dx * dx + dy * dy), Math.abs(dy) + 0.6, rovnost)
       const ring = Math.sin((r * hustota + turb * 0.42 + turb2 * 0.9) * Math.PI * 2)
       let t = clamp01(Math.pow(Math.abs(ring), 0.5))
 
@@ -117,7 +124,7 @@ export function woodTextures(o: WoodOpts): { map: THREE.CanvasTexture; rough: TH
       const plocha = fbm(u * 1.3, v * 2.0, 3, seed + 200)
 
       let col = mix(tmava, svetla, t)
-      col = mix(col, base, 0.40)
+      col = mix(col, base, 0.40 + (1 - kontrast) * 0.45)
       col = mix(col, plocha > 0.52 ? svetla : tmava, Math.abs(plocha - 0.5) * 0.42)
 
       // Dřeňové paprsky napříč vláknem (dub) — krátké světlé šupinky.

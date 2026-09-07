@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useStore } from '@/store'
 import { LIMITY, SPACE, MAX_RAMENO_A, maxRamenoB, MONITOR } from '@/model/space'
-import { MATERIALY, KOV_BARVY } from '@/model/materials'
+import { KOV_BARVY } from '@/model/materials'
 import { pracoviste } from '@/model/constraints'
 import { UKONY, formatRozpeti, scal } from '@/pricing/ceny'
 import { Skupina, Posuvnik, Prepinac, Zaskrt, type Volba } from './Ovladace'
 import { BarevneSmery } from './BarevneSmery'
 import { VyberHrany } from './Hrany'
+import { VyberDekoru } from './Dekory'
 import type { PodnozTyp, Tloustka, Rameno, MonitorUmisteni } from '@/model/types'
 
 /** Ikony podnoží — čárová kresba boku stolu. */
@@ -79,11 +80,6 @@ export function Configurator() {
       return { ulozne: [{ ...k, ...(patch.rameno ? { rameno: patch.rameno } : {}), ...(patch.pozice !== undefined ? { pozice: patch.pozice } : {}) }] }
     })
 
-  // Jen dřevo a dřevěné dekory — barevné laky, lino a HPL vypadly na přání uživatele.
-  const materialyVolby: Volba<string>[] = MATERIALY.filter((m) => m.drevo).map((m) => ({
-    hodnota: m.id, label: m.kratky, popis: m.nazev + (m.poznamka ? ` — ${m.poznamka}` : ''), barva: m.barva,
-  }))
-
   const podnozVolby = ostatniPodnoze ? [...PODNOZE_HLAVNI, ...PODNOZE_OSTATNI] : PODNOZE_HLAVNI
   const podnozMimo = !podnozVolby.some((v) => v.hodnota === config.podnoz.typ)
 
@@ -144,8 +140,8 @@ export function Configurator() {
       <BarevneSmery />
 
       <Skupina titulek="Deska" popis="Lamino Egger Eurodekor v dubovém dekoru se strukturou ST12: mělká matná struktura, hladký skluz myši, prach se v ní nedrží. Podle rešerše povrchu (research/povrch-desky-2026-09-06.md).">
-        <Prepinac label="Dekor Egger ST12 Omnipore Matt — deska, bočnice i kontejner v jednom" sloupce={2} hodnota={config.deska.materialId}
-          volby={materialyVolby}
+        <span className="prepinac-label">Dekor Egger ST12 Omnipore Matt — deska, bočnice i kontejner v jednom</span>
+        <VyberDekoru hodnota={config.deska.materialId}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, materialId: v } }))} />
         <Prepinac label="Tloušťka" sloupce={3}
           hodnota={config.deska.tloustka}

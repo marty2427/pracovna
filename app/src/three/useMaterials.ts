@@ -18,11 +18,31 @@ function woodFor(mat: Material) {
       hustota: mat.hustota ?? 7,
       vlneni: mat.vlneni ?? 1.05,
       pory: mat.pory ?? 1,
+      rovnost: mat.rovnost ?? 0,
+      kontrast: mat.kontrast ?? 1,
       seed: (key.length * 13) % 97,
     })
     cacheWood.set(key, t)
   }
   return t
+}
+
+/** Malá dlaždice dekoru pro vzorník v UI (data URL), stejná kresba jako v 3D. */
+const cacheNahled = new Map<string, string>()
+export function nahledDekoru(materialId: string): string {
+  let url = cacheNahled.get(materialId)
+  if (url) return url
+  const mat = findMaterial(materialId)
+  const { map } = woodTextures({
+    base: mat.barva, tmava: mat.kresbaTmava ?? mat.barva, svetla: mat.kresbaSvetla ?? mat.barva,
+    hustota: mat.hustota ?? 7, vlneni: mat.vlneni ?? 1.05, pory: mat.pory ?? 1,
+    rovnost: mat.rovnost ?? 0, kontrast: mat.kontrast ?? 1,
+    seed: (mat.id.length * 13) % 97, w: 220, h: 110,
+  })
+  url = (map.image as HTMLCanvasElement).toDataURL()
+  map.dispose()
+  cacheNahled.set(materialId, url)
+  return url
 }
 
 function komaxitFor(barva: string) {

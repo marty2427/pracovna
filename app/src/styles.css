@@ -319,3 +319,15 @@ button, input, .karta { transition: background-color .12s ease, border-color .12
 }
 .karta .odznak.nad { background: #F8E1DD; color: #9E2E1F; border-color: #E3B2AA; }
 .karta-akce button:first-child { color: var(--oranz); font-weight: 600; }
+
+/* --- vzorník dekorů --- */
+.dekory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 6px 0 12px; }
+.dekory button {
+  display: flex; flex-direction: column; gap: 3px; padding: 0 0 5px; overflow: hidden;
+  border-radius: 8px; border: 1px solid var(--linka); background: var(--papir); color: var(--text-2); text-align: left;
+}
+.dekory button:hover { border-color: var(--oranz-2); }
+.dekory button.on { border-color: var(--oranz); box-shadow: 0 0 0 2px var(--oranz-slaba); color: var(--text); }
+.dekory .dlazdice { display: block; width: 100%; height: 54px; background-size: cover; background-position: center; border-bottom: 1px solid rgba(0,0,0,.08); }
+.dekory .nazev { padding: 0 6px; font-size: 10.5px; line-height: 1.2; font-weight: 600; }
+.dekory .kod { padding: 0 6px; font-size: 9.5px; color: var(--text-3); font-variant-numeric: tabular-nums; }
