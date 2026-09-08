@@ -1,11 +1,12 @@
 import { MATERIALY } from '@/model/materials'
-import { nahledDekoru } from '@/three/useMaterials'
+import { nahledDekoru, useDekoryNacteny } from '@/three/useMaterials'
 
 /**
  * Vzorník dekorů jako u výrobce: dlaždice s kresbou dřeva, pod ní název a kód.
  * Kresba je ta samá, kterou používá 3D model, takže co vidíš tady, uvidíš na stole.
  */
 export function VyberDekoru({ hodnota, onChange }: { hodnota: string; onChange: (id: string) => void }) {
+  useDekoryNacteny()
   return (
     <div className="dekory">
       {MATERIALY.map((m) => (

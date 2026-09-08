@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import { woodTextures, komaxitTexture } from './textures'
 import { material as findMaterial, type Material } from '@/model/materials'
+import { nactiManifest, nactiTexturu, obrazekDekoru, priNacteniManifestu } from './dekory'
 
 /** Cache textur — generování je drahé, konfigurace se mění často. */
 const cacheWood = new Map<string, { map: THREE.CanvasTexture; rough: THREE.CanvasTexture; normal: THREE.CanvasTexture }>()
@@ -30,9 +31,11 @@ function woodFor(mat: Material) {
 /** Malá dlaždice dekoru pro vzorník v UI (data URL), stejná kresba jako v 3D. */
 const cacheNahled = new Map<string, string>()
 export function nahledDekoru(materialId: string): string {
+  const mat = findMaterial(materialId)
+  const skut = obrazekDekoru(mat.kod)
+  if (skut) return skut.nahled
   let url = cacheNahled.get(materialId)
   if (url) return url
-  const mat = findMaterial(materialId)
   const { map } = woodTextures({
     base: mat.barva, tmava: mat.kresbaTmava ?? mat.barva, svetla: mat.kresbaSvetla ?? mat.barva,
     hustota: mat.hustota ?? 7, vlneni: mat.vlneni ?? 1.05, pory: mat.pory ?? 1,
@@ -64,7 +67,7 @@ export function usePovrch(materialId: string, opts: PovrchOpts = {}): THREE.Mesh
   const meritko = opts.meritko ?? [1.6, 0.55]
   const otocit = opts.otocit ?? false
 
-  return useMemo(() => {
+  const material = useMemo(() => {
     const m = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color(mat.barva),
       roughness: mat.drsnost,
@@ -99,6 +102,36 @@ export function usePovrch(materialId: string, opts: PovrchOpts = {}): THREE.Mesh
     }
     return m
   }, [mat.id, mat.barva, mat.drevo, mat.drsnost, mat.lesk, meritko[0], meritko[1], otocit])
+
+  // Skutečný sken dekoru, když je k dispozici: nahradí procedurální kresbu
+  // a přepočítá měřítko podle toho, kolik mm desky obrázek zabírá.
+  useEffect(() => {
+    if (!mat.kod) return
+    let zivy = true
+    nactiTexturu(mat.kod).then((t) => {
+      if (!zivy || !t) return
+      const mapC = t.map.clone(); mapC.needsUpdate = true
+      const normC = t.normal.clone(); normC.needsUpdate = true
+      for (const tx of [mapC, normC]) {
+        tx.center.set(0.5, 0.5)
+        tx.rotation = otocit ? Math.PI / 2 : 0
+        // repeat = opakování na jednotku UV (metry); obrázek pokrývá sirkaMm × vyskaMm
+        tx.repeat.set(1000 / t.sirkaMm, 1000 / t.vyskaMm)
+        tx.anisotropy = 8
+      }
+      material.map = mapC
+      material.normalMap = normC
+      material.normalScale = new THREE.Vector2(0.35, 0.35)
+      material.roughnessMap = null
+      material.clearcoatRoughnessMap = null
+      material.roughness = mat.drsnost
+      material.anisotropy = 0
+      material.needsUpdate = true
+    })
+    return () => { zivy = false }
+  }, [material, mat.kod, mat.drsnost, otocit])
+
+  return material
 }
 
 /** Materiál kovové podnože (komaxit / nerez). */
@@ -128,4 +161,14 @@ export function useMat(barva: string, drsnost = 0.7, metalnost = 0): THREE.MeshP
     }),
     [barva, drsnost, metalnost],
   )
+}
+
+/** Vzorník se po načtení manifestu překreslí — hook vrátí číslo, které se změní. */
+export function useDekoryNacteny(): number {
+  const [tick, setTick] = useState(0)
+  useEffect(() => {
+    nactiManifest().then(() => setTick((t) => t + 1))
+    return priNacteniManifestu(() => setTick((t) => t + 1))
+  }, [])
+  return tick
 }

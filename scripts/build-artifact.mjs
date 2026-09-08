@@ -11,7 +11,7 @@
  * Výstup nemá <!doctype>, <html>, <head> ani <body> — ty doplní publikační
  * obal na claude.ai. Píše se rovnou obsah stránky.
  */
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -31,13 +31,31 @@ if (/<\/script/i.test(kodJs)) {
   throw new Error('Bundle obsahuje </script — vložení do stránky by ho rozbilo')
 }
 
+// Skutečné obrázky dekorů (pokud jsou): menší verze jako data URL, ať náhled
+// nepotřebuje žádný soubor zvenku. Bez nich appka spadne na procedurální kresbu.
+let dekoryScript = ''
+const manifestCesta = join(koren, 'app', 'public', 'dekory', 'manifest.json')
+if (existsSync(manifestCesta)) {
+  const manifest = JSON.parse(readFileSync(manifestCesta, 'utf8'))
+  const data = {}
+  for (const [kod, z] of Object.entries(manifest)) {
+    const soubor = join(koren, 'app', 'public', 'dekory', z.nahledSoubor ?? z.soubor)
+    if (!existsSync(soubor)) continue
+    data[kod] = 'data:image/jpeg;base64,' + readFileSync(soubor).toString('base64')
+  }
+  if (Object.keys(data).length) {
+    dekoryScript = `<script>window.__DEKORY__ = ${JSON.stringify({ manifest, data })}</script>\n`
+    console.log(`Vloženo ${Object.keys(data).length} obrázků dekorů`)
+  }
+}
+
 const html = `<title>Stůl do rohu obýváku</title>
 <style>
 ${kodCss}
 </style>
 <div id="root"></div>
 <script>window.__NAHLED__ = true</script>
-<script type="module">
+${dekoryScript}<script type="module">
 ${kodJs}
 </script>
 `

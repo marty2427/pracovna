@@ -1,0 +1,8 @@
+# Originály skenů se necommitují (velké); zpracované verze jsou v app/public/dekory
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+*.webp
+*.zip
