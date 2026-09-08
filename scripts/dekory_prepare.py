@@ -13,6 +13,8 @@ import json, re, sys
 from pathlib import Path
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = None  # skeny tabule mají desítky Mpx
+
 KOREN = Path(__file__).resolve().parent.parent
 RAW = KOREN / 'research' / 'dekory-raw'
 OUT = KOREN / 'app' / 'public' / 'dekory'
@@ -34,6 +36,14 @@ for f in sorted(RAW.iterdir()):
     kod = m.group(1)
     im = Image.open(f)
     im = im.convert('RGB')
+    r = rozmery.get(kod, {})
+    # Kresba (léta) v konfigurátoru běží podél šířky obrázku. Skeny Egger jsou
+    # tabule na výšku s léty svisle, proto se otáčí naležato a prohodí se i mm.
+    letaSvisle = bool(r.get('letaSvisle', im.size[1] > im.size[0]))
+    if letaSvisle:
+        im = im.transpose(Image.ROTATE_90)
+        if 'sirkaMm' in r and 'vyskaMm' in r:
+            r = {**r, 'sirkaMm': r['vyskaMm'], 'vyskaMm': r['sirkaMm']}
     w, h = im.size
     # velká verze pro 3D
     s = 2048 / max(w, h)
@@ -43,17 +53,16 @@ for f in sorted(RAW.iterdir()):
     s2 = 1024 / max(w, h)
     mala = im.resize((round(w * s2), round(h * s2)), Image.LANCZOS) if s2 < 1 else im
     mala.save(OUT / f'{kod}_m.jpg', 'JPEG', quality=82, optimize=True, progressive=True)
-    r = rozmery.get(kod, {})
     # Bez údaje o rozměru se počítá s celou tabulí Egger 2800 × 2070 mm (sken desky).
     manifest[kod] = {
         'soubor': f'{kod}.jpg',
         'nahledSoubor': f'{kod}_m.jpg',
-        'sirkaMm': int(r.get('sirkaMm', 2800 if w >= h else 2070)),
-        'vyskaMm': int(r.get('vyskaMm', 2070 if w >= h else 2800)),
+        'sirkaMm': int(r.get('sirkaMm') or 2800),
+        'vyskaMm': int(r.get('vyskaMm') or 2070),
         'bezesvy': bool(r.get('bezesvy', False)),
         'zdroj': r.get('zdroj', f.name),
     }
-    print(f'  {kod}: {w}x{h} -> {velka.size[0]}x{velka.size[1]} / {mala.size[0]}x{mala.size[1]}  ({manifest[kod]["sirkaMm"]}x{manifest[kod]["vyskaMm"]} mm)')
+    print(f'  {kod}: {w}x{h}{" (otočeno naležato)" if letaSvisle else ""} -> {velka.size[0]}x{velka.size[1]} / {mala.size[0]}x{mala.size[1]}  ({manifest[kod]["sirkaMm"]}x{manifest[kod]["vyskaMm"]} mm)')
 
 (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
 print(f'manifest: {len(manifest)} dekorů -> {OUT / "manifest.json"}')
