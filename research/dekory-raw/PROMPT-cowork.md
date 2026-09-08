@@ -12,8 +12,8 @@ Stránka každého dekoru je `https://www.egger.com/cs/vyroba-nabytku-a-interier
 
 Pro každý dekor udělej toto, v tomto pořadí priorit:
 
-1. **Nejlepší zdroj: myEGGER „Data pro CAD programy“.** Jsem přihlášený v myEGGER (nebo mě požádej o přihlášení, registrace je zdarma). Na stránce dekoru v sekci ke stažení stáhni „Data pro CAD programy“ (ZIP, cca 12 MB). Rozbal ho a vyber největší obrázek textury (JPG/PNG/TIF), přednostně soubor označený jako bezešvý/seamless/tileable, jinak sken celé tabule. Z názvu souboru nebo přiloženého readme zjisti, kolik mm desky obrázek zabírá (typicky celá tabule 2800 × 2070 mm).
-2. **Náhradní zdroj:** když CAD data nejdou stáhnout, ulož obrázek dekoru přímo ze stránky v nejvyšším dostupném rozlišení (otevři obrázek samostatně, ať to není zmenšený náhled). Zapiš si rozměr v pixelech.
+1. **Volitelně, jen pokud jsem přihlášený v myEGGER: „Data pro CAD programy“.** Bez přihlášení tento krok přeskoč a jdi na bod 2. Na stránce dekoru v sekci ke stažení stáhni „Data pro CAD programy“ (ZIP, cca 12 MB). Rozbal ho a vyber největší obrázek textury (JPG/PNG/TIF), přednostně soubor označený jako bezešvý/seamless/tileable, jinak sken celé tabule. Z názvu souboru nebo přiloženého readme zjisti, kolik mm desky obrázek zabírá (typicky celá tabule 2800 × 2070 mm).
+2. **Základní zdroj:** ulož obrázek dekoru přímo ze stránky v nejvyšším dostupném rozlišení (otevři obrázek samostatně, ať to není zmenšený náhled). Zapiš si rozměr v pixelech.
 3. Nezmenšuj, nepřevádej ani jinak neupravuj obrázky.
 
 Ulož soubory do jedné složky `dekory-raw` s názvem `<KOD>_ST12.jpg` (nebo `.png`/`.tif` podle originálu), např. `H3157_ST12.jpg`.
