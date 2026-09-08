@@ -1,0 +1,67 @@
+name: Stažení dekorů Egger (dekory-raw)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/dekory.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  stahnout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Stáhnout originály z cdn.egger.com
+        shell: python
+        run: |
+          import json, os, urllib.request
+          from PIL import Image
+          PIM = {
+            "H193":"8860200730654/8860200763422","H305":"8854535831582/8854535864350",
+            "H309":"8854536683550/8854536716318","H1199":"8854366289950/8854523346974",
+            "H1303":"8854526918686/8854526951454","H1362":"8854528786462/8854528819230",
+            "H3131":"8854396567582/8854536880158","H3133":"8854397452318/8854536978462",
+            "H3156":"8854399811614/8854538256414","H3157":"8854400598046/8854538453022",
+            "H3165":"8854539042846/8854539075614","H3170":"8854402170910/8854539239454",
+            "H3171":"8854402957342/8854539436062","H3395":"8854413967390/8854542876702",
+            "H3398":"8854414753822/8854543073310",
+          }
+          os.makedirs("dekory-raw", exist_ok=True)
+          rozmery = {}
+          for code, p in PIM.items():
+              url = f"https://cdn.egger.com/img/pim/{p}/original.png"
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+              data = urllib.request.urlopen(req, timeout=120).read()
+              tmp = f"dekory-raw/{code}_tmp"
+              open(tmp, "wb").write(data)
+              im = Image.open(tmp)
+              fmt = im.format
+              out = f"dekory-raw/{code}_ST12.jpg"
+              if fmt == "JPEG":
+                  os.replace(tmp, out)
+                  pozn = "JPEG, originál beze změny"
+              else:
+                  im.convert("RGB").save(out, quality=95, subsampling=0, optimize=True)
+                  os.remove(tmp)
+                  pozn = f"původně {fmt}, převedeno na JPG q95 kvůli limitu velikosti, rozlišení beze změny"
+              w, h = Image.open(out).size
+              rozmery[code] = {
+                  "sirkaMm": 1300, "vyskaMm": 2800, "bezesvy": False,
+                  "zdroj": f"obrázek 'Deska' ze stránky dekoru ({url}, {pozn}), {w}x{h} px, celá tabule na výšku (léta svisle); stránka uvádí výřez cca 2311x1300 mm, poměr stran originálu odpovídá 2800x1300 mm – rozměr je odvozen, ne potvrzen Eggerem",
+              }
+              print(code, fmt, w, h, os.path.getsize(out))
+          json.dump(rozmery, open("dekory-raw/rozmery.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dekory-raw
+          git commit -m "Dekory Egger ST12: originály z CDN do dekory-raw" || echo "nic ke commitu"
+          git push
