@@ -6,7 +6,7 @@ Připraví obrázky dekorů pro konfigurátor.
 
 Vstup: research/dekory-raw/*.jpg|png|tif s kódem dekoru v názvu (H3157), volitelně
 research/dekory-raw/rozmery.json s rozměry v mm a příznakem bezešvosti.
-Výstup: app/public/dekory/<KOD>.jpg (max 2048 px, pro 3D), <KOD>_m.jpg (1024 px, pro vzorník
+Výstup: app/public/dekory/<KOD>.jpg (max 2048 px, pro 3D), <KOD>_m.jpg (1400 px, pro vzorník
 a jednosouborový náhled) a manifest.json.
 """
 import json, re, sys
@@ -16,25 +16,29 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = None  # skeny tabule mají desítky Mpx
 
 KOREN = Path(__file__).resolve().parent.parent
-RAW = KOREN / 'research' / 'dekory-raw'
+# Originály: dekory-raw v kořeni (commitované skeny z Eggeru) i research/dekory-raw.
+RAWS = [d for d in (KOREN / 'dekory-raw', KOREN / 'research' / 'dekory-raw') if d.is_dir()]
 OUT = KOREN / 'app' / 'public' / 'dekory'
 OUT.mkdir(parents=True, exist_ok=True)
 
 rozmery = {}
-rj = RAW / 'rozmery.json'
-if rj.exists():
-    rozmery = json.loads(rj.read_text(encoding='utf-8'))
+for d in RAWS:
+    rj = d / 'rozmery.json'
+    if rj.exists():
+        rozmery.update(json.loads(rj.read_text(encoding='utf-8')))
 
+soubory = [f for d in RAWS for f in sorted(d.iterdir())
+           if f.suffix.lower() in ('.jpg', '.jpeg', '.png', '.tif', '.tiff', '.webp')]
 manifest = {}
-for f in sorted(RAW.iterdir()):
-    if f.suffix.lower() not in ('.jpg', '.jpeg', '.png', '.tif', '.tiff', '.webp'):
-        continue
+for f in soubory:
     m = re.search(r'(H\d{3,4})', f.name.upper())
     if not m:
         print(f'  ? {f.name}: v názvu není kód dekoru, přeskakuji')
         continue
     kod = m.group(1)
     im = Image.open(f)
+    if im.format == 'JPEG':
+        im.draft('RGB', (max(im.size) // 2, max(im.size) // 2))  # rychlejší dekódování velkých skenů
     im = im.convert('RGB')
     r = rozmery.get(kod, {})
     # Kresba (léta) v konfigurátoru běží podél šířky obrázku. Skeny Egger jsou
@@ -50,7 +54,7 @@ for f in sorted(RAW.iterdir()):
     velka = im.resize((round(w * s), round(h * s)), Image.LANCZOS) if s < 1 else im
     velka.save(OUT / f'{kod}.jpg', 'JPEG', quality=86, optimize=True, progressive=True)
     # menší pro vzorník a artifact
-    s2 = 1024 / max(w, h)
+    s2 = 1400 / max(w, h)
     mala = im.resize((round(w * s2), round(h * s2)), Image.LANCZOS) if s2 < 1 else im
     mala.save(OUT / f'{kod}_m.jpg', 'JPEG', quality=82, optimize=True, progressive=True)
     # Bez údaje o rozměru se počítá s celou tabulí Egger 2800 × 2070 mm (sken desky).

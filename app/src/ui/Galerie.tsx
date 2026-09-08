@@ -7,13 +7,6 @@ import { formatRozpeti, formatKc } from '@/pricing/ceny'
 import { kontroly, nejhorsiStav } from '@/model/constraints'
 import { material } from '@/model/materials'
 
-const PODNOZ_LABEL: Record<string, string> = {
-  'ram-U': 'rám U', 'ram-A': 'rám A', 'ram-H': 'rám H', 'ram-trapez': 'trapéz',
-  'ram-hranaty': 'hranatý rám', hairpin: 'hairpin', 'nohy-rovne': 'rovné nohy',
-  'nohy-konicke': 'kónické nohy', 'nohy-sikme': 'šikmé nohy', bocnice: 'bočnice',
-  kozy: 'kozy', 'kontejner-nosny': 'nese kontejner', 'stavitelny-ram': 'stavitelný rám',
-}
-
 /** Cenová pásma podle spodní hranice odhadu — tak se porovnává i s rozpočtem 5–20 tis. */
 const PASMA = [
   { id: 'vse', label: 'Všechny ceny', test: () => true },
@@ -95,7 +88,7 @@ export function Galerie() {
                   <span>{jeL ? `${Math.round(r.ramenoADelka / 10)} × ${Math.round(r.ramenoBDelka / 10)} cm` : `${Math.round(r.ramenoADelka / 10)} cm`}</span>
                   <span>{material(p.deska.materialId).kratky}</span>
                   <span>{p.deska.tloustka} mm</span>
-                  <span>{PODNOZ_LABEL[p.podnoz.typ]}</span>
+                  <span>jekl {p.podnoz.profil} × {Math.round(p.podnoz.profil / 2)}</span>
                   {p.ulozne.length > 0 && <span>{p.ulozne.map((u) => u.typ).join(' + ')}</span>}
                 </div>
               </div>

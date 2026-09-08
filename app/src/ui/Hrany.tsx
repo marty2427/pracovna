@@ -39,7 +39,7 @@ export const HRANY_INFO: HranaInfo[] = [
   {
     id: 'radius', nazev: 'Zaoblená (nákližek)', kratce: 'masivní lišta + R10',
     jakVypada: 'Stejný princip: na čelo přijde masivní dubová lišta a ta se zaoblí rádiusem kolem 10 mm nahoře i dole. Měkká hrana bez ostré linky.',
-    kdeSeHodi: 'Nejpříjemnější pod předloktím. K bočnicím a světlým dekorům; lišta z masivu ladí barvou, ne přesně kresbou.',
+    kdeSeHodi: 'Nejpříjemnější pod předloktím. Ke světlým dekorům; lišta z masivu ladí barvou, ne přesně kresbou.',
   },
   {
     id: 'naklizek', nazev: 'Masivní nákližek', kratce: 'lišta 20–40 mm, R3',

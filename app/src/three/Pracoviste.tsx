@@ -3,13 +3,13 @@ import * as THREE from 'three'
 import type { DeskConfig } from '@/model/types'
 import { MONITOR } from '@/model/space'
 import { pracoviste } from '@/model/constraints'
-import { m, roundedShape } from './shapes'
+import { m } from './shapes'
 import { Box, Bar } from './Bar'
 import { useMat, useKov, usePovrch } from './useMaterials'
 
 /**
  * Pracoviště: monitor MSI Optix AG321CQR (31,5", 1500R), klávesnice, myš,
- * podložka, reprobedny, nástavec a kancelářská židle. Všechno sleduje
+ * reprobedny a kancelářská židle. Všechno sleduje
  * umístění monitoru (roh / rameno A / rameno B), které vrací pracoviste().
  */
 
@@ -225,12 +225,10 @@ export function Pracoviste({ config, ukazMereni = true }: { config: DeskConfig; 
   const cerna = useMat('#1E1F22', 0.85)
   const plast = useMat('#2A2C2F', 0.6)
   const akcent = useMat('#3C3F45', 0.7)
-  const podlozka = useMat('#26282B', 0.95)
   const latka = useMat('#1B1C1F', 0.9)
   const kov = useKov('#9EA3A8', true)
   const repro = usePovrch('egger-h1199', { meritko: [0.4, 0.3] })
   const kuzel = useMat('#141516', 0.8)
-  const drevo = usePovrch(config.deska.materialId, { meritko: [0.8, 0.4] })
   const mereni = useMemo(() => new THREE.MeshBasicMaterial({ color: '#C4661F', transparent: true, opacity: 0.75 }), [])
 
   const sx = p.smer.x, sz = p.smer.z
@@ -239,18 +237,15 @@ export function Pracoviste({ config, ukazMereni = true }: { config: DeskConfig; 
     [m(p.pocatek.x) + sx * podel + lx * stranou, m(p.pocatek.z) + sz * podel + lz * stranou]
 
   const hrana = m(p.hranaOdZdi)
-  const nastavec = config.doplnky.nastavecMonitor
-  const vyskaNastavce = nastavec ? 0.10 : 0
-  const yMon = H + vyskaNastavce
+  const yMon = H
   const [mx, mz] = [m(p.monitor.x), m(p.monitor.z)]
 
-  // klávesnice 20 cm za hranou, myš vpravo od ní, podložka pod obojím.
-  // Na krátkém rameni B se podložka (80 cm) přitáhne tak, aby nepřečnívala za konec desky.
+  // klávesnice 20 cm za hranou, myš vpravo od ní přímo na desce (bez podložky).
+  // Na krátkém rameni B se myš přitáhne, aby nebyla za koncem desky.
   const LBmm = m(config.rozmery.ramenoBDelka)
-  const stranouPodlozka = p.umisteni === 'ramenoB' ? Math.min(0.10, LBmm - 0.42 - m(p.pocatek.x)) : 0.10
+  const stranou = p.umisteni === 'ramenoB' ? Math.min(0.10, LBmm - 0.42 - m(p.pocatek.x)) : 0.10
   const [kx, kz] = bod(hrana - 0.20, 0)
-  const [myx, myz] = bod(hrana - 0.19, Math.min(0.34, stranouPodlozka + 0.28))
-  const [px, pz] = bod(hrana - 0.20, stranouPodlozka)
+  const [myx, myz] = bod(hrana - 0.19, Math.min(0.34, stranou + 0.28))
 
   // repro: u zdi vedle monitoru; v rohu každá u své stěny, natočené do úhlopříčky.
   // Na rameni se repro drží na desce — když se vedle monitoru nevejde
@@ -276,39 +271,11 @@ export function Pracoviste({ config, ukazMereni = true }: { config: DeskConfig; 
   const ociY = 1.18
   const obrazovkaY = yMon + m(MONITOR.stojan.vyskaSpodniHrany) + m(MONITOR.vyskaHlavy) / 2
 
-  // nástavec v rohu je pětiúhelník do rohu, jinak obyčejná deska na dvou lištách
-  const rohovyNastavec = useMemo(() => {
-    if (!nastavec || p.umisteni !== 'roh') return null
-    const a = 0.03, b = 0.78, c = 0.30
-    const s = roundedShape([[a, -a], [b, -a], [b, -c], [c, -b], [a, -b]], [0, 0.01, 0.02, 0.02, 0.01])
-    const g = new THREE.ExtrudeGeometry(s, { depth: 0.02, bevelEnabled: true, bevelThickness: 0.002, bevelSize: 0.002, bevelSegments: 2 })
-    g.rotateX(-Math.PI / 2)
-    return g
-  }, [nastavec, p.umisteni])
-
   return (
     <group>
-      {/* nástavec pod monitor */}
-      {nastavec && (rohovyNastavec ? (
-        <group>
-          <mesh geometry={rohovyNastavec} position={[0, H + 0.08, 0]} material={drevo} castShadow receiveShadow />
-          <Box pos={[0.06, H + 0.04, 0.42]} size={[0.02, 0.08, 0.70]} material={drevo} radius={0.002} />
-          <Box pos={[0.42, H + 0.04, 0.06]} size={[0.70, 0.08, 0.02]} material={drevo} radius={0.002} />
-        </group>
-      ) : (
-        <group position={[mx, H, mz]} rotation={[0, p.monitor.rot, 0]}>
-          <Box pos={[0, 0.09, -0.05]} size={[0.66, 0.02, 0.30]} material={drevo} radius={0.003} />
-          <Box pos={[-0.31, 0.04, -0.05]} size={[0.02, 0.08, 0.28]} material={drevo} radius={0.002} />
-          <Box pos={[0.31, 0.04, -0.05]} size={[0.02, 0.08, 0.28]} material={drevo} radius={0.002} />
-        </group>
-      ))}
-
       <Monitor x={mx} y={yMon} z={mz} rot={p.monitor.rot} stojanMat={stojanMat} panelMat={panelMat} obrazovka={obrazovka} />
 
-      {/* podložka, klávesnice, myš */}
-      <group position={[px, H, pz]} rotation={[0, p.monitor.rot, 0]}>
-        <Box pos={[0, 0.0016, 0]} size={[0.80, 0.003, 0.32]} material={podlozka} radius={0.008} />
-      </group>
+      {/* klávesnice, myš */}
       <group position={[kx, H + 0.003, kz]} rotation={[0, p.monitor.rot, 0]}>
         <Box pos={[0, 0.013, 0]} size={[0.44, 0.026, 0.135]} material={cerna} radius={0.004} />
         <mesh position={[0, 0.0265, 0]} rotation={[-Math.PI / 2, 0, 0]} material={klavesy}>

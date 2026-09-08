@@ -80,7 +80,6 @@ export function podpory(c: DeskConfig): Podpora[] {
   const { ramenoADelka: LA, ramenoAHloubka: DA, ramenoBDelka: LB, ramenoBHloubka: DB } = c.rozmery
   const o = c.podnoz.odsazeni
   const jeL = c.tvar === 'L' && LB > 0
-  const nosnyKontejner = c.podnoz.typ === 'kontejner-nosny'
 
   if (!jeL) {
     const p: Podpora[] = [
@@ -105,9 +104,7 @@ export function podpory(c: DeskConfig): Podpora[] {
     { x: DA - o, z: LA - o, skupina: 'A' },
     { x: rohX, z: rohZ, skupina: 'roh' },
   ]
-  if (!nosnyKontejner) {
-    p.push({ x: LB - o, z: DB - o, skupina: 'B' }, { x: LB - o, z: o, skupina: 'B' })
-  }
+  p.push({ x: LB - o, z: DB - o, skupina: 'B' }, { x: LB - o, z: o, skupina: 'B' })
 
   // Rozpon podél ramene A mezi rohovou podporou a koncem ramene
   const odZ = vRohu ? rohZ : DB - o
@@ -118,7 +115,7 @@ export function podpory(c: DeskConfig): Podpora[] {
   }
   // Totéž podél ramene B — u tenké desky (18 mm) je i 130 cm ramene B moc
   const odX = vRohu ? rohX : DA - o
-  const rozponB = nosnyKontejner ? 0 : (LB - o) - odX
+  const rozponB = (LB - o) - odX
   if (rozponB > 0 && potrebaMezilehle(c, rozponB)) {
     const xStred = (odX + LB - o) / 2
     p.push({ x: xStred, z: o, skupina: 'meziB' }, { x: xStred, z: DB - o, skupina: 'meziB' })
@@ -154,4 +151,9 @@ export function skutecnyRozpon(c: DeskConfig): number {
     arr.length < 2 ? (arr.length === 1 ? arr[0] : 0) : Math.max(...arr.slice(1).map((v, i) => v - arr[i]))
 
   return Math.max(maxMezera(podelA), maxMezera(podelB))
+}
+
+/** Obdélníkový jekl podnože: šířka = profil, výška = polovina (60 × 30, 80 × 40). */
+export function jekl(profil: number): { sirka: number; vyska: number } {
+  return { sirka: profil, vyska: Math.max(15, Math.round(profil / 2)) }
 }

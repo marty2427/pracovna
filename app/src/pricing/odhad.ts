@@ -1,10 +1,11 @@
 import type { DeskConfig } from '@/model/types'
-import { material, KOV_BARVY } from '@/model/materials'
+import { material, KOV } from '@/model/materials'
+import { jekl } from '@/model/podpory'
 import { cutList, plochaPodleMaterialu, type Dilec } from '@/export/cutlist'
 import { plochaDesky, obvodDesky } from '@/model/constraints'
 import {
   MATERIAL_M2, DREVINA_KOEF, HRANA_BM, HODINOVKA, POVRCH_M2, PODNOZ_KOV, UKONY,
-  hodinyPrace, plus, scal, rozpeti, type Rozpeti,
+  hodinyPrace, plus, scal, type Rozpeti,
 } from './ceny'
 
 export interface RadekCeny {
@@ -58,27 +59,13 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
     })
   }
 
-  // --- podnož ---
-  if (c.podnoz.material === 'kov' || c.podnoz.typ === 'stavitelny-ram') {
-    const p = PODNOZ_KOV[c.podnoz.typ] ?? rozpeti(3000, 8000)
-    const pocetRamu = c.tvar === 'L' && c.rozmery.ramenoBDelka > 0 ? 1.6 : 1
-    radky.push({
-      nazev: c.podnoz.typ === 'stavitelny-ram' ? 'Stavitelný rám (hotový výrobek)' : 'Kovová podnož na míru',
-      detail: c.podnoz.typ === 'stavitelny-ram'
-        ? 'elektrický rám, 2 sloupy, nosnost 70 kg'
-        : `jekl ${c.podnoz.profil}×${c.podnoz.profil}, ${(KOV_BARVY.find((k) => k.barva === c.podnoz.barva)?.nazev ?? 'komaxit').toLowerCase()}, ${c.tvar === 'L' ? 'rámy na obě ramena + rohová noha' : 'dva rámy'}`,
-      cena: scal(p, pocetRamu),
-    })
-  } else {
-    const drevoDilce = dilce.filter((d) => d.skupina === 'Podnož')
-    const m2 = [...plochaPodleMaterialu(drevoDilce).values()].reduce((a, b) => a + b, 0)
-    const matP = mat
-    radky.push({
-      nazev: 'Dřevěná podnož — materiál',
-      detail: `${matP.nazev} · ${m2.toFixed(2)} m² dílců`,
-      cena: scal((MATERIAL_M2[matP.kategorie] ?? MATERIAL_M2.masiv)(30), m2 * odpad),
-    })
-  }
+  // --- podnož: uzavřený obdélníkový rám z jeklu naležato, vždy kov ---
+  const j = jekl(c.podnoz.profil)
+  radky.push({
+    nazev: 'Kovová podnož na míru',
+    detail: `jekl ${j.sirka}×${j.vyska} naležato, ${KOV.nazev.toLowerCase()}, rámy na obě ramena + rohová stojka`,
+    cena: scal(PODNOZ_KOV['ram-hranaty'], c.rozmery.ramenoBDelka > 0 ? 1.6 : 1),
+  })
 
   // --- úložné ---
   const ulozneDilce = dilce.filter((d) => d.skupina === 'Úložné')
@@ -114,20 +101,6 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
     })
   }
 
-  // --- doplňky ---
-  const d = c.doplnky
-  if (d.kabelovaLavka) {
-    radky.push({ nazev: 'Kabelová lávka', detail: 'plechový žlab pod deskou', cena: UKONY.kabelovaLavka })
-  }
-  if (d.ledPodsviceni) {
-    const bmLed = (c.rozmery.ramenoADelka + (c.tvar === 'L' ? c.rozmery.ramenoBDelka : 0)) / 1000
-    radky.push({
-      nazev: 'LED podsvícení',
-      detail: `zápustný profil + pásek 2700 K + zdroj · ${bmLed.toFixed(1)} bm`,
-      cena: scal(UKONY.ledMetr, bmLed),
-    })
-  }
-
   // --- práce ---
   const hodiny = hodinyPrace({
     jeL: c.tvar === 'L' && c.rozmery.ramenoBDelka > 0,
@@ -135,7 +108,6 @@ export function odhadNaMiru(c: DeskConfig): Odhad {
     maSkrinku: false,
     maPolici: false,
     maPanel: false,
-    maNastavec: d.nastavecMonitor,
     hranaNarocna: c.deska.hrana === 'naklizek' || c.deska.hrana === 'radius',
     masiv: mat.kategorie === 'masiv',
   })

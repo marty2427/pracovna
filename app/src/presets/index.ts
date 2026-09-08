@@ -10,15 +10,14 @@ export interface Rodina {
 /**
  * Presety po rešerši povrchu (research/povrch-desky-2026-09-06.md): JEN L stůl přes
  * celý roh (211 × 148 cm), JEN lamino Egger v dubových dekorech ST12, celý stůl
- * v jedné barvě, podnož hranatý profil nebo plné bočnice, úložné jen pevný kontejner.
+ * v jedné barvě, podnož jen obdélníkový jekl naležato v černém komaxitu, úložné jen pevný kontejner.
  * Rodiny se liší tím, co v místnosti opravdu rozhoduje.
  */
 export const RODINY: Rodina[] = [
   { id: 'roh', nazev: 'Monitor v rohu', popis: 'Sedí se na úhlopříčce, deska se kolem tebe obtočí velkým rádiusem. Roh L, který je jinak mrtvý, dělá práci — a 32" monitor tam má na oči nejvíc místa.' },
   { id: 'rameno-a', nazev: 'Monitor u obrazu (rameno A)', popis: 'Klasické sezení čelem k levé stěně. Pro 32" monitor chce deska hloubku 75+ cm, což ubírá ze zóny na židli — ten kompromis je tu vidět.' },
   { id: 'rameno-b', nazev: 'Monitor u gauče (rameno B)', popis: 'Sezení čelem k zadní stěně, gauč po pravé ruce. Rameno B musí být hluboké 75+ cm a monitor se před jeho konec vejde jen tak tak.' },
-  { id: 'hranaty', nazev: 'Hranatý rám', popis: 'Tvůj favorit ve variantách: síla jeklu, barva komaxitu, tloušťka desky, odsazení. Jedna konstrukce, jiný výraz.' },
-  { id: 'bocnice', nazev: 'Plné bočnice', popis: 'Panely ze stejné tabule jako deska, na stínové spáře, se zadním výztužným panelem. Vypadá to jako jeden kus nábytku.' },
+  { id: 'hranaty', nazev: 'Obdélníkový rám', popis: 'Jediná podnož ve variantách: síla jeklu naležato (40 × 20 až 80 × 40), tloušťka desky, odsazení. Jedna konstrukce, jiný výraz.' },
   { id: 'hrany', nazev: 'Hrany lamina', popis: 'Pět stejných stolů, liší se jen hranou: ABS 1 mm, ABS 2 mm, a tři varianty s nalepenou masivní lištou. V konfigurátoru je k tomu řez v měřítku.' },
   { id: 'hloubky', nazev: 'Hloubky ramen', popis: 'Stejný stůl v různých hloubkách. Víc hloubky = dál od monitoru, ale míň místa na židli mezi stolem a lehátkem.' },
   { id: 'kontejner', nazev: 'Kde stojí kontejner', popis: 'Pevný kontejner ze stejného dekoru na konci ramene A, na konci ramene B, uprostřed, nebo vůbec.' },
@@ -37,22 +36,17 @@ const D = (p: Partial<Deska> = {}): Deska => ({
   radiusRohu: 12, radiusVnitrni: 320, radiusUZdi: 160, vyrez: 0, ...p,
 })
 
+/** Obdélníkový jekl naležato, výchozí 60 × 30, černý strukturní komaxit. */
 const P = (p: Partial<Podnoz> = {}): Podnoz => ({
-  typ: 'ram-hranaty', profil: 40, odsazeni: 90, barva: '#1F2021',
-  material: 'kov', mezilehlaPodpora: 'auto', vyztuha: true, ...p,
+  typ: 'ram-hranaty', profil: 60, odsazeni: 90, mezilehlaPodpora: 'auto', vyztuha: true, ...p,
 })
-
-/** Plné bočnice — vždy ze stejné tabule jako deska, malé odsazení. */
-const PB = (p: Partial<Podnoz> = {}): Podnoz =>
-  P({ typ: 'bocnice', material: 'drevo', odsazeni: 60, ...p })
 
 /** Pevný kontejner: pod ramenem A nebo B, posun podél ramene; `null` = bez kontejneru. */
 const K = (rameno: Ulozne['rameno'] | null = 'A', pozice = 1.0): Ulozne[] =>
   rameno === null ? [] : [{ typ: 'kontejner-pevny', rameno, pozice }]
 
 const DO = (p: Partial<Doplnky> = {}): Doplnky => ({
-  kabelovaLavka: true, ledPodsviceni: false,
-  nastavecMonitor: false, zadniPanel: false, monitorUmisteni: 'roh', monitorPosun: 0, ...p,
+  monitorUmisteni: 'roh', monitorPosun: 0, ...p,
 })
 
 const mk = (v: Omit<DeskConfig, 'tvar'>): DeskConfig => ({ tvar: 'L', ...v })
@@ -69,9 +63,9 @@ export const PRESETY: DeskConfig[] = [
     podnoz: P(), ulozne: K('B'), doplnky: DO() }),
 
   mk({ id: 'ro-03', rodina: 'roh', nazev: 'Roh bez mezery u zdi',
-    popis: 'Deska vyplní roh celý. Kabely od monitoru jdou po zdi dolů za nástavcem do kabelové lávky.',
+    popis: 'Deska vyplní roh celý. Kabely od monitoru jdou po zdi dolů za stojanem.',
     rozmery: R(), deska: D({ radiusUZdi: 0, radiusVnitrni: 300 }),
-    podnoz: P(), ulozne: K('A'), doplnky: DO({ nastavecMonitor: true }) }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO() }),
 
   mk({ id: 'ro-04', rodina: 'roh', nazev: 'Hlubší ramena 75 / 70',
     popis: 'O 5 cm hlubší obě ramena: oči 88 cm od obrazovky, ale zóna na židli klesne na 85 cm.',
@@ -81,37 +75,37 @@ export const PRESETY: DeskConfig[] = [
   mk({ id: 'ro-05', rodina: 'roh', nazev: 'Mělká ramena 65 / 55',
     popis: 'Nejmělčí deska, která v rohu ještě dá 70 cm na oči. Zóna na židli 95 cm, stůl vyčnívá nejmíň.',
     rozmery: R({ ramenoAHloubka: 650, ramenoBHloubka: 550 }), deska: D({ radiusVnitrni: 360 }),
-    podnoz: P({ profil: 35 }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 50 }), ulozne: K('A'), doplnky: DO() }),
 
   mk({ id: 'ro-06', rodina: 'roh', nazev: 'Pracovní deska 38, Kendal koňakový',
     popis: 'Tloušťka 38 mm jako u kuchyňských pracovních desek, dekor H3398 nejblíž tónu podlahy. Rozpon zvládne bez mezilehlé podpory.',
     rozmery: R(), deska: D({ materialId: 'egger-h3398', tloustka: 38, radiusRohu: 18 }),
     podnoz: P(), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'ro-07', rodina: 'roh', nazev: 'Thermo černohnědý, bílý rám',
-    popis: 'Nejtmavší dekor H1199 a bílý komaxit — rám splyne se stěnou, tmavá deska vypadá, že se vznáší.',
+  mk({ id: 'ro-07', rodina: 'roh', nazev: 'Thermo černohnědý, jedna tmavá silueta',
+    popis: 'Nejtmavší dekor H1199 a černý rám splynou v jednu siluetu proti světlé stěně. Kontejner u gauče.',
     rozmery: R(), deska: D({ materialId: 'egger-h1199' }),
-    podnoz: P({ barva: '#E8E6E1' }), ulozne: K('B'), doplnky: DO() }),
+    podnoz: P(), ulozne: K('B'), doplnky: DO() }),
 
   mk({ id: 'ro-08', rodina: 'roh', nazev: 'Tabule 18 mm — levnější roh',
-    popis: 'Tabule H3157 18 mm skladem za 3 883 Kč pokryje desku, bočnice i kontejner. Rozpon si vyžádá mezilehlou podporu, přidá se sama.',
+    popis: 'Tabule H3157 18 mm skladem za 3 883 Kč pokryje desku i kontejner. Rozpon si vyžádá mezilehlou podporu, přidá se sama.',
     rozmery: R(), deska: D({ tloustka: 18 }),
-    podnoz: P({ profil: 35 }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 50 }), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'ro-09', rodina: 'roh', nazev: 'Roh s rohovou poličkou a LED',
-    popis: 'Nástavec v rohu je pětiúhelníková polička, monitor stojí na ní. LED pásek pod přední hranou obou ramen. Dekor H3395 Corbridge přírodní.',
+  mk({ id: 'ro-09', rodina: 'roh', nazev: 'Corbridge přírodní, monitor 10 cm z rohu',
+    popis: 'Dekor H3395. Monitor posunutý 10 cm z rohu k sedícímu: oči blíž obrazovce, za stojanem zůstane místo na kabely.',
     rozmery: R(), deska: D({ materialId: 'egger-h3395' }),
-    podnoz: P(), ulozne: K('A'), doplnky: DO({ nastavecMonitor: true, ledPodsviceni: true }) }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorPosun: 100 }) }),
 
-  mk({ id: 'ro-10', rodina: 'roh', nazev: 'Roh na bočnicích ze stejné tabule',
-    popis: 'Stejné rohové sezení, ale místo rámu plné bočnice z téže tabule. Rohová podpora je vzadu u zdi, mezi koleny nic není.',
-    rozmery: R(), deska: D(), podnoz: PB(),
+  mk({ id: 'ro-10', rodina: 'roh', nazev: 'Roh na jeklu 80 × 40',
+    popis: 'Nejsilnější profil 80 × 40 naležato, odsazení 11 cm. Rám je vidět a má být vidět; rohová stojka je vzadu u zdi, mezi koleny nic.',
+    rozmery: R(), deska: D(), podnoz: P({ profil: 80, odsazeni: 110 }),
     ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'ro-11', rodina: 'roh', nazev: 'Belmont hnědý, antracitový rám',
-    popis: 'Teplý střední dub H1303 o tón tmavší než podlaha, rám v antracitu místo černé.',
+  mk({ id: 'ro-11', rodina: 'roh', nazev: 'Belmont hnědý, kontejner u gauče',
+    popis: 'Teplý střední dub H1303 o tón tmavší než podlaha, černý rám, kontejner na konci ramene B.',
     rozmery: R(), deska: D({ materialId: 'egger-h1303' }),
-    podnoz: P({ barva: '#33383B' }), ulozne: K('B'), doplnky: DO() }),
+    podnoz: P(), ulozne: K('B'), doplnky: DO() }),
 
   mk({ id: 'ro-12', rodina: 'roh', nazev: 'Vicenza světlý, zaoblená lišta',
     popis: 'Nejsvětlejší dekor H3165 s masivní lištou zaoblenou R10 a rohy R30. Měkký, obytný tvar bez ostrých linek.',
@@ -130,29 +124,29 @@ export const PRESETY: DeskConfig[] = [
     podnoz: P(), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
   mk({ id: 'ra-03', rodina: 'rameno-a', nazev: 'Thermo černohnědý u obrazu',
-    popis: 'Nejtmavší dekor proti světlé stěně s obrazem. Hloubka 80, monitor u zdi, kontejner na konci ramene A.',
+    popis: 'Nejtmavší dekor proti světlé stěně s obrazem. Hloubka 80, monitor u zdi, kontejner na konci ramene A, jekl 70 × 35.',
     rozmery: R({ ramenoAHloubka: 800 }), deska: D({ materialId: 'egger-h1199', radiusVnitrni: 140, radiusUZdi: 80 }),
-    podnoz: P({ profil: 45 }), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
+    podnoz: P({ profil: 70 }), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'ra-04', rodina: 'rameno-a', nazev: 'Pracovní deska 38 na bočnicích, u obrazu',
-    popis: 'Deska 38 mm a bočnice ve stejné síle i dekoru H3171. Sedí se u ramene A, kontejner pod ramenem B.',
+  mk({ id: 'ra-04', rodina: 'rameno-a', nazev: 'Pracovní deska 38 u obrazu, jekl 80 × 40',
+    popis: 'Deska 38 mm v dekoru H3171 na nejsilnějším jeklu 80 × 40. Sedí se u ramene A, kontejner pod ramenem B.',
     rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'egger-h3171', tloustka: 38, radiusRohu: 20, radiusVnitrni: 140, radiusUZdi: 100 }),
-    podnoz: PB(), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
+    podnoz: P({ profil: 80, odsazeni: 110 }), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
   mk({ id: 'ra-05', rodina: 'rameno-a', nazev: 'Davos přírodní u obrazu',
-    popis: 'Dekor H3131 s výraznějšími letokruhy, ABS 2 mm, antracitový rám.',
+    popis: 'Dekor H3131 s výraznějšími letokruhy, ABS 2 mm, černý rám.',
     rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'egger-h3131', radiusRohu: 24, radiusVnitrni: 160, radiusUZdi: 120 }),
-    podnoz: P({ barva: '#33383B' }), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
+    podnoz: P(), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
-  mk({ id: 'ra-06', rodina: 'rameno-a', nazev: 'U obrazu s nástavcem a LED',
-    popis: 'Monitor na nástavci u levé stěny, LED pod přední hranou. Kontejner na konci ramene A vedle sezení.',
+  mk({ id: 'ra-06', rodina: 'rameno-a', nazev: 'U obrazu, monitor 8 cm od zdi',
+    popis: 'Monitor u levé stěny posunutý 8 cm do místnosti, kabely za stojanem. Kontejner na konci ramene A vedle sezení.',
     rozmery: R({ ramenoAHloubka: 760 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100 }),
-    podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoA', nastavecMonitor: true, ledPodsviceni: true }) }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoA', monitorPosun: 80 }) }),
 
   mk({ id: 'ra-07', rodina: 'rameno-a', nazev: 'Tabule 18 mm u obrazu',
-    popis: 'Nejlevnější varianta: tabule 18 mm na hranatém rámu s výztuhou, ABS 1 mm. Mezilehlá podpora se přidá sama.',
+    popis: 'Nejlevnější varianta: tabule 18 mm na rámu s výztuhou, ABS 1 mm. Mezilehlá podpora se přidá sama.',
     rozmery: R({ ramenoAHloubka: 760 }), deska: D({ tloustka: 18, hrana: 'rovna', radiusRohu: 6, radiusVnitrni: 100, radiusUZdi: 80 }),
-    podnoz: P({ profil: 35 }), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
+    podnoz: P({ profil: 50 }), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
 
   // ---------- MONITOR U GAUČE (RAMENO B) ----------
   mk({ id: 'rb-01', rodina: 'rameno-b', nazev: 'Čelem k zadní stěně, rameno B 75',
@@ -165,87 +159,51 @@ export const PRESETY: DeskConfig[] = [
     rozmery: R({ ramenoBHloubka: 800 }), deska: D({ radiusVnitrni: 120, radiusUZdi: 100, vyrez: 60 }),
     podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
-  mk({ id: 'rb-03', rodina: 'rameno-b', nazev: 'U gauče, Tonsberg hnědý na bočnicích',
-    popis: 'Šedohnědý dekor H309 s bočnicemi ve stejné barvě, sezení u zadní stěny, kontejner na konci ramene A.',
+  mk({ id: 'rb-03', rodina: 'rameno-b', nazev: 'U gauče, Tonsberg hnědý',
+    popis: 'Šedohnědý dekor H309, sezení u zadní stěny, kontejner na konci ramene A.',
     rozmery: R({ ramenoBHloubka: 760 }), deska: D({ materialId: 'egger-h309', radiusVnitrni: 140, radiusUZdi: 100 }),
-    podnoz: PB(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
   mk({ id: 'rb-04', rodina: 'rameno-b', nazev: 'U gauče, Kendal koňakový 38',
-    popis: 'Pracovní deska 38 mm v tónu vlysů, rameno B 80 hluboké, bílý rám. Monitor u zadní stěny.',
+    popis: 'Pracovní deska 38 mm v tónu vlysů, rameno B 80 hluboké, černý rám. Monitor u zadní stěny.',
     rozmery: R({ ramenoBHloubka: 800 }), deska: D({ materialId: 'egger-h3398', tloustka: 38, radiusVnitrni: 140, radiusUZdi: 100 }),
-    podnoz: P({ barva: '#E8E6E1' }), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO({ monitorUmisteni: 'ramenoB' }) }),
 
   // ---------- HRANATÝ RÁM ----------
-  mk({ id: 'hr-01', rodina: 'hranaty', nazev: 'Jekl 50 × 50, deska 38',
-    popis: 'Nejmasivnější provedení: silný jekl a pracovní deska 38 mm s masivním nákližkem. Rám je vidět a má být vidět.',
+  mk({ id: 'hr-01', rodina: 'hranaty', nazev: 'Jekl 80 × 40, deska 38',
+    popis: 'Nejmasivnější provedení: jekl 80 × 40 naležato a pracovní deska 38 mm s masivním nákližkem. Rám je vidět a má být vidět.',
     rozmery: R(), deska: D({ tloustka: 38, hrana: 'naklizek', radiusRohu: 16 }),
-    podnoz: P({ profil: 50, odsazeni: 110 }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 80, odsazeni: 110 }), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'hr-02', rodina: 'hranaty', nazev: 'Jekl 30 × 30, subtilní',
-    popis: 'Tenký jekl pod deskou 25 mm — rám skoro zmizí, deska dominuje. Výztuha pod deskou nese rozpon.',
+  mk({ id: 'hr-02', rodina: 'hranaty', nazev: 'Jekl 40 × 20, subtilní',
+    popis: 'Nejtenčí jekl pod deskou 25 mm — rám skoro zmizí, deska dominuje. Výztuha pod deskou nese rozpon.',
     rozmery: R(), deska: D(),
-    podnoz: P({ profil: 30, odsazeni: 80 }), ulozne: K('B', 0.95), doplnky: DO() }),
+    podnoz: P({ profil: 40, odsazeni: 80 }), ulozne: K('B', 0.95), doplnky: DO() }),
 
-  mk({ id: 'hr-03', rodina: 'hranaty', nazev: 'Antracitový rám, Kendal koňakový',
-    popis: 'Antracit (RAL 7016) místo černé — měkčí kontrast k dekoru H3398 v tónu vlysů.',
+  mk({ id: 'hr-03', rodina: 'hranaty', nazev: 'Jekl 60 × 30, Kendal koňakový',
+    popis: 'Běžný profil 60 × 30 v černém strukturním komaxitu pod dekorem H3398 v tónu vlysů.',
     rozmery: R(), deska: D({ materialId: 'egger-h3398' }),
-    podnoz: P({ barva: '#33383B' }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P(), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'hr-04', rodina: 'hranaty', nazev: 'Bílý rám, Baronia světlý',
-    popis: 'Bílý komaxit a světlý klidný dekor H1362. Nejméně se hlásí o slovo, vynikne gauč a obraz.',
+  mk({ id: 'hr-04', rodina: 'hranaty', nazev: 'Jekl 50 × 25, Baronia světlý',
+    popis: 'Světlý klidný dekor H1362 na středním profilu 50 × 25. Nejméně se hlásí o slovo, vynikne gauč a obraz.',
     rozmery: R(), deska: D({ materialId: 'egger-h1362', radiusRohu: 16 }),
-    podnoz: P({ barva: '#E8E6E1' }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 50 }), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'hr-05', rodina: 'hranaty', nazev: 'Nerezový rám, Corbridge šedý',
-    popis: 'Kartáčovaný nerez pod šedým dubem H3156. Ladí s kovovými prvky konferenčního stolku.',
+  mk({ id: 'hr-05', rodina: 'hranaty', nazev: 'Jekl 70 × 35, Corbridge šedý',
+    popis: 'Šedý dub H3156 na profilu 70 × 35, kontejner u gauče. Ladí s kovovými prvky konferenčního stolku.',
     rozmery: R(), deska: D({ materialId: 'egger-h3156' }),
-    podnoz: P({ barva: '#B9BCC0', profil: 40 }), ulozne: K('B', 0.95), doplnky: DO() }),
+    podnoz: P({ profil: 70 }), ulozne: K('B', 0.95), doplnky: DO() }),
 
-  mk({ id: 'hr-06', rodina: 'hranaty', nazev: 'Jekl 40, deska 38 bez výztuhy',
+  mk({ id: 'hr-06', rodina: 'hranaty', nazev: 'Jekl 60 × 30, deska 38 bez výztuhy',
     popis: 'Pracovní deska 38 mm na rámu bez podélné výztuhy — pod deskou je jen rám. Rozpon je na hraně, kontroly to ukážou.',
     rozmery: R(), deska: D({ tloustka: 38, radiusRohu: 10 }),
     podnoz: P({ vyztuha: false }), ulozne: K('A'), doplnky: DO() }),
 
-  mk({ id: 'hr-07', rodina: 'hranaty', nazev: 'Jekl 60, velké odsazení',
+  mk({ id: 'hr-07', rodina: 'hranaty', nazev: 'Jekl 60 × 30, velké odsazení',
     popis: 'Rámy zasunuté 18 cm pod desku. Deska přesahuje, stůl vypadá jako plovoucí, nohy nikde nepřekáží.',
     rozmery: R(), deska: D({ radiusRohu: 20 }),
-    podnoz: P({ profil: 60, odsazeni: 180 }), ulozne: K('A'), doplnky: DO() }),
-
-  // ---------- PLNÉ BOČNICE ----------
-  mk({ id: 'bo-01', rodina: 'bocnice', nazev: 'Bočnice z jedné tabule, Vicenza 25',
-    popis: 'Deska i bočnice z jedné tabule H3157, odsazení jen 6 cm — jeden rám, ne deska na nohách. Stínová spára u podlahy.',
-    rozmery: R(), deska: D(), podnoz: PB(),
-    ulozne: K('A'), doplnky: DO() }),
-
-  mk({ id: 'bo-02', rodina: 'bocnice', nazev: 'Thermo černohnědý 38 na bočnicích',
-    popis: 'Nejtmavší dekor v pracovní desce 38 mm s masivním nákližkem, bočnice 38 mm. Vypadá jako jeden kus nábytku.',
-    rozmery: R(), deska: D({ materialId: 'egger-h1199', tloustka: 38, hrana: 'naklizek', radiusRohu: 14 }),
-    podnoz: PB(), ulozne: K('A'), doplnky: DO() }),
-
-  mk({ id: 'bo-03', rodina: 'bocnice', nazev: 'Kendal koňakový 38, bočnice stejné síly',
-    popis: 'Tloušťka 38 jako u kuchyňských pracovních desek, dekor v tónu podlahy. Stůl se v podlaze rozpustí.',
-    rozmery: R(), deska: D({ materialId: 'egger-h3398', tloustka: 38 }),
-    podnoz: PB(), ulozne: K('B', 0.95), doplnky: DO() }),
-
-  mk({ id: 'bo-04', rodina: 'bocnice', nazev: 'Kendal olejovaný na bočnicích, monitor u obrazu',
-    popis: 'Dekor H3171 v tónu stávajícího nábytku, klasické sezení u ramene A. Panel v místě napojení ramen kryje kolena zprava.',
-    rozmery: R({ ramenoAHloubka: 760 }), deska: D({ materialId: 'egger-h3171', radiusVnitrni: 140, radiusUZdi: 100 }),
-    podnoz: PB(), ulozne: K('B', 0.95), doplnky: DO({ monitorUmisteni: 'ramenoA' }) }),
-
-  mk({ id: 'bo-05', rodina: 'bocnice', nazev: 'Bočnice z tabule 18 mm',
-    popis: 'Nejlevnější bočnicová varianta: tabule 18 mm na desku i bočnice. Mezilehlý panel si rozpon vyžádá sám.',
-    rozmery: R(), deska: D({ tloustka: 18 }),
-    podnoz: PB(), ulozne: K('A'), doplnky: DO() }),
-
-  mk({ id: 'bo-06', rodina: 'bocnice', nazev: 'Davos lanýžově hnědý, kontejner u gauče',
-    popis: 'Tlumený hnědý dekor H3133 všude: deska, bočnice i kontejner na konci ramene B vedle lehátka.',
-    rozmery: R(), deska: D({ materialId: 'egger-h3133' }),
-    podnoz: PB(), ulozne: K('B', 1.0), doplnky: DO() }),
-
-  mk({ id: 'bo-07', rodina: 'bocnice', nazev: 'Tonsberg přírodní, zaoblená lišta',
-    popis: 'Šedavý dekor H305 s masivní lištou R10 a rohy R30. Měkčí, obytnější tvar.',
-    rozmery: R(), deska: D({ materialId: 'egger-h305', hrana: 'radius', radiusRohu: 30 }),
-    podnoz: PB(), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ odsazeni: 180 }), ulozne: K('A'), doplnky: DO() }),
 
   // ---------- HRANY LAMINA ----------
   mk({ id: 'hn-01', rodina: 'hrany', nazev: 'ABS 1 mm',
@@ -261,8 +219,8 @@ export const PRESETY: DeskConfig[] = [
     rozmery: R(), deska: D({ hrana: 'zkosena', radiusRohu: 8 }), podnoz: P(), ulozne: K('A'), doplnky: DO() }),
 
   mk({ id: 'hn-04', rodina: 'hrany', nazev: 'Masivní lišta zaoblená R10',
-    popis: 'Masivní lišta zakulacená nahoře i dole. Nejpříjemnější pod předloktím — k bočnicím sedí nejvíc.',
-    rozmery: R(), deska: D({ hrana: 'radius', radiusRohu: 24 }), podnoz: PB(), ulozne: K('A'), doplnky: DO() }),
+    popis: 'Masivní lišta zakulacená nahoře i dole. Nejpříjemnější pod předloktím, měkký obytný tvar.',
+    rozmery: R(), deska: D({ hrana: 'radius', radiusRohu: 24 }), podnoz: P(), ulozne: K('A'), doplnky: DO() }),
 
   mk({ id: 'hn-05', rodina: 'hrany', nazev: 'Masivní nákližek R3',
     popis: 'Lišta 30 mm jen lehce zaoblená: na hraně pravé dřevo, plocha zůstává lamino ST12. Nejdražší hrana.',
@@ -272,7 +230,7 @@ export const PRESETY: DeskConfig[] = [
   mk({ id: 'hl-01', rodina: 'hloubky', nazev: 'Hloubky 60 / 55',
     popis: 'Nejmělčí kombinace. Do místnosti vyčnívá jen 60 cm, zóna na židli 100 cm, na oči v rohu přesně 70 cm díky R400.',
     rozmery: R({ ramenoAHloubka: 600, ramenoBHloubka: 550 }), deska: D({ radiusVnitrni: 400 }),
-    podnoz: P({ profil: 35 }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 50 }), ulozne: K('A'), doplnky: DO() }),
 
   mk({ id: 'hl-02', rodina: 'hloubky', nazev: 'Hloubky 70 / 60',
     popis: 'Doporučený kompromis: oči 78 cm od obrazovky, zóna na židli 90 cm, rameno B unese kontejner i repro.',
@@ -287,7 +245,7 @@ export const PRESETY: DeskConfig[] = [
   mk({ id: 'hl-04', rodina: 'hloubky', nazev: 'Hloubky 80 / 80',
     popis: 'Maximum. Obrovská plocha, ale 80 cm na židli je minimum a stůl vyčnívá do místnosti. Spíš pro srovnání.',
     rozmery: R({ ramenoAHloubka: 800, ramenoBHloubka: 800 }), deska: D({ radiusVnitrni: 380 }),
-    podnoz: P({ profil: 45 }), ulozne: K('A'), doplnky: DO() }),
+    podnoz: P({ profil: 70 }), ulozne: K('A'), doplnky: DO() }),
 
   // ---------- KDE STOJÍ KONTEJNER ----------
   mk({ id: 'ko-01', rodina: 'kontejner', nazev: 'Kontejner na konci ramene A',

@@ -54,29 +54,15 @@ export const POVRCH_M2 = {
   lak: rozpeti(605, 1210),
 }
 
-/** Kovová podnož na míru u zámečníka, vč. DPH — podle složitosti. */
+/** Kovová podnož na míru u zámečníka, vč. DPH: dva uzavřené rámy z jeklu + rohová stojka. */
 export const PODNOZ_KOV: Record<string, Rozpeti> = {
-  'ram-U': rozpeti(4000, 9000),
-  'ram-A': rozpeti(4500, 10000),
-  'ram-H': rozpeti(4500, 10000),
-  'ram-trapez': rozpeti(4500, 10000),
   'ram-hranaty': rozpeti(3500, 8000),
-  hairpin: rozpeti(1800, 4500),
-  'nohy-rovne': rozpeti(1500, 4000),
-  'nohy-konicke': rozpeti(2000, 5000),
-  'nohy-sikme': rozpeti(2200, 5500),
-  'stavitelny-ram': rozpeti(6000, 15000),
-  'kontejner-nosny': rozpeti(2500, 6000),
-  bocnice: rozpeti(0, 0),   // dřevo, počítá se jako plocha materiálu
-  kozy: rozpeti(0, 0),
 }
 
 /** Jednorázové úkony, vč. DPH. */
 export const UKONY = {
   vyrezProchodka: rozpeti(120, 365),
   materialProchodka: rozpeti(73, 303),
-  kabelovaLavka: rozpeti(605, 2420),
-  ledMetr: rozpeti(280, 620),      // profil + pásek + zdroj, za bm
   vyrezAtypicky: rozpeti(605, 3025),
   doprava: rozpeti(300, 800),
   montaz: rozpeti(800, 2500),
@@ -94,7 +80,6 @@ export function hodinyPrace(opts: {
   maSkrinku: boolean
   maPolici: boolean
   maPanel: boolean
-  maNastavec: boolean
   hranaNarocna: boolean
   masiv: boolean
 }): Rozpeti {
@@ -104,7 +89,6 @@ export function hodinyPrace(opts: {
   if (opts.maSkrinku) { od += 1.5; doo += 3 }
   if (opts.maPolici) { od += 1; doo += 2 }
   if (opts.maPanel) { od += 1; doo += 2.5 }
-  if (opts.maNastavec) { od += 1; doo += 2 }
   if (opts.hranaNarocna) { od += 1; doo += 2.5 }
   if (opts.masiv) { od += 1.5; doo += 3.5 }          // dilatace, broušení, olej
   return rozpeti(od, doo)

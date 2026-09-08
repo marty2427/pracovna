@@ -43,13 +43,15 @@ zaoblit, aby za monitorem zbyla mezera na kabely.
 Průchod se do zóny židle nezapočítává — kolem stolu se nikam nechodí.
 Nabídka je zúžená na to, co zadavatel chce: jen L přes celý roh, jen lamino Egger
 v dubových dekorech ST12 (patnáct dekorů ze vzorníku, viz `research/povrch-desky-2026-09-06.md`),
-celý stůl v jedné barvě, podnož hranatý profil nebo plné bočnice, úložné jen pevný kontejner.
+celý stůl v jedné barvě, podnož jen obdélníkový jekl naležato v černém komaxitu, úložné jen pevný
+kontejner. Bez podložky pod myš, bez nástavce na monitor, bez kabelové lávky a LED.
 
 ## Co v repozitáři je
 
 ```
-photo.png                 fotka místa (zdroj barev)
-palette.json              navzorkované barvy + 7 barevných směrů
+photo.png                 fotka místa
+palette.json              barvy stěn a podlahy navzorkované z fotky (pro 3D místnost)
+dekory-raw/               skeny 15 dekorů Egger ST12 (celá tabule, z cdn.egger.com)
 PLAN.md                   plán projektu a jeho revize
 research/
   trh.md                  rešerše trhu (sériové stoly, stavebnice, materiály,
@@ -64,7 +66,7 @@ research/
   _kontrola_*.json         výhrady kontrolní vrstvy k položkám ceníku
   PROMPT-COWORK.md        zadání pro doověření (už proběhlo)
 scripts/
-  sample_palette.py       vzorkování skutečných pixelů z fotky
+  dekory_prepare.py       skeny dekorů -> app/public/dekory (textury + manifest)
   screenshots.mjs         Playwright průlet appkou
 app/                      Vite + React + TypeScript + react-three-fiber
 ```
@@ -115,7 +117,7 @@ npx wrangler pages deploy app/dist --project-name konfigurator-stolu
 ```
 
 `app/public/_redirects` řeší SPA fallback, `app/public/_headers` cachování assetů.
-Appka nemá backend ani externí assety — všechny textury se generují procedurálně v prohlížeči.
+Appka nemá backend; kromě skenů dekorů v `app/public/dekory` se všechny textury generují procedurálně v prohlížeči.
 
 ## Vzorkování barev z fotky
 

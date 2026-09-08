@@ -47,8 +47,7 @@ export function Koupit() {
   const podnoze = useMemo(() => podnozeProTyp(config.podnoz.typ).slice(0, 4), [config.podnoz.typ])
   const stoly = useMemo(() => rohoveStolyDoProstoru(MAX_RAMENO_A, SPACE.zadniStenaKeGauci), [])
 
-  const bocnice = config.podnoz.typ === 'bocnice'
-  const cenaPodnozi = bocnice ? 0 : (podnoze[0]?.cena ?? 0) * 3
+  const cenaPodnozi = (podnoze[0]?.cena ?? 0) * 3
   const dvoudilne = (deskyA[0]?.cena ?? 0) + (deskyB[0]?.cena ?? 0)
   const jednodilne = vcelku[0]?.cena ?? 0
   const nejlevnejsiDeska = [dvoudilne, jednodilne].filter((x) => x > 0).sort((a, b) => a - b)[0] ?? 0
@@ -106,9 +105,7 @@ export function Koupit() {
                 <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>… a rameno B ({Math.round(delkaB / 10)} × {Math.round(r.ramenoBHloubka / 10)} cm)</td></tr>
                 {deskyB.map((d) => <Radek key={d.id} p={d} chybi={d.chybiHloubka} />)}
                 <tr><td colSpan={3} style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '.05em', color: 'var(--text-3)' }}>Podnož (na L potřebuješ 2 rámy + rohovou nohu, tedy 3 ks)</td></tr>
-                {bocnice ? (
-                  <tr><td colSpan={3} className="poznamka">Plné bočnice se nekupují hotové — dělá je truhlář ze stejného materiálu jako desku. Cena je v rozpadu nahoře.</td></tr>
-                ) : podnoze.map((p) => <Radek key={p.id} p={p} />)}
+                {podnoze.map((p) => <Radek key={p.id} p={p} />)}
                 {nejlevnejsiDeska > 0 && (
                   <tr className="soucet">
                     <td>Nejlevnější kombinace deska + podnož</td>

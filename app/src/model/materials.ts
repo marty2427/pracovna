@@ -198,12 +198,7 @@ export const MATERIALY: Material[] = [
 export const MATERIAL_MAP = new Map(MATERIALY.map((m) => [m.id, m]))
 export const material = (id: string): Material => MATERIAL_MAP.get(id) ?? MATERIALY[0]
 
-/** Barvy komaxitu a kovu pro podnože. */
-export const KOV_BARVY = [
-  { id: 'cerna-struktura', nazev: 'Černá struktura (RAL 9005)', barva: '#1F2021' },
-  { id: 'antracit', nazev: 'Antracit (RAL 7016)', barva: '#33383B' },
-  { id: 'bila', nazev: 'Bílá (RAL 9016)', barva: '#E8E6E1' },
-  { id: 'nerez', nazev: 'Nerez / chrom', barva: '#B9BCC0' },
-]
+/** Jediná barva kovu: černý strukturní komaxit (rozhodnutí uživatele). */
+export const KOV = { id: 'cerna-struktura', nazev: 'Černá struktura (RAL 9005)', barva: '#1F2021' }
 
 export const PALETA = palette as any

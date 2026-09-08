@@ -1,7 +1,7 @@
-import { SPACE, MAX_RAMENO_A, maxRamenoB, STAVITELNY_RAM, PEVNA_PODNOZ_MAX, MONITOR } from './space'
+import { SPACE, MAX_RAMENO_A, maxRamenoB, PEVNA_PODNOZ_MAX, MONITOR } from './space'
 import type { DeskConfig, Rect, Bod, MonitorUmisteni } from './types'
 import { material } from './materials'
-import { podpory, skutecnyRozpon, dovolenyRozpon, MAX_ROZPON, maxRozponMat } from './podpory'
+import { podpory, skutecnyRozpon, dovolenyRozpon, MAX_ROZPON, maxRozponMat, jekl } from './podpory'
 import { obrysDeskyBody, prusecikSHranou, poziceSezeniA, poziceSezeniB, type Pt } from './obrys'
 
 export type Zavaznost = 'ok' | 'pozor' | 'chyba'
@@ -272,45 +272,18 @@ export function kontroly(c: DeskConfig, mistnost: Mistnost = VYCHOZI_MISTNOST): 
 
   // 6) Dosah podnože — u dlouhého ramene je limitem rozměr rámu, ne cena
   const nejdelsiRameno = Math.max(r.ramenoADelka, jeL ? r.ramenoBDelka : 0)
-  if (c.podnoz.typ === 'stavitelny-ram') {
-    const druheRamenoPresahuje = jeL && r.ramenoBDelka > STAVITELNY_RAM.rohovaSestavaDruheRameno
-    const nadRohovouSestavu = jeL && nejdelsiRameno > STAVITELNY_RAM.rohovaSestava
-    const stav: Zavaznost =
-      nejdelsiRameno <= STAVITELNY_RAM.bezneMax && !druheRamenoPresahuje ? 'ok'
-      : (jeL && (nadRohovouSestavu || druheRamenoPresahuje)) ? 'chyba'
-      : nejdelsiRameno <= STAVITELNY_RAM.nejdelsiDvousloupovy ? 'pozor' : 'chyba'
-    out.push({
-      id: 'dosah-ramu',
-      nazev: 'Dosah stavitelného rámu',
-      hodnota: nejdelsiRameno,
-      jednotka: 'mm',
-      cil: jeL
-        ? `roh 90°: ramena do ${STAVITELNY_RAM.rohovaSestava} a ${STAVITELNY_RAM.rohovaSestavaDruheRameno} mm`
-        : `běžné rámy do ${STAVITELNY_RAM.bezneMax} mm`,
-      stav,
-      zprava:
-        stav === 'chyba' && jeL
-          ? `Rohovou polohovací sestavu na ${Math.round(r.ramenoADelka / 10)} × ${Math.round(r.ramenoBDelka / 10)} cm se nepodařilo najít na trhu. `
-            + `Liftor L uvádí desky až 290 cm, ale jen pro rovné uspořádání — pro roh 90° zvládne ramena do ${STAVITELNY_RAM.rohovaSestava / 10} cm. `
-            + `Powerton ERGO EDGE zvládne první rameno do 220 cm, ale druhé jen do ${STAVITELNY_RAM.rohovaSestavaDruheRameno / 10} cm.`
-          : stav === 'pozor'
-            ? `Rameno ${Math.round(nejdelsiRameno / 10)} cm je nad dosahem běžných rámů (do ${STAVITELNY_RAM.bezneMax / 10} cm). Dosáhne na něj jen Liftor Expert, a to jen jako rovný stůl.`
-            : `Rameno ${Math.round(nejdelsiRameno / 10)} cm zvládne běžný dvousloupový rám (AlzaErgo ET1, IKEA MITTZON).`,
-    })
-  } else if (c.podnoz.typ !== 'bocnice' && c.podnoz.typ !== 'kozy' && !c.podnoz.typ.startsWith('nohy') && c.podnoz.typ !== 'hairpin') {
-    const potrebaDvou = nejdelsiRameno > PEVNA_PODNOZ_MAX
-    out.push({
-      id: 'dosah-podnoze',
-      nazev: 'Dosah hotové podnože',
-      hodnota: nejdelsiRameno,
-      jednotka: 'mm',
-      cil: `hotové podnože do ${PEVNA_PODNOZ_MAX} mm`,
-      stav: 'ok',
-      zprava: potrebaDvou
-        ? `Nejdelší hotová pevná podnož jde do ${PEVNA_PODNOZ_MAX / 10} cm. Na rameno ${Math.round(nejdelsiRameno / 10)} cm proto počítej se dvěma, nebo s rámem svařeným na míru.`
-        : `Rameno ${Math.round(nejdelsiRameno / 10)} cm pokryje jedna hotová podnož.`,
-    })
-  }
+  const potrebaDvou = nejdelsiRameno > PEVNA_PODNOZ_MAX
+  out.push({
+    id: 'dosah-podnoze',
+    nazev: 'Dosah hotové podnože',
+    hodnota: nejdelsiRameno,
+    jednotka: 'mm',
+    cil: `hotové podnože do ${PEVNA_PODNOZ_MAX} mm`,
+    stav: 'ok',
+    zprava: potrebaDvou
+      ? `Nejdelší hotová pevná podnož jde do ${PEVNA_PODNOZ_MAX / 10} cm. Na rameno ${Math.round(nejdelsiRameno / 10)} cm proto počítej se dvěma, nebo s rámem svařeným na míru.`
+      : `Rameno ${Math.round(nejdelsiRameno / 10)} cm pokryje jedna hotová podnož.`,
+  })
 
   // 7) Rozpon desky bez podpory
   const rozpon = skutecnyRozpon(c)
@@ -361,16 +334,11 @@ export function hmotnost(c: DeskConfig): number {
   const mat = material(c.deska.materialId)
   const deska = plochaDesky(c) * (c.deska.tloustka / 1000) * (HUSTOTA[mat.kategorie] ?? 700)
   const H = (c.rozmery.vyska - c.deska.tloustka) / 1000
-  let podnoz: number
-  if (c.podnoz.typ === 'bocnice') {
-    const tl = Math.max(25, c.deska.tloustka) / 1000
-    const matP = material(c.deska.materialId)
-    podnoz = podpory(c).length * 0.5 * (c.rozmery.ramenoAHloubka / 1000) * H * tl * (HUSTOTA[matP.kategorie] ?? 700)
-  } else {
-    // ocelový jekl: hmotnost na metr ≈ obvod × stěna 2 mm × 7850 kg/m³
-    const metry = podpory(c).length * H + (c.rozmery.ramenoAHloubka / 1000) * 2 + (c.rozmery.ramenoBHloubka / 1000) * 2 + (c.podnoz.vyztuha ? (c.rozmery.ramenoADelka + c.rozmery.ramenoBDelka) / 1000 : 0)
-    podnoz = metry * 4 * (c.podnoz.profil / 1000) * 0.002 * 7850
-  }
+  // ocelový jekl S × U, stěna 2 mm: hmotnost na metr ≈ obvod × 2 mm × 7850 kg/m³;
+  // každý rám má lyžinu i horní traverzu, proto 4× hloubka na rameno
+  const j = jekl(c.podnoz.profil)
+  const metry = podpory(c).length * H + (c.rozmery.ramenoAHloubka / 1000) * 4 + (c.rozmery.ramenoBHloubka / 1000) * 4 + (c.podnoz.vyztuha ? (c.rozmery.ramenoADelka + c.rozmery.ramenoBDelka) / 1000 : 0)
+  const podnoz = metry * 2 * ((j.sirka + j.vyska) / 1000) * 0.002 * 7850
   const kontejner = c.ulozne.length * 24
   return Math.round(deska + podnoz + kontejner)
 }

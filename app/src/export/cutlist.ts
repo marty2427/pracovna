@@ -1,6 +1,6 @@
 import type { DeskConfig } from '@/model/types'
-import { material } from '@/model/materials'
-import { podpory } from '@/model/podpory'
+import { material, KOV } from '@/model/materials'
+import { podpory, jekl } from '@/model/podpory'
 
 export interface Dilec {
   skupina: 'Deska' | 'Podnož' | 'Úložné' | 'Doplňky'
@@ -62,97 +62,55 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
     kovani.push({ nazev: 'Spojka desek do drážky (excentr nebo lamelo)', ks: 4, poznamka: 'spoj ramene A a B v rohu' })
   }
 
-  // --- PODNOŽ ---
+  // --- PODNOŽ: uzavřené obdélníkové rámy z jeklu naležato ---
   const H = r.vyska - t
   const p = podpory(c)
-  const typ = c.podnoz.typ
-  const profil = c.podnoz.profil
-
-  if (typ === 'bocnice') {
-    const skupiny = new Set(p.map((q) => q.skupina))
-    for (const s of skupiny) {
-      const g = p.filter((q) => q.skupina === s)
-      if (g.length >= 2) {
-        const podelX = Math.abs(g[0].z - g[1].z) < 1
-        const sirkaP = podelX
-          ? Math.abs(g[0].x - g[1].x) + KORPUS_TL
-          : Math.abs(g[0].z - g[1].z) + KORPUS_TL
-        dilce.push({
-          skupina: 'Podnož', nazev: `Bočnice ${s === 'A' ? 'u konce ramene A' : s === 'B' ? 'u gauče' : 'mezilehlá'}`,
-          ks: 1, delka: H, sirka: sirkaP, tloustka: KORPUS_TL + 6,
-          material: material(c.deska.materialId).nazev,
-          hrany: 'ABS 2 mm po obvodu, viditelné hrany',
-        })
-      }
+  const j = jekl(c.podnoz.profil)
+  const jeklText = `jekl ${j.sirka}×${j.vyska}×2`
+  const komaxit = `ocel, komaxit ${KOV.nazev.toLowerCase()}`
+  const skupiny = new Set(p.filter((q) => q.skupina !== 'roh').map((q) => q.skupina))
+  let stojky = 0, ramy = 0, delkaRamu = 0
+  for (const s of skupiny) {
+    const g = p.filter((q) => q.skupina === s)
+    if (g.length >= 2) {
+      stojky += 2
+      ramy += 1
+      delkaRamu = Math.max(delkaRamu,
+        Math.abs(g[0].z - g[1].z) < 1 ? Math.abs(g[0].x - g[1].x) : Math.abs(g[0].z - g[1].z))
     }
-    kovani.push({ nazev: 'Srovnávací patky M8', ks: 8 })
-  } else if (typ.startsWith('nohy') || typ === 'hairpin') {
-    dilce.push({
-      skupina: 'Podnož',
-      nazev: typ === 'hairpin' ? 'Hairpin noha (ocelový prut)' : `Noha ${typ === 'nohy-konicke' ? 'kónická' : typ === 'nohy-sikme' ? 'šikmá' : 'rovná'}`,
-      ks: p.length, delka: H, sirka: Math.max(profil, 45), tloustka: Math.max(profil, 45),
-      material: c.podnoz.material === 'kov' ? `ocel, komaxit ${c.podnoz.barva}` : material(c.deska.materialId).nazev,
-      hrany: typ === 'nohy-konicke' ? 'soustružené, kónické zúžení na 26 mm' : 'sražené hrany 2 mm',
-    })
-    kovani.push({ nazev: 'Kotevní deska nohy + vruty', ks: p.length })
-  } else if (typ === 'stavitelny-ram') {
-    kovani.push({ nazev: 'Elektricky stavitelný rám (2 sloupy, nosnost min. 70 kg)', ks: jeL ? 2 : 1, poznamka: 'kupuje se hotový, nevyrábí truhlář' })
-  } else if (typ === 'kozy') {
-    dilce.push({
-      skupina: 'Podnož', nazev: 'Koza — noha', ks: 8, delka: Math.round(H * 1.06), sirka: profil, tloustka: profil,
-      material: material(c.deska.materialId).nazev, hrany: 'sražení 2 mm',
-    })
-    dilce.push({
-      skupina: 'Podnož', nazev: 'Koza — příčka', ks: 4, delka: 420, sirka: Math.round(profil * 0.7), tloustka: Math.round(profil * 0.7),
-      material: material(c.deska.materialId).nazev, hrany: 'sražení 2 mm',
-    })
-  } else {
-    // kovové rámy
-    const skupiny = new Set(p.filter((q) => q.skupina !== 'roh').map((q) => q.skupina))
-    let nohy = 0, traverzy = 0, delkaTraverzy = 0
-    for (const s of skupiny) {
-      const g = p.filter((q) => q.skupina === s)
-      if (g.length >= 2) {
-        nohy += 2
-        traverzy += 1
-        delkaTraverzy = Math.max(delkaTraverzy,
-          Math.abs(g[0].z - g[1].z) < 1 ? Math.abs(g[0].x - g[1].x) : Math.abs(g[0].z - g[1].z))
-      }
-    }
-    const roh = p.filter((q) => q.skupina === 'roh').length
-    dilce.push({
-      skupina: 'Podnož', nazev: `Noha — jekl ${profil}×${profil}×2`, ks: nohy + roh,
-      delka: H - 15, sirka: profil, tloustka: profil,
-      material: `ocel, komaxit ${c.podnoz.barva}`, hrany: 'zabroušené svary, zaslepeno',
-    })
-    dilce.push({
-      skupina: 'Podnož', nazev: `Horní traverza — jekl ${profil}×${profil}×2`, ks: traverzy,
-      delka: Math.round(delkaTraverzy), sirka: profil, tloustka: profil,
-      material: `ocel, komaxit ${c.podnoz.barva}`, hrany: 'svařeno s nohami',
-    })
-    if (typ === 'ram-H') {
-      dilce.push({
-        skupina: 'Podnož', nazev: 'Střední příčka', ks: traverzy, delka: Math.round(delkaTraverzy),
-        sirka: Math.round(profil * 0.8), tloustka: Math.round(profil * 0.8),
-        material: `ocel, komaxit ${c.podnoz.barva}`, hrany: 'svařeno',
-      })
-    }
-    if (typ === 'ram-hranaty') {
-      dilce.push({
-        skupina: 'Podnož', nazev: 'Spodní traverza', ks: traverzy, delka: Math.round(delkaTraverzy),
-        sirka: profil, tloustka: profil, material: `ocel, komaxit ${c.podnoz.barva}`, hrany: 'svařeno',
-      })
-    }
-    kovani.push({ nazev: 'Srovnávací patka M10 do jeklu', ks: nohy + roh })
-    kovani.push({ nazev: 'Vrut do desky 5×30 s podložkou', ks: (nohy + roh) * 2 })
   }
+  const roh = p.filter((q) => q.skupina === 'roh').length
+  dilce.push({
+    skupina: 'Podnož', nazev: `Stojka — ${jeklText}, široká strana v rovině rámu`, ks: stojky + roh,
+    delka: H - 2 * j.vyska - 4, sirka: j.sirka, tloustka: j.vyska,
+    material: komaxit, hrany: 'zabroušené svary, zaslepeno',
+  })
+  dilce.push({
+    skupina: 'Podnož', nazev: `Lyžina na zemi — ${jeklText} naplocho`, ks: ramy,
+    delka: Math.round(delkaRamu + j.sirka), sirka: j.sirka, tloustka: j.vyska,
+    material: komaxit, hrany: 'svařeno se stojkami, zespodu plstěné podložky',
+  })
+  dilce.push({
+    skupina: 'Podnož', nazev: `Horní traverza — ${jeklText} naplocho`, ks: ramy,
+    delka: Math.round(delkaRamu + j.sirka), sirka: j.sirka, tloustka: j.vyska,
+    material: komaxit, hrany: 'svařeno se stojkami, předvrtáno pro vruty',
+  })
+  if (roh) {
+    dilce.push({
+      skupina: 'Podnož', nazev: `Patka a hlava rohové stojky — ${jeklText} naplocho`, ks: roh * 2,
+      delka: Math.round(j.sirka * 1.6), sirka: Math.round(j.sirka * 1.6), tloustka: j.vyska,
+      material: komaxit, hrany: 'svařeno',
+    })
+  }
+  kovani.push({ nazev: 'Plstěná podložka pod lyžinu, samolepicí', ks: ramy * 2 + roh })
+  kovani.push({ nazev: 'Vrut do desky 5×30 s podložkou', ks: (stojky + roh) * 2 })
 
-  if (c.podnoz.vyztuha && typ !== 'stavitelny-ram') {
+  if (c.podnoz.vyztuha) {
     const delkaA = r.ramenoADelka - 2 * c.podnoz.odsazeni
     dilce.push({
-      skupina: 'Podnož', nazev: `Podélná výztuha — jekl ${Math.round(profil * 0.85)}×${Math.round(profil * 0.55)}×2`,
-      ks: jeL ? 2 : 1, delka: Math.round(delkaA), sirka: Math.round(profil * 0.85), tloustka: Math.round(profil * 0.55),
-      material: `ocel, komaxit ${c.podnoz.barva}`,
+      skupina: 'Podnož', nazev: `Podélná výztuha — ${jeklText} nastojato`,
+      ks: jeL ? 2 : 1, delka: Math.round(delkaA), sirka: j.vyska, tloustka: j.sirka,
+      material: komaxit,
       hrany: 'předvrtáno pro vruty po 300 mm',
       poznamka: 'bez ní by se deska na dlouhém rameni prohnula',
     })
@@ -172,24 +130,6 @@ export function cutList(c: DeskConfig): { dilce: Dilec[]; kovani: Kovani[] } {
     kovani.push({ nazev: 'Plnovýsuv s tlumením, délka 450 mm, nosnost 30 kg', ks: 3, poznamka: 'Blum TANDEMBOX antaro nebo Hettich InnoTech' })
     kovani.push({ nazev: 'Úchytka madlo 128 mm', ks: 3 })
     kovani.push({ nazev: 'Rektifikační patka M8', ks: 4, poznamka: 'kontejner stojí na podlaze, vlysy nejsou v rovině' })
-  }
-
-  // --- DOPLŇKY ---
-  const d = c.doplnky
-  if (d.kabelovaLavka) kovani.push({ nazev: 'Kabelová lávka pod desku 600 mm', ks: jeL ? 2 : 1 })
-  if (d.ledPodsviceni) {
-    kovani.push({ nazev: 'LED profil zápustný + difuzor', ks: jeL ? 2 : 1, poznamka: `celkem cca ${Math.round((r.ramenoADelka + (jeL ? r.ramenoBDelka : 0)) / 1000 * 10) / 10} bm` })
-    kovani.push({ nazev: 'LED pásek 2700 K, 24 V, 9,6 W/m + zdroj', ks: 1 })
-  }
-  if (d.nastavecMonitor) {
-    dilce.push({
-      skupina: 'Doplňky', nazev: 'Nástavec na monitor — deska', ks: 1, delka: 620, sirka: 300, tloustka: 20,
-      material: mat.nazev, hrany: `${hranaPopis} po obvodu`,
-    })
-    dilce.push({
-      skupina: 'Doplňky', nazev: 'Nástavec na monitor — bok', ks: 2, delka: 580, sirka: 90, tloustka: 20,
-      material: mat.nazev, hrany: 'ABS 1 mm',
-    })
   }
 
   return { dilce, kovani }

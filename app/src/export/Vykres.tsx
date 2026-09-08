@@ -1,5 +1,5 @@
 import type { DeskConfig } from '@/model/types'
-import { podpory } from '@/model/podpory'
+import { podpory, jekl } from '@/model/podpory'
 import { material } from '@/model/materials'
 import { SPACE, MONITOR } from '@/model/space'
 import { obrysDeskyBody } from '@/model/obrys'
@@ -47,6 +47,8 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
   const LB = jeL ? r.ramenoBDelka : 0, DB = jeL ? r.ramenoBHloubka : 0
   const H = r.vyska, T = config.deska.tloustka
   const p = podpory(config)
+  const j = jekl(config.podnoz.profil)
+  const ods = config.podnoz.odsazeni
   const mat = material(config.deska.materialId)
   const pr = pracoviste(config)
 
@@ -143,65 +145,60 @@ export function Vykres({ config, sirka = 1050, vyska = 760 }: {
         <text x={px + M(DA) + 4} y={py + M(DB) + 10} fontSize={6} fill={KOTA}>vnitřní R{config.deska.radiusVnitrni}</text>
       )}
 
-      {/* ---------- NÁRYS ---------- */}
-      <text x={nx} y={ny - 30} fontSize={10} fontWeight={600} fill={CARA}>NÁRYS — pohled na rameno A</text>
+      {/* ---------- NÁRYS (y roste dolů: deska nahoře, lyžina na podlaze) ---------- */}
+      <text x={nx} y={ny - 30} fontSize={10} fontWeight={600} fill={CARA}>NÁRYS — pohled na rameno A z místnosti</text>
       <line x1={nx - 20} y1={ny + M(H)} x2={nx + M(LA) + 30} y2={ny + M(H)} stroke={TENKA} strokeWidth={0.8} />
       {/* deska */}
-      <rect x={nx} y={ny + M(H - T)} width={M(LA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
-      {/* podpory v tomto pohledu — kreslí se ty na straně místnosti,
-          ty u stěny leží přesně za nimi a v pohledu by se překryly */}
+      <rect x={nx} y={ny} width={M(LA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
+      {/* rámy z místnosti: stojka je vidět úzkou stranou, lyžina a traverza naplocho širokou.
+          Kreslí se podpory na straně místnosti; ty u stěny leží přesně za nimi. */}
       {(() => {
-        const ods = config.podnoz.odsazeni
         const vNarysu = p.filter((q) => Math.abs(q.x - (DA - ods)) < 1 || q.skupina === 'roh')
-        const sirkaP = config.podnoz.typ === 'bocnice' ? Math.max(25, T) : config.podnoz.profil
-        return vNarysu.map((q, i) => (
-          <rect key={i} x={nx + M(q.z) - M(sirkaP) / 2} y={ny}
-                width={M(sirkaP)} height={M(H - T)}
-                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} strokeDasharray={q.skupina === 'roh' && q.x < DA - ods - 1 ? '2 1.5' : undefined} />
-        ))
+        return vNarysu.map((q, i) => {
+          const zaRohem = q.skupina === 'roh' && q.x < DA - ods - 1
+          const dash = zaRohem ? '2 1.5' : undefined
+          const cx = nx + M(q.z)
+          return (
+            <g key={i}>
+              <rect x={cx - M(j.sirka) / 2} y={ny + M(T)} width={M(j.sirka)} height={M(j.vyska)}
+                    fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} strokeDasharray={dash} />
+              <rect x={cx - M(j.vyska) / 2} y={ny + M(T + j.vyska)} width={M(j.vyska)} height={M(H - T - 2 * j.vyska)}
+                    fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} strokeDasharray={dash} />
+              <rect x={cx - M(j.sirka) / 2} y={ny + M(H - j.vyska)} width={M(j.sirka)} height={M(j.vyska)}
+                    fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} strokeDasharray={dash} />
+            </g>
+          )
+        })
       })()}
-      {/* podélná výztuha pod deskou */}
-      {config.podnoz.vyztuha && config.podnoz.typ !== 'stavitelny-ram' && (
-        <rect x={nx + M(config.podnoz.odsazeni)} y={ny + M(H - T) - M(config.podnoz.typ === 'bocnice' ? 130 : config.podnoz.profil * 0.55)}
-              width={M(LA - 2 * config.podnoz.odsazeni)} height={M(config.podnoz.typ === 'bocnice' ? 130 : config.podnoz.profil * 0.55)}
+      {/* podélná výztuha pod deskou — jekl nastojato */}
+      {config.podnoz.vyztuha && (
+        <rect x={nx + M(ods)} y={ny + M(T)} width={M(LA - 2 * ods)} height={M(j.sirka)}
               fill="none" stroke={TENKA} strokeWidth={0.5} strokeDasharray="3 2" />
       )}
       <Kota x1={nx} y1={ny + M(H)} x2={nx + M(LA)} y2={ny + M(H)} odsad={26} text={`${LA}`} />
-      <Kota x1={nx} y1={ny + M(H)} x2={nx} y2={ny + M(H) - M(H)} svisle odsad={-26} text={`${H}`} />
-      <Kota x1={nx + M(LA)} y1={ny + M(H - T)} x2={nx + M(LA)} y2={ny + M(H)} svisle odsad={20} text={`${T}`} />
+      <Kota x1={nx} y1={ny + M(H)} x2={nx} y2={ny} svisle odsad={-26} text={`${H}`} />
+      <Kota x1={nx + M(LA)} y1={ny} x2={nx + M(LA)} y2={ny + M(T)} svisle odsad={20} text={`${T}`} />
 
       {/* ---------- BOKORYS ---------- */}
-      <text x={bx} y={by - 30} fontSize={10} fontWeight={600} fill={CARA}>BOKORYS — řez ramenem A</text>
+      <text x={bx} y={by - 30} fontSize={10} fontWeight={600} fill={CARA}>BOKORYS — řez ramenem A, rám v jeho rovině</text>
       <line x1={bx - 20} y1={by + M(H)} x2={bx + M(DA) + 60} y2={by + M(H)} stroke={TENKA} strokeWidth={0.8} />
-      <rect x={bx} y={by + M(H - T)} width={M(DA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
-      {config.podnoz.typ === 'bocnice' ? (
-        <>
-          <rect x={bx + M(config.podnoz.odsazeni)} y={by}
-                width={M(DA - 2 * config.podnoz.odsazeni)} height={M(H - T - 28)}
-                fill="#EFEAE3" stroke={CARA} strokeWidth={0.8} />
-          <text x={bx + M(DA / 2)} y={by + M(H - T - 8)} fontSize={5.5} fill="#6B5747" textAnchor="middle">stínová spára 28</text>
-        </>
-      ) : (
-        <>
-          <rect x={bx + M(config.podnoz.odsazeni)} y={by} width={M(config.podnoz.profil)} height={M(H - T)}
-                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-          <rect x={bx + M(DA - config.podnoz.odsazeni - config.podnoz.profil)} y={by}
-                width={M(config.podnoz.profil)} height={M(H - T)} fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-          {/* horní traverza rámu */}
-          <rect x={bx + M(config.podnoz.odsazeni)} y={by}
-                width={M(DA - 2 * config.podnoz.odsazeni)} height={M(config.podnoz.profil)}
-                fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-          {config.podnoz.typ === 'ram-hranaty' && (
-            <rect x={bx + M(config.podnoz.odsazeni)} y={by + M(H - T - config.podnoz.profil - 12)}
-                  width={M(DA - 2 * config.podnoz.odsazeni)} height={M(config.podnoz.profil)}
-                  fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
-          )}
-        </>
-      )}
+      <rect x={bx} y={by} width={M(DA)} height={M(T)} fill="#F3E4CF" stroke={CARA} strokeWidth={1} />
+      {/* lyžina naplocho na podlaze */}
+      <rect x={bx + M(ods - j.sirka / 2)} y={by + M(H - j.vyska)} width={M(DA - 2 * ods + j.sirka)} height={M(j.vyska)}
+            fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+      {/* stojky širokou stranou */}
+      <rect x={bx + M(ods - j.sirka / 2)} y={by + M(T + j.vyska)} width={M(j.sirka)} height={M(H - T - 2 * j.vyska)}
+            fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+      <rect x={bx + M(DA - ods - j.sirka / 2)} y={by + M(T + j.vyska)} width={M(j.sirka)} height={M(H - T - 2 * j.vyska)}
+            fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+      {/* horní traverza naplocho pod deskou */}
+      <rect x={bx + M(ods - j.sirka / 2)} y={by + M(T)} width={M(DA - 2 * ods + j.sirka)} height={M(j.vyska)}
+            fill="#E6E1DA" stroke={CARA} strokeWidth={0.7} />
+      <text x={bx + M(DA / 2)} y={by + M(H) - 4} fontSize={5.5} fill="#6B5747" textAnchor="middle">jekl {j.sirka} × {j.vyska}, lyžina naplocho, plstěné podložky</text>
       <Kota x1={bx} y1={by + M(H)} x2={bx + M(DA)} y2={by + M(H)} odsad={26} text={`${DA}`} />
-      <Kota x1={bx} y1={by + M(H)} x2={bx} y2={by} svisle odsad={-26} text={`${H - T} světlá`} />
-      <Kota x1={bx} y1={by + M(H - T)} x2={bx + M(config.podnoz.odsazeni)} y2={by + M(H - T)} odsad={-16}
-            text={`${config.podnoz.odsazeni}`} />
+      <Kota x1={bx} y1={by + M(H)} x2={bx} y2={by + M(T)} svisle odsad={-26} text={`${H - T} světlá`} />
+      <Kota x1={bx} y1={by + M(T)} x2={bx + M(ods)} y2={by + M(T)} odsad={40}
+            text={`${ods}`} />
 
       {/* legenda */}
       <text x={22} y={vyska - 34} fontSize={7} fill="#8A7563">

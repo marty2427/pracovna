@@ -1,53 +1,11 @@
-import { useState } from 'react'
 import { useStore } from '@/store'
 import { LIMITY, SPACE, MAX_RAMENO_A, maxRamenoB, MONITOR } from '@/model/space'
-import { KOV_BARVY } from '@/model/materials'
+import { jekl } from '@/model/podpory'
 import { pracoviste } from '@/model/constraints'
-import { UKONY, formatRozpeti, scal } from '@/pricing/ceny'
 import { Skupina, Posuvnik, Prepinac, Zaskrt, type Volba } from './Ovladace'
-import { BarevneSmery } from './BarevneSmery'
 import { VyberHrany } from './Hrany'
 import { VyberDekoru } from './Dekory'
-import type { PodnozTyp, Tloustka, Rameno, MonitorUmisteni } from '@/model/types'
-
-/** Ikony podnoží — čárová kresba boku stolu. */
-const IkonaHranaty = (
-  <svg viewBox="0 0 120 52" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
-    <rect x="4" y="6" width="112" height="7" fill="currentColor" opacity=".18" />
-    <path d="M4 6h112v7H4z" />
-    <path d="M18 13v33M46 13v33M18 46h28M18 17h28M74 13v33M102 13v33M74 46h28M74 17h28" />
-    <path d="M16 49h4M44 49h4M72 49h4M100 49h4" strokeWidth="3" />
-  </svg>
-)
-const IkonaBocnice = (
-  <svg viewBox="0 0 120 52" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round">
-    <rect x="4" y="6" width="112" height="7" fill="currentColor" opacity=".18" />
-    <path d="M4 6h112v7H4z" />
-    <rect x="12" y="13" width="7" height="32" fill="currentColor" opacity=".18" />
-    <rect x="101" y="13" width="7" height="32" fill="currentColor" opacity=".18" />
-    <path d="M12 13v32h7V13M101 13v32h7V13" />
-    <path d="M19 19h82" strokeDasharray="3 3" />
-    <path d="M13 48h5M102 48h5" strokeWidth="3" />
-  </svg>
-)
-
-/** Podnože, které sedí do stylu místnosti — zbytek je schovaný za přepínačem. */
-const PODNOZE_HLAVNI: Volba<PodnozTyp>[] = [
-  { hodnota: 'ram-hranaty', label: 'Hranatý profil', meta: 'jekl 40 × 40, práškovaný komaxit — tvůj favorit', ikona: IkonaHranaty },
-  { hodnota: 'bocnice', label: 'Plné bočnice', meta: 'panely stejné síly jako deska, na stínové spáře', ikona: IkonaBocnice },
-]
-const PODNOZE_OSTATNI: Volba<PodnozTyp>[] = [
-  { hodnota: 'ram-U', label: 'Rám U' },
-  { hodnota: 'ram-A', label: 'Rám A' },
-  { hodnota: 'ram-H', label: 'Rám H' },
-  { hodnota: 'ram-trapez', label: 'Rám trapéz' },
-  { hodnota: 'hairpin', label: 'Hairpin' },
-  { hodnota: 'nohy-rovne', label: 'Nohy rovné' },
-  { hodnota: 'nohy-konicke', label: 'Nohy kónické' },
-  { hodnota: 'nohy-sikme', label: 'Nohy šikmé' },
-  { hodnota: 'kozy', label: 'Kozy' },
-  { hodnota: 'stavitelny-ram', label: 'Stavitelný rám' },
-]
+import type { Tloustka, Rameno, MonitorUmisteni } from '@/model/types'
 
 const MONITOR_VOLBY: Array<Omit<Volba<MonitorUmisteni>, 'meta'>> = [
   { hodnota: 'roh', label: 'V rohu', popis: 'Sedí se na úhlopříčce, deska se kolem tebe obtočí. Využije roh, který je jinak mrtvý.' },
@@ -59,7 +17,6 @@ export function Configurator() {
   const config = useStore((s) => s.config)
   const nastav = useStore((s) => s.nastav)
   const nastavRozmer = useStore((s) => s.nastavRozmer)
-  const [ostatniPodnoze, setOstatniPodnoze] = useState(false)
   const r = config.rozmery
   const pr = pracoviste(config)
 
@@ -69,7 +26,7 @@ export function Configurator() {
     const ok = d >= MONITOR.vzdalenost.min && d <= MONITOR.vzdalenost.max
     return { ...v, meta: `oči ${Math.round(d / 10)} cm${ok ? '' : ' ✕'}` }
   })
-  const bmLed = (r.ramenoADelka + r.ramenoBDelka) / 1000
+  const j = jekl(config.podnoz.profil)
 
   // Jediné úložné je pevný kontejner: buď je, nebo není.
   const kontejner = config.ulozne[0]
@@ -79,9 +36,6 @@ export function Configurator() {
       if (patch.zapnuto === false) return { ulozne: [] }
       return { ulozne: [{ ...k, ...(patch.rameno ? { rameno: patch.rameno } : {}), ...(patch.pozice !== undefined ? { pozice: patch.pozice } : {}) }] }
     })
-
-  const podnozVolby = ostatniPodnoze ? [...PODNOZE_HLAVNI, ...PODNOZE_OSTATNI] : PODNOZE_HLAVNI
-  const podnozMimo = !podnozVolby.some((v) => v.hodnota === config.podnoz.typ)
 
   return (
     <div className="panel">
@@ -132,15 +86,10 @@ export function Configurator() {
           min={LIMITY.monitorPosun.min} max={LIMITY.monitorPosun.max} krok={LIMITY.monitorPosun.krok} jednotka="mm" delitel={1}
           napoveda="0 = stojan opřený o zeď / v rohu"
           onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, monitorPosun: v } }))} />
-        <Zaskrt label="Nástavec na monitor" hodnota={config.doplnky.nastavecMonitor}
-          popis="Zvedne obrazovku o 10 cm; v rohu je to rohová polička."
-          onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, nastavecMonitor: v } }))} />
       </Skupina>
 
-      <BarevneSmery />
-
       <Skupina titulek="Deska" popis="Lamino Egger Eurodekor v dubovém dekoru se strukturou ST12: mělká matná struktura, hladký skluz myši, prach se v ní nedrží. Podle rešerše povrchu (research/povrch-desky-2026-09-06.md).">
-        <span className="prepinac-label">Dekor Egger ST12 Omnipore Matt — deska, bočnice i kontejner v jednom</span>
+        <span className="prepinac-label">Dekor Egger ST12 Omnipore Matt — deska i kontejner v jednom</span>
         <VyberDekoru hodnota={config.deska.materialId}
           onChange={(v) => nastav((c) => ({ deska: { ...c.deska, materialId: v } }))} />
         <Prepinac label="Tloušťka" sloupce={3}
@@ -174,34 +123,15 @@ export function Configurator() {
         )}
       </Skupina>
 
-      <Skupina titulek="Podnož" popis="Do stylu místnosti sedí hranatý profil a plné bočnice. Ostatní typy jsou jen pro srovnání.">
-        <Prepinac sloupce={2} velke={!ostatniPodnoze} hodnota={config.podnoz.typ}
-          volby={podnozMimo ? [...podnozVolby, { hodnota: config.podnoz.typ, label: config.podnoz.typ }] : podnozVolby}
-          onChange={(v) => nastav((c) => ({
-            podnoz: {
-              ...c.podnoz, typ: v,
-              material: v.startsWith('nohy') || v === 'bocnice' || v === 'kozy' ? 'drevo' : 'kov',
-              odsazeni: v === 'bocnice' ? Math.min(c.podnoz.odsazeni, 100) : c.podnoz.odsazeni,
-            },
-          }))} />
-        <Zaskrt label="Ukázat i ostatní typy podnoží" hodnota={ostatniPodnoze} onChange={setOstatniPodnoze} />
-        {config.podnoz.material === 'kov' && (
-          <Prepinac label="Barva kovu" sloupce={2} hodnota={config.podnoz.barva}
-            volby={KOV_BARVY.map((k) => ({ hodnota: k.barva, label: k.nazev.replace(/ \(.*/, ''), barva: k.barva }))}
-            onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, barva: v } }))} />
-        )}
-        {config.podnoz.material === 'drevo' && (
-          <p className="popis">Bočnice jsou ze stejného dřeva jako deska — celý stůl v jedné barvě.</p>
-        )}
-        {config.podnoz.typ !== 'bocnice' && (
-          <Posuvnik label="Profil" hodnota={config.podnoz.profil} min={20} max={80} krok={5} jednotka="mm" delitel={1}
-            onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, profil: v } }))} />
-        )}
+      <Skupina titulek="Podnož" popis={`Uzavřený obdélníkový rám z jeklu ${j.sirka} × ${j.vyska} mm naležato: lyžina plochá na zemi, stojky z místnosti vidět jen úzkou hranou, traverza naplocho pod deskou. Černý strukturní komaxit RAL 9005. Na L dva rámy a rohová stojka.`}>
+        <Posuvnik label="Profil jeklu" hodnota={config.podnoz.profil} min={40} max={80} krok={10} jednotka="mm" delitel={1}
+          napoveda={`${j.sirka} × ${j.vyska} mm; 60 × 30 je běžný standard`}
+          onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, profil: v } }))} />
         <Posuvnik label="Odsazení od hrany desky" hodnota={config.podnoz.odsazeni} min={20} max={250} krok={5} jednotka="mm" delitel={1}
           napoveda="přesah desky přes podnož"
           onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, odsazeni: v } }))} />
-        <Zaskrt label={config.podnoz.typ === 'bocnice' ? 'Zadní výztužný panel' : 'Podélná výztuha pod deskou'} hodnota={config.podnoz.vyztuha}
-          popis={config.podnoz.typ === 'bocnice' ? 'Panel mezi bočnicemi vzadu u zdi. Zpevní rám a schová kabely.' : 'Jekl pod deskou po celé délce. Výrazně prodlouží dovolený rozpon.'}
+        <Zaskrt label="Podélná výztuha pod deskou" hodnota={config.podnoz.vyztuha}
+          popis="Stejný jekl nastojato pod deskou po celé délce. Výrazně prodlouží dovolený rozpon."
           onChange={(v) => nastav((c) => ({ podnoz: { ...c.podnoz, vyztuha: v } }))} />
         <Prepinac label="Mezilehlá podpora" sloupce={3} hodnota={config.podnoz.mezilehlaPodpora}
           volby={[
@@ -231,15 +161,6 @@ export function Configurator() {
         )}
       </Skupina>
 
-      <Skupina titulek="Doplňky">
-        <Zaskrt label="Kabelová lávka pod deskou" hodnota={config.doplnky.kabelovaLavka}
-          popis="Plechový žlab pod zadní hranou, do kterého se schová prodlužovačka a kabely."
-          cena={`+ ${formatRozpeti(UKONY.kabelovaLavka)}`}
-          onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, kabelovaLavka: v } }))} />
-        <Zaskrt label="LED podsvícení pod přední hranou" hodnota={config.doplnky.ledPodsviceni}
-          cena={`+ ${formatRozpeti(scal(UKONY.ledMetr, bmLed))}`}
-          onChange={(v) => nastav((c) => ({ doplnky: { ...c.doplnky, ledPodsviceni: v } }))} />
-      </Skupina>
     </div>
   )
 }

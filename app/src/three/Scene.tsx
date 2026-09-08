@@ -8,7 +8,6 @@ import type { DeskConfig } from '@/model/types'
 import { DeskTop } from './DeskTop'
 import { Podnoz } from './Base'
 import { Ulozne } from './Storage'
-import { Doplnky } from './Extras'
 import { Room } from './Room'
 import { m } from './shapes'
 
@@ -60,7 +59,6 @@ export function Stul({ config }: { config: DeskConfig }) {
       <DeskTop config={config} />
       <Podnoz config={config} />
       <Ulozne config={config} />
-      <Doplnky config={config} />
     </group>
   )
 }

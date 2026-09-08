@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import type { DeskConfig } from '@/model/types'
-import { material } from '@/model/materials'
+import { material, KOV } from '@/model/materials'
 import { podpory } from '@/model/podpory'
 import { obrysDeskyBody } from '@/model/obrys'
 
@@ -44,7 +44,7 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
     const mat = material(config.deska.materialId)
     const barvaDesky = mat.barva
     const barvaHrany = ztmav(barvaDesky, 0.78)
-    const barvaPodnoze = config.podnoz.material === 'kov' ? config.podnoz.barva : mat.barva
+    const barvaPodnoze = KOV.barva
 
     // rozsah pro scale
     const vse = [...top, ...bot, ...podp.map((p) => iso(p.x, 0, p.z))]
@@ -72,24 +72,8 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
         fill="#000" opacity={0.07}
       />
 
-      {/* plné bočnice jako plocha, ne jako čára */}
-      {(g.config.podnoz.typ === 'bocnice') && (() => {
-        const sk = ['A', 'B', 'mezi', 'meziB'] as const
-        return sk.map((s2) => {
-          const gg = g.podp.filter((q) => q.skupina === s2)
-          if (gg.length < 2) return null
-          const hy = g.H - g.T
-          const rohy = [
-            g.T2(g.iso(gg[0].x, 0, gg[0].z)), g.T2(g.iso(gg[1].x, 0, gg[1].z)),
-            g.T2(g.iso(gg[1].x, hy, gg[1].z)), g.T2(g.iso(gg[0].x, hy, gg[0].z)),
-          ]
-          return <polygon key={s2} points={rohy.map(pt).join(' ')} fill={ztmav(g.barvaPodnoze, 0.88)}
-                          stroke={ztmav(g.barvaPodnoze, 0.6)} strokeWidth={0.6} />
-        })
-      })()}
-
       {/* nohy a rámy */}
-      {g.config.podnoz.typ !== 'bocnice' && g.podp.map((p, i) => {
+      {g.podp.map((p, i) => {
         const a = g.T2(g.iso(p.x, 0, p.z))
         const b = g.T2(g.iso(p.x, g.H - g.T, p.z))
         return (
@@ -98,7 +82,7 @@ export function Nahled({ config, sirka = 260, vyska = 172 }: {
         )
       })}
       {/* horní traverza rámu naznačená spojnicí podpor */}
-      {g.config.podnoz.typ !== 'bocnice' && g.podp.length > 1 && g.podp.slice(1).map((p, i) => {
+      {g.podp.length > 1 && g.podp.slice(1).map((p, i) => {
         const q = g.podp[i]
         if (q.skupina !== p.skupina) return null
         const a = g.T2(g.iso(q.x, g.H - g.T - g.config.podnoz.profil / 2, q.z))

@@ -14,13 +14,8 @@ export type Hrana =
 /** Jen L do rohu — rovná deska nepřipadá v úvahu (rozhodnutí uživatele). */
 export type Tvar = 'L'
 
-export type PodnozTyp =
-  | 'ram-A' | 'ram-U' | 'ram-H' | 'ram-trapez' | 'ram-hranaty'
-  | 'hairpin'
-  | 'nohy-rovne' | 'nohy-konicke' | 'nohy-sikme'
-  | 'bocnice' | 'kozy'
-  | 'kontejner-nosny'
-  | 'stavitelny-ram'
+/** Jediná podnož: uzavřený obdélníkový rám z jeklu naležato (rozhodnutí uživatele). */
+export type PodnozTyp = 'ram-hranaty'
 
 /** Jediné úložné, které uživatel chce: pevný kontejner se třemi zásuvkami. Bez něj je pole `ulozne` prázdné. */
 export type UlozneTyp = 'kontejner-pevny'
@@ -60,19 +55,20 @@ export interface Deska {
 
 export interface Podnoz {
   typ: PodnozTyp
-  /** Rozměr profilu / tloušťka nohy, mm. */
+  /**
+   * Šířka obdélníkového jeklu, mm; výška je polovina (60 × 30, 80 × 40).
+   * Stojky mají širokou stranu v rovině rámu, lyžina i horní traverza leží naplocho.
+   * Barva je vždy černý strukturní komaxit (materials.KOV).
+   */
   profil: number
   /** Odsazení podnože od hrany desky, mm. */
   odsazeni: number
-  barva: string
-  /** 'kov' mění materiálový vzhled na komaxit, 'drevo' na dřevo — dřevo je vždy stejné jako deska. */
-  material: 'kov' | 'drevo'
   /**
    * Mezilehlá podpora uprostřed dlouhého ramene A.
    * 'auto' ji přidá, jen když by rozpon překročil limit materiálu.
    */
   mezilehlaPodpora: 'auto' | 'ano' | 'ne'
-  /** Podélná výztuha (jekl) pod deskou — zvýší dovolený rozpon. U bočnic je to zadní výztužný panel. */
+  /** Podélná výztuha (jekl nastojato) pod deskou — zvýší dovolený rozpon. */
   vyztuha: boolean
 }
 
@@ -84,10 +80,6 @@ export interface Ulozne {
 }
 
 export interface Doplnky {
-  kabelovaLavka: boolean
-  ledPodsviceni: boolean
-  nastavecMonitor: boolean
-  zadniPanel: boolean
   /** Kde stojí monitor (a kde se sedí). */
   monitorUmisteni: MonitorUmisteni
   /** Posun monitoru od zdi / z rohu směrem k sedícímu, mm (0 = stojan u zdi). */

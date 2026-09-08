@@ -28,20 +28,15 @@ export function vychoziKonfigurace(): DeskConfig {
       vyrez: 0,
     },
     podnoz: {
+      // Obdélníkový jekl 60 × 30 naležato, černý strukturní komaxit.
       typ: 'ram-hranaty',
-      profil: 40,
+      profil: 60,
       odsazeni: 90,
-      barva: '#1F2021',
-      material: 'kov',
       mezilehlaPodpora: 'auto',
       vyztuha: true,
     },
     ulozne: [{ typ: 'kontejner-pevny', rameno: 'A', pozice: 1.0 }],
     doplnky: {
-      kabelovaLavka: true,
-      ledPodsviceni: false,
-      nastavecMonitor: false,
-      zadniPanel: false,
       monitorUmisteni: 'roh',
       monitorPosun: 0,
     },

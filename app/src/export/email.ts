@@ -1,5 +1,6 @@
 import type { DeskConfig } from '@/model/types'
-import { material, KOV_BARVY } from '@/model/materials'
+import { material, KOV } from '@/model/materials'
+import { jekl } from '@/model/podpory'
 import { cutList } from './cutlist'
 import { odhadNaMiru } from '@/pricing/odhad'
 import { formatRozpeti } from '@/pricing/ceny'
@@ -13,22 +14,6 @@ const HRANA_TEXT: Record<string, string> = {
   zkosena: 'zkosená (fazeta pod 45°)',
   radius: 'zaoblená, rádius cca R5',
   naklizek: 'masivní nákližek cca 30 mm, zaoblený',
-}
-
-const PODNOZ_TEXT: Record<string, string> = {
-  'ram-U': 'kovový rám tvaru U (dvě svislé nohy + horní traverza)',
-  'ram-A': 'kovový rám tvaru A (rozbíhavé nohy s příčkou)',
-  'ram-H': 'kovový rám tvaru H (svislé nohy se střední příčkou)',
-  'ram-trapez': 'kovový rám trapézového tvaru (nohy sbíhavé dolů)',
-  'ram-hranaty': 'kovový uzavřený hranatý rám',
-  hairpin: 'hairpin nohy (tři ocelové pruty na nohu)',
-  'nohy-rovne': 'dřevěné rovné hranaté nohy',
-  'nohy-konicke': 'dřevěné kónické nohy',
-  'nohy-sikme': 'dřevěné šikmé (rozkročené) nohy',
-  bocnice: 'plné dřevěné bočnice',
-  kozy: 'dřevěné kozy s příčkou',
-  'kontejner-nosny': 'kontejner jako nosný prvek + jeden kovový rám',
-  'stavitelny-ram': 'elektricky výškově stavitelný rám (kupuji zvlášť)',
 }
 
 export function textEmailu(c: DeskConfig): string {
@@ -71,10 +56,9 @@ export function textEmailu(c: DeskConfig): string {
   }
   radky.push('')
   radky.push('PODNOŽ')
-  radky.push(`${PODNOZ_TEXT[c.podnoz.typ]}.`)
-  if (c.podnoz.material === 'kov') {
-    radky.push(`Profil jekl ${c.podnoz.profil}×${c.podnoz.profil} mm, komaxit ${(KOV_BARVY.find((k) => k.barva === c.podnoz.barva)?.nazev ?? c.podnoz.barva).toLowerCase()}.`)
-  }
+  const j = jekl(c.podnoz.profil)
+  radky.push('Uzavřený obdélníkový rám z jeklu naležato: lyžina leží plochou stranou na zemi, dvě svislé stojky se širokou stranou v rovině rámu, horní traverza naplocho pod deskou. Na L dva rámy a rohová stojka.')
+  radky.push(`Profil jekl ${j.sirka}×${j.vyska} mm, komaxit ${KOV.nazev.toLowerCase()}. Pod lyžinou plstěné podložky, bez rektifikačních nožek.`)
   radky.push(`Odsazení podnože od hrany desky ${c.podnoz.odsazeni} mm.`)
   if (c.podnoz.vyztuha) {
     radky.push('Pod deskou počítám s podélnou výztuhou (jekl), aby se dlouhé rameno neprohýbalo.')
@@ -90,11 +74,7 @@ export function textEmailu(c: DeskConfig): string {
     radky.push('')
   }
 
-  const d = c.doplnky
   const dop: string[] = []
-  if (d.kabelovaLavka) dop.push('kabelová lávka pod deskou')
-  if (d.ledPodsviceni) dop.push('LED podsvícení v zápustném profilu, teplá bílá 2700 K')
-  if (d.nastavecMonitor) dop.push('nástavec na monitor 620 × 300 mm')
   const kde = umisteniMonitoru(c) === 'roh' ? 'v rohu L (sedí se na úhlopříčce)' : umisteniMonitoru(c) === 'ramenoB' ? 'na rameni B u zadní stěny' : 'na rameni A u levé stěny'
   dop.push(`monitor 32" bude stát ${kde} — podle toho je navržený vnitřní roh a případný výřez`)
   if (c.deska.radiusUZdi > 0) dop.push(`roh desky u zdi zaoblit R${c.deska.radiusUZdi} — vznikne mezera na kabely, deska nemusí sedět přesně do rohu`)
